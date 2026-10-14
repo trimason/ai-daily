@@ -257,7 +257,13 @@
             "physical intelligence",
             "grounding",
             "robot learning",
-            "embodied intelligence"
+            "embodied intelligence",
+            "recursive self-improvement",
+            "RSI",
+            "Physical RSI",
+            "research agent",
+            "self-modifying agent",
+            "harness evolution"
           ]
         },
         {
@@ -357,13 +363,73 @@
           "url": "https://deepmind.google/blog/",
           "role": "原始研究发布",
           "scope": "基础模型、世界模型、机器人、科学智能与强化学习",
-          "note": "",
+          "note": "每日重点跟踪基础模型进入具身：物理推理、控制接口、仿真生成与数据闭环。通用模型、具身推理模型与VLA动作策略分别核验；官方自报与独立实测分开记录。",
           "verification": {
-            "status": "reachable",
+            "status": "content_verified",
             "checked_on": "2026-10-14",
             "http_status": 200,
-            "resolved_url": "https://deepmind.google/blog/"
-          }
+            "note": "已读博客索引与下列具体材料；不是所有链接的全量覆盖。"
+          },
+          "aliases": [
+            "Google DeepMind",
+            "Gemini Robotics",
+            "Gemini 4 Argon",
+            "Gemini Robotics ER 2"
+          ],
+          "watch_terms": [
+            "robotics",
+            "physical reasoning",
+            "robot control",
+            "Real2Sim",
+            "hindsight labeling",
+            "value function",
+            "task progress estimation",
+            "self-improvement",
+            "recursive self-improvement",
+            "RSI"
+          ],
+          "channels": [
+            {
+              "label": "DeepMind研究博客",
+              "url": "https://deepmind.google/blog/",
+              "kind": "官方研究发现目录",
+              "status": "content_verified",
+              "checked_on": "2026-10-14",
+              "note": "已读索引，确认Gemini 4 Argon总发布与机器人专篇入口。"
+            },
+            {
+              "label": "Gemini 4 Argon官方总发布",
+              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
+              "kind": "官方发布",
+              "status": "content_verified",
+              "checked_on": "2026-10-14",
+              "note": "已读正文；UTC10-13 16:00／北京时间10-14 00:00发布，ERQA 87%与Apollo案例为官方自报。"
+            },
+            {
+              "label": "Gemini 4 Argon for Robotics",
+              "url": "https://developers.googleblog.com/gemini-4-argon-for-robotics",
+              "kind": "官方机器人专题",
+              "status": "unreadable",
+              "checked_on": "2026-10-14",
+              "note": "入口由Google总公告与DeepMind索引确认；正文直连反复超时，公众号具体机器人数字尚待逐项回查。"
+            },
+            {
+              "label": "Gemini Robotics模型目录",
+              "url": "https://deepmind.google/models/gemini-robotics/",
+              "kind": "官方模型与相关研究",
+              "status": "content_verified",
+              "checked_on": "2026-10-14",
+              "note": "已核Robotics 2为VLA、ER 2为专用具身推理；Argon为通用模型。"
+            },
+            {
+              "label": "Argon官方安全报告",
+              "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_4_safety_report.pdf",
+              "kind": "官方技术报告",
+              "status": "content_verified",
+              "checked_on": "2026-10-14",
+              "note": "已读§3.4.2研发自动化与§5.7机器人相关段落；尚不能据案例证明递归改进。"
+            }
+          ]
         },
         {
           "id": "google-research",
@@ -2083,8 +2149,8 @@
             "gh_7f0ee33c662a"
           ],
           "role": "用户指定的重点公众号 · 技术话题发现",
-          "scope": "机器人基础模型、多模态物理推理、机器人控制、Real2Sim、仿真与部署闭环；据已读文章确定，后续按实际更新扩展。",
-          "note": "已通过用户提供文章核对公众号身份与正文，加入每日重点检查。单篇文章不是账号完整订阅入口；公开检索其后续文章，技术结论回查官方发布、论文或代码。无法读取时记录缺口。",
+          "scope": "基础模型进入具身、物理推理、机器人控制、Real2Sim、事后标注、任务进度估计与自我改进；依据已读文章并按后续更新扩展。",
+          "note": "用户指定的重点技术发现源。线索要进入精选与讨论筛选，公众号未贴出处时继续独立找官方材料；公开检索后续文章并记录实际可读范围。",
           "verification": {
             "status": "unverified",
             "checked_on": "2026-10-14",
@@ -2097,7 +2163,7 @@
               "kind": "公开微信文章 · 账号识别与话题发现",
               "status": "content_verified",
               "checked_on": "2026-10-14",
-              "note": "已读公开正文；页面显示human five，发布时间为2026-10-14 08:00（北京时间）。文章讨论robot control、Real2Sim、物理理解与自我改进；未给出可回查的官方原文、论文或代码链接，文中技术主张仍需独立核验。微信可能出现访问验证，后续无法读取时明确说明。"
+              "note": "已读指定文章，核对账号与北京时间2026-10-14 08:00发布时间。原文未贴官方出处；现已独立找到Google/DeepMind总发布、机器人专篇和安全报告，本期已纳入Gemini 4具身重点，按具体指标分别核验。"
             }
           ],
           "watch_terms": [
@@ -2114,7 +2180,11 @@
             "self-improvement",
             "ERQA",
             "Gemini Robotics",
-            "Gemini 4 Argon"
+            "Gemini 4 Argon",
+            "recursive self-improvement",
+            "RSI",
+            "research agent",
+            "foundation models for robotics"
           ],
           "evidence": [
             {
@@ -2268,6 +2338,8 @@
     "常规日报先发现最近24–48小时的新增论文、代码、权重、评测或实测；7天内重要遗漏可补收并写原因。来源审计专题可更早回补，但必须逐条标日期与补收身份，不能当今日新闻。",
     "国内大模型、具身公司与小鹏每次先查研究目录、论文/作者项目、代码组织和模型或数据卡，再看新闻。记录实际读取页面、最新事件和访问缺口；HTTP200、SPA空壳、重定向首页都不代表读到成果。",
     "用公司中英文别名、作者机构及具身关键词在arXiv、会议论文列表和中文发现渠道补查。官网研究卡落后于作者发布时继续查原论文，不因首页无更新断言没有进展。",
+    "大模型进入具身与递归自我改进RSI为每日重点方向，参与首页精选、近期动向和前沿讨论筛选；公众号重点线索回查官方材料后落实为具体内容，不能只新增目录。",
+    "自我改进写明更新对象：输出、代码/记忆/工具、模型权重、动作策略、世界模型或改进程序。自训练和闭环性能提升不自动证明递归改进；检查跨轮次继承、独立评估、计算与人工预算。",
     "优先研究相关性、具体新增内容、时间及证据；小鹏优先GroundingPI这类近期原始研究。不得用不相关的系统工程、旧技术解读或融资消息凑公司覆盖，也不强求每家每天都有新闻。",
     "每条技术结论回查至少一个原论文、作者项目、代码或官方技术材料；代码、权重、数据是否真正公开分别记录。作者自测、第三方复现、仿真、真实硬件及离线开环分开描述。",
     "产业动向允许来自具名媒体的原创报道，匿名信源及未回应状态在标题或标签中明示。DeepSeek具身布局报道不是已发布具身模型；转载不计独立交叉确认。",

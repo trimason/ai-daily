@@ -3,8 +3,8 @@
     "title": "研究方向与检索关键词",
     "status": "sample-research-map",
     "updated": "2026-10-14",
-    "intro": "中英关键词连接具体研究问题。优先展示具身感知、部署闭环及世界动作模型等本期方向；这是一张持续跟踪地图，近期事件和日期请看上方动向，不是实时热度榜。",
-    "verification": "来源通过HTTP读取，核验论文标题、首版日期与摘要，或官方报告正文；未对这些论文执行全文精读或独立复现。",
+    "intro": "中英关键词连接具体研究问题。优先跟踪基础模型进入具身、精确感知、部署闭环与递归自我改进；这是一张持续跟踪地图，近期事件和日期请看上方动向，不是实时热度榜。",
+    "verification": "来源通过HTTP读取，核验标题、日期及摘要或官方正文；部分本期论文还检查了方法、实验与局限段落，具体范围见来源说明。未执行全文精读归档或独立复现。",
     "dating_policy": "来源日期默认记录arXiv首版提交日期；官方文章单独注明发布日期。更新日期表示研究地图整理时间。"
   },
   "directions": [
@@ -48,6 +48,65 @@
       ]
     },
     {
+      "id": "foundation-models-enter-embodied",
+      "title": "基础模型进入具身",
+      "category": "embodied",
+      "keywords_zh": [
+        "具身基础模型",
+        "空间推理",
+        "感知到动作迁移",
+        "机器人控制接口",
+        "跨本体泛化"
+      ],
+      "keywords_en": [
+        "foundation models for robotics",
+        "Gemini Robotics",
+        "embodied reasoning",
+        "perception-to-action transfer",
+        "cross-embodiment generalization",
+        "physical reasoning",
+        "Real2Sim",
+        "robot control",
+        "hindsight labeling",
+        "task progress estimation"
+      ],
+      "explanation": "通用多模态与代码模型正连接机器人研发链。Gemini 4 Argon提供物理推理、工具调用控制和视频生成仿真案例；具身专用模型与VLA策略继续承担不同角色。需要检查感知、规划、控制、标注与反馈各由谁完成，以及实机结果能否重复。",
+      "researchers_do": [
+        "把精确定位、空间理解等基础能力迁移到动作模型，固定下游模块比较迁移收益。",
+        "结合机器人数据训练或后训练，研究导航、操作等任务是否可以共用模型与表示。",
+        "沿Gemini等团队的机器人路线追踪模型版本、动作接口、数据规模与实机评测，而不只比较通用多模态榜单。"
+      ],
+      "evidence_to_check": [
+        "对于Gemini Argon等新线索，先核对官方名称、版本和原始技术资料，再确认它是推理模型、动作策略还是组合系统。",
+        "基础模型是否直接发出低层动作；需另训的动作头、规划器、控制器和人工标注各占多少。",
+        "区分离线视觉分数、仿真成功率、精选实机演示与系统性实机评测。",
+        "所谓跨本体泛化，是否在新机器人、新场景和未见任务上评测，并披露微调数据、推理延迟和失败案例。"
+      ],
+      "sources": [
+        {
+          "label": "Gemini 4 Argon官方发布：ERQA与视频—仿真—实机案例",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
+          "published": "2026-10-13",
+          "date_basis": "官方UTC10-13 16:00／北京时间10-14 00:00",
+          "verified": "已读官方总公告、模型卡、机器人产品页与安全报告相关段落；专篇正文未读到的数字不采用"
+        },
+        {
+          "label": "GroundingPI：感知预训练迁移到机器人动作模型",
+          "url": "https://arxiv.org/abs/2609.39601",
+          "published": "2026-09-30",
+          "date_basis": "arXiv首版（UTC）",
+          "verified": "已读方法、感知与机器人实验、局限及作者代码说明；未复现"
+        },
+        {
+          "label": "RSI-Nav：共享模型的语言—动作双向学习",
+          "url": "https://arxiv.org/abs/2610.15782",
+          "published": "2026-10-11",
+          "date_basis": "arXiv首版（UTC）",
+          "verified": "已读方法、仿真结果、实机定性设置与局限；未复现"
+        }
+      ]
+    },
+    {
       "id": "deployment-quality-learning",
       "title": "部署闭环、轨迹质量与失败学习",
       "category": "embodied",
@@ -78,6 +137,69 @@
           "label": "LoopWAM原论文",
           "url": "https://arxiv.org/abs/2610.18873",
           "published": "2026-10-13"
+        }
+      ]
+    },
+    {
+      "id": "recursive-self-improvement",
+      "title": "RSI：从闭环学习到改进机制演化",
+      "category": "llm",
+      "keywords_zh": [
+        "递归自我改进",
+        "元级自我修改",
+        "研究流程演化",
+        "策略同步数据自举",
+        "可验证反馈",
+        "算力对齐评测"
+      ],
+      "keywords_en": [
+        "recursive self-improvement",
+        "meta-level self-modification",
+        "research harness evolution",
+        "policy-synchronized bootstrapping",
+        "verifier-grounded feedback",
+        "matched-compute evaluation"
+      ],
+      "explanation": "自我改进可以发生在不同对象上：修订当前答案、更新模型权重或训练数据、改写Agent代码和研究流程，以及改变产生下一轮改进的方法。RSI的关键争点是：系统只是这次做得更好，还是持续改变了以后如何学习和改进。",
+      "researchers_do": [
+        "让模型生成训练数据，再用执行结果筛选并立即更新策略；RSI-Nav属于这类数据与权重闭环，学习程序本身固定。",
+        "让研究Agent修改可继承的代码、记忆和工作流程，用执行实验而非自评文字检查收益；AReaL-RSI保持基础模型权重不变。",
+        "把自我修改机制本身作为可编辑对象，测试下一轮和跨任务的收益；HyperAgents提供这类设计，Physical RSI论文提出相应证据分层。"
+      ],
+      "evidence_to_check": [
+        "明确什么被修改、是否保留到下一轮、由谁接受更新；推理时自我修订不等于持久学习。",
+        "区分能力增加与改进方法本身更有效；检查在相同起点、经验和总预算下，下一轮是否更容易产生可验证进展。",
+        "报告留出任务、跨任务迁移、重复运行不确定性和总计算成本，避免只优化同一基准或展示一次成功。",
+        "AReaL-RSI尚未测得跨campaign流程演化的收益；RSI-Nav的数值主要来自仿真。Physical RSI的L0—L5是作者提出的框架，尚非行业公认标准。"
+      ],
+      "sources": [
+        {
+          "label": "AReaL-RSI：研究Agent协调与可继承流程修订",
+          "url": "https://arxiv.org/abs/2610.18083",
+          "published": "2026-10-13",
+          "date_basis": "arXiv首版（UTC）",
+          "verified": "已读方法、实验设置与结果、结论中的算力和跨campaign局限；未复现"
+        },
+        {
+          "label": "RSI-Nav：数据与策略的同步自举",
+          "url": "https://arxiv.org/abs/2610.15782",
+          "published": "2026-10-11",
+          "date_basis": "arXiv首版（UTC）",
+          "verified": "已读方法、仿真结果、实机定性设置与附录局限；未复现"
+        },
+        {
+          "label": "HyperAgents：可编辑的自我修改机制（背景研究）",
+          "url": "https://arxiv.org/abs/2603.19461",
+          "published": "2026-03-19",
+          "date_basis": "arXiv首版（UTC）；作为背景研究",
+          "verified": "已读元级修改设计、跨领域实验与局限，并核对官方代码README；未复现"
+        },
+        {
+          "label": "Who Improves the Robot?：Physical RSI定义与L0—L5框架",
+          "url": "https://arxiv.org/abs/2610.18842",
+          "published": "2026-10-13",
+          "date_basis": "arXiv首版（UTC）",
+          "verified": "已读定义、L0—L5分层、评价与总结；这是综述框架，不是实证突破"
         }
       ]
     },

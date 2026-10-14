@@ -2,10 +2,70 @@
   "date": "2026-10-14",
   "slug": "2026-10-14-embodied",
   "status": "curated",
-  "title": "国内具身研究：GroundingPI、部署闭环与公司进展",
-  "intro": "从小鹏GroundingPI到智元、宇树、自变量的新论文、代码与版本更新，追踪具身感知、世界动作模型、数据闭环和评测；另收录DeepSeek的媒体产业动向，注明待官方确认。",
-  "coverage": "2026-09-28—10-13的研究补收与近期动向精选，整理于10月14日。每条保留真实事件日期；GroundingPI与宇树为遗漏补收，GE-Act 2.0为版本更新。产业报道、论文、开放模型和实机结果分别标明。",
+  "title": "Gemini 4、具身闭环与 RSI：重点研究精选",
+  "intro": "通用大模型怎样进入机器人控制与物理世界，AI怎样通过反馈改进策略和研究流程？重点看Gemini 4 Argon、AReaL-RSI与RSI-Nav，同时跟进小鹏GroundingPI、国内具身模型和DeepSeek产业动向。",
+  "coverage": "2026-09-28—10-14研究补收与近期动向专题，整理于10月14日，不是当天完整新闻汇总。Gemini 4 Argon官方总发布为10月13日16:00 UTC／北京时间10月14日00:00，公众号文章为14日08:00。旧成果、版本更新、正式研究、厂商案例与未官宣报道逐条注明；机器人专篇未读到的指标保留核验缺口。",
   "stories": [
+    {
+      "id": "gemini-4-argon-robotics",
+      "category": "llm",
+      "tag": "10月新发布 · 大模型进入具身 · 仿真与开发闭环",
+      "title": "Gemini 4 Argon：通用大模型进入机器人控制、仿真生成与研发闭环",
+      "organization": "Google DeepMind / Google",
+      "published": "2026-10-13",
+      "date_label": "官方总公告日期（UTC；北京时间10-14 00:00）",
+      "summary": "Google正式开放Gemini 4 Argon，并把机器人研发列为重点应用。总公告自报ERQA具身推理87%；内部案例中，模型从人类投掷视频推算空间与全身关节动作、生成仿真代码，再让Apptronik Apollo实机连续命中7次。官方安全报告还说明它能用相机图像感知、规划多步任务、通过工具调用控制机器人。human five的指定文章由此提供了本期重点线索。",
+      "why": "大模型进入具身值得单独跟踪：通用多模态与代码能力开始连接感知、控制接口、仿真生成和机器人研发。公众号进一步提出Real2Sim、hindsight labeling（事后标注）、value function/任务进度估计及self-improvement等话题，下一步应逐项看能否降低采集、标注和调试成本。Argon、专用具身推理模型Gemini Robotics ER 2和VLA动作策略各自承担不同角色；工作流迭代也需与递归自我改进分别检验。",
+      "limitation": "87%是ERQA推理得分，不是实机任务成功率；Apollo连续命中是厂商内部案例，试验覆盖与独立复现不足。已读官方总公告、机器人产品页、模型卡和安全报告相关段落；机器人专篇入口由官方交叉确认，但正文直连超时，公众号中的56%→75%、4500+episode、68sandbox暂不当作已核验事实。安全报告按其内部评估口径认为当前端到端AI研发加速并不显著，完整研究流程仍需人工介入；这些案例不能证明递归自我改进已实现。",
+      "sources": [
+        {
+          "label": "Google官方总公告 · 2026-10-13 UTC · 含ERQA与Apollo案例",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/"
+        },
+        {
+          "label": "Google Developers机器人专题 · 官方总公告与DeepMind索引共同指向",
+          "url": "https://developers.googleblog.com/gemini-4-argon-for-robotics"
+        },
+        {
+          "label": "官方模型卡 · AI研发能力评估与边界",
+          "url": "https://storage.googleapis.com/deepmind-media/Model-Cards/Gemini-4-Argon-Model-Card.pdf"
+        },
+        {
+          "label": "官方安全报告 · §5.7工具调用控制；§3.4.2研发自动化边界",
+          "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_4_safety_report.pdf"
+        },
+        {
+          "label": "Gemini Robotics官方产品页 · 与Argon区分",
+          "url": "https://deepmind.google/models/gemini-robotics/"
+        },
+        {
+          "label": "用户提供的human five讨论 · 北京时间10-14 08:00",
+          "url": "https://mp.weixin.qq.com/s/c6jtVqfZ0bI3JtCtExzlhg"
+        }
+      ]
+    },
+    {
+      "id": "areal-rsi-research-harness-evolution",
+      "category": "llm",
+      "tag": "新论文 · AI研究Agent · RSI",
+      "title": "AReaL-RSI：协调研究Agent，改进代码与可继承的研究流程",
+      "organization": "蚂蚁集团 · 浙江大学 · 香港科技大学",
+      "published": "2026-10-13",
+      "date_label": "arXiv首版日期（UTC）",
+      "summary": "团队用leader协调持续工作的研究Agent，按适用条件共享已验证发现，并在每轮研究后修订方向、知识和技能。基础模型权重保持不变。实验覆盖下游Agent框架优化、7项GPU内核任务和4项AI研究任务；作者报告Terminal Bench 2.1成功率在两种研究骨干下分别从75.3%升到77.5%、85.4%升到87.6%。",
+      "why": "它关注“AI怎样组织实验并留下下一轮可用的方法”，把科研Agent从一次性生成答案推进到代码、经验和流程的持续积累。KernelBench平均加速比也从1.74×到2.30×、6.28×到8.59×，可沿可执行产物、经验共享和研究流程三个层面继续核查。",
+      "limitation": "已读方法、实验设置与结果及结论，未复现。Terminal Bench为89项任务的下游框架优化，结果不能当基础模型权重升级。AReaL-RSI按每位研究Agent分配时间，与基线未按系统总计算对齐；重复运行不确定性未报告，跨研究轮次的流程演化收益也尚未实测。KernelBench失败任务按零加速计入均值，因此数字同时反映正确性和速度；不能据此宣布递归加速科研已获证实。",
+      "sources": [
+        {
+          "label": "原论文、机构与首版日期 · 2026-10-13",
+          "url": "https://arxiv.org/abs/2610.18083"
+        },
+        {
+          "label": "原论文HTML · 方法与实验§5、结论",
+          "url": "https://arxiv.org/html/2610.18083v1"
+        }
+      ]
+    },
     {
       "id": "xpeng-groundingpi-perception-to-action",
       "category": "embodied",
@@ -207,82 +267,151 @@
           "url": "https://www.anthropic.com/research/self-replicating-ai"
         }
       ]
+    },
+    {
+      "id": "rsi-nav-policy-synchronized-bootstrapping",
+      "category": "embodied",
+      "tag": "新论文 · 导航 · 语言—动作数据闭环",
+      "title": "RSI-Nav：边生成指令、边执行筛选、边更新策略的导航数据闭环",
+      "organization": "上海人工智能实验室 · 上海交通大学 · 清华大学等合作团队",
+      "published": "2026-10-11",
+      "date_label": "arXiv首版日期（UTC）",
+      "summary": "RSI-Nav以Qwen3.5-9B共享模型生成路线指令并执行导航，把无语言标注的离线轨迹分成小批：当前模型写指令，用目标完成与路径效率筛选，立即更新后再处理下一批，并回放空间理解数据。作者在R2R-CE与RxR-CE的未见验证场景报告68.6%和72.4%成功率；另展示DEEP Robotics M20上的实机导航。",
+      "why": "它具体回答具身“数据飞轮怎样闭环”：数据生成器与行动策略同步变化，用环境执行反馈筛选监督，而不是固定模型一次性标完整个数据池。模型权重和生成数据都在迭代，但生成—筛选—训练的程序仍固定，适合作为性能自训练与元级RSI的对照。",
+      "limitation": "已读方法、仿真结果、实机定性设置和附录局限，未复现。68.6%与72.4%是仿真验证集成功率；M20使用远程RTX4090，论文提供成功场景展示，未给系统性真实环境成功率统计。训练使用64 GPUs和离线轨迹池，执行筛选成本较高。同一模型生成并验证可能强化已有偏差、偏好容易路线；到达目标不保证指令每个地标都正确。未证明学习程序本身逐轮更有效。",
+      "sources": [
+        {
+          "label": "原论文、机构与首版日期 · 2026-10-11",
+          "url": "https://arxiv.org/abs/2610.15782"
+        },
+        {
+          "label": "原论文HTML · 方法、仿真/实机结果与局限",
+          "url": "https://arxiv.org/html/2610.15782v1"
+        },
+        {
+          "label": "原论文所列作者代码入口（本次未核验发布内容）",
+          "url": "https://github.com/OpenGVLab/RSI-Nav"
+        }
+      ]
+    },
+    {
+      "id": "physical-rsi-capability-vs-improvement-procedure",
+      "category": "discussion",
+      "tag": "新综述 · RSI定义 · 能力提升与机制演化",
+      "title": "谁在改进机器人？区分“策略更强”与“下一轮改进的方法更有效”",
+      "organization": "上海交通大学及多机构合作作者团队",
+      "published": "2026-10-13",
+      "date_label": "arXiv首版日期（UTC）",
+      "summary": "Who Improves the Robot?提出Physical RSI的L0—L5框架，将持久的能力更新与改进程序更新、单任务与跨任务分别讨论；作者把L5留给经独立核验、确实使后续改进更有效的递归收益。可拿RSI-Nav的策略/数据迭代与AReaL-RSI的研究流程修订作对照，问清楚“哪个对象变了、下一轮怎么验证”。",
+      "why": "这正是“自训练提升性能”与“改进机制本身提升”的区别：前者可以沿固定流程反复训练，后者还需改变产生改进的程序，并在相同起点、经验和预算下证明后续收益。讨论焦点应落到持久继承、因果归因、留出任务与总计算成本，而不只看论文是否使用RSI名称。",
+      "limitation": "已读定义、分层、评价与总结。L0—L5是本论文作者提出的证据框架，尚非行业公认标准；本文是综述与研究议程，不是新的机器人实验突破。作者判断其综述范围尚未展示符合该定义的Physical RSI，不能扩大成对全行业的定论。AReaL-RSI也明确跨轮次流程演化收益未测，RSI-Nav采用固定学习程序；两者都不能直接视为该框架L5已成立。",
+      "sources": [
+        {
+          "label": "Who Improves the Robot?原论文与日期",
+          "url": "https://arxiv.org/abs/2610.18842"
+        },
+        {
+          "label": "原论文HTML · §2.3分层、§6评估与结论",
+          "url": "https://arxiv.org/html/2610.18842v1"
+        },
+        {
+          "label": "AReaL-RSI：研究流程修订及尚未测得的跨轮次收益",
+          "url": "https://arxiv.org/abs/2610.18083"
+        },
+        {
+          "label": "RSI-Nav：固定程序下的数据与策略自举",
+          "url": "https://arxiv.org/abs/2610.15782"
+        }
+      ]
     }
   ],
   "featured_ids": [
+    "gemini-4-argon-robotics",
+    "areal-rsi-research-harness-evolution",
     "xpeng-groundingpi-perception-to-action",
-    "deepseek-embodied-entry-reported",
     "loopwam-closed-loop",
-    "x2real-release",
-    "agibot-ge-act-v2",
-    "unitree-unifolm-wla"
+    "rsi-nav-policy-synchronized-bootstrapping",
+    "physical-rsi-capability-vs-improvement-procedure"
   ],
   "highlights": [
     {
-      "title": "小鹏：精确感知如何帮助动作泛化",
-      "text": "GroundingPI论文、代码与开放模型是此次重点补收；机器人结果来自仿真，感知checkpoint不能直接当动作策略。",
+      "title": "Gemini 4：从物理推理走进机器人研发",
+      "text": "从human five线索回查Google官方材料：ERQA 87%、视频生成仿真与Apollo实机案例。推理得分与机器人成功率分别解释。",
+      "story_id": "gemini-4-argon-robotics"
+    },
+    {
+      "title": "RSI：AI改进了什么，下一轮怎样证明？",
+      "text": "AReaL-RSI修订研究流程，RSI-Nav迭代数据与策略。Physical RSI讨论进一步问：改进机制本身是否更有效？",
+      "story_id": "areal-rsi-research-harness-evolution"
+    },
+    {
+      "title": "国内具身：精确感知、失败学习与公司进展",
+      "text": "小鹏GroundingPI、LoopWAM与智元、宇树、自变量继续跟进；DeepSeek具身布局保留媒体报道与待官方确认状态。",
       "story_id": "xpeng-groundingpi-perception-to-action"
-    },
-    {
-      "title": "国内公司：看模型、数据和评测更新",
-      "text": "智元GE-Act 2.0修订、自变量X2Real评测运行时、宇树UnifoLM-WLA开放权重与微调代码，各自写清日期和开放范围。",
-      "story_id": "x2real-release"
-    },
-    {
-      "title": "具身闭环：失败轨迹也能成为学习数据",
-      "text": "LoopWAM在实机上迭代世界动作模型；DeepSeek进入具身的报道则继续跟踪，当前尚非正式研究发布。",
-      "story_id": "loopwam-closed-loop"
     }
   ],
   "reading": [
     {
-      "title": "GroundingPI: A Grounding Foundation Model towards Physical Intelligence with Visual Primitives",
+      "title": "Gemini 4 Argon官方发布：机器人研发与Video-to-Sim-to-Real",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
+      "reason": "回查公众号核心线索；ERQA、实机案例与具体机器人专篇的核验范围分开看。"
+    },
+    {
+      "title": "AReaL-RSI：研究Agent的协调与流程修订",
+      "url": "https://arxiv.org/abs/2610.18083",
+      "reason": "读可继承的研究流程怎样更新，再检查总计算对照与跨轮次收益是否实际测得。"
+    },
+    {
+      "title": "Who Improves the Robot?：Physical RSI的证据要求",
+      "url": "https://arxiv.org/abs/2610.18842",
+      "reason": "区分任务能力提升与改进程序变强；L0—L5是作者提出的分析框架。"
+    },
+    {
+      "title": "GroundingPI：具身感知预训练怎样帮助动作模型",
       "url": "https://arxiv.org/abs/2609.39601",
-      "reason": "读感知预训练到动作迁移的受控比较，分清仿真、开环驾驶及真实部署。"
-    },
-    {
-      "title": "LoopWAM: Closed-Loop Generalist Policy Improvement from Deployment Rollouts",
-      "url": "https://arxiv.org/abs/2610.18873",
-      "reason": "读失败视频监督、质量条件与逐轮实机协议；不同本体分别训练，避免误解为统一跨本体策略。"
-    },
-    {
-      "title": "X2Real v0.9.0：公开评测范围与运行方式",
-      "url": "https://github.com/X-Square-Robot/x2real",
-      "reason": "看长程任务如何运行，哪些资产另行下载，以及evaluation-only的边界。"
+      "reason": "读受控比较，分清仿真、开环驾驶与真实部署。"
     }
   ],
   "keywords": [
     {
+      "term": "大模型进入具身 / foundation models for robotics",
+      "explanation": "Gemini 4 Argon把多模态推理和代码生成连接到机器人控制、仿真与研发；需区分通用模型、专用具身推理与VLA策略。"
+    },
+    {
+      "term": "物理与空间推理 / physical and spatial reasoning",
+      "explanation": "理解物体、三维关系和动作后果；ERQA 87%属于推理基准，不能转换为实机成功率。"
+    },
+    {
+      "term": "视频到仿真到真实 / Video-to-Sim-to-Real",
+      "explanation": "官方Apollo案例从人类视频推算空间与动作、生成仿真代码并转到实机；Real2Sim的价值仍要看物理校准和重复试验。"
+    },
+    {
+      "term": "递归自我改进 / recursive self-improvement (RSI)",
+      "explanation": "关注持久的系统更新，以及产生下一轮改进的程序是否也改变、更有效；不能仅凭self-improvement名称判定。"
+    },
+    {
+      "term": "研究流程演化 / research harness evolution",
+      "explanation": "AReaL-RSI保持基础模型权重不变，修订方向、知识与技能；下游性能提高不等于已测得跨轮次递归收益。"
+    },
+    {
+      "term": "策略同步数据自举 / policy-synchronized bootstrapping",
+      "explanation": "RSI-Nav让当前策略生成指令、执行筛选并立即训练；数据与模型同步迭代，而学习程序仍固定。"
+    },
+    {
       "term": "具身感知与视觉定位 / grounding for physical intelligence",
-      "explanation": "GroundingPI研究精确点、框和空间关系如何帮助动作模型；它是感知骨干，不是直接机器人控制器。"
+      "explanation": "GroundingPI研究精确点、框和空间关系如何帮助动作模型；感知checkpoint与动作适配器分开核对。"
     },
     {
-      "term": "世界动作模型 / world-action models (WAM)",
-      "explanation": "联合预测视觉变化和动作；本期LoopWAM与GE-Act 2.0提供部署闭环和预训练两类例子。"
+      "term": "世界动作模型与失败学习 / world-action models and failure learning",
+      "explanation": "LoopWAM利用成功、次优与失败部署经验更新策略，GE-Act 2.0研究世界—动作预训练；具体本体与任务协议不同。"
     },
     {
-      "term": "部署后策略改进 / policy improvement from deployment",
-      "explanation": "把成功、次优与失败实机轨迹纳入下一轮训练，检查逐轮收益和数据预算。"
+      "term": "长程评测与跨本体迁移 / long-horizon evaluation and cross-embodiment transfer",
+      "explanation": "从演示走向可重复的长程任务，检查任务、机器人、干预和预算；各本体分别训练不能称统一策略迁移。"
     },
     {
-      "term": "质量条件与失败数据 / quality conditioning and failure data",
-      "explanation": "保留失败视频提供的世界信息，避免直接模仿失败动作；对应LoopWAM。"
-    },
-    {
-      "term": "长程具身评测 / long-horizon embodied evaluation",
-      "explanation": "从单一原子动作转向层级语义任务；X2Real需检查任务覆盖及仿真实机相关性的适用范围。"
-    },
-    {
-      "term": "跨本体迁移 / cross-embodiment transfer",
-      "explanation": "不同机器人、本体配置或末端执行器是否真的共享能力；区分统一策略与分别训练的模型。"
-    },
-    {
-      "term": "具身模型开放范围 / embodied model release scope",
-      "explanation": "分别核对代码、感知权重、动作权重、数据与可运行环境，不把项目链接等同完整复现。"
-    },
-    {
-      "term": "基础模型团队的具身布局 / foundation-model teams entering robotics",
-      "explanation": "跟进DeepSeek报道后的团队与成果证据，当前属于未官宣产业信号，不是技术结果。"
+      "term": "独立验证与总计算对齐 / independent verification and matched-compute evaluation",
+      "explanation": "RSI评测需比较相同起点、经验和总预算，留出测试任务；更多Agent、更长实验或评测泄漏可能解释表面收益。"
     }
   ],
   "technical_explainer": {
@@ -290,7 +419,7 @@
     "title": "机器人评测机制：怎样判断一个VLA真的会做事？",
     "summary": "看懂完整任务如何计分，分清训练内测试与泛化、仿真与实机，再理解成功率背后的试验次数、干预和运行预算。",
     "reading_minutes": 7,
-    "why_now": "GroundingPI比较感知骨干，LoopWAM用部署数据改进策略，X2Real发布评测运行时。它们都在报“效果”，但测量对象和协议不同。固定任务、重复试验、独立测试集和闭环执行仍是当前VLA评测的核心；新基准在补充长程任务与更接近真实环境的检验。",
+    "why_now": "Gemini 4 Argon报告ERQA，GroundingPI比较感知骨干，LoopWAM回流部署数据，RSI-Nav迭代策略，X2Real发布评测运行时。它们都在报效果，但测量层次不同。固定任务、重复试验、独立测试集和闭环执行仍是当前机器人评测的核心；自我改进还要比较每轮训练与评测预算。",
     "sections": [
       {
         "heading": "1. 一次测试测的是完整策略",
@@ -321,11 +450,19 @@
         ]
       },
       {
-        "heading": "4. 本期三个例子，分别测了哪一层",
+        "heading": "4. 本期例子分别测了哪一层",
         "paragraphs": [
+          "Gemini 4 Argon：ERQA 87%测物理与空间推理，不是87%的真实任务成功率。Apollo连续7次命中属于特定内部实机案例，仍要问总尝试数、场景变化、失败与人工介入，不能替代系统性评测。",
           "GroundingPI：视觉定位分数测“找得准”；接上动作模型后的仿真成功率才测“做得好”。机器人实验在仿真，nuScenes驾驶是离线开环，不能写成真实机器人或车辆闭环部署。",
           "LoopWAM：看实机部署数据回流后，各轮策略的成功率是否提高，也要检查新采数据量、任务和本体。Table30-V2的每种本体各有策略，不等于一个策略同时跨四种机器人。",
           "X2Real：通过可运行的长程仿真任务提高比较的一致性，再研究仿真与实机分数的相关。报告中的相关系数0.84表示特定设置下分数变化有关联；它不是84%的真实任务成功率，也不能保证每个策略都能迁移。"
+        ]
+      },
+      {
+        "heading": "5. 声称会自我改进，还要测什么？",
+        "paragraphs": [
+          "先问每轮更新的是策略权重、训练数据、Agent代码，还是改进程序。记录轮次、采集量、总计算、人工标注及训练与测试任务；保持独立的留出评测，防止系统反复针对同一测试集优化。",
+          "在真实机器人中，比较各轮策略要固定任务、场景与执行预算。若还声称改进程序越来越有效，就要从相同策略起点和经验出发，让旧、新程序在相同预算下各训练一个策略，再用独立任务评测。仅看最终成功率上升，无法区分更好程序与更多数据/算力。这是当前Physical RSI综述提出的证据要求，并非所有论文已经做到。"
         ]
       }
     ],
