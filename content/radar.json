@@ -1,0 +1,710 @@
+{
+  "title": "前沿信息源雷达",
+  "status": "planned",
+  "updated_on": "2026-10-14",
+  "intro": "把顶会论文、原始研究发布、技术博客与中文热点连接起来。目录已整理，尚未启用自动采集；可读取的来源与暂未核验的入口分别标注。",
+  "groups": [
+    {
+      "id": "conferences",
+      "group": "人工智能与机器人顶会",
+      "description": "关注当届录用论文、Oral / Spotlight、最佳论文、研讨会及公开评审。会议录用、预印本和厂商发布分别标注；不把录用本身当作效果保证。",
+      "sources": [
+        {
+          "id": "neurips",
+          "name": "NeurIPS",
+          "url": "https://neurips.cc/",
+          "role": "会议入口",
+          "scope": "通用机器学习、基础模型、强化学习与评测",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://neurips.cc/"
+          }
+        },
+        {
+          "id": "icml",
+          "name": "ICML",
+          "url": "https://icml.cc/",
+          "role": "会议入口",
+          "scope": "学习算法、理论、模型训练与后训练",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://icml.cc/"
+          }
+        },
+        {
+          "id": "iclr",
+          "name": "ICLR",
+          "url": "https://iclr.cc/",
+          "role": "会议入口",
+          "scope": "深度学习、表征学习、推理与生成模型",
+          "note": "公开稿件与评审回查 OpenReview；是否录用以官方结果为准。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://iclr.cc/"
+          }
+        },
+        {
+          "id": "colm",
+          "name": "Conference on Language Modeling（COLM）",
+          "url": "https://colm.cc/",
+          "role": "会议入口",
+          "scope": "语言模型训练、推理、架构、数据、对齐与评测",
+          "note": "旧官网 colmweb.org 已公告迁移至 colm.cc。主会、workshop及其Oral分别标注；workshop录用不能写作主会录用。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://colm.cc/"
+          }
+        },
+        {
+          "id": "cvpr",
+          "name": "CVPR",
+          "url": "https://cvpr.thecvf.com/",
+          "role": "会议入口",
+          "scope": "计算机视觉、多模态、3D、视频和视觉具身",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://cvpr.thecvf.com/"
+          }
+        },
+        {
+          "id": "iccv",
+          "name": "ICCV",
+          "url": "https://iccv.thecvf.com/",
+          "role": "会议入口",
+          "scope": "计算机视觉、多模态与场景理解",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://iccv.thecvf.com/"
+          }
+        },
+        {
+          "id": "eccv",
+          "name": "ECCV",
+          "url": "https://eccv.ecva.net/",
+          "role": "会议入口",
+          "scope": "视觉学习、3D、视频与生成方法",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://eccv.ecva.net/"
+          }
+        },
+        {
+          "id": "acl",
+          "name": "ACL",
+          "url": "https://2026.aclweb.org/",
+          "role": "会议入口",
+          "scope": "语言模型、语言理解、生成、对齐与评测",
+          "note": "此链接为 ACL 2026；新一届入口应从官方公告更新。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://2026.aclweb.org/"
+          }
+        },
+        {
+          "id": "emnlp",
+          "name": "EMNLP",
+          "url": "https://2026.emnlp.org/",
+          "role": "会议入口",
+          "scope": "自然语言处理、语言模型、数据和应用评测",
+          "note": "此链接为 EMNLP 2026；会议和 Findings 录用类型分别记录。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://2026.emnlp.org/"
+          }
+        },
+        {
+          "id": "icra",
+          "name": "ICRA",
+          "url": "https://www.ieee-ras.org/conferences-workshops/fully-sponsored/icra",
+          "role": "会议入口",
+          "scope": "机器人感知、控制、操作、规划与具身系统",
+          "note": "IEEE RAS 官方会议入口；本次访问返回403，论文需通过会方或作者原始链接核验。",
+          "verification": {
+            "status": "unreadable",
+            "checked_on": "2026-10-14",
+            "http_status": 403,
+            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
+          }
+        },
+        {
+          "id": "iros",
+          "name": "IROS",
+          "url": "https://www.ieee-ras.org/conferences-workshops/financially-co-sponsored/iros",
+          "role": "会议入口",
+          "scope": "智能机器人与系统、导航、操作与实机实验",
+          "note": "IEEE RAS 官方会议入口；本次访问返回403。",
+          "verification": {
+            "status": "unreadable",
+            "checked_on": "2026-10-14",
+            "http_status": 403,
+            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
+          }
+        },
+        {
+          "id": "rss",
+          "name": "Robotics: Science and Systems（RSS）",
+          "url": "https://roboticsconference.org/",
+          "role": "会议入口",
+          "scope": "机器人科学、学习、操作、感知与规划",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://roboticsconference.org/"
+          }
+        },
+        {
+          "id": "corl",
+          "name": "Conference on Robot Learning（CoRL）",
+          "url": "https://www.corl.org/",
+          "role": "会议入口",
+          "scope": "机器人学习、模仿学习、VLA、数据与泛化",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.corl.org/"
+          }
+        },
+        {
+          "id": "aaai",
+          "name": "AAAI",
+          "url": "https://aaai.org/conference/aaai/",
+          "role": "会议入口",
+          "scope": "综合人工智能、规划、知识、推理与应用",
+          "note": "本次访问返回403；只在能回查当届论文与作者材料时收录具体成果。",
+          "verification": {
+            "status": "unreadable",
+            "checked_on": "2026-10-14",
+            "http_status": 403,
+            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "paper-indexes",
+      "group": "论文与公开评审索引",
+      "description": "用于定位原文、版本、代码、录用状态与评审上下文。arXiv 是预印本平台，不等同于同行评审通过。",
+      "sources": [
+        {
+          "id": "arxiv",
+          "name": "arXiv",
+          "url": "https://arxiv.org/list/cs.AI/recent",
+          "role": "原始论文索引",
+          "scope": "cs.AI、cs.CL、cs.CV、cs.RO、cs.LG、stat.ML",
+          "note": "入口示例为 cs.AI；按分类并结合作者、机构及关键词检索，保存首版与修订日期。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://arxiv.org/list/cs.AI/recent"
+          }
+        },
+        {
+          "id": "openreview",
+          "name": "OpenReview",
+          "url": "https://openreview.net/",
+          "role": "论文与评审索引",
+          "scope": "ICLR、部分 NeurIPS / ICML / CoRL 等会议公开稿件",
+          "note": "公开投稿、评审或讨论不自动表示已录用；按 venue 与 decision 核验。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://openreview.net/"
+          }
+        },
+        {
+          "id": "cvf",
+          "name": "CVF Open Access",
+          "url": "https://openaccess.thecvf.com/",
+          "role": "官方论文集",
+          "scope": "CVPR、ICCV及公开工作坊论文",
+          "note": "主会与 workshop 分别标注。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://openaccess.thecvf.com/menu"
+          }
+        },
+        {
+          "id": "pmlr",
+          "name": "Proceedings of Machine Learning Research",
+          "url": "https://proceedings.mlr.press/",
+          "role": "官方论文集",
+          "scope": "ICML、CoRL及其他机器学习会议论文集",
+          "note": "以卷号、会议名称和具体论文页面核验。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://proceedings.mlr.press/"
+          }
+        },
+        {
+          "id": "acl-anthology",
+          "name": "ACL Anthology",
+          "url": "https://aclanthology.org/",
+          "role": "官方论文集",
+          "scope": "ACL、EMNLP、NAACL及语言处理相关论文",
+          "note": "主会、Findings、workshop、demo 等类型分别标注。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://aclanthology.org/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "research-labs",
+      "group": "企业、大学与实验室原始发布",
+      "description": "优先回查作者、实验室或企业原始论文、技术报告、项目页面和代码。官方发布可证明其公开陈述，性能结论仍须看实验条件和独立复现。",
+      "sources": [
+        {
+          "id": "openai",
+          "name": "OpenAI Research",
+          "url": "https://openai.com/research/",
+          "role": "原始研究发布",
+          "scope": "大模型、推理、多模态、Agent与安全",
+          "note": "本次HTTP返回403，需在可读取的官方论文或技术报告中核验具体内容。",
+          "verification": {
+            "status": "unreadable",
+            "checked_on": "2026-10-14",
+            "http_status": 403,
+            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
+          }
+        },
+        {
+          "id": "anthropic",
+          "name": "Anthropic Research",
+          "url": "https://www.anthropic.com/research",
+          "role": "原始研究发布",
+          "scope": "模型行为、对齐、可解释性、Agent与安全",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.anthropic.com/research"
+          }
+        },
+        {
+          "id": "deepmind",
+          "name": "Google DeepMind",
+          "url": "https://deepmind.google/blog/",
+          "role": "原始研究发布",
+          "scope": "基础模型、世界模型、机器人、科学智能与强化学习",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://deepmind.google/blog/"
+          }
+        },
+        {
+          "id": "google-research",
+          "name": "Google Research Blog",
+          "url": "https://research.google/blog/",
+          "role": "原始研究发布",
+          "scope": "模型、系统、视觉、语言与应用研究",
+          "note": "本次请求超时；采集时重试。",
+          "verification": {
+            "status": "unreadable",
+            "checked_on": "2026-10-14",
+            "http_status": null,
+            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
+          }
+        },
+        {
+          "id": "meta-ai",
+          "name": "Meta AI Blog",
+          "url": "https://ai.meta.com/blog/",
+          "role": "原始研究发布",
+          "scope": "开放模型、多模态、表征学习、世界模型与机器人",
+          "note": "本次请求超时；采集时重试。",
+          "verification": {
+            "status": "unreadable",
+            "checked_on": "2026-10-14",
+            "http_status": null,
+            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
+          }
+        },
+        {
+          "id": "nvidia",
+          "name": "NVIDIA Research",
+          "url": "https://research.nvidia.com/",
+          "role": "原始研究发布",
+          "scope": "具身智能、仿真、生成模型、推理系统与机器人",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.nvidia.com/en-us/research/"
+          }
+        },
+        {
+          "id": "microsoft",
+          "name": "Microsoft Research Blog",
+          "url": "https://www.microsoft.com/en-us/research/blog/",
+          "role": "原始研究发布",
+          "scope": "大模型、Agent、系统、评测与AI科学",
+          "note": "本次HTTP返回403。",
+          "verification": {
+            "status": "unreadable",
+            "checked_on": "2026-10-14",
+            "http_status": 403,
+            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
+          }
+        },
+        {
+          "id": "sail",
+          "name": "Stanford AI Lab（SAIL）Blog",
+          "url": "https://ai.stanford.edu/blog/",
+          "role": "研究团队解读",
+          "scope": "语言模型、机器人学习、多模态与研究系统",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://ai.stanford.edu/blog/"
+          }
+        },
+        {
+          "id": "bair",
+          "name": "Berkeley AI Research（BAIR）Blog",
+          "url": "https://bair.berkeley.edu/blog/",
+          "role": "研究团队解读",
+          "scope": "机器人、强化学习、世界模型、生成与基础模型",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://bair.berkeley.edu/blog/"
+          }
+        },
+        {
+          "id": "csail",
+          "name": "MIT CSAIL News",
+          "url": "https://www.csail.mit.edu/news",
+          "role": "原始机构发布",
+          "scope": "机器人、视觉、推理、学习系统与AI应用",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.csail.mit.edu/news"
+          }
+        },
+        {
+          "id": "cmu-ri",
+          "name": "CMU Robotics Institute",
+          "url": "https://www.ri.cmu.edu/",
+          "role": "原始机构发布",
+          "scope": "机器人操作、导航、感知、控制与具身学习",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.ri.cmu.edu/"
+          }
+        },
+        {
+          "id": "tsinghua-air",
+          "name": "清华大学智能产业研究院（AIR）",
+          "url": "https://air.tsinghua.edu.cn/",
+          "role": "原始机构发布",
+          "scope": "具身智能、基础模型、AI系统与产业研究",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://air.tsinghua.edu.cn/"
+          }
+        },
+        {
+          "id": "shlab",
+          "name": "上海人工智能实验室",
+          "url": "https://www.shlab.org.cn/",
+          "role": "原始机构发布",
+          "scope": "基础模型、多模态、具身智能、开源模型与评测",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.shlab.org.cn/"
+          }
+        },
+        {
+          "id": "baai",
+          "name": "北京智源人工智能研究院（BAAI）",
+          "url": "https://www.baai.ac.cn/",
+          "role": "原始机构发布",
+          "scope": "基础模型、具身智能、开放平台与评测",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.baai.ac.cn/zh-cn/"
+          }
+        },
+        {
+          "id": "physical-intelligence",
+          "name": "Physical Intelligence",
+          "url": "https://www.pi.website/blog",
+          "role": "原始研究发布",
+          "scope": "通用机器人策略、VLA、数据与真实机器人泛化",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.pi.website/blog"
+          }
+        }
+      ]
+    },
+    {
+      "id": "technical-blogs",
+      "group": "知名技术博客与研究通讯",
+      "description": "跟踪方法解读、工程实践、独立测评与社区分歧；正文区分作者意见、公开数据和已复现结果。博客不以更新频率代替研究价值。",
+      "sources": [
+        {
+          "id": "lilian-weng",
+          "name": "Lilian Weng · Lil’Log",
+          "url": "https://lilianweng.github.io/",
+          "role": "技术解读",
+          "scope": "强化学习、Agent、对齐、生成模型与综述",
+          "note": "适合建立主题背景；保留文章原始日期，不将旧综述作为今日新闻。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://lilianweng.github.io/"
+          }
+        },
+        {
+          "id": "sebastian-raschka",
+          "name": "Sebastian Raschka · Ahead of AI",
+          "url": "https://magazine.sebastianraschka.com/",
+          "role": "技术解读",
+          "scope": "大模型训练、后训练、推理与论文方法分析",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://magazine.sebastianraschka.com/"
+          }
+        },
+        {
+          "id": "simon-willison",
+          "name": "Simon Willison’s Weblog",
+          "url": "https://simonwillison.net/",
+          "role": "技术实践与讨论",
+          "scope": "模型工具、Agent工程、模型评测与提示注入",
+          "note": "个人实验及评论需保留运行条件与作者身份。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://simonwillison.net/"
+          }
+        },
+        {
+          "id": "hugging-face",
+          "name": "Hugging Face Blog",
+          "url": "https://huggingface.co/blog",
+          "role": "技术解读与开源生态",
+          "scope": "开源模型、训练、推理、数据集、机器人与工具",
+          "note": "本次请求超时；项目数据与结论回查对应模型卡、数据卡和代码。",
+          "verification": {
+            "status": "unreadable",
+            "checked_on": "2026-10-14",
+            "http_status": null,
+            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
+          }
+        },
+        {
+          "id": "karpathy",
+          "name": "Andrej Karpathy Blog",
+          "url": "https://karpathy.bearblog.dev/",
+          "role": "技术观点与实践",
+          "scope": "模型训练、推理、编程Agent与AI教育",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://karpathy.bearblog.dev/"
+          }
+        },
+        {
+          "id": "the-batch",
+          "name": "DeepLearning.AI · The Batch",
+          "url": "https://www.deeplearning.ai/the-batch",
+          "role": "研究与产业通讯",
+          "scope": "AI研究、产品与产业动态",
+          "note": "周刊可作为编辑选题参考，具体结论回查其原始链接。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.deeplearning.ai/the-batch"
+          }
+        },
+        {
+          "id": "import-ai",
+          "name": "Jack Clark · Import AI",
+          "url": "https://jack-clark.net/",
+          "role": "研究通讯",
+          "scope": "论文意义、AI安全、政策与前沿研究",
+          "note": "",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://jack-clark.net/"
+          }
+        },
+        {
+          "id": "ainews",
+          "name": "AINews",
+          "url": "https://news.smol.ai/",
+          "role": "社区发现入口",
+          "scope": "模型发布、技术社区、开发者工具与讨论热点",
+          "note": "它是社区汇总入口；逐条核验原帖，不能把讨论热度直接当作共识。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://news.smol.ai/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chinese-media",
+      "group": "中文公众号与媒体热点",
+      "description": "机器之心、量子位等用于发现国内讨论、论文解读与行业热点，再回查原始论文或官方发布。公众号文章的可访问性受公开链接与平台限制影响，不承诺覆盖所有微信内容。",
+      "sources": [
+        {
+          "id": "jiqizhixin",
+          "name": "机器之心",
+          "url": "https://www.jiqizhixin.com/",
+          "role": "中文发现入口",
+          "scope": "论文解读、模型、研究机构与AI产业",
+          "note": "网站入口已核验；同名公众号文章需保存可回查的具体文章链接。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.jiqizhixin.com/"
+          }
+        },
+        {
+          "id": "qbitai",
+          "name": "量子位",
+          "url": "https://www.qbitai.com/",
+          "role": "中文发现入口",
+          "scope": "模型发布、研究热点、产品与机器人",
+          "note": "网站入口已核验；媒体报道与原始研究结论分开记录。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.qbitai.com/"
+          }
+        },
+        {
+          "id": "paperweekly",
+          "name": "PaperWeekly",
+          "url": null,
+          "role": "中文发现入口",
+          "scope": "论文导读、学术动态、研究方法与复现",
+          "note": "公众号可按名称订阅；本次未核验可访问的官方公开网页入口，不填未经确认的域名。",
+          "verification": {
+            "status": "unverified",
+            "checked_on": "2026-10-14",
+            "http_status": null,
+            "note": "已确认来源名称，尚未核验可公开访问的官方入口。"
+          }
+        },
+        {
+          "id": "aitechreview",
+          "name": "AI科技评论（雷锋网）",
+          "url": "https://www.leiphone.com/category/ai",
+          "role": "中文发现入口",
+          "scope": "AI研究、学术会议、研究者访谈与产业",
+          "note": "此链接是雷锋网人工智能频道，可作公开发现入口，并非保证含全部公众号内容。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.leiphone.com/category/ai"
+          }
+        },
+        {
+          "id": "xinzhiyuan",
+          "name": "新智元",
+          "url": null,
+          "role": "中文发现入口",
+          "scope": "AI前沿、模型发布、论文与研究机构动态",
+          "note": "公众号可按名称订阅；本次未核验官方公开网页入口。文章须回查作者材料。",
+          "verification": {
+            "status": "unverified",
+            "checked_on": "2026-10-14",
+            "http_status": null,
+            "note": "已确认来源名称，尚未核验可公开访问的官方入口。"
+          }
+        }
+      ]
+    }
+  ],
+  "selection_rules": [
+    "每日优先查看最近24小时公开的新成果；休息日或发布较少时可扩展至72小时，并保留实际发布日期。旧论文修订、会议录用或近期解读应说明变化发生在哪一步。",
+    "顶会放榜、最佳论文和Oral / Spotlight形成专题；主会、Findings、workshop与预印本明确区分。论文以研究相关性、方法增量、证据质量和可复现材料筛选，不只按会议标签筛选。",
+    "每条核心研究至少回查一个原始来源；媒体、通讯和公众号只作为选题入口，能找到论文、技术报告、项目页或代码才据其说明技术结论。",
+    "同一论文的arXiv、会议、官方博客和媒体报道合并为一个条目，保留版本及事件日期，避免重复计数。",
+    "讨论条目并列呈现问题、主要观点、证据和未解决分歧；个人观点、作者报告和独立复现分别标注，不将转发量当作技术验证。",
+    "热点关键词来自近期实际收录的论文与讨论；同时提供持续关注的主题词，并明确区分观察到的热度与长期方向。",
+    "公众号只读取公开可访问内容与用户提供的文章链接，不绕过登录限制；日报摘要引用原始出处，避免整篇转载。"
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "title": "最近都在研究什么",
+  "intro": "这里展示2026-09-30至2026-10-13可核验来源的研究与讨论样本，不是全行业热度榜。",
+  "window_start": "2026-09-30",
+  "window_end": "2026-10-13",
+  "signals": [
+    {
+      "id": "pi-api-beta",
+      "title": "机器人基础模型走向可微调、可部署的服务",
+      "summary": "Physical Intelligence 开放 Pi API beta，让开发者上传自己的机器人数据、微调最新模型，再通过托管推理在实机上运行。公开合作案例展示了“采集示范—训练—测试—按失败补充数据”的迭代过程。",
+      "keywords": [
+        "机器人基础模型 / Robotic Foundation Models",
+        "VLA / Vision-Language-Action",
+        "数据微调 / Fine-tuning",
+        "云端推理 / Hosted Inference",
+        "实机数据闭环 / Real-world Data Loop"
+      ],
+      "published": "2026-10-13",
+      "source_label": "Physical Intelligence · 官方博客",
+      "url": "https://www.pi.website/blog/api-beta",
+      "limitation": "这是厂商的产品与合作案例发布，并非独立性能验证。文中说明部分云端部署仍受网络连接影响；不同机器人的延迟、可靠性与适配成本需单独评估。"
+    },
+    {
+      "id": "agent-replication-evaluation",
+      "title": "Agent评估深入长期任务与自主复制风险",
+      "summary": "Anthropic 评估小模型在陌生硬件上建立推理服务，以及在简化网络环境中串联复制步骤的能力。研究把长期任务可靠性、端侧部署与自主行动边界连接起来。",
+      "keywords": [
+        "自主复制评估 / Autonomous Replication Evaluation",
+        "Agent安全 / Agent Safety",
+        "长期任务可靠性 / Long-horizon Reliability",
+        "端侧推理 / Edge Inference",
+        "分布式推理 / Distributed Inference"
+      ],
+      "published": "2026-10-12",
+      "source_label": "Anthropic · Frontier Red Team",
+      "url": "https://www.anthropic.com/research/self-replicating-ai",
+      "limitation": "实验使用受控环境，并简化了网络攻击环节；文中强调其结果是现实成功率的上界。本文讨论能力与风险评估，不能据此声称模型已在现实网络自主扩散。"
+    },
+    {
+      "id": "multi-agent-uv-science",
+      "title": "多Agent科研从找资料进入数据处理与验证",
+      "summary": "一位 Johns Hopkins 天体物理研究者与 Claude Science 协作，整合多个紫外巡天数据集、交叉校准，并估计尚无紫外观测的区域。项目同时标记测量与预测区域，给出不确定性估计。",
+      "keywords": [
+        "AI科研 / AI for Science",
+        "多Agent协作 / Multi-agent Collaboration",
+        "数据校准 / Data Calibration",
+        "科学数据补全 / Scientific Inpainting",
+        "不确定性估计 / Uncertainty Estimation"
+      ],
+      "published": "2026-10-08",
+      "source_label": "Anthropic · Science，研究者案例",
+      "url": "https://www.anthropic.com/research/the-missing-map-of-the-sky",
+      "limitation": "官方案例文章称约三分之一地图来自预测，并非新增天文观测。科研结论需结合原始数据、验证方法与研究者审查；该案例不能证明模型能独立完成所有科研任务。"
+    },
+    {
+      "id": "sail-colm-2026",
+      "title": "COLM样本显示上下文管理、推理效率与真实Agent数据受到关注",
+      "summary": "SAIL 的 COLM 2026 汇总列出真实用户 Coding Agent 交互数据、线性注意力与递归架构等主会成果；另列 workshop 工作，涵盖强化学习驱动的上下文与 KV cache 管理、推理时计算扩展和知识蒸馏。",
+      "keywords": [
+        "上下文管理 / Context Management",
+        "KV缓存 / KV Cache",
+        "推理时计算扩展 / Test-time Scaling",
+        "线性注意力 / Linear Attention",
+        "Coding Agent真实用户数据 / In-the-wild Coding Agent Data",
+        "知识蒸馏 / Knowledge Distillation"
+      ],
+      "published": "2026-10-06",
+      "source_label": "Stanford AI Lab · COLM 2026 论文汇总",
+      "url": "https://ai.stanford.edu/blog/colm-2026/",
+      "limitation": "这是单个实验室的会议成果样本，不能代表会议或行业整体热度。页面分别列出主会与 workshop，部分 Oral 属于 workshop；录用类型不能混用。这里只核验汇总页面，未独立复现各篇论文。"
+    },
+    {
+      "id": "robot-task-economics",
+      "title": "具身研究同时追问任务覆盖与部署经济性",
+      "summary": "Anthropic 发布机器人职业任务暴露度分析，区分专门设计环境、结构化工作场所与非结构化环境，并把机器人能否执行任务与成本是否有竞争力分开评估。它提供了观察具身落地约束的研究切面。",
+      "keywords": [
+        "机器人任务覆盖 / Robot Task Coverage",
+        "环境泛化 / Environment Generalization",
+        "部署成本 / Deployment Cost",
+        "经济可行性 / Economic Feasibility",
+        "职业任务分析 / Occupational Task Analysis"
+      ],
+      "published": "2026-09-30",
+      "source_label": "Anthropic · Economics",
+      "url": "https://www.anthropic.com/research/what-work-can-robots-do",
+      "limitation": "该研究利用 Claude 辅助评估职业任务、检索机器人材料，并进行经济分析。任务评分包含判断与估计，不能直接当作统一实机基准或某款机器人的全场景能力证明。"
+    }
+  ]
+}

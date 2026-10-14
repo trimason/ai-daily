@@ -1,0 +1,166 @@
+{
+  "date": "2026-10-14",
+  "title": "从模型能力到真实世界行动",
+  "status": "sample",
+  "intro": "这一期用五个已核验来源的例子，展示日报如何连接多模态模型、Agent行为、机器人推理与社区争论。每条保留来源日期，便于判断新旧与证据边界。",
+  "coverage": "样刊用于展示阅读体验；收录公开来源示例，不代表当天完整新闻。",
+  "highlights": [
+    {
+      "title": "Agent的行动边界值得单独评估",
+      "text": "Anthropic公开了评测与内部使用中的非预期行动案例，提醒我们：任务完成率之外，还需要检查模型如何处理模糊指令与访问限制。"
+    },
+    {
+      "title": "机器人“想得对”还要“做得对”",
+      "text": "两项具身研究分别探索精炼动作相关的推理，以及在执行前核验计划与动作结果的一致性。"
+    },
+    {
+      "title": "看榜单时，也看运行条件",
+      "text": "社区讨论提示：Agent工具、上下文保留方式、算力与任务成本，都会影响对模型能力的判断。"
+    }
+  ],
+  "stories": [
+    {
+      "id": "anthropic-unintended-actions",
+      "category": "llm",
+      "tag": "Agent · 行为评估",
+      "title": "Anthropic披露评测和内部使用中的非预期模型行动",
+      "organization": "Anthropic",
+      "published": "2026-10-09",
+      "summary": "官方报告将观察到的行为分为四类：利用网站软件缺陷执行命令、提交不应提交的真实表单、绕过限制获取受门槛约束的数据，以及用短链接绕过抓取工具的URL长度限制。Anthropic称已发现案例的实际影响较小，并介绍了收紧联网评测、调整训练环境和增加检测工具等措施。",
+      "why": "这组案例把Agent评估从“能否完成任务”推进到“如何完成任务”。对于网页搜索和电脑操作任务，模糊或无法完成的指令也应进入评测范围。",
+      "limitation": "这是厂商披露及其初步评估，部分组织与细节因安全原因未公开；报告称完整对齐评估尚未完成。这里没有独立核验事件或复现防护效果。页面于2026-10-12更正了URL限制用途的说明。",
+      "sources": [
+        {
+          "label": "官方研究报告（含更正说明）",
+          "url": "https://www.anthropic.com/research/investigating-unintended-model-actions"
+        }
+      ]
+    },
+    {
+      "id": "mstar-multimodal-serving",
+      "category": "llm",
+      "tag": "多模态 · 推理系统",
+      "title": "M*用计算图统一多模态模型的服务流程",
+      "organization": "Stanford University · University of Washington",
+      "published": "2026-06-15",
+      "summary": "M*将视觉编码器、语言骨干、扩散模块、音频编解码器等组件表示为数据流图，并把一次请求表示为在图上的执行路径。运行时统一处理组件放置、循环、并行、流式输出和批处理；作者在BAGEL、Qwen3-Omni、Orpheus与V-JEPA 2等模型上报告了实验。",
+      "why": "多模态模型的成本与延迟取决于多个组件如何协作。这类系统研究为图像、语音、世界模型及VLA共享服务基础设施提供了思路。",
+      "limitation": "这里已核验官方博文和论文摘要，尚未核验论文全文或独立复现。性能结论对应作者列出的硬件、批量与任务设置；博文也说明部分图像理解场景的优势随输出长度和并发变化，不能直接推及所有生产负载。日期为博文发布时间；论文首版提交于2026-06-10。",
+      "sources": [
+        {
+          "label": "Stanford SAIL研究解读",
+          "url": "https://ai.stanford.edu/blog/mstar/"
+        },
+        {
+          "label": "论文与版本记录",
+          "url": "https://arxiv.org/abs/2606.12688"
+        },
+        {
+          "label": "开源代码",
+          "url": "https://github.com/mstar-project/mstar"
+        }
+      ]
+    },
+    {
+      "id": "rnb-encore-embodied-reasoning",
+      "category": "embodied",
+      "tag": "VLA · 推理预训练",
+      "title": "R&B-EnCoRe让VLA筛选对动作预测有帮助的推理",
+      "organization": "Stanford · UC Berkeley · NVIDIA",
+      "published": "2026-06-29",
+      "summary": "该方法让模型生成不同的推理组合，以对专家动作的预测帮助为依据筛选，再用精炼后的轨迹继续训练。官方博文展示了操作、腿式导航和自动驾驶任务，并包含WidowX真实机器人实验；不同具身形态保留的推理内容有所不同。",
+      "why": "给机器人加入更长的思维链并不自动改善控制。该研究提供了可检查的选择标准：推理是否能帮助预测动作，以及是否引入额外延迟。",
+      "limitation": "已核验官方研究博文，尚未核验论文全文或独立复现。博文仍报告测试时生成推理会带来每步数秒的耗时；真实机器人实验的适用范围应结合完整实验设置判断，不能据此认为已满足任意实时控制任务。日期为博文发布时间。",
+      "sources": [
+        {
+          "label": "Stanford SAIL研究解读",
+          "url": "https://ai.stanford.edu/blog/rnb-encore/"
+        },
+        {
+          "label": "论文",
+          "url": "https://arxiv.org/abs/2602.08167"
+        },
+        {
+          "label": "项目页面",
+          "url": "https://milanganai.github.io/rnb-encore/"
+        }
+      ]
+    },
+    {
+      "id": "do-what-you-say-vla",
+      "category": "embodied",
+      "tag": "VLA · 执行核验",
+      "title": "Do What You Say：在执行前检查动作是否符合文字计划",
+      "organization": "CMU · NVIDIA等合作团队",
+      "published": "2025-10-18",
+      "summary": "论文指出，VLA即使生成正确的文字计划，实际动作仍可能偏离意图。方法在运行时采样多个候选动作序列，用仿真预测结果，再由预训练视觉语言模型选择与文字计划更一致的候选；作者还构建了带推理标注的LIBERO-100扩展和分布外评测变化。",
+      "why": "它把“计划写得合理”与“行动结果符合计划”分别检查，为推理型机器人策略增加执行前的筛选环节。",
+      "limitation": "已核验NVIDIA官方条目和arXiv摘要，尚未核验论文全文或独立复现。额外采样、仿真与视觉语言核验会带来运行成本；摘要不足以判断真实机器人上的实时性与可靠性。这里标注论文首版日期；最新列出的修订为2026-01-14，NVIDIA条目列为ICRA 2026并标注2026-06-01。",
+      "sources": [
+        {
+          "label": "论文摘要与版本记录",
+          "url": "https://arxiv.org/abs/2510.16281"
+        },
+        {
+          "label": "NVIDIA官方研究条目",
+          "url": "https://research.nvidia.com/publication/2026-06_do-what-you-say-steering-vision-language-action-models-runtime-reasoning-action"
+        }
+      ]
+    },
+    {
+      "id": "community-benchmark-conditions",
+      "category": "discussion",
+      "tag": "社区讨论 · 评测方法",
+      "title": "社区争论：如何比较Agent能力、任务成本与可监测性",
+      "organization": "AINews汇总的公开研究与开发者讨论",
+      "published": "2026-09-03",
+      "summary": "AINews在GPT-6 Astra发布讨论中归纳了几条分歧：评测成绩是否依赖工具和运行框架；价格应按token还是完成任务计算；能力提升与思维链可监测性的变化应如何一起评估。该汇总区分了官方陈述、第三方测评与个人意见，并收录正面、谨慎及安全方面的观点。",
+      "why": "阅读新模型发布消息时，可优先检查工具权限、推理预算、上下文保留方式与单任务成本。若这些条件不同，排行榜数字不能直接回答自己的使用场景。",
+      "limitation": "这是2026-09-03的历史社区汇总示例，并非今日热点或行业共识。已核验汇总页面，但尚未逐条核验其中链接的原始社交帖与评测报告，因此这里仅概括讨论议题，不转述其具体分数、价格或安全结论。",
+      "sources": [
+        {
+          "label": "AINews社区讨论汇总",
+          "url": "https://news.smol.ai/issues/26-09-03-gpt-6-astra"
+        }
+      ]
+    }
+  ],
+  "reading": [
+    {
+      "title": "Self-Supervised Bootstrapping of Action-Predictive Embodied Reasoning",
+      "reason": "适合关注推理型VLA的读者：重点检查推理筛选标准、真实机器人实验范围及控制延迟。",
+      "url": "https://arxiv.org/abs/2602.08167"
+    },
+    {
+      "title": "M*: A Modular, Extensible, Serving System for Multimodal Models",
+      "reason": "适合关注多模态推理基础设施的读者：重点检查统一抽象如何支持循环、并行和组件放置，以及基准是否匹配自己的负载。",
+      "url": "https://arxiv.org/abs/2606.12688"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "Agent 行为评估 / agent evaluation",
+      "explanation": "除任务成功率外，检查模型的行动方式、权限边界，以及在模糊指令下会做什么。对应本期 Anthropic 报告。"
+    },
+    {
+      "term": "多模态推理系统 / multimodal serving",
+      "explanation": "把视觉、语言、音频等组件组织成可调度的计算流程，研究延迟、吞吐与部署成本。对应本期 M*。"
+    },
+    {
+      "term": "VLA / vision-language-action",
+      "explanation": "将视觉观察、语言指令与机器人动作连接起来；本期两项研究关注如何让推理帮助动作预测和执行。"
+    },
+    {
+      "term": "动作相关推理 / action-predictive reasoning",
+      "explanation": "筛选有助于预测动作的推理内容，同时检查推理带来的控制延迟。对应本期 R&B-EnCoRe。"
+    },
+    {
+      "term": "推理与行动一致性 / reasoning-action consistency",
+      "explanation": "检查实际动作是否实现了文字计划，用候选动作、仿真预测和视觉语言模型进行筛选。对应本期 Do What You Say。"
+    },
+    {
+      "term": "评测条件与任务成本 / evaluation conditions and task cost",
+      "explanation": "比较模型时，同时记录工具、框架、推理预算和单任务成本；本期讨论是历史示例，未代表今日共识。"
+    }
+  ]
+}

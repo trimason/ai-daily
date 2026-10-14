@@ -1,0 +1,445 @@
+{
+  "metadata": {
+    "title": "研究方向与检索关键词",
+    "status": "sample-research-map",
+    "updated": "2026-10-14",
+    "intro": "这是一张持续跟踪的研究地图：用已核验日期的代表论文说明各方向在研究什么，以及阅读新成果时该检查哪些证据。它包含历史基础与样刊研究，不是2026-10-14的实时热度榜；未做讨论量统计，也不声称任何方向热度上升。",
+    "verification": "来源通过HTTP读取，核验论文标题、首版日期与摘要，或官方报告正文；未对这些论文执行全文精读或独立复现。",
+    "dating_policy": "来源日期默认记录arXiv首版提交日期；官方文章单独注明发布日期。更新日期表示研究地图整理时间。"
+  },
+  "directions": [
+    {
+      "id": "reasoning-test-time",
+      "title": "推理扩展与可验证奖励",
+      "category": "llm",
+      "keywords_zh": [
+        "测试时计算",
+        "推理预算",
+        "可验证奖励强化学习",
+        "过程与结果验证"
+      ],
+      "keywords_en": [
+        "test-time compute",
+        "test-time scaling",
+        "RLVR",
+        "verifiable rewards",
+        "budget forcing"
+      ],
+      "explanation": "训练时教模型更好地推理，使用时让模型多想、反复检查或比较候选答案。数学和代码有相对清楚的对错标准，适合构造可自动检查的奖励。",
+      "researchers_do": [
+        "用可验证的答案或程序执行结果提供强化学习奖励，减少对人工编写完整思维链的依赖。",
+        "控制推理长度、候选数量和检查次数，研究多花多少计算能换来多少正确率。"
+      ],
+      "evidence_to_check": [
+        "要同时报告准确率、输出长度、延迟和费用；多想是否优于同样预算下的其他方法。",
+        "数学/竞赛代码上的提升能否转移到缺乏自动验证器的开放任务。",
+        "核查测试数据污染、验证器漏洞和只优化奖励却未解决任务的情况。"
+      ],
+      "sources": [
+        {
+          "label": "DeepSeek-R1：强化学习激励推理能力",
+          "url": "https://arxiv.org/abs/2501.12948",
+          "published": "2025-01-22",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "s1：通过budget forcing控制测试时计算",
+          "url": "https://arxiv.org/abs/2501.19393",
+          "published": "2025-01-31",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        }
+      ]
+    },
+    {
+      "id": "agent-evaluation",
+      "title": "Agent、代码执行与可靠性评测",
+      "category": "llm",
+      "keywords_zh": [
+        "编码智能体",
+        "工具调用",
+        "电脑操作",
+        "长程任务",
+        "重复试验可靠性"
+      ],
+      "keywords_en": [
+        "coding agents",
+        "tool use",
+        "computer use",
+        "long-horizon tasks",
+        "agent evaluations",
+        "pass^k"
+      ],
+      "explanation": "模型从回答问题转向调用工具、修改代码和完成多步任务。研究关注它能否持续、稳定地做对，以及遇到权限边界和模糊目标时会怎样行动。",
+      "researchers_do": [
+        "把真实GitHub问题、用户对话与业务工具交互变成可以执行和检查结果的任务。",
+        "除了单次成功率，还测重复运行的一致性、遵循规则和非预期行动。"
+      ],
+      "evidence_to_check": [
+        "比较时记录模型版本、工具、运行框架、权限、重试次数、推理预算和单任务成本。",
+        "明确是在真实环境还是受控模拟环境中测试；结果是否可以独立复跑。",
+        "同时看任务完成率与违反规则的比例，避免把越界行为计为单纯的能力提升。"
+      ],
+      "sources": [
+        {
+          "label": "SWE-bench：真实GitHub问题评测",
+          "url": "https://arxiv.org/abs/2310.06770",
+          "published": "2023-10-10",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "τ-bench：工具、Agent与用户交互及重复可靠性",
+          "url": "https://arxiv.org/abs/2406.12045",
+          "published": "2024-06-17",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "Anthropic：调查非预期模型行动",
+          "url": "https://www.anthropic.com/research/investigating-unintended-model-actions",
+          "published": "2026-10-09",
+          "date_basis": "官方研究报告发布日期；页面含2026-10-12更正",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        }
+      ]
+    },
+    {
+      "id": "agent-memory",
+      "title": "长期记忆与上下文管理",
+      "category": "llm",
+      "keywords_zh": [
+        "长期记忆",
+        "记忆提取",
+        "记忆更新",
+        "图记忆",
+        "上下文压缩"
+      ],
+      "keywords_en": [
+        "long-term memory",
+        "memory consolidation",
+        "graph memory",
+        "context management",
+        "retrieval"
+      ],
+      "explanation": "把对话和任务经历中有用的信息保存下来，在未来任务中按需找回。关键不只是“记得多”，还包括记得准、及时更新，以及控制检索和输入成本。",
+      "researchers_do": [
+        "比较完整历史、检索增强和结构化记忆，研究什么时候提取、合并或更新事实。",
+        "测跨会话问答、时间关系和多跳检索，同时记录延迟与token成本。"
+      ],
+      "evidence_to_check": [
+        "记忆过期、事实冲突和错误信息能否被纠正；是否支持删除。",
+        "评测是否覆盖长期真实使用，还是只覆盖一个对话数据集。",
+        "自动评委的评分要与人工检查或明确答案对照；厂商自测需要独立验证。"
+      ],
+      "sources": [
+        {
+          "label": "Mem0：可扩展的长期记忆架构",
+          "url": "https://arxiv.org/abs/2504.19413",
+          "published": "2025-04-28",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        }
+      ]
+    },
+    {
+      "id": "unified-multimodal",
+      "title": "统一多模态与实时交互",
+      "category": "llm",
+      "keywords_zh": [
+        "多模态理解与生成",
+        "音视频同步",
+        "实时语音",
+        "统一模型"
+      ],
+      "keywords_en": [
+        "omni models",
+        "unified multimodal models",
+        "streaming speech",
+        "audio-video alignment",
+        "understanding and generation"
+      ],
+      "explanation": "同一系统同时处理文字、图像、视频和声音，并生成文字、语音或图像。研究不只追求单项能力，也追求模态之间的时间对齐和连贯交互。",
+      "researchers_do": [
+        "让理解与生成共享模型或组件，研究交错的图文视频数据能带来哪些能力。",
+        "把音视频输入和语音输出做成流式流程，降低第一段响应等待时间。"
+      ],
+      "evidence_to_check": [
+        "分开检查各模态能力及组合任务，不能用一个总分推断所有模态都更强。",
+        "检查延迟、语音中断与轮流说话能力、视频时间推理和跨模态错误。",
+        "开源代码、权重和训练数据披露程度可能不同，需分别记录。"
+      ],
+      "sources": [
+        {
+          "label": "Qwen2.5-Omni：端到端多模态与流式语音",
+          "url": "https://arxiv.org/abs/2503.20215",
+          "published": "2025-03-26",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "BAGEL：统一多模态预训练",
+          "url": "https://arxiv.org/abs/2505.14683",
+          "published": "2025-05-20",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        }
+      ]
+    },
+    {
+      "id": "inference-efficiency",
+      "title": "推理效率与多模态服务系统",
+      "category": "llm",
+      "keywords_zh": [
+        "推理服务",
+        "批处理",
+        "低精度",
+        "注意力加速",
+        "组件调度"
+      ],
+      "keywords_en": [
+        "inference serving",
+        "batching",
+        "low precision",
+        "FlashAttention",
+        "multimodal serving",
+        "component scheduling"
+      ],
+      "explanation": "把模型真正运行起来时，GPU如何搬运数据、多个请求如何共享计算，以及多模态组件如何调度，都会影响速度和成本。",
+      "researchers_do": [
+        "用硬件友好的注意力实现、异步计算和低精度运算减少内存与计算开销。",
+        "把多模态模型表示为组件计算图，统一安排放置、循环、并行、批处理与流式输出。"
+      ],
+      "evidence_to_check": [
+        "记录GPU型号、数值精度、输入输出长度、并发和批量；更换条件后速度优势可能变化。",
+        "同时检查吞吐量和用户实际感受到的首段延迟、尾部延迟。",
+        "低精度和调度优化是否影响质量、数值稳定性或资源隔离。"
+      ],
+      "sources": [
+        {
+          "label": "FlashAttention-3：Hopper GPU注意力加速",
+          "url": "https://arxiv.org/abs/2407.08608",
+          "published": "2024-07-11",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "M*：模块化多模态推理服务系统",
+          "url": "https://arxiv.org/abs/2606.12688",
+          "published": "2026-06-10",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        }
+      ]
+    },
+    {
+      "id": "vla-control",
+      "title": "VLA与动作序列生成",
+      "category": "embodied",
+      "keywords_zh": [
+        "视觉语言动作模型",
+        "动作分块",
+        "流匹配",
+        "机器人基础模型"
+      ],
+      "keywords_en": [
+        "vision-language-action",
+        "VLA",
+        "action chunking",
+        "flow matching",
+        "robot foundation models"
+      ],
+      "explanation": "让模型根据看到的场景和语言指令生成机器人动作。动作通常是一段连续序列，需要兼顾语义理解与精确、平滑的控制。",
+      "researchers_do": [
+        "把预训练视觉语言模型与动作生成模块结合，用多机器人数据训练通用策略。",
+        "比较动作分块、生成式动作模型和流匹配等方法，改善精细操作与跨任务迁移。"
+      ],
+      "evidence_to_check": [
+        "区分零样本执行、少量微调和任务专门训练；是否真正换过机器人或环境。",
+        "报告控制频率、动作延迟、成功率与失败例子，而不只展示精选视频。",
+        "“通用”要由任务、场景、物体和机器人的覆盖范围支持。"
+      ],
+      "sources": [
+        {
+          "label": "π0：视觉语言动作流模型",
+          "url": "https://arxiv.org/abs/2410.24164",
+          "published": "2024-10-31",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "ACT：低成本硬件上的动作分块",
+          "url": "https://arxiv.org/abs/2304.13705",
+          "published": "2023-04-23",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        }
+      ]
+    },
+    {
+      "id": "embodied-reasoning",
+      "title": "具身推理与执行前核验",
+      "category": "embodied",
+      "keywords_zh": [
+        "具身思维链",
+        "动作相关推理",
+        "运行时核验",
+        "计划动作一致性"
+      ],
+      "keywords_en": [
+        "embodied reasoning",
+        "action-predictive reasoning",
+        "runtime verification",
+        "reasoning-action consistency"
+      ],
+      "explanation": "机器人能说出合理计划，不代表动作结果也符合计划。这一方向让推理与动作预测关联，并在执行前检查候选动作的效果。",
+      "researchers_do": [
+        "筛选确实有助于预测专家动作的推理内容，再用这些轨迹继续训练。",
+        "对多个候选动作预测或模拟结果，挑选最符合文字计划的方案。"
+      ],
+      "evidence_to_check": [
+        "推理是否带来实际动作成功率改善；用无推理或同预算策略作对照。",
+        "额外生成、仿真和核验的耗时能否满足控制需求。",
+        "区分仿真和真实机器人结果，检查仿真预测出错时如何处理。"
+      ],
+      "sources": [
+        {
+          "label": "R&B-EnCoRe：动作预测导向的具身推理",
+          "url": "https://arxiv.org/abs/2602.08167",
+          "published": "2026-02-09",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "Do What You Say：运行时推理与动作一致性核验",
+          "url": "https://arxiv.org/abs/2510.16281",
+          "published": "2025-10-18",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        }
+      ]
+    },
+    {
+      "id": "world-models",
+      "title": "世界模型与行动规划",
+      "category": "embodied",
+      "keywords_zh": [
+        "世界模型",
+        "潜空间预测",
+        "视频自监督",
+        "行动条件预测",
+        "模型预测控制"
+      ],
+      "keywords_en": [
+        "world models",
+        "latent prediction",
+        "video self-supervision",
+        "action-conditioned models",
+        "model-based planning"
+      ],
+      "explanation": "学习“世界接下来会怎样变”，再借助这个预测选择动作。预测可以发生在特征空间，不一定生成一段可观看的视频。",
+      "researchers_do": [
+        "先从大量视频学习物体与运动规律，再用较少的机器人交互数据学习动作的影响。",
+        "用预测模型比较候选行动，研究它能否支持新的环境和目标。"
+      ],
+      "evidence_to_check": [
+        "视频理解、未来预测与可用于控制的因果模型是不同能力，需分别评测。",
+        "检查交互训练数据规模、硬件、环境和任务边界，不能把有限实验等同于通用物理理解。",
+        "预测误差会否在长程规划中累积；真实执行是否优于简单策略。"
+      ],
+      "sources": [
+        {
+          "label": "V-JEPA 2：视频自监督、预测与机器人规划",
+          "url": "https://arxiv.org/abs/2506.09985",
+          "published": "2025-06-11",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        }
+      ]
+    },
+    {
+      "id": "robot-data",
+      "title": "机器人数据规模与跨本体迁移",
+      "category": "embodied",
+      "keywords_zh": [
+        "机器人数据集",
+        "跨本体学习",
+        "遥操作示范",
+        "合成轨迹",
+        "数据标准化"
+      ],
+      "keywords_en": [
+        "robot datasets",
+        "cross-embodiment learning",
+        "teleoperation",
+        "synthetic trajectories",
+        "data standardization"
+      ],
+      "explanation": "机器人学习受数据数量、质量和采集成本限制。研究正在把不同机器人上的经验整理到一起，并用仿真扩大任务和示范的覆盖范围。",
+      "researchers_do": [
+        "统一不同机器人数据格式，测一个机器人上的经验能否帮助另一个机器人。",
+        "用仿真场景、人工示范和自动轨迹生成补充真实采集数据。"
+      ],
+      "evidence_to_check": [
+        "不仅看数据总量，还看任务多样性、动作标定、失败数据和真实场景覆盖。",
+        "跨机器人迁移的提升是否源于更多数据、模型规模或真正的共享知识。",
+        "合成数据在真实任务上的收益需用真实硬件验证。"
+      ],
+      "sources": [
+        {
+          "label": "Open X-Embodiment：跨机器人数据与RT-X",
+          "url": "https://arxiv.org/abs/2310.08864",
+          "published": "2023-10-13",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "RoboCasa：日常任务仿真与数据扩展",
+          "url": "https://arxiv.org/abs/2406.02523",
+          "published": "2024-06-04",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        }
+      ]
+    },
+    {
+      "id": "sim-to-real",
+      "title": "仿真到真实与鲁棒控制",
+      "category": "embodied",
+      "keywords_zh": [
+        "仿真到真实",
+        "域随机化",
+        "奖励设计",
+        "物理参数",
+        "鲁棒性"
+      ],
+      "keywords_en": [
+        "sim-to-real",
+        "domain randomization",
+        "reward design",
+        "physics parameters",
+        "robust control"
+      ],
+      "explanation": "先在仿真里低成本练习，再迁移到真实机器人。难点是仿真和真实世界的接触、摩擦、视觉和延迟并不完全相同。",
+      "researchers_do": [
+        "改变仿真中的物理与视觉参数，让策略适应多种条件。",
+        "用语言模型辅助设计奖励和随机化分布，减少人工调试。"
+      ],
+      "evidence_to_check": [
+        "真实机器人的次数、失败率和环境变化；仿真成功率无法代替真实成功率。",
+        "随机化范围是否经过人工选择，迁移过程中还用了多少真实数据和调参。",
+        "语言模型自动设计的结果能否跨任务复用，还是只适用于展示的任务。"
+      ],
+      "sources": [
+        {
+          "label": "DrEureka：语言模型引导的sim-to-real设计",
+          "url": "https://arxiv.org/abs/2406.01967",
+          "published": "2024-06-04",
+          "date_basis": "论文首版提交日期",
+          "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        }
+      ]
+    }
+  ]
+}
