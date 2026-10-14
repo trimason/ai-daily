@@ -38,7 +38,7 @@ python3 -m http.server 8000 --directory dist
 
 国内团队固定检查名单包括 DeepSeek、阿里 Qwen／通义、字节 Seed／豆包、智谱 GLM、月之暗面 Kimi、百度 ERNIE／文心、腾讯混元、MiniMax、阶跃星辰 StepFun，以及已有的高校和研究机构。关注原论文、技术报告、官方代码和模型发布、独立评测，按新增研究价值收录，不要求每天各家都有新闻。
 
-具身方向重点跟踪小鹏 XPENG 的智能驾驶模型、VLA、世界模型、数据闭环和机器人／IRON 进展。记录版本、测试场景、人工干预、成功率、延迟及开放程度；未披露的数据明确说明，官方演示与第三方实测分别表述。公众号加入“具身智能之心”，从公开可访问文章发现线索后回查原始研究；未核验的公众号入口不编造链接。
+具身方向重点跟踪小鹏 XPENG 的智能驾驶模型、VLA、世界模型、数据闭环和机器人／IRON 进展。记录版本、测试场景、人工干预、成功率、延迟及开放程度；未披露的数据明确说明，官方演示与第三方实测分别表述。重点公众号包括“具身智能之心”和“human five”（微信号 How-to-AI），同时关注机器之心、量子位、PaperWeekly、AI科技评论、新智元，从公开文章发现线索后回查原始研究；未核验的公众号入口不编造链接。human five 的用户指定入口是[《Gemini 4 Argon for Robotics》](https://mp.weixin.qq.com/s/c6jtVqfZ0bI3JtCtExzlhg)，已核对账号、正文及2026-10-14 08:00（北京时间）发布时间；文章未给出官方原文、论文或代码链接，技术主张需继续核验，不能直接写成官方发布。单篇文章不代表已覆盖该账号全部更新。
 
 小鹏必须同时检查 GroundingPI / GroundAnything 的作者项目、论文、GitHub 与模型入口；两者为不同研究。企业资讯与产品页仅是辅助渠道，旧 X-Foresight 解读不能替代新的具身感知成果。国内具身固定名单包括智元 AgiBot、银河通用 Galbot、星海图 GALAXEA、星动纪元 Robotera、自变量 X Square、千寻智能 Spirit AI、宇树 Unitree、傅利叶 Fourier、优必选 UBTECH、逐际动力 LimX、帕西尼 PaXini、它石智航 TARS、蚂蚁灵波 Robbyant。星海图和星动纪元不能混用；论文归属逐篇核对，不将合作实验室全部工作计为公司成果。
 
