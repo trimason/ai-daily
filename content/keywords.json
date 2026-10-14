@@ -241,14 +241,18 @@
         "视觉语言动作模型",
         "动作分块",
         "流匹配",
-        "机器人基础模型"
+        "机器人基础模型",
+        "长时序VLA",
+        "流式推理"
       ],
       "keywords_en": [
         "vision-language-action",
         "VLA",
         "action chunking",
         "flow matching",
-        "robot foundation models"
+        "robot foundation models",
+        "long-horizon VLA",
+        "streaming inference"
       ],
       "explanation": "让模型根据看到的场景和语言指令生成机器人动作。动作通常是一段连续序列，需要兼顾语义理解与精确、平滑的控制。",
       "researchers_do": [
@@ -258,7 +262,8 @@
       "evidence_to_check": [
         "区分零样本执行、少量微调和任务专门训练；是否真正换过机器人或环境。",
         "报告控制频率、动作延迟、成功率与失败例子，而不只展示精选视频。",
-        "“通用”要由任务、场景、物体和机器人的覆盖范围支持。"
+        "“通用”要由任务、场景、物体和机器人的覆盖范围支持。",
+        "机器人动作控制与智驾VLA涉及不同本体和动作空间，需检查评测任务、人工接管与公开数据，不能仅凭同名技术推断跨本体泛化。"
       ],
       "sources": [
         {
@@ -274,6 +279,13 @@
           "published": "2023-04-23",
           "date_basis": "论文首版提交日期",
           "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "刘先明谈小鹏 XOS 6.3.0：面向物理 AI 的一次底层架构升级（小鹏官方技术解读）",
+          "url": "https://www.xiaopeng.com/news/company_news/5593.html",
+          "published": "2026-09-15",
+          "date_basis": "官方技术解读的发布日期，作为历史研究线索，不表示当天新成果",
+          "verified": "已核验官方网页与发布日期；官方技术说明，未见论文或代码链接，尚未独立复现"
         }
       ]
     },

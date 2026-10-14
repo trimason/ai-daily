@@ -1,8 +1,8 @@
 {
   "title": "前沿信息源雷达",
-  "status": "planned",
+  "status": "active",
   "updated_on": "2026-10-14",
-  "intro": "把顶会论文、原始研究发布、技术博客与中文热点连接起来。目录已整理，尚未启用自动采集；可读取的来源与暂未核验的入口分别标注。",
+  "intro": "把顶会论文、原始研究发布、技术博客与中文热点连接起来。每日任务按本目录检查新增内容，重点跟踪国内大模型团队与小鹏 XPENG；可读取的来源与尚未核验的入口分别标注。",
   "groups": [
     {
       "id": "conferences",
@@ -502,6 +502,174 @@
       ]
     },
     {
+      "id": "domestic-model-teams",
+      "group": "国内大模型团队",
+      "description": "每日固定检查这些团队的原始研究、技术报告、代码与模型发布。优先训练与后训练、推理、Agent、多模态、长上下文及开放模型；按可靠的新研究价值收录，不强求每家每天都有新闻。",
+      "sources": [
+        {
+          "id": "deepseek",
+          "name": "DeepSeek（深度求索）",
+          "url": "https://api-docs.deepseek.com/zh-cn/updates/",
+          "role": "国内团队原始研究发布",
+          "scope": "模型训练、推理与后训练、技术报告、开源代码及API版本变化",
+          "note": "官方更新日志；官网 https://www.deepseek.com/ 与官方组织 https://github.com/deepseek-ai 可交叉回查。API或产品公告须与研究论文、代码发布区分。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://api-docs.deepseek.com/zh-cn/updates/"
+          }
+        },
+        {
+          "id": "qwen",
+          "name": "阿里 Qwen／通义千问",
+          "url": "https://qwenlm.github.io/blog/",
+          "role": "国内团队原始研究发布",
+          "scope": "基础模型、推理与Agent、多模态、开源模型、训练与推理工程",
+          "note": "官方技术博客，链接至新研究入口 https://qwen.ai/research（本次HTTP 200）；官方组织 https://github.com/QwenLM。博客存量文章必须保留原始日期。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://qwenlm.github.io/blog/"
+          }
+        },
+        {
+          "id": "bytedance-seed",
+          "name": "字节跳动 Seed／豆包研究团队",
+          "url": "https://seed.bytedance.com/zh/research",
+          "role": "国内团队原始研究发布",
+          "scope": "语言模型、推理、Agent、多模态生成、语音及机器人相关公开研究",
+          "note": "以Seed官方研究页面和论文为主，不把豆包产品更新直接视为模型研究成果；官方组织 https://github.com/ByteDance-Seed。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://seed.bytedance.com/zh/research"
+          }
+        },
+        {
+          "id": "zhipu-glm",
+          "name": "智谱 GLM／Z.ai",
+          "url": "https://www.zhipuai.cn/zh/research",
+          "role": "国内团队原始研究发布",
+          "scope": "语言与多模态模型、推理、Agent、开源模型和技术报告",
+          "note": "官方研究目录；官方组织 https://github.com/zai-org 可交叉回查论文、模型卡和代码。具体研究文章需逐篇核验，目录可访问不表示每条内容已核验。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.zhipuai.cn/zh/research"
+          }
+        },
+        {
+          "id": "moonshot-kimi",
+          "name": "月之暗面 Moonshot AI／Kimi",
+          "url": "https://www.moonshot.ai/",
+          "role": "国内团队原始研究发布",
+          "scope": "基础模型、推理、Agent、长上下文、多模态与开源研究",
+          "note": "官网与官方组织 https://github.com/MoonshotAI 双向链接，可回查技术报告、代码与模型卡；网页发布、论文首版及模型修订日期分别记录。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.moonshot.ai/"
+          }
+        },
+        {
+          "id": "baidu-ernie",
+          "name": "百度 ERNIE／文心",
+          "url": "https://ernie.baidu.com/",
+          "role": "国内团队原始研究发布",
+          "scope": "语言与多模态模型、模型训练、推理、Agent及开源训练工具",
+          "note": "官方ERNIE Blog；官方代码仓库 https://github.com/PaddlePaddle/ERNIE 的GitHub API元数据指向本入口。文心产品发布与论文研究成果分别标注。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://ernie.baidu.com/"
+          }
+        },
+        {
+          "id": "tencent-hunyuan",
+          "name": "腾讯混元 Hunyuan",
+          "url": "https://hunyuan.tencent.com/",
+          "role": "国内团队原始研究发布",
+          "scope": "语言与多模态模型、图像视频生成、3D、世界模型及开源研究",
+          "note": "官方发布入口；组织 https://github.com/Tencent-Hunyuan 的元数据指向 https://hy.tencent.com/（本次HTTP 200）。网页依赖JavaScript，获取具体文章时须核验正文、日期和论文。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://hunyuan.tencent.com/"
+          }
+        },
+        {
+          "id": "minimax",
+          "name": "MiniMax",
+          "url": "https://www.minimax.io/news",
+          "role": "国内团队原始研究发布",
+          "scope": "语言模型、推理与Agent、语音、视频和多模态生成、开源研究",
+          "note": "官方News同时含研究、产品及合作公告，日报应分别标注；官方组织 https://github.com/MiniMax-AI。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.minimax.io/news"
+          }
+        },
+        {
+          "id": "stepfun",
+          "name": "阶跃星辰 StepFun",
+          "url": "https://www.stepfun.com/",
+          "role": "国内团队原始研究发布",
+          "scope": "基础模型、推理、多模态、Agent、开源研究与具身相关模型",
+          "note": "官网可读取，页面依赖JavaScript；官网公开静态资源含 https://github.com/stepfun-ai 的具体仓库链接，公开GitHub API亦核验该组织存在。具体论文、代码与模型卡须逐篇读取，保留实际发布日期。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.stepfun.com/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "xpeng",
+      "group": "XPENG 小鹏：物理 AI 与机器人",
+      "description": "重点跟踪智驾 VLA、世界模型、数据闭环、端侧部署与 IRON 机器人。优先带日期的技术解读、论文、代码及实际实验；官方演示、性能自报和第三方实测分别说明。",
+      "sources": [
+        {
+          "id": "xpeng-news",
+          "name": "XPENG 小鹏官方资讯中心",
+          "url": "https://www.xiaopeng.com/news",
+          "role": "官方新闻 / 技术解读",
+          "scope": "第二代 VLA、InfiniVLA 长时序、X-Foresight 世界模型、Flow Matching、MoT、蒸馏与车端部署、Robotaxi、IRON；检索已发表论文、代码和技术报告及后续验证。过滤普通汽车销量、售价和营销新闻。",
+          "note": "优先回查技术报告、论文与代码，记录版本、场景、人工干预、成功率、延迟和开放程度，未披露则说明。智驾技术入口：https://www.xiaopeng.com/aidefinedvehicle.html。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.xiaopeng.com/news"
+          }
+        },
+        {
+          "id": "xpeng-iron",
+          "name": "XPENG 小鹏 AI 机器人 IRON",
+          "url": "https://www.xiaopeng.com/airobot.html",
+          "role": "官方技术 / 产品入口",
+          "scope": "物理世界大模型、机器人本体、灵巧手、导航/操作、自主任务和真实场景验证；同时从官网 AI 汽车入口核对 VLA / 世界模型复用。",
+          "note": "官方技术展示页没有明确发布日期，不能仅凭页面变化称为今日新成果；精选演示与第三方实测分别标注。",
+          "verification": {
+            "status": "verified",
+            "checked_on": "2026-10-14",
+            "http_status": 200,
+            "resolved_url": "https://www.xiaopeng.com/airobot.html"
+          }
+        }
+      ]
+    },
+    {
       "id": "technical-blogs",
       "group": "知名技术博客与研究通讯",
       "description": "跟踪方法解读、工程实践、独立测评与社区分歧；正文区分作者意见、公开数据和已复现结果。博客不以更新频率代替研究价值。",
@@ -623,8 +791,22 @@
     {
       "id": "chinese-media",
       "group": "中文公众号与媒体热点",
-      "description": "机器之心、量子位等用于发现国内讨论、论文解读与行业热点，再回查原始论文或官方发布。公众号文章的可访问性受公开链接与平台限制影响，不承诺覆盖所有微信内容。",
+      "description": "发现中文读者关注的话题，包括用户指定的“具身智能之心”。公众号与媒体用于发现线索，再回查论文、技术报告、项目页或官方发布；无法公开访问的内容明确说明。",
       "sources": [
+        {
+          "id": "embodied-ai-heart",
+          "name": "具身智能之心",
+          "url": null,
+          "role": "公众号热点发现",
+          "scope": "具身智能、VLA、机器人学习、世界模型、论文解读与产业进展",
+          "note": "用户指定的重点公众号；官方公开入口尚未独立核验。使用公开可检索文章回查论文、作者项目或官方发布，无法访问时说明覆盖缺口。",
+          "verification": {
+            "status": "unverified",
+            "checked_on": "2026-10-14",
+            "http_status": null,
+            "note": "暂未核验官方公众号入口，不猜测公众号地址。"
+          }
+        },
         {
           "id": "jiqizhixin",
           "name": "机器之心",
@@ -705,6 +887,7 @@
     "同一论文的arXiv、会议、官方博客和媒体报道合并为一个条目，保留版本及事件日期，避免重复计数。",
     "讨论条目并列呈现问题、主要观点、证据和未解决分歧；个人观点、作者报告和独立复现分别标注，不将转发量当作技术验证。",
     "热点关键词来自近期实际收录的论文与讨论；同时提供持续关注的主题词，并明确区分观察到的热度与长期方向。",
-    "公众号只读取公开可访问内容与用户提供的文章链接，不绕过登录限制；日报摘要引用原始出处，避免整篇转载。"
+    "公众号只读取公开可访问内容与用户提供的文章链接，不绕过登录限制；日报摘要引用原始出处，避免整篇转载。",
+    "国内大模型团队与小鹏 XPENG 每日检查新增研究。模型发布、技术论文、代码或权重、评测和产品演示分开说明；不强求各家每天都有新闻，不将官方演示等同于独立实测。"
   ]
 }
