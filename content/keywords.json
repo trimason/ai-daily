@@ -3,7 +3,7 @@
     "title": "研究方向与检索关键词",
     "status": "sample-research-map",
     "updated": "2026-10-14",
-    "intro": "这是一张持续跟踪的研究地图：用已核验日期的代表论文说明各方向在研究什么，以及阅读新成果时该检查哪些证据。它包含历史基础与样刊研究，不是2026-10-14的实时热度榜；未做讨论量统计，也不声称任何方向热度上升。",
+    "intro": "这是一张持续跟踪的研究地图：结合历史代表论文与近期精选，用中英关键词说明研究问题和证据检查项。来源日期与整理日期分别展示；没有统计讨论量，不作为2026-10-14的实时热度榜。",
     "verification": "来源通过HTTP读取，核验论文标题、首版日期与摘要，或官方报告正文；未对这些论文执行全文精读或独立复现。",
     "dating_policy": "来源日期默认记录arXiv首版提交日期；官方文章单独注明发布日期。更新日期表示研究地图整理时间。"
   },
@@ -102,6 +102,13 @@
           "published": "2026-10-09",
           "date_basis": "官方研究报告发布日期；页面含2026-10-12更正",
           "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "Qwen E-Commerce Bench：让Agent经营模拟网店一年，分开衡量赚钱、风控和学习",
+          "url": "https://qwen.ai/blog?id=e-commerce-bench",
+          "published": "2026-09-03",
+          "date_basis": "原始来源日期；推荐整理于2026-10-14",
+          "verified": "已核验官方条目/正文及所链接原始研究；未全文精读或独立复现"
         }
       ]
     },
@@ -196,7 +203,10 @@
         "批处理",
         "低精度",
         "注意力加速",
-        "组件调度"
+        "组件调度",
+        "KV缓存压缩",
+        "相位敏感性",
+        "专家并行通信"
       ],
       "keywords_en": [
         "inference serving",
@@ -204,7 +214,10 @@
         "low precision",
         "FlashAttention",
         "multimodal serving",
-        "component scheduling"
+        "component scheduling",
+        "KV-cache compression",
+        "phase sensitivity",
+        "expert-parallel communication"
       ],
       "explanation": "把模型真正运行起来时，GPU如何搬运数据、多个请求如何共享计算，以及多模态组件如何调度，都会影响速度和成本。",
       "researchers_do": [
@@ -230,6 +243,20 @@
           "published": "2026-06-10",
           "date_basis": "论文首版提交日期",
           "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "字节Seed发现KV缓存压缩的“周期性弱点”：平均分可能掩盖位置失效",
+          "url": "https://seed.bytedance.com/en/public_papers/periodic-weak-spots-phase-sensitivity-from-chunked-kv-cache-compression",
+          "published": "2026-09-28",
+          "date_basis": "原始来源日期；推荐整理于2026-10-14",
+          "verified": "已核验官方条目/正文及所链接原始研究；未全文精读或独立复现"
+        },
+        {
+          "label": "DeepSeek开源DeepEP-Ascend，为昇腾MoE训练与推理提供专家并行通信",
+          "url": "https://github.com/deepseek-ai/DeepEP-Ascend",
+          "published": "2026-09-30",
+          "date_basis": "官方仓库创建日期；具体首次公开时间未由独立带日期公告确认",
+          "verified": "已核验官方条目/正文及所链接原始研究；未全文精读或独立复现"
         }
       ]
     },
@@ -285,7 +312,14 @@
           "url": "https://www.xiaopeng.com/news/company_news/5593.html",
           "published": "2026-09-15",
           "date_basis": "官方技术解读的发布日期，作为历史研究线索，不表示当天新成果",
-          "verified": "已核验官方网页与发布日期；官方技术说明，未见论文或代码链接，尚未独立复现"
+          "verified": "已核验官方技术文章，另回查X-Foresight原论文摘要；未全文精读或独立实测"
+        },
+        {
+          "label": "Physical Intelligence开放Pi API beta：上传示范、微调模型、托管推理",
+          "url": "https://www.pi.website/blog/api-beta",
+          "published": "2026-10-13",
+          "date_basis": "原始来源日期；推荐整理于2026-10-14",
+          "verified": "已核验官方条目/正文及所链接原始研究；未全文精读或独立复现"
         }
       ]
     },

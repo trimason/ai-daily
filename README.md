@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前内容是用于确认网站结构和阅读体验的样刊，**不代表对应日期的完整新闻汇总**。各条内容的实际发布日期、来源与核验说明见正文。
+当前首页展示扩展来源后的研究精选，覆盖国内模型团队、小鹏物理 AI、机器人部署与会议议题，并保留原始样刊归档。精选包含近期成果和标注日期的历史读物，**不代表当天完整新闻汇总**。
 
 ## 本地构建与预览
 
@@ -28,7 +28,7 @@ python3 -m http.server 8000 --directory dist
 
 ## 内容维护
 
-每期内容保存在 `content/issues/YYYY-MM-DD.json`，例如 `content/issues/2026-10-14.json`。以已有样刊的字段结构为模板，新增日期对应的 JSON，再运行构建命令。
+常规日报保存在 `content/issues/YYYY-MM-DD.json`。同日另发精选时，可使用 `YYYY-MM-DD-curated.json` 并设置相同的 `slug`，以保留既有页面与样刊。`status` 使用 `daily`、`curated` 或 `sample`；同日精选优先于样刊展示，后续日报按日期成为首页。可用 `featured_ids` 选择首页最多六条推荐，用 highlight 的 `story_id` 直达对应内容。
 
 每条研究或讨论应给出可回查的来源、实际发布日期以及证据或局限；样刊和正式日报应在内容中明确区分。新增内容后，构建器负责生成网页、RSS 订阅文件以及可导入 Obsidian 的 Markdown（`dist/markdown/YYYY-MM-DD.md`）。每期页面提供“保存 Markdown”入口。
 
@@ -77,4 +77,4 @@ python3 scripts/publish.py --publish
 python3 scripts/sync_obsidian.py --vault /path/to/your/vault
 ```
 
-同步仅管理独立日报目录中的日期笔记；个人笔记保存在其他文件，已有非日报文件不会被覆盖。这里的笔记留在本地，不会提交到公开仓库。当前一期仍是明确标注的样刊；正式每日任务会生成新日期的日报。
+同步仅管理独立日报目录中的日期笔记；个人笔记保存在其他文件，已有非日报文件不会被覆盖。这里的笔记留在本地，不会提交到公开仓库。同日精选使用带后缀的独立笔记名，保留已有样刊；正式每日任务继续生成新日期的日报。

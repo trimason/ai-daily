@@ -1,0 +1,298 @@
+{
+  "date": "2026-10-14",
+  "slug": "2026-10-14-curated",
+  "status": "curated",
+  "title": "国内模型、世界模型与机器人数据闭环",
+  "intro": "扩展来源后的首轮精选：把国内模型与推理基础设施、小鹏物理AI路线、机器人部署和会议研究议题放在一起读；另附值得补读的历史论文。",
+  "coverage": "本期整理于2026-10-14，是扩展来源后的推荐更新，不是24小时完整新闻。近期与研究回顾覆盖2026-09-03至2026-10-13；Kimi K3和Real2Edit2Real另标历史研究精选，每条保留原始发布日期。",
+  "stories": [
+    {
+      "id": "seed-kv-phase-sensitivity",
+      "category": "llm",
+      "tag": "近期精选 · 长上下文 · KV缓存压缩",
+      "title": "字节Seed发现KV缓存压缩的“周期性弱点”：平均分可能掩盖位置失效",
+      "organization": "ByteDance Seed 等合作团队",
+      "published": "2026-09-28",
+      "summary": "研究关注把连续token窗口压缩为较少缓存条目的长上下文模型：同一信息相对于压缩窗口边界的位置不同，可能出现明显不同的检索准确率。作者在开放权重模型中观察到相位敏感性，并从零训练多种KV压缩设计的小型模型，通过因果干预分析不同注意力组件的相位分工。",
+      "why": "这为“长上下文够长但找不到关键信息”提供了新的排查维度。阅读模型报告或部署检索Agent时，除了平均准确率，还应移动证据位置、覆盖压缩窗口内的不同相位，检查是否存在稳定的薄弱点。",
+      "limitation": "这是9月28日的近期论文精选，未纳入10月新品。已核验Seed官方研究条目的摘要，尚未精读论文全文或独立复现；结论针对采用分块KV压缩的模型，不应推及所有长上下文模型。官方摘要报告的最大差距依赖所测模型和检索设置。",
+      "sources": [
+        {
+          "label": "Seed官方研究条目（2026-09-28）",
+          "url": "https://seed.bytedance.com/en/public_papers/periodic-weak-spots-phase-sensitivity-from-chunked-kv-cache-compression"
+        },
+        {
+          "label": "论文PDF（官方条目链接）",
+          "url": "https://arxiv.org/pdf/2609.36322"
+        }
+      ]
+    },
+    {
+      "id": "qwen-ecommerce-bench",
+      "category": "llm",
+      "tag": "9月研究回顾 · 长程Agent · 评测",
+      "title": "Qwen E-Commerce Bench：让Agent经营模拟网店一年，分开衡量赚钱、风控和学习",
+      "organization": "Qwen · 淘宝天猫集团等合作团队",
+      "published": "2026-09-03",
+      "summary": "评测让Agent从10万元启动资金出发，在365个模拟经营日内处理选品、议价、库存、发货和现金流。环境基于脱敏电商数据构建，用确定性内核控制需求和供应商报价，语言模型只负责呈现对话；最终同时检查资产、谈判、欺诈规避、现金流、操作效率、执行和长期学习七个维度。",
+      "why": "长程任务没有一次答对就结束的自然终点。该工作把可复现环境和多维失败分析结合起来，有助于理解为什么一个Agent总收益很高，仍可能在风控、记忆复用或现金流上存在弱点。",
+      "limitation": "这是9月3日的研究回顾。已核验Qwen官方博文正文与其论文/代码链接，尚未精读论文全文或复现。365天是模拟时间，并非真实网店运营一年；确定性需求和谈判内核利于比较，也限制了对真实市场、供应商和突发事件的外推。模型表现还受运行框架、上下文管理和工具预算影响。",
+      "sources": [
+        {
+          "label": "Qwen官方研究博文（2026-09-03）",
+          "url": "https://qwen.ai/blog?id=e-commerce-bench"
+        },
+        {
+          "label": "论文",
+          "url": "https://arxiv.org/abs/2608.30730"
+        },
+        {
+          "label": "开源评测代码",
+          "url": "https://github.com/QwenLM/E-CommerceBench"
+        },
+        {
+          "label": "项目页",
+          "url": "https://ecbench.github.io/"
+        }
+      ]
+    },
+    {
+      "id": "deepseek-deepep-ascend-moe-communication",
+      "category": "llm",
+      "tag": "9月代码精选 · MoE · 昇腾通信",
+      "title": "DeepSeek开源DeepEP-Ascend，为昇腾MoE训练与推理提供专家并行通信",
+      "organization": "DeepSeek",
+      "published": "2026-09-30",
+      "summary": "DeepSeek公开面向华为昇腾NPU的DeepEP-Ascend，为MoE的dispatch/combine提供专家并行all-to-all通信，并包含FP8 dispatch等实现。团队披露了Ascend 950DT、CANN 9.2.0及PoC HDK上的测试条件和不同专家并行规模下的带宽结果，便于结合硬件与网络配置检查瓶颈。",
+      "why": "MoE模型的实际训练和推理效率不仅取决于模型结构，也受专家路由后的跨卡通信影响。这个项目展示了国产NPU上的MoE通信内核、软硬件栈和可复查的基准条件，适合关注模型基础设施与昇腾生态的读者。",
+      "limitation": "日期采用官方仓库创建日期2026-09-30；初始代码commit标为2026-09-29。仓库创建或commit时间不能证明首次公开时间，具体公开发布时间未由独立带日期公告确认。带宽数据来自DeepSeek在未公开发售的PoC硬件配置上的自测，不是公开商业固件的结果；更大EP规模及combine仍在优化，PP、Engram等接口也属实验阶段。不能把这些数字直接外推到其他硬件、网络拓扑或生产负载。",
+      "sources": [
+        {
+          "label": "官方开源仓库与性能条件",
+          "url": "https://github.com/deepseek-ai/DeepEP-Ascend"
+        },
+        {
+          "label": "官方仓库元数据（创建日期）",
+          "url": "https://api.github.com/repos/deepseek-ai/DeepEP-Ascend"
+        }
+      ],
+      "date_label": "官方仓库创建日期"
+    },
+    {
+      "id": "kimi-k3-open-weights-architecture",
+      "category": "llm",
+      "tag": "历史研究精选 · 开放权重 · MoE架构",
+      "title": "Kimi K3开放权重：2.8T参数模型结合KDA、AttnRes与高稀疏MoE",
+      "organization": "月之暗面 Moonshot AI",
+      "published": "2026-07-27",
+      "summary": "Moonshot公开Kimi K3权重及技术报告。官方资料描述其为2.8万亿总参数、1040亿激活参数的MoE模型，使用Kimi Delta Attention、Attention Residuals与Stable LatentMoE，原生支持图像输入并提供100万token上下文。团队报告，在其内部训练与评测口径下，新结构相较Kimi K2约有2.5倍整体扩展效率提升，并展示长程编程、知识工作和多模态任务案例。",
+      "why": "这份报告适合作为近期开放前沿模型的架构读物：可以沿着长上下文注意力、跨层信息流和稀疏专家扩展三个方向，查看超大MoE模型如何尝试提高训练扩展效率，并将模型能力延伸到多步Agent任务。",
+      "limitation": "日期采用官方模型仓库首个commit记录（2026-07-27），具体权重首次公开时间未由独立带日期公告确认；这条属于历史研究读物。架构与效率数字来自团队技术报告；2.5倍是其整体扩展效率口径，并不等于任意任务的推理成本下降2.5倍。评测对比的模型、推理档位、Agent harness和来源不完全一致；已核验官方博客与模型卡，未独立复现实验。大规模模型的部署成本需结合硬件条件评估。",
+      "sources": [
+        {
+          "label": "Moonshot官方技术博客",
+          "url": "https://www.kimi.com/blog/kimi-k3"
+        },
+        {
+          "label": "官方开放权重、评测说明与技术报告",
+          "url": "https://github.com/MoonshotAI/Kimi-K3"
+        },
+        {
+          "label": "Kimi K3技术报告PDF",
+          "url": "https://github.com/MoonshotAI/Kimi-K3/blob/main/k3_tech_report.pdf"
+        },
+        {
+          "label": "官方首版模型卡（2026-07-27初始commit）",
+          "url": "https://github.com/MoonshotAI/Kimi-K3/blob/521359a5cae5e79d02e5a2102c2cea9ce3b9b79a/README.md"
+        }
+      ],
+      "date_label": "首版模型卡提交日期"
+    },
+    {
+      "id": "multi-agent-uv-science",
+      "category": "llm",
+      "tag": "10月研究案例 · AI科研 · 人类复核",
+      "title": "Claude Science协助紫外星图整理：多Agent数据处理仍需要研究者复核",
+      "organization": "Anthropic · Johns Hopkins研究者",
+      "published": "2026-10-08",
+      "summary": "一位 Johns Hopkins 天体物理研究者与 Claude Science 协作，整合多个紫外巡天数据集、交叉校准，并估计尚无紫外观测的区域。项目同时标记测量与预测区域，给出不确定性估计。 研究者还发现了两轮Agent审查漏掉的观测圆盘残影，并要求重新校准。",
+      "why": "AI科研的价值越来越多地体现在整理数据、运行分析和建立可检查的产物。这个案例同时说明：多个Agent互相审核仍可能共同漏错，需要领域研究者判断，以及把观测、预测和不确定性分别展示。",
+      "limitation": "官方案例文章称约三分之一地图来自预测，并非新增天文观测。科研结论需结合原始数据、验证方法与研究者审查；该案例不能证明模型能独立完成所有科研任务。 这里只核验官方案例正文，未检查全部原始天文数据或独立复跑处理流程。",
+      "sources": [
+        {
+          "label": "官方研究者案例 · 2026-10-08",
+          "url": "https://www.anthropic.com/research/the-missing-map-of-the-sky"
+        }
+      ]
+    },
+    {
+      "id": "xpeng-xos630-physical-ai",
+      "category": "embodied",
+      "tag": "近期精选 · VLA · 世界模型 · 车端部署",
+      "title": "小鹏披露 XOS 6.3.0 技术路线：历史记忆、未来预测与车端蒸馏",
+      "organization": "XPENG 小鹏",
+      "published": "2026-09-15",
+      "summary": "小鹏官方技术文章介绍第二代 VLA 在 XOS 6.3.0 中的部署：InfiniVLA 用缓存和流式推理让历史视觉信息参与决策，本次车端配置选择 30 秒历史上下文；X-Foresight 世界模型提供 6 秒未来场景预测。Flow Matching Head 用生成轨迹表达多种合理动作，MoT 按场景分配专家。Max 版本围绕目标芯片重构视觉架构，再结合教师信号、数据分布和编译部署优化进行蒸馏。",
+      "why": "这是一条把世界模型、动作生成与有限硬件预算一起设计的国内物理 AI 路线。值得继续跟踪时间上下文到底改善哪些驾驶任务、世界预测如何影响动作，以及不同芯片上延迟和能力如何权衡。官方还称技术底座可复用于机器人，为跨本体迁移提供了待验证的方向。",
+      "limitation": "这是 2026-09-15 的官方技术精选，不是 10 月新发布成果。已核验官方文章和 X-Foresight 论文摘要，尚未阅读论文全文或独立实测。30 秒历史、6 秒预测及汽车到机器人底座复用均为厂商描述，文章未给出统一开放评测来证明跨本体泛化。X-Foresight 论文首版为 2026-05-24，最新列出的修订为 2026-07-07。",
+      "sources": [
+        {
+          "label": "小鹏官方技术文章 · 2026-09-15",
+          "url": "https://www.xiaopeng.com/news/company_news/5593.html"
+        },
+        {
+          "label": "X-Foresight 原论文与版本记录 · 首版 2026-05-24",
+          "url": "https://arxiv.org/abs/2605.24892"
+        }
+      ]
+    },
+    {
+      "id": "pi-api-beta",
+      "category": "embodied",
+      "tag": "10月新发布 · 机器人基础模型 · 实机迭代",
+      "title": "Physical Intelligence开放Pi API beta：上传示范、微调模型、托管推理",
+      "organization": "Physical Intelligence",
+      "published": "2026-10-13",
+      "summary": "Physical Intelligence 开放 Pi API beta，让开发者上传自己的机器人数据、微调最新模型，再通过托管推理在实机上运行。公开合作案例展示了“采集示范—训练—测试—按失败补充数据”的迭代过程。",
+      "why": "这条进展把“通用机器人模型”连接到应用团队能自行运行的数据闭环：采集示范、微调、实机测试，再围绕失败补数据。值得追踪新机器人适配需要多少数据，以及服务延迟和连接质量是否满足任务要求。",
+      "limitation": "这是厂商的产品与合作案例发布，并非独立性能验证。文中说明部分云端部署仍受网络连接影响；不同机器人的延迟、可靠性与适配成本需单独评估。",
+      "sources": [
+        {
+          "label": "官方发布 · 2026-10-13",
+          "url": "https://www.pi.website/blog/api-beta"
+        }
+      ]
+    },
+    {
+      "id": "real2edit2real-data-generation",
+      "category": "embodied",
+      "tag": "历史论文精选 · CVPR 2026 · 具身数据",
+      "title": "Real2Edit2Real：用三维编辑和视频生成扩充机器人示范",
+      "organization": "北京大学 · PKU-AgiBot Lab · 智元 AgiBot",
+      "published": "2025-12-22",
+      "summary": "研究从多视角 RGB 观察重建具有真实尺度的三维几何，在点云中编辑物体位置和操作轨迹，并校正机器人姿态得到可靠深度。随后以深度为主要控制信号，结合动作、边缘和射线图生成新的多视角操作视频。作者在四项真实操作任务中报告：从 1—5 条源示范生成的数据训练出的策略，可匹配或超过用 50 条真实示范训练的策略。",
+      "why": "机器人数据采集昂贵，这项工作把可控空间编辑与生成视频连接起来，用于扩展物体位置、高度和纹理变化。阅读时可以重点检查合成数据的几何一致性、动作标签可靠性，以及数据增广是否真正改善新场景中的成功率。",
+      "limitation": "这是历史论文精选，首版 2025-12-22，最新列出的修订为 2026-03-21；论文与项目页均标注 CVPR 2026。线索来自“具身智能之心”的公开微信搜索结果，搜索页标示文章日期为 2026-03-30，但正文访问遇到验证码，因此未声称读到公众号全文。技术内容已回查原论文摘要和作者项目页；10—50 倍数据效率是四项任务中的作者结果，不能推广为任意任务的“1 条顶 50 条”。未独立复现。项目页演示视频注明分别以 2 倍和 5 倍速度播放。",
+      "sources": [
+        {
+          "label": "论文摘要与版本记录",
+          "url": "https://arxiv.org/abs/2512.19402"
+        },
+        {
+          "label": "作者项目页 · 方法、实验任务与机构",
+          "url": "https://real2edit2real.github.io/"
+        },
+        {
+          "label": "开源代码",
+          "url": "https://github.com/Real2Edit2Real/Real2Edit2Real"
+        }
+      ]
+    },
+    {
+      "id": "sail-colm-2026",
+      "category": "discussion",
+      "tag": "10月会议观察 · COLM 2026 · 真实Agent数据",
+      "title": "COLM 2026研究样本：真实Coding Agent交互、线性注意力与上下文管理",
+      "organization": "Stanford AI Lab及合作团队",
+      "published": "2026-10-06",
+      "summary": "SAIL 的 COLM 2026 汇总列出真实用户 Coding Agent 交互数据、线性注意力与递归架构等主会成果；另列 workshop 工作，涵盖强化学习驱动的上下文与 KV cache 管理、推理时计算扩展和知识蒸馏。",
+      "why": "这份会议清单给出三条可继续查原论文的线索：评测应靠近真实用户交互；长任务需要主动管理上下文；推理预算与模型结构要一起比较。SWE-chat、Switching Linear Attention与Neural Garbage Collection分别对应这些问题。",
+      "limitation": "这是单个实验室的会议成果样本，不能代表会议或行业整体热度。页面分别列出主会与 workshop，部分 Oral 属于 workshop；录用类型不能混用。这里只核验汇总页面，未独立复现各篇论文。 这些是论文与研究议题样本，未统计社交讨论量，不能当作全行业热度排名。",
+      "sources": [
+        {
+          "label": "SAIL官方COLM 2026汇总 · 主会与workshop分别列出",
+          "url": "https://ai.stanford.edu/blog/colm-2026/"
+        }
+      ]
+    }
+  ],
+  "highlights": [
+    {
+      "title": "国内团队：从榜单转向失效分析",
+      "text": "Seed检查KV压缩中的位置弱点；Qwen拆分长期经营的七个能力维度；DeepSeek开放国产NPU上的MoE通信实现。",
+      "story_id": "seed-kv-phase-sensitivity"
+    },
+    {
+      "title": "小鹏：把未来预测连到车端动作",
+      "text": "9月技术解读连接历史记忆、世界模型、Flow Matching和蒸馏；附X-Foresight原论文，继续追踪公开评测。",
+      "story_id": "xpeng-xos630-physical-ai"
+    },
+    {
+      "title": "机器人：让应用团队自己跑数据闭环",
+      "text": "10月13日Pi API beta支持上传示范、微调和实机托管推理；失败如何转成下一轮数据，是部署要点。",
+      "story_id": "pi-api-beta"
+    }
+  ],
+  "reading": [
+    {
+      "title": "Periodic Weak Spots: Phase Sensitivity from Chunked KV-Cache Compression",
+      "reason": "检查压缩窗口相位是否掩盖长上下文检索弱点；关注所测模型、位置扫描和因果干预设计。",
+      "url": "https://arxiv.org/pdf/2609.36322"
+    },
+    {
+      "title": "X-Foresight: A Joint Vision-Action Causal Forecasting Network via Predictive World Modeling",
+      "reason": "小鹏世界模型的原始论文。重点检查分块自回归、课程学习、关键时间片采样怎样连接未来预测和动作控制；首版 2026-05-24，最新修订 2026-07-07。",
+      "url": "https://arxiv.org/abs/2605.24892"
+    },
+    {
+      "title": "Real2Edit2Real: Generating Robotic Demonstrations via a 3D Control Interface",
+      "reason": "来自“具身智能之心”公开检索线索并回查原文的历史论文精选。适合关注具身数据效率的读者，重点检查四项实机任务、1—5 条源示范的增广设置与对照数据量。",
+      "url": "https://arxiv.org/abs/2512.19402"
+    },
+    {
+      "title": "Kimi K3 Technical Report",
+      "reason": "历史研究读物（2026-07-27）：重点读KDA、Attention Residuals与Stable LatentMoE，核对扩展效率定义、部署规模和各项基准条件。",
+      "url": "https://github.com/MoonshotAI/Kimi-K3/blob/main/k3_tech_report.pdf"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "统一多模态 / unified multimodal models",
+      "explanation": "把视觉、语言、语音等能力连接到同一系统，关注流式交互、时间对齐与部署延迟。"
+    },
+    {
+      "term": "相位敏感性 / phase sensitivity",
+      "explanation": "KV缓存按窗口压缩后，信息在窗口内的位置会影响检索；平均分可能隐藏周期性失败。"
+    },
+    {
+      "term": "专家并行通信 / expert-parallel communication",
+      "explanation": "MoE把token路由给不同专家，跨卡dispatch/combine通信可能成为训练和推理瓶颈。对应DeepEP-Ascend。"
+    },
+    {
+      "term": "世界模型 / world models",
+      "explanation": "预测未来场景并辅助选择动作；小鹏X-Foresight提供了连接预测与驾驶决策的研究线索。"
+    },
+    {
+      "term": "长时序VLA与流式推理 / long-horizon VLA and streaming inference",
+      "explanation": "把历史视觉信息持续纳入决策，同时控制缓存与车端计算开销。对应小鹏InfiniVLA路线。"
+    },
+    {
+      "term": "机器人数据闭环 / robotic data loops",
+      "explanation": "采集示范、微调、实机测试，再用失败决定下一轮数据；对应Pi API beta。"
+    },
+    {
+      "term": "合成机器人示范 / synthetic robotic demonstrations",
+      "explanation": "通过三维编辑与生成视频扩展训练样本；历史论文Real2Edit2Real强调几何与动作标签的一致性。"
+    },
+    {
+      "term": "线性注意力与稀疏MoE / linear attention and sparse MoE",
+      "explanation": "从注意力结构与专家激活比例改善长上下文和大模型扩展效率。对应COLM样本与Kimi K3历史报告。"
+    },
+    {
+      "term": "真实Agent交互 / in-the-wild agent interactions",
+      "explanation": "将真实用户的多轮任务纳入研究，检查上下文管理、工具条件和长任务可靠性。对应COLM会议样本。"
+    },
+    {
+      "term": "AI科研与不确定性 / AI for science and uncertainty",
+      "explanation": "让Agent处理科学数据，同时区分观测与预测，用人类复核检查误差和不确定性。对应紫外星图案例。"
+    }
+  ],
+  "featured_ids": [
+    "seed-kv-phase-sensitivity",
+    "qwen-ecommerce-bench",
+    "deepseek-deepep-ascend-moe-communication",
+    "xpeng-xos630-physical-ai",
+    "pi-api-beta",
+    "sail-colm-2026"
+  ]
+}

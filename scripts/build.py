@@ -36,11 +36,15 @@ def display_date(value):
 
 
 def issue_path(issue):
-    return f"daily/{issue['date']}/"
+    return f"daily/{issue.get('slug', issue['date'])}/"
 
 
 def label(issue):
-    return '<span class="sample-badge">样刊</span>' if issue.get("status") == "sample" else '<span class="sample-badge live">日报</span>'
+    if issue.get('status') == 'sample':
+        return '<span class="sample-badge">样刊</span>'
+    if issue.get('status') == 'curated':
+        return '<span class="sample-badge live">精选</span>'
+    return '<span class="sample-badge live">日报</span>'
 
 
 def layout(title, body, active="home", description="每日关注大模型、具身智能与研究社区的前沿进展。", canonical=""):
@@ -79,7 +83,7 @@ def layout(title, body, active="home", description="每日关注大模型、具�
 def teaser(story, issue):
     return f'''<a class="story-teaser" href="{href(issue_path(issue))}#{esc(story['id'])}">
       <div class="meta"><span class="tag {esc(story['category'])}">{CATEGORIES[story['category']]}</span><span>{esc(story.get('organization'))}</span></div>
-      <h3>{esc(story['title'])}</h3><p>{esc(story['summary'])}</p><span class="read-link">查看研究与来源 <span aria-hidden="true">↗</span></span>
+      <h3>{esc(story['title'])}</h3><div class="published">{esc(story.get('date_label', '来源发布日期'))}：{esc(story.get('published') or '待确认')}</div><p>{esc(story['summary'])}</p><span class="read-link">查看研究与来源 <span aria-hidden="true">↗</span></span>
     </a>'''
 
 
@@ -98,10 +102,14 @@ def home(issues, keywords, recent):
     latest = issues[0]
     stories = latest['stories']
     highlights = latest.get('highlights', [])[:3]
-    cards = "".join(f'<a class="highlight-card" href="{href(issue_path(latest))}"><span class="highlight-number">0{i + 1}</span><h3>{esc(h["title"])}</h3><p>{esc(h["text"])}</p><span aria-hidden="true" class="highlight-arrow">↗</span></a>' for i, h in enumerate(highlights))
-    picks = []
-    for category in CATEGORIES:
-        picks += [s for s in stories if s['category'] == category][:2]
+    cards = "".join(f'<a class="highlight-card" href="{href(issue_path(latest))}{("#" + esc(h["story_id"])) if h.get("story_id") else ""}"><span class="highlight-number">0{i + 1}</span><h3>{esc(h["title"])}</h3><p>{esc(h["text"])}</p><span aria-hidden="true" class="highlight-arrow">↗</span></a>' for i, h in enumerate(highlights))
+    if latest.get('featured_ids'):
+        by_id = {s['id']: s for s in stories}
+        picks = [by_id[story_id] for story_id in latest['featured_ids'][:6]]
+    else:
+        picks = []
+        for category in CATEGORIES:
+            picks += [s for s in stories if s['category'] == category][:2]
     reading = latest.get('reading', [])
     reading_html = "".join(f'<a class="reading-item" href="{url(r["url"])}" target="_blank" rel="noopener noreferrer"><span>↗</span><div><h3>{esc(r["title"])}</h3><p>{esc(r["reason"])}</p></div></a>' for r in reading)
     reading_panel = f'<section class="side-panel reading-panel"><p class="eyebrow">READ NEXT</p><h2>值得深入读</h2>{reading_html}</section>' if reading else ""
@@ -125,7 +133,7 @@ def home(issues, keywords, recent):
 def article(story):
     published = display_date(story['published']) if story.get('published') else "发布日期待确认"
     sources = "".join(f'<a href="{url(s["url"])}" target="_blank" rel="noopener noreferrer">{esc(s["label"])} ↗</a>' for s in story['sources'])
-    return f'''<article class="research-card" id="{esc(story['id'])}"><div class="meta"><span class="tag {esc(story['category'])}">{esc(story.get('tag') or CATEGORIES[story['category']])}</span><span>{esc(story.get('organization'))}</span></div><h3>{esc(story['title'])}</h3><div class="published">来源发布日期：{esc(published)}</div><p class="story-summary">{esc(story['summary'])}</p><div class="analysis-grid"><div><h4><span class="green-dot"></span>为什么关注</h4><p>{esc(story['why'])}</p></div><div><h4><span class="amber-dot"></span>证据与局限</h4><p>{esc(story['limitation'])}</p></div></div><div class="source-links"><span>原始来源</span>{sources}</div></article>'''
+    return f'''<article class="research-card" id="{esc(story['id'])}"><div class="meta"><span class="tag {esc(story['category'])}">{esc(story.get('tag') or CATEGORIES[story['category']])}</span><span>{esc(story.get('organization'))}</span></div><h3>{esc(story['title'])}</h3><div class="published">{esc(story.get('date_label', '来源发布日期'))}：{esc(published)}</div><p class="story-summary">{esc(story['summary'])}</p><div class="analysis-grid"><div><h4><span class="green-dot"></span>为什么关注</h4><p>{esc(story['why'])}</p></div><div><h4><span class="amber-dot"></span>证据与局限</h4><p>{esc(story['limitation'])}</p></div></div><div class="source-links"><span>原始来源</span>{sources}</div></article>'''
 
 
 def daily(issue, issues):
@@ -143,19 +151,20 @@ def daily(issue, issues):
         sections.append(f'<section class="article-section" id="issue-keywords"><div class="article-section-title"><h2>本期关键词</h2><a class="quiet-link" href="{href("radar/")}">研究方向地图 →</a></div><p class="keyword-scope">关键词来自本期收录内容，帮助检索与理解。</p><div class="issue-keywords">{keyword_rows}</div></section>')
     idx = issues.index(issue)
     previous = f'<a href="{href(issue_path(issues[idx + 1]))}">← 上一期 · {issues[idx + 1]["date"]}</a>' if idx + 1 < len(issues) else '<span>归档从本期开始</span>'
-    body = f'''<div class="article-heading"><a class="back-link" href="{href()}">← 返回首页</a><div class="issue-meta"><time datetime="{issue['date']}">{display_date(issue['date'])}</time>{label(issue)}<span>{len(issue['stories'])} 条精选</span><a href="{href('markdown/' + issue['date'] + '.md')}" download>保存 Markdown ↓</a></div><h1>{esc(issue['title'])}</h1><p>{esc(issue['intro'])}</p></div><div class="coverage-note"><span aria-hidden="true">◌</span><p>{esc(issue.get('coverage'))}</p></div><div class="article-layout"><aside class="article-toc"><p class="eyebrow">本期目录</p>{''.join(toc)}<a class="toc-archive" href="{href('archive/')}">历史归档 ↗</a></aside><div class="article-body">{''.join(sections)}<div class="issue-navigation">{previous}<a href="{href('archive/')}">全部简报 →</a></div></div></div>'''
+    body = f'''<div class="article-heading"><a class="back-link" href="{href()}">← 返回首页</a><div class="issue-meta"><time datetime="{issue['date']}">{display_date(issue['date'])}</time>{label(issue)}<span>{len(issue['stories'])} 条精选</span><a href="{href('markdown/' + issue.get('slug', issue['date']) + '.md')}" download>保存 Markdown ↓</a></div><h1>{esc(issue['title'])}</h1><p>{esc(issue['intro'])}</p></div><div class="coverage-note"><span aria-hidden="true">◌</span><p>{esc(issue.get('coverage'))}</p></div><div class="article-layout"><aside class="article-toc"><p class="eyebrow">本期目录</p>{''.join(toc)}<a class="toc-archive" href="{href('archive/')}">历史归档 ↗</a></aside><div class="article-body">{''.join(sections)}<div class="issue-navigation">{previous}<a href="{href('archive/')}">全部简报 →</a></div></div></div>'''
     return layout(issue['title'], body, description=issue['intro'], canonical=issue_path(issue))
 
 
 def markdown(issue):
-    lines = [f'# {issue["title"]}', '', f'日期：{issue["date"]}' + (' · 样刊' if issue.get('status') == 'sample' else ''), '', issue['coverage'], '', issue['intro'], '']
+    edition = {'sample': ' · 样刊', 'curated': ' · 精选'}.get(issue.get('status'), '')
+    lines = [f'# {issue["title"]}', '', f'日期：{issue["date"]}' + edition, '', issue['coverage'], '', issue['intro'], '']
     for key, name in CATEGORIES.items():
         stories = [s for s in issue['stories'] if s['category'] == key]
         if not stories:
             continue
         lines += [f'## {name}', '']
         for s in stories:
-            lines += [f'### {s["title"]}', '', f'{s["organization"]} · 来源发布日期：{s.get("published") or "待确认"}', '', s['summary'], '', '**为什么关注**', '', s['why'], '', '**证据与局限**', '', s['limitation'], '', '**原始来源**', '']
+            lines += [f'### {s["title"]}', '', f'{s["organization"]} · {s.get("date_label", "来源发布日期")}：{s.get("published") or "待确认"}', '', s['summary'], '', '**为什么关注**', '', s['why'], '', '**证据与局限**', '', s['limitation'], '', '**原始来源**', '']
             lines += [f'- [{source["label"]}]({source["url"]})' for source in s['sources']]
             lines += ['']
     if issue.get('keywords'):
@@ -183,7 +192,7 @@ def topics(issues):
 
 
 def about():
-    body = '''<section class="page-heading"><p class="eyebrow">SOURCES & METHOD</p><h1>关注进展，也关注证据。</h1><p>一份面向研究阅读的大模型与具身智能简报。</p></section><div class="about-grid"><section class="about-card"><span class="about-number">01</span><h2>一手来源优先</h2><p>从企业与实验室公告、论文、代码和项目页追踪成果。社区讨论用于发现问题与分歧，保留具体出处。</p></section><section class="about-card"><span class="about-number">02</span><h2>两条研究主线</h2><p>大模型关注推理、Agent、多模态、训练与评测；具身智能关注 VLA、世界模型、机器人学习与真实部署。</p></section><section class="about-card"><span class="about-number">03</span><h2>贡献与局限一起读</h2><p>记录新贡献、研究意义及证据边界。机构自报、独立复现和社区观点分别表述，未核验的部分明确标注。</p></section><section class="about-card"><span class="about-number">04</span><h2>保留准确的时间线</h2><p>简报日期与来源发布日期分别展示。旧论文的新代码、复现或评测若再次收录，会说明本次更新的原因。</p></section></div><section class="about-note"><h2>关于当前样刊</h2><p>样刊展示内容组织与阅读体验，收录公开来源示例，不代表当天完整新闻。正式日报启动后，将按上次更新以来的新增内容筛选与去重。</p><p>本网站提供历史归档、主题检索与 RSS。订阅 RSS 可在支持的阅读器中查看后续更新。</p></section>'''
+    body = '''<section class="page-heading"><p class="eyebrow">SOURCES & METHOD</p><h1>关注进展，也关注证据。</h1><p>一份面向研究阅读的大模型与具身智能简报。</p></section><div class="about-grid"><section class="about-card"><span class="about-number">01</span><h2>一手来源优先</h2><p>从企业与实验室公告、论文、代码和项目页追踪成果。社区讨论用于发现问题与分歧，保留具体出处。</p></section><section class="about-card"><span class="about-number">02</span><h2>两条研究主线</h2><p>大模型关注推理、Agent、多模态、训练与评测；具身智能关注 VLA、世界模型、机器人学习与真实部署。</p></section><section class="about-card"><span class="about-number">03</span><h2>贡献与局限一起读</h2><p>记录新贡献、研究意义及证据边界。机构自报、独立复现和社区观点分别表述，未核验的部分明确标注。</p></section><section class="about-card"><span class="about-number">04</span><h2>保留准确的时间线</h2><p>简报日期与来源发布日期分别展示。旧论文的新代码、复现或评测若再次收录，会说明本次更新的原因。</p></section></div><section class="about-note"><h2>区分日报、精选与样刊</h2><p>日报筛选近期新增内容；精选按研究价值推荐，可包含明确标注日期的历史读物；样刊展示阅读体验。每条分别记录来源日期与简报整理日期，不把历史成果当作当天新发布。</p><p>本网站提供历史归档、主题检索与 RSS。订阅 RSS 可在支持的阅读器中查看后续更新。</p></section>'''
     return layout("来源与方法", body, "about", canonical="about/")
 
 
@@ -216,7 +225,8 @@ def feed(issues):
     for issue in issues:
         item = ET.SubElement(channel, "item")
         link = SITE + "/" + issue_path(issue)
-        values = [("title", ("[样刊] " if issue.get('status') == 'sample' else '') + issue['title']), ("link", link), ("guid", link), ("description", issue.get('coverage', '') + " " + issue['intro'])]
+        prefix = {'sample': '[样刊] ', 'curated': '[精选] '}.get(issue.get('status'), '')
+        values = [("title", prefix + issue['title']), ("link", link), ("guid", link), ("description", issue.get('coverage', '') + " " + issue['intro'])]
         for key, value in values:
             ET.SubElement(item, key).text = value
         published = datetime.fromisoformat(issue['date'] + "T00:00:00+08:00").astimezone(timezone.utc)
@@ -226,8 +236,9 @@ def feed(issues):
 
 def validate(issue, path):
     date.fromisoformat(issue['date'])
-    if path.stem != issue['date']:
-        raise ValueError(f"Date and filename differ: {path.name}")
+    slug = issue.get('slug', issue['date'])
+    if not re.fullmatch(re.escape(issue['date']) + r'(?:-[a-z0-9]+)*', slug) or path.stem != slug:
+        raise ValueError(f"Invalid issue slug or filename: {path.name}")
     for key in ['title', 'intro', 'coverage', 'stories']:
         if not issue.get(key):
             raise ValueError(f"Missing {key} in {path.name}")
@@ -249,6 +260,12 @@ def validate(issue, path):
             url(source['url'])
     for reading in issue.get('reading', []):
         url(reading['url'])
+    featured = issue.get('featured_ids', [])
+    if len(featured) != len(set(featured)) or any(story_id not in ids for story_id in featured):
+        raise ValueError(f"Invalid featured story IDs in {path.name}")
+    for highlight in issue.get('highlights', []):
+        if highlight.get('story_id') and highlight['story_id'] not in ids:
+            raise ValueError(f"Invalid highlight story ID in {path.name}")
 
 
 def main():
@@ -268,6 +285,8 @@ def main():
         issues.append(issue)
     if not issues:
         parser.error('No content found in content/issues')
+    status_rank = {'sample': 0, 'curated': 1, 'daily': 2}
+    issues.sort(key=lambda i: (i['date'], status_rank.get(i.get('status'), 2), i.get('slug', i['date'])), reverse=True)
     radar = json.loads((ROOT / 'content/radar.json').read_text(encoding='utf-8'))
     keywords = json.loads((ROOT / 'content/keywords.json').read_text(encoding='utf-8'))
     recent = json.loads((ROOT / 'content/recent-signals.json').read_text(encoding='utf-8'))
@@ -284,7 +303,7 @@ def main():
         target.write_text(content, encoding='utf-8')
     (output / 'markdown').mkdir()
     for issue in issues:
-        (output / 'markdown' / (issue['date'] + '.md')).write_text(markdown(issue), encoding='utf-8')
+        (output / 'markdown' / (issue.get('slug', issue['date']) + '.md')).write_text(markdown(issue), encoding='utf-8')
     (output / 'feed.xml').write_bytes(feed(issues))
     (output / '.nojekyll').touch()
     sitemap = ET.Element('urlset', xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')

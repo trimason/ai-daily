@@ -11,3 +11,5 @@
 @media(max-width:1000px){.direction-section .signal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.signal-grid,.direction-section .signal-grid{grid-template-columns:1fr}.signal-card{padding:22px 19px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.highlight-card{transition:none}}
+
+.issue-cover .sample-badge.live{color:var(--lime)}

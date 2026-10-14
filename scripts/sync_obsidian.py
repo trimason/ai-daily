@@ -19,7 +19,7 @@ def main():
     if args.date and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", args.date):
         parser.error("--date must use YYYY-MM-DD")
     source = ROOT / "dist" / "markdown"
-    files = sorted(source.glob((args.date or "*") + ".md"))
+    files = sorted(source.glob((args.date + '*' if args.date else '*') + ".md"))
     if not files:
         parser.error("No generated Markdown found; build the website first")
     target = vault / "AI前沿日报"
@@ -28,7 +28,7 @@ def main():
     target.mkdir(exist_ok=True)
     updated = 0
     for path in files:
-        if path.is_symlink() or not re.fullmatch(r"\d{4}-\d{2}-\d{2}\.md", path.name):
+        if path.is_symlink() or not re.fullmatch(r"\d{4}-\d{2}-\d{2}(?:-[a-z0-9]+)*\.md", path.name):
             parser.error("Unexpected Markdown source")
         dest = target / path.name
         content = MARKER + path.read_text(encoding="utf-8")
