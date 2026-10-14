@@ -462,7 +462,7 @@
         "heading": "5. 声称会自我改进，还要测什么？",
         "paragraphs": [
           "先问每轮更新的是策略权重、训练数据、Agent代码，还是改进程序。记录轮次、采集量、总计算、人工标注及训练与测试任务；保持独立的留出评测，防止系统反复针对同一测试集优化。",
-          "在真实机器人中，比较各轮策略要固定任务、场景与执行预算。若还声称改进程序越来越有效，就要从相同策略起点和经验出发，让旧、新程序在相同预算下各训练一个策略，再用独立任务评测。仅看最终成功率上升，无法区分更好程序与更多数据/算力。这是当前Physical RSI综述提出的证据要求，并非所有论文已经做到。"
+          "在真实机器人中，比较各轮策略要固定任务、场景与执行预算。若还声称改进程序越来越有效，就要从相同策略起点和经验出发，让旧、新程序在相同预算下分别产生后继系统（通过策略训练，或代码与流程更新），再用独立任务评测。仅看最终成功率上升，无法区分更好程序与更多数据/算力。这是当前Physical RSI综述提出的证据要求，并非所有论文已经做到。"
         ]
       }
     ],
@@ -522,12 +522,12 @@
         "url": "https://arxiv.org/abs/2510.03827"
       },
       {
-        "label": "GroundingPI原论文：感知分数、下游仿真与开环驾驶评测",
-        "url": "https://arxiv.org/abs/2609.39601"
+        "label": "Gemini 4 Argon官方总发布：ERQA与Apollo内部实机案例（2026-10-13 UTC／北京时间10-14）",
+        "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/"
       },
       {
-        "label": "X2Real官方README：运行协议、成功条件与evaluation-only范围",
-        "url": "https://github.com/X-Square-Robot/x2real"
+        "label": "Who Improves the Robot?：Physical RSI评测与改进机制比较（2026-10-13）",
+        "url": "https://arxiv.org/abs/2610.18842"
       }
     ]
   }
