@@ -2,7 +2,7 @@
 
 面向中文阅读的大模型与具身智能研究日报网站。每期保留独立链接，提供历史归档和 RSS，适合在电脑和手机上阅读。
 
-计划地址：<https://trimason.github.io/ai-daily/>。该地址在创建仓库、启用 GitHub Pages 并成功部署后才会生效。
+网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
 当前内容是用于确认网站结构和阅读体验的样刊，**不代表对应日期的完整新闻汇总**。各条内容的实际发布日期、来源与核验说明见正文。
 
@@ -52,10 +52,25 @@ python3 -m http.server 8000 --directory dist
 
 `.github/workflows/pages.yml` 会检出仓库、运行 Python 构建器，将 `dist/` 上传并发布。后续推送到 `main` 会再次部署，因此每期历史页面都能保留固定链接。
 
-## 每日生成与网站部署
+## 每日更新与网站部署
 
-目前工作流只负责发布仓库中已有的内容，**尚未启用每天自动采集和生成新闻**。网站托管与新闻生成是两个独立环节。
+GitHub Actions 负责构建并发布仓库中的内容。采集、筛选、核验和中文写作由 Codex 的每日任务完成；网站本身没有内置模型 API，也不在浏览器中保存任何密钥。日常流程是核验原始来源、更新 JSON、构建、同步 Markdown、提交公开源码、检查 Pages 部署。
 
-新闻自动生成需要进一步确定信息源、采集方式、去重记录、模型 API、生成时间和质量检查，再配置相应的定时流程。所需 API 密钥应保存在 GitHub Secrets 等密钥存储中，不写入公开仓库，也不放入日报内容。
+GitHub CLI 登录后，可用发布脚本检查变更。默认只检查，添加 `--publish` 才会提交到固定仓库 `trimason/ai-daily`：
 
-在采集与生成流程完成前，可以人工维护 `content/issues/` 并通过现有工作流发布。公开仓库及 GitHub Pages 会公开展示提交的内容，请仅放入计划公开的日报与网站文件。
+```sh
+python3 scripts/publish.py
+python3 scripts/publish.py --publish
+```
+
+发布脚本使用 GitHub 官方 API，仅上传允许的内容和网站源码；不会上传 `dist/`、父目录论文库或凭据。如果远程在发布期间被更新，它会终止，避免覆盖并行变更。提交成功与网页部署成功分别核验。
+
+## Obsidian 同步
+
+构建后，可将 Markdown 复制到已有 Obsidian 库中的 `AI前沿日报/`。把命令中的路径替换成自己的库路径：
+
+```sh
+python3 scripts/sync_obsidian.py --vault /path/to/your/vault
+```
+
+同步仅管理独立日报目录中的日期笔记；个人笔记保存在其他文件，已有非日报文件不会被覆盖。这里的笔记留在本地，不会提交到公开仓库。当前一期仍是明确标注的样刊；正式每日任务会生成新日期的日报。
