@@ -3,11 +3,84 @@
     "title": "研究方向与检索关键词",
     "status": "sample-research-map",
     "updated": "2026-10-14",
-    "intro": "这是一张持续跟踪的研究地图：结合历史代表论文与近期精选，用中英关键词说明研究问题和证据检查项。来源日期与整理日期分别展示；没有统计讨论量，不作为2026-10-14的实时热度榜。",
+    "intro": "中英关键词连接具体研究问题。优先展示具身感知、部署闭环及世界动作模型等本期方向；这是一张持续跟踪地图，近期事件和日期请看上方动向，不是实时热度榜。",
     "verification": "来源通过HTTP读取，核验论文标题、首版日期与摘要，或官方报告正文；未对这些论文执行全文精读或独立复现。",
     "dating_policy": "来源日期默认记录arXiv首版提交日期；官方文章单独注明发布日期。更新日期表示研究地图整理时间。"
   },
   "directions": [
+    {
+      "id": "grounding-physical-intelligence",
+      "title": "精确视觉定位与具身感知",
+      "category": "embodied",
+      "keywords_zh": [
+        "精确视觉定位",
+        "空间指向",
+        "具身感知骨干",
+        "视觉原语"
+      ],
+      "keywords_en": [
+        "grounding",
+        "visual primitives",
+        "physical intelligence",
+        "perception backbone"
+      ],
+      "explanation": "在产生动作前，先确定对象和目标在图像中的准确位置。GroundingPI研究专门训练的空间感知如何迁移到动作模型，GroundAnything研究结构化定位的并行解码。",
+      "researchers_do": [
+        "统一点、框等坐标表示，混合检测、指代、指向与OCR等监督。",
+        "固定下游动作模块和数据，比较感知预训练对泛化、示范效率与推理速度的影响。"
+      ],
+      "evidence_to_check": [
+        "感知分数与动作成功率分别看；仿真和离线驾驶不能当真实部署验证。",
+        "预训练规模、监督、骨干参数不同会影响因果归因。",
+        "公开感知checkpoint是否配有动作适配器与完整评测环境。"
+      ],
+      "sources": [
+        {
+          "label": "GroundingPI原论文",
+          "url": "https://arxiv.org/abs/2609.39601",
+          "published": "2026-09-30"
+        },
+        {
+          "label": "GroundAnything原论文",
+          "url": "https://arxiv.org/abs/2609.39600",
+          "published": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "id": "deployment-quality-learning",
+      "title": "部署闭环、轨迹质量与失败学习",
+      "category": "embodied",
+      "keywords_zh": [
+        "部署数据闭环",
+        "失败数据",
+        "质量条件",
+        "策略迭代"
+      ],
+      "keywords_en": [
+        "deployment rollouts",
+        "failure data",
+        "quality conditioning",
+        "closed-loop policy improvement"
+      ],
+      "explanation": "实机运行会积累成功、次优与失败经验。研究如何让模型学习环境变化，又避免把失败动作当成功示范。",
+      "researchers_do": [
+        "用视频预测保留失败经验的信息，降低或屏蔽失败动作模仿。",
+        "按轮次采集、训练与评测，分析初始能力和轨迹质量对下一轮收益的影响。"
+      ],
+      "evidence_to_check": [
+        "成功率变化对应几轮、多少数据和什么预算；各本体是否分别训练。",
+        "检查失败标签与质量估计，避免只挑成功案例。",
+        "区分单任务后训练、多任务评测与跨本体通用策略。"
+      ],
+      "sources": [
+        {
+          "label": "LoopWAM原论文",
+          "url": "https://arxiv.org/abs/2610.18873",
+          "published": "2026-10-13"
+        }
+      ]
+    },
     {
       "id": "reasoning-test-time",
       "title": "推理扩展与可验证奖励",
@@ -308,18 +381,18 @@
           "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
         },
         {
-          "label": "刘先明谈小鹏 XOS 6.3.0：面向物理 AI 的一次底层架构升级（小鹏官方技术解读）",
-          "url": "https://www.xiaopeng.com/news/company_news/5593.html",
-          "published": "2026-09-15",
-          "date_basis": "官方技术解读的发布日期，作为历史研究线索，不表示当天新成果",
-          "verified": "已核验官方技术文章，另回查X-Foresight原论文摘要；未全文精读或独立实测"
-        },
-        {
           "label": "Physical Intelligence开放Pi API beta：上传示范、微调模型、托管推理",
           "url": "https://www.pi.website/blog/api-beta",
           "published": "2026-10-13",
           "date_basis": "原始来源日期；推荐整理于2026-10-14",
           "verified": "已核验官方条目/正文及所链接原始研究；未全文精读或独立复现"
+        },
+        {
+          "label": "宇树UnifoLM-WLA：Base权重与微调代码",
+          "url": "https://github.com/unitreerobotics/unifolm-wla",
+          "published": "2026-09-28",
+          "date_basis": "README模型/代码发布",
+          "verified": "已读官方README，未运行"
         }
       ]
     },
@@ -401,6 +474,20 @@
           "published": "2025-06-11",
           "date_basis": "论文首版提交日期",
           "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "LoopWAM：部署轨迹改进世界动作模型",
+          "url": "https://arxiv.org/abs/2610.18873",
+          "published": "2026-10-13",
+          "date_basis": "arXiv首版（UTC）",
+          "verified": "已读摘要、方法与实机评测相关段落，未复现"
+        },
+        {
+          "label": "智元GE-Act 2.0",
+          "url": "https://arxiv.org/abs/2609.05588",
+          "published": "2026-10-09",
+          "date_basis": "v2修订日期（首版09-04），未比较版本变化",
+          "verified": "已核版本、官方项目与机构"
         }
       ]
     },
@@ -446,6 +533,13 @@
           "published": "2024-06-04",
           "date_basis": "论文首版提交日期",
           "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "X2Real：长程具身评测运行时",
+          "url": "https://github.com/X-Square-Robot/x2real",
+          "published": "2026-10-10",
+          "date_basis": "v0.9.0代码发布",
+          "verified": "已读README开放范围，未运行"
         }
       ]
     },

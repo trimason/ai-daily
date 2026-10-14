@@ -14,6 +14,13 @@ ROOT = Path(__file__).resolve().parents[1]
 CATEGORIES = {"llm": "大模型", "embodied": "具身智能", "discussion": "前沿讨论"}
 BASE = ""
 SITE = ""
+VERIFICATION_LABELS = {
+    "content_verified": "内容已核验",
+    "verified": "入口可达",
+    "reachable": "入口可达",
+    "unreadable": "本次未能读取",
+    "unverified": "待核验",
+}
 
 
 def esc(value):
@@ -25,7 +32,10 @@ def href(path=""):
 
 
 def url(value):
-    if urlparse(value).scheme not in ("https", "http"):
+    if not isinstance(value, str):
+        raise ValueError(f"Invalid source URL: {value}")
+    parsed = urlparse(value)
+    if parsed.scheme not in ("https", "http") or not parsed.netloc:
         raise ValueError(f"Invalid source URL: {value}")
     return esc(value)
 
@@ -82,7 +92,7 @@ def layout(title, body, active="home", description="每日关注大模型、具�
 
 def teaser(story, issue):
     return f'''<a class="story-teaser" href="{href(issue_path(issue))}#{esc(story['id'])}">
-      <div class="meta"><span class="tag {esc(story['category'])}">{CATEGORIES[story['category']]}</span><span>{esc(story.get('organization'))}</span></div>
+      <div class="meta"><span class="tag {esc(story['category'])}">{esc(story.get('tag') or CATEGORIES[story['category']])}</span><span>{esc(story.get('organization'))}</span></div>
       <h3>{esc(story['title'])}</h3><div class="published">{esc(story.get('date_label', '来源发布日期'))}：{esc(story.get('published') or '待确认')}</div><p>{esc(story['summary'])}</p><span class="read-link">查看研究与来源 <span aria-hidden="true">↗</span></span>
     </a>'''
 
@@ -98,6 +108,35 @@ def signal_card(signal):
     return f'<article class="signal-card" id="{esc(signal["id"])}"><div class="signal-meta"><time datetime="{esc(signal["published"])}">{esc(signal["published"])}</time><span>{esc(signal["source_label"])}</span></div><h3><a href="{url(signal["url"])}" target="_blank" rel="noopener noreferrer">{esc(signal["title"])} ↗</a></h3><p>{esc(signal["summary"])}</p><div class="keyword-tags">{tags}</div><p class="signal-limitation"><strong>如何理解：</strong>{esc(signal["limitation"])}</p></article>'
 
 
+def technical_preview(issue):
+    lesson = issue.get('technical_explainer')
+    if not lesson:
+        return ''
+    return f'<section class="technical-preview"><div><p class="eyebrow">DAILY MECHANISM · {lesson["reading_minutes"]} 分钟</p><h2>每日技术点：{esc(lesson["title"])}</h2><p class="technical-preview-summary">{esc(lesson["summary"])}</p></div><a class="quiet-link" href="{href(issue_path(issue))}#technical-explainer">读懂机制 →</a></section>'
+
+
+def technical_explainer(lesson):
+    section_html = []
+    for section in lesson['sections']:
+        paragraphs = ''.join(f'<p>{esc(text)}</p>' for text in section['paragraphs'])
+        bullets = f'<ul>{"".join(f"<li>{esc(text)}</li>" for text in section["bullets"])}</ul>' if section.get('bullets') else ''
+        section_html.append(f'<div class="lesson-section"><h4>{esc(section["heading"])}</h4>{paragraphs}{bullets}</div>')
+    comparison_html = ''
+    if lesson.get('comparison'):
+        comparison = lesson['comparison']
+        columns = ''.join(f'<th scope="col">{esc(text)}</th>' for text in comparison['columns'])
+        rows = ''.join('<tr>' + ''.join(f'<td>{esc(text)}</td>' for text in row) + '</tr>' for row in comparison['rows'])
+        comparison_html = f'<div class="lesson-table-scroll" tabindex="0" role="region" aria-label="{esc(comparison["caption"])}"><table class="lesson-table"><caption>{esc(comparison["caption"])}</caption><thead><tr>{columns}</tr></thead><tbody>{rows}</tbody></table></div>'
+    example_html = ''
+    if lesson.get('example'):
+        example = lesson['example']
+        paragraphs = ''.join(f'<p>{esc(text)}</p>' for text in example['paragraphs'])
+        example_html = f'<div class="lesson-example"><h4>{esc(example["title"])}</h4>{paragraphs}</div>'
+    checklist = ''.join(f'<li>{esc(text)}</li>' for text in lesson['checklist'])
+    sources = ''.join(f'<a href="{url(source["url"])}" target="_blank" rel="noopener noreferrer">{esc(source["label"])} ↗</a>' for source in lesson['sources'])
+    return f'<section class="article-section technical-explainer" id="technical-explainer"><div class="article-section-title"><h2>每日技术点</h2><span>{lesson["reading_minutes"]} 分钟理解</span></div><article class="technical-lesson" data-explainer-id="{esc(lesson["id"])}"><h3>{esc(lesson["title"])}</h3><p class="lesson-summary">{esc(lesson["summary"])}</p><div class="lesson-why"><h4>为什么今天讲这个</h4><p>{esc(lesson["why_now"])}</p></div>{"".join(section_html)}{comparison_html}{example_html}<div class="lesson-section"><h4>读论文时检查这些</h4><ul class="lesson-checklist">{checklist}</ul></div><p class="lesson-takeaway"><strong>带走一句话：</strong>{esc(lesson["takeaway"])}</p><div class="source-links"><span>来源与证据</span>{sources}</div></article></section>'
+
+
 def home(issues, keywords, recent):
     latest = issues[0]
     stories = latest['stories']
@@ -105,7 +144,7 @@ def home(issues, keywords, recent):
     cards = "".join(f'<a class="highlight-card" href="{href(issue_path(latest))}{("#" + esc(h["story_id"])) if h.get("story_id") else ""}"><span class="highlight-number">0{i + 1}</span><h3>{esc(h["title"])}</h3><p>{esc(h["text"])}</p><span aria-hidden="true" class="highlight-arrow">↗</span></a>' for i, h in enumerate(highlights))
     if latest.get('featured_ids'):
         by_id = {s['id']: s for s in stories}
-        picks = [by_id[story_id] for story_id in latest['featured_ids'][:6]]
+        picks = [by_id[story_id] for story_id in latest['featured_ids']]
     else:
         picks = []
         for category in CATEGORIES:
@@ -123,6 +162,7 @@ def home(issues, keywords, recent):
     </section>
     <div class="coverage-note"><span aria-hidden="true">◌</span><p>{esc(latest.get('coverage', '以公开来源为依据，记录研究进展与社区讨论。'))}</p></div>
     <section class="highlights"><div class="section-heading"><div><p class="eyebrow">THE SHORTLIST</p><h2>本期速读</h2></div><span class="section-hint">先看重点，再读原文</span></div><div class="highlight-grid">{cards}</div></section>
+    {technical_preview(latest)}
     <div class="content-columns"><section><div class="section-heading"><div><p class="eyebrow">RESEARCH & IDEAS</p><h2>研究与观点</h2></div><a class="quiet-link" href="{href('topics/')}">按主题检索 →</a></div><div class="teaser-list">{''.join(teaser(s, latest) for s in picks)}</div></section><aside class="sidebar">{reading_panel}<section class="side-panel"><p class="eyebrow">HOW TO READ</p><h2>每条都能追溯</h2><ul class="method-list"><li><span>01</span>新成果与新贡献</li><li><span>02</span>为什么值得关注</li><li><span>03</span>实验局限与原始来源</li></ul><a class="quiet-link" href="{href('about/')}">了解筛选方法 →</a></section><section class="subscribe-panel"><span class="eyebrow">STAY CURIOUS</span><h2>把更新放进阅读器</h2><p>通过 RSS 订阅，保留自己的阅读节奏。</p><a href="{href('feed.xml')}">RSS 订阅 ↗</a></section></aside></div>
     {recent_panel}
     {direction_panel}
@@ -133,7 +173,7 @@ def home(issues, keywords, recent):
 def article(story):
     published = display_date(story['published']) if story.get('published') else "发布日期待确认"
     sources = "".join(f'<a href="{url(s["url"])}" target="_blank" rel="noopener noreferrer">{esc(s["label"])} ↗</a>' for s in story['sources'])
-    return f'''<article class="research-card" id="{esc(story['id'])}"><div class="meta"><span class="tag {esc(story['category'])}">{esc(story.get('tag') or CATEGORIES[story['category']])}</span><span>{esc(story.get('organization'))}</span></div><h3>{esc(story['title'])}</h3><div class="published">{esc(story.get('date_label', '来源发布日期'))}：{esc(published)}</div><p class="story-summary">{esc(story['summary'])}</p><div class="analysis-grid"><div><h4><span class="green-dot"></span>为什么关注</h4><p>{esc(story['why'])}</p></div><div><h4><span class="amber-dot"></span>证据与局限</h4><p>{esc(story['limitation'])}</p></div></div><div class="source-links"><span>原始来源</span>{sources}</div></article>'''
+    return f'''<article class="research-card" id="{esc(story['id'])}"><div class="meta"><span class="tag {esc(story['category'])}">{esc(story.get('tag') or CATEGORIES[story['category']])}</span><span>{esc(story.get('organization'))}</span></div><h3>{esc(story['title'])}</h3><div class="published">{esc(story.get('date_label', '来源发布日期'))}：{esc(published)}</div><p class="story-summary">{esc(story['summary'])}</p><div class="analysis-grid"><div><h4><span class="green-dot"></span>为什么关注</h4><p>{esc(story['why'])}</p></div><div><h4><span class="amber-dot"></span>证据与局限</h4><p>{esc(story['limitation'])}</p></div></div><div class="source-links"><span>来源与证据</span>{sources}</div></article>'''
 
 
 def daily(issue, issues):
@@ -145,6 +185,9 @@ def daily(issue, issues):
             continue
         toc.append(f'<a href="#section-{key}">{name}<span>{len(stories):02d}</span></a>')
         sections.append(f'<section class="article-section" id="section-{key}"><div class="article-section-title"><h2>{name}</h2><span>{len(stories):02d} 条</span></div>{"".join(article(s) for s in stories)}</section>')
+    if issue.get('technical_explainer'):
+        toc.append('<a href="#technical-explainer">每日技术点<span>↗</span></a>')
+        sections.append(technical_explainer(issue['technical_explainer']))
     if issue.get('keywords'):
         toc.append('<a href="#issue-keywords">本期关键词<span>↗</span></a>')
         keyword_rows = ''.join(f'<div class="issue-keyword"><h3>{esc(k["term"])}</h3><p>{esc(k["explanation"])}</p></div>' for k in issue['keywords'])
@@ -153,6 +196,35 @@ def daily(issue, issues):
     previous = f'<a href="{href(issue_path(issues[idx + 1]))}">← 上一期 · {issues[idx + 1]["date"]}</a>' if idx + 1 < len(issues) else '<span>归档从本期开始</span>'
     body = f'''<div class="article-heading"><a class="back-link" href="{href()}">← 返回首页</a><div class="issue-meta"><time datetime="{issue['date']}">{display_date(issue['date'])}</time>{label(issue)}<span>{len(issue['stories'])} 条精选</span><a href="{href('markdown/' + issue.get('slug', issue['date']) + '.md')}" download>保存 Markdown ↓</a></div><h1>{esc(issue['title'])}</h1><p>{esc(issue['intro'])}</p></div><div class="coverage-note"><span aria-hidden="true">◌</span><p>{esc(issue.get('coverage'))}</p></div><div class="article-layout"><aside class="article-toc"><p class="eyebrow">本期目录</p>{''.join(toc)}<a class="toc-archive" href="{href('archive/')}">历史归档 ↗</a></aside><div class="article-body">{''.join(sections)}<div class="issue-navigation">{previous}<a href="{href('archive/')}">全部简报 →</a></div></div></div>'''
     return layout(issue['title'], body, description=issue['intro'], canonical=issue_path(issue))
+
+
+def markdown_text(value):
+    return re.sub(r'([\\`*_{}\[\]#|])', r'\\\1', html.escape(str(value), quote=False))
+
+
+def technical_markdown(lesson):
+    def paragraphs(items):
+        return [line for text in items for line in [markdown_text(text), '']]
+
+    lines = [f'## 每日技术点：{markdown_text(lesson["title"])}', '', f'阅读时间：{lesson["reading_minutes"]} 分钟', '', markdown_text(lesson['summary']), '', '**为什么今天讲这个**', '', markdown_text(lesson['why_now']), '']
+    for section in lesson['sections']:
+        lines += [f'### {markdown_text(section["heading"])}', '']
+        lines += paragraphs(section['paragraphs'])
+        if section.get('bullets'):
+            lines += [f'- {markdown_text(text)}' for text in section['bullets']] + ['']
+    if lesson.get('comparison'):
+        comparison = lesson['comparison']
+        cell = lambda text: markdown_text(text).replace('\n', '<br>')
+        lines += [f'**{markdown_text(comparison["caption"])}**', '', '| ' + ' | '.join(cell(text) for text in comparison['columns']) + ' |', '| ' + ' | '.join('---' for _ in comparison['columns']) + ' |']
+        lines += ['| ' + ' | '.join(cell(text) for text in row) + ' |' for row in comparison['rows']]
+        lines += ['']
+    if lesson.get('example'):
+        lines += [f'### {markdown_text(lesson["example"]["title"])}', '']
+        lines += paragraphs(lesson['example']['paragraphs'])
+    lines += ['### 读论文时检查这些', ''] + [f'- {markdown_text(text)}' for text in lesson['checklist']]
+    lines += ['', '**带走一句话**', '', markdown_text(lesson['takeaway']), '', '**来源与证据**', '']
+    lines += [f'- [{markdown_text(source["label"])}](<{source["url"]}>)' for source in lesson['sources']]
+    return lines + ['']
 
 
 def markdown(issue):
@@ -164,9 +236,11 @@ def markdown(issue):
             continue
         lines += [f'## {name}', '']
         for s in stories:
-            lines += [f'### {s["title"]}', '', f'{s["organization"]} · {s.get("date_label", "来源发布日期")}：{s.get("published") or "待确认"}', '', s['summary'], '', '**为什么关注**', '', s['why'], '', '**证据与局限**', '', s['limitation'], '', '**原始来源**', '']
+            lines += [f'### {s["title"]}', '', f'{s["organization"]} · {s.get("date_label", "来源发布日期")}：{s.get("published") or "待确认"}', '', s['summary'], '', '**为什么关注**', '', s['why'], '', '**证据与局限**', '', s['limitation'], '', '**来源与证据**', '']
             lines += [f'- [{source["label"]}]({source["url"]})' for source in s['sources']]
             lines += ['']
+    if issue.get('technical_explainer'):
+        lines += technical_markdown(issue['technical_explainer'])
     if issue.get('keywords'):
         lines += ['## 本期关键词', '', '关键词来自本期收录内容，帮助检索与理解。', '']
         for keyword in issue['keywords']:
@@ -196,6 +270,43 @@ def about():
     return layout("来源与方法", body, "about", canonical="about/")
 
 
+def verification_badge(verification, channel=False):
+    status = verification.get('status', 'unverified')
+    label_text = VERIFICATION_LABELS[status]
+    if channel and status in ('verified', 'reachable'):
+        label_text = '链接可达'
+    checked = f'<time datetime="{esc(verification["checked_on"])}">{esc(verification["checked_on"])}</time>' if verification.get('checked_on') else ''
+    # Legacy "verified" recorded HTTP connectivity, not publication verification.
+    css_status = 'reachable' if status == 'verified' else status
+    return f'<span class="verification-status {esc(css_status)}">{esc(label_text)}</span>{checked}'
+
+
+def radar_source(source):
+    name = f'<a href="{url(source["url"])}" target="_blank" rel="noopener noreferrer">{esc(source["name"])} ↗</a>' if source.get('url') else esc(source['name'])
+    verification = source.get('verification', {})
+    status = f'<div class="source-verification"><span>主入口</span>{verification_badge(verification)}</div>'
+    notes = [source.get('note'), verification.get('note')]
+    note_html = ''.join(f'<p class="source-note">{esc(note)}</p>' for note in dict.fromkeys(n for n in notes if n))
+    channels = []
+    for channel in source.get('channels', []):
+        channel_note = f'<p>{esc(channel["note"])}</p>' if channel.get('note') else ''
+        channels.append(f'<li><a href="{url(channel["url"])}" target="_blank" rel="noopener noreferrer">{esc(channel["label"])} ↗</a><div class="channel-verification">{verification_badge(channel, channel=True)}</div>{channel_note}</li>')
+    channel_html = f'<div class="source-channels"><h4>跟进渠道</h4><ul>{"".join(channels)}</ul></div>' if channels else ''
+    search_terms = []
+    if source.get('aliases'):
+        search_terms.append(f'<p><strong>别名：</strong>{esc(" / ".join(source["aliases"]))}</p>')
+    if source.get('watch_terms'):
+        search_terms.append(f'<p><strong>检索词：</strong>{esc(" · ".join(source["watch_terms"]))}</p>')
+    evidence = []
+    for item in source.get('evidence', []):
+        date_text = f' · {esc(item["published"])}' if item.get('published') else ''
+        basis = f'<span>{esc(item["date_basis"])}</span>' if item.get('date_basis') else ''
+        evidence.append(f'<li><a href="{url(item["url"])}" target="_blank" rel="noopener noreferrer">{esc(item["label"])}{date_text} ↗</a>{basis}</li>')
+    evidence_html = f'<h4>核验线索</h4><ul>{"".join(evidence)}</ul>' if evidence else ''
+    detail_html = f'<details class="source-research-details"><summary>检索词与核验线索</summary>{"".join(search_terms)}{evidence_html}</details>' if search_terms or evidence else ''
+    return f'<article class="radar-source" id="{esc(source["id"])}"><h3>{name}</h3>{status}<p>{esc(source["role"])}</p><p class="source-detail">{esc(source.get("scope"))}</p>{note_html}{channel_html}{detail_html}</article>'
+
+
 def research_radar(radar, keywords, recent):
     directions = []
     for direction in keywords['directions']:
@@ -206,14 +317,12 @@ def research_radar(radar, keywords, recent):
         directions.append(f'<article class="direction-card" id="{esc(direction["id"])}"><h3>{esc(direction["title"])}</h3><div class="keyword-tags">{tags}</div><p class="direction-explanation">{esc(direction["explanation"])}</p><div class="analysis-grid"><div><h4>研究者在做什么</h4><ul>{research}</ul></div><div><h4>读成果时检查什么</h4><ul>{evidence}</ul></div></div><div class="source-links"><span>参考来源</span>{sources}</div></article>')
     groups = []
     for group in radar['groups']:
-        rows = []
-        for source in group['sources']:
-            name = f'<a href="{url(source["url"])}" target="_blank" rel="noopener noreferrer">{esc(source["name"])} ↗</a>' if source.get('url') else esc(source['name'])
-            rows.append(f'<div class="radar-source"><h3>{name}</h3><p>{esc(source["role"])}</p><p class="source-detail">{esc(source.get("scope"))}</p><p class="source-note">{esc(source.get("note"))}</p></div>')
+        rows = [radar_source(source) for source in group['sources']]
         groups.append(f'<section class="radar-group" id="{esc(group["id"])}"><div class="section-heading"><div><h2>{esc(group["group"])}</h2><p class="direction-intro">{esc(group["description"])}</p></div></div><div class="radar-sources">{"".join(rows)}</div></section>')
     rules = ''.join(f'<li>{esc(rule)}</li>' for rule in radar['selection_rules'])
     signals = f'<section id="recent-signals" class="radar-group"><div class="section-heading"><div><p class="eyebrow">WHAT IS MOVING</p><h2>{esc(recent["title"])}</h2><p class="direction-intro">{esc(recent["intro"])}</p></div></div><div class="signal-grid">{"".join(signal_card(s) for s in recent["signals"])}</div></section>'
-    body = f'<section class="page-heading"><p class="eyebrow">RESEARCH RADAR</p><h1>大家在研究什么，<br>从哪里跟进。</h1><p>用中英关键词追踪问题，用会议、实验室与研究社区找到线索。</p></section><div class="coverage-note"><span aria-hidden="true">◌</span><p>{esc(keywords["metadata"]["intro"])}</p></div><div class="radar-jump"><a href="#recent-signals">近期动向 ↓</a><a href="#directions">研究方向 ↓</a><a href="#sources">会议、博客与公众号 ↓</a><a href="#domestic-model-teams">国内大模型团队 ↓</a><a href="#xpeng">XPENG 小鹏 ↓</a><a href="#chinese-media">中文公众号 ↓</a><a href="#selection">如何筛选 ↓</a></div>{signals}<section id="directions" class="radar-group"><div class="section-heading"><div><p class="eyebrow">KEYWORDS & QUESTIONS</p><h2>研究方向地图</h2></div></div><div class="direction-grid">{"".join(directions)}</div></section><section id="sources" class="radar-heading"><p class="eyebrow">WHERE TO LOOK</p><h2>{esc(radar["title"])}</h2><p class="direction-intro">{esc(radar["intro"])}</p></section>{"".join(groups)}<section class="about-note" id="selection"><h2>热点如何进入日报</h2><ol class="selection-rules">{rules}</ol></section>'
+    embodied_jump = '<a href="#domestic-embodied">国内具身公司 ↓</a>' if any(g['id'] == 'domestic-embodied' for g in radar['groups']) else ''
+    body = f'<section class="page-heading"><p class="eyebrow">RESEARCH RADAR</p><h1>大家在研究什么，<br>从哪里跟进。</h1><p>用中英关键词追踪问题，用会议、实验室与研究社区找到线索。</p></section><div class="coverage-note"><span aria-hidden="true">◌</span><p>{esc(keywords["metadata"]["intro"])}</p></div><div class="radar-jump"><a href="#recent-signals">近期动向 ↓</a><a href="#directions">研究方向 ↓</a><a href="#sources">会议、博客与公众号 ↓</a><a href="#domestic-model-teams">国内大模型团队 ↓</a>{embodied_jump}<a href="#xpeng">XPENG 小鹏 ↓</a><a href="#chinese-media">中文公众号 ↓</a><a href="#selection">如何筛选 ↓</a></div>{signals}<section id="directions" class="radar-group"><div class="section-heading"><div><p class="eyebrow">KEYWORDS & QUESTIONS</p><h2>研究方向地图</h2></div></div><div class="direction-grid">{"".join(directions)}</div></section><section id="sources" class="radar-heading"><p class="eyebrow">WHERE TO LOOK</p><h2>{esc(radar["title"])}</h2><p class="direction-intro">{esc(radar["intro"])}</p><p class="verification-key">内容已核验：已读取具体页面；入口可达：已确认链接可访问。核验日期反映本次检查时间，不保证覆盖所有更新。</p></section>{"".join(groups)}<section class="about-note" id="selection"><h2>热点如何进入日报</h2><ol class="selection-rules">{rules}</ol></section>'
     return layout('研究雷达与关键词', body, 'radar', canonical='radar/')
 
 
@@ -247,7 +356,7 @@ def validate(issue, path):
         for key in ['id', 'category', 'title', 'organization', 'summary', 'why', 'limitation', 'sources']:
             if not story.get(key):
                 raise ValueError(f"Missing story {key} in {path.name}")
-        if not re.fullmatch(r'[a-z0-9-]+', story['id']) or story['id'] in ids:
+        if not re.fullmatch(r'[a-z0-9-]+', story['id']) or story['id'] in ids or story['id'] == 'technical-explainer':
             raise ValueError(f"Invalid or repeated story ID in {path.name}")
         ids.add(story['id'])
         if story['category'] not in CATEGORIES:
@@ -261,11 +370,139 @@ def validate(issue, path):
     for reading in issue.get('reading', []):
         url(reading['url'])
     featured = issue.get('featured_ids', [])
-    if len(featured) != len(set(featured)) or any(story_id not in ids for story_id in featured):
+    if not isinstance(featured, list) or any(not isinstance(story_id, str) for story_id in featured):
+        raise ValueError(f"Invalid featured story IDs in {path.name}")
+    if len(featured) > 6 or len(featured) != len(set(featured)) or any(story_id not in ids for story_id in featured):
         raise ValueError(f"Invalid featured story IDs in {path.name}")
     for highlight in issue.get('highlights', []):
         if highlight.get('story_id') and highlight['story_id'] not in ids:
             raise ValueError(f"Invalid highlight story ID in {path.name}")
+    if 'technical_explainer' in issue:
+        validate_technical_explainer(issue['technical_explainer'], path.name)
+
+
+def validate_technical_explainer(lesson, filename):
+    def text(value, location):
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError(f"Invalid technical explainer {location} in {filename}")
+
+    def text_list(value, location, required=True):
+        if not isinstance(value, list) or (required and not value):
+            raise ValueError(f"Invalid technical explainer {location} in {filename}")
+        for item in value:
+            text(item, location)
+
+    if not isinstance(lesson, dict):
+        raise ValueError(f"Invalid technical explainer in {filename}")
+    if not isinstance(lesson.get('id'), str) or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', lesson['id']):
+        raise ValueError(f"Invalid technical explainer ID in {filename}")
+    for key in ['title', 'summary', 'why_now', 'takeaway']:
+        text(lesson.get(key), key)
+    minutes = lesson.get('reading_minutes')
+    if type(minutes) is not int or not 1 <= minutes <= 30:
+        raise ValueError(f"Technical explainer reading_minutes must be 1–30 in {filename}")
+    if not isinstance(lesson.get('sections'), list) or not lesson['sections']:
+        raise ValueError(f"Missing technical explainer sections in {filename}")
+    for section in lesson['sections']:
+        if not isinstance(section, dict):
+            raise ValueError(f"Invalid technical explainer section in {filename}")
+        text(section.get('heading'), 'section heading')
+        text_list(section.get('paragraphs'), 'section paragraphs')
+        if 'bullets' in section:
+            text_list(section['bullets'], 'section bullets', required=False)
+    if 'comparison' in lesson:
+        comparison = lesson['comparison']
+        if not isinstance(comparison, dict):
+            raise ValueError(f"Invalid technical explainer comparison in {filename}")
+        text(comparison.get('caption'), 'comparison caption')
+        text_list(comparison.get('columns'), 'comparison columns')
+        if len(comparison['columns']) < 2 or not isinstance(comparison.get('rows'), list) or not comparison['rows']:
+            raise ValueError(f"Invalid technical explainer comparison dimensions in {filename}")
+        for row in comparison['rows']:
+            text_list(row, 'comparison row')
+            if len(row) != len(comparison['columns']):
+                raise ValueError(f"Technical explainer table column mismatch in {filename}")
+    if 'example' in lesson:
+        example = lesson['example']
+        if not isinstance(example, dict):
+            raise ValueError(f"Invalid technical explainer example in {filename}")
+        text(example.get('title'), 'example title')
+        text_list(example.get('paragraphs'), 'example paragraphs')
+    text_list(lesson.get('checklist'), 'checklist')
+    if not isinstance(lesson.get('sources'), list) or not lesson['sources']:
+        raise ValueError(f"Missing technical explainer sources in {filename}")
+    for source in lesson['sources']:
+        if not isinstance(source, dict):
+            raise ValueError(f"Invalid technical explainer source in {filename}")
+        text(source.get('label'), 'source label')
+        url(source.get('url'))
+
+
+def validate_radar(radar):
+    def require_text(value, location):
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError(f"Missing or invalid {location} in radar.json")
+
+    def text_list(value, location):
+        if not isinstance(value, list):
+            raise ValueError(f"Invalid {location} in radar.json")
+        for item in value:
+            require_text(item, location)
+
+    def verification(value, location):
+        if not isinstance(value, dict) or value.get('status', 'unverified') not in VERIFICATION_LABELS:
+            raise ValueError(f"Invalid verification status for {location} in radar.json")
+        if value.get('checked_on'):
+            date.fromisoformat(value['checked_on'])
+        if value.get('resolved_url'):
+            url(value['resolved_url'])
+
+    ids = set()
+
+    def identifier(value, location):
+        if not isinstance(value, str) or not re.fullmatch(r'[a-z0-9-]+', value) or value in ids:
+            raise ValueError(f"Invalid or repeated {location} ID in radar.json")
+        ids.add(value)
+
+    for key in ['title', 'intro']:
+        require_text(radar.get(key), key)
+    if radar.get('updated_on'):
+        date.fromisoformat(radar['updated_on'])
+    text_list(radar.get('selection_rules'), 'selection rules')
+    if not isinstance(radar.get('groups'), list) or not radar['groups']:
+        raise ValueError("Missing source groups in radar.json")
+    for group in radar['groups']:
+        if not isinstance(group, dict):
+            raise ValueError("Invalid source group in radar.json")
+        identifier(group.get('id'), 'group')
+        for key in ['group', 'description']:
+            require_text(group.get(key), f"group {key}")
+        if not isinstance(group.get('sources'), list) or not group['sources']:
+            raise ValueError(f"Missing sources in radar group {group['id']}")
+        for source in group['sources']:
+            if not isinstance(source, dict):
+                raise ValueError(f"Invalid source in radar group {group['id']}")
+            identifier(source.get('id'), 'source')
+            for key in ['name', 'role']:
+                require_text(source.get(key), f"source {key}")
+            if source.get('url'):
+                url(source['url'])
+            verification(source.get('verification', {}), source['id'])
+            for key in ['aliases', 'watch_terms']:
+                text_list(source.get(key, []), f"source {source['id']} {key}")
+            for key in ['channels', 'evidence']:
+                if not isinstance(source.get(key, []), list):
+                    raise ValueError(f"Invalid {key} for {source['id']} in radar.json")
+                for item in source.get(key, []):
+                    if not isinstance(item, dict):
+                        raise ValueError(f"Invalid {key} item for {source['id']} in radar.json")
+                    require_text(item.get('label'), f"{key} label")
+                    url(item.get('url') or '')
+                    if key == 'channels':
+                        require_text(item.get('kind'), f"channel kind for {source['id']}")
+                        verification(item, f"channel {source['id']}")
+                    elif item.get('published'):
+                        date.fromisoformat(item['published'])
 
 
 def main():
@@ -288,6 +525,7 @@ def main():
     status_rank = {'sample': 0, 'curated': 1, 'daily': 2}
     issues.sort(key=lambda i: (i['date'], status_rank.get(i.get('status'), 2), i.get('slug', i['date'])), reverse=True)
     radar = json.loads((ROOT / 'content/radar.json').read_text(encoding='utf-8'))
+    validate_radar(radar)
     keywords = json.loads((ROOT / 'content/keywords.json').read_text(encoding='utf-8'))
     recent = json.loads((ROOT / 'content/recent-signals.json').read_text(encoding='utf-8'))
     output = ROOT / 'dist'

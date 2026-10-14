@@ -1,0 +1,397 @@
+{
+  "date": "2026-10-14",
+  "slug": "2026-10-14-embodied",
+  "status": "curated",
+  "title": "国内具身研究：GroundingPI、部署闭环与公司进展",
+  "intro": "从小鹏GroundingPI到智元、宇树、自变量的新论文、代码与版本更新，追踪具身感知、世界动作模型、数据闭环和评测；另收录DeepSeek的媒体产业动向，注明待官方确认。",
+  "coverage": "2026-09-28—10-13的研究补收与近期动向精选，整理于10月14日。每条保留真实事件日期；GroundingPI与宇树为遗漏补收，GE-Act 2.0为版本更新。产业报道、论文、开放模型和实机结果分别标明。",
+  "stories": [
+    {
+      "id": "xpeng-groundingpi-perception-to-action",
+      "category": "embodied",
+      "tag": "补收研究 · 具身感知 · 论文 / 代码",
+      "title": "小鹏 GroundingPI：先把“在哪里”学准，再提升机器人动作泛化与数据效率",
+      "organization": "XPeng · 北大 · 港大等合作团队",
+      "published": "2026-10-03",
+      "summary": "4B GroundingPI 用统一坐标词表学习检测、指代表达定位、指向、OCR等精确感知，再作为动作模型的视觉骨干。受控仿真比较研究这种预训练能否改善操作泛化和数据效率。论文9月30日首发，作者日志列10月1日权重、10月3日代码与评测；本期补收此前漏检的原始研究。",
+      "why": "它把具身模型的“看得准”与“做得好”联系起来。作者在RoboTwin 2.0与RoboCasa-GR1中固定动作模块、数据和训练预算比较感知骨干，报告分布外泛化和示范效率收益；值得检查收益来自精确grounding还是模型/数据差异。",
+      "limitation": "机器人全部为仿真实验，驾驶为nuScenes离线开环，没有真实机器人或车辆部署验证。预训练骨干的规模、结构和监督仍不同；全数据ID成绩也并非全面领先。开放模型是感知VLM，官方仓库未提供可直接配套执行的动作适配器。已读相关实验、局限和代码说明，未复现；HF直连超时，权重事件依作者日志。",
+      "sources": [
+        {
+          "label": "论文与首版日期 · 2026-09-30",
+          "url": "https://arxiv.org/abs/2609.39601"
+        },
+        {
+          "label": "作者项目页 · 机构、发布日期与实验",
+          "url": "https://groundingpi.github.io/"
+        },
+        {
+          "label": "代码、评测与动作集成说明",
+          "url": "https://github.com/groundingpi/GroundingPI"
+        },
+        {
+          "label": "作者所列开放权重入口",
+          "url": "https://huggingface.co/GroundingPI/GroundingPI"
+        }
+      ],
+      "date_label": "代码与评测发布（论文首版 2026-09-30）"
+    },
+    {
+      "id": "deepseek-embodied-entry-reported",
+      "category": "embodied",
+      "tag": "近期产业动向 · 媒体报道 · 官方未回应",
+      "title": "媒体报道DeepSeek考虑进入具身智能：自研团队与投资两种路径仍待确认",
+      "organization": "DeepSeek（媒体报道，未获官方确认）",
+      "published": "2026-10-12",
+      "summary": "新浪科技10月12日报道，梁文锋近期与具身创业者交流；据知情人士，DeepSeek可能组建研发团队，也可能通过投资切入。原文明确截至发稿DeepSeek未回应，10月13日IT之家转载。当前应作为产业观察跟进。",
+      "why": "跟踪基础模型公司如何走向物理交互，下一步看团队、合作、模型、数据和实机证据。这条动向与DeepSeek既有论文、代码发布分开记录。",
+      "limitation": "匿名信源的媒体报道，未获官方确认。本次检查的官方研究动态、API日志和公开代码中未找到对应具身发布；这不能证明不存在未公开研究。IT之家为同一原报道转载，不是独立确认；未核验的投资金额或交易细节不作事实。",
+      "sources": [
+        {
+          "label": "新浪科技报道 · 2026-10-12 21:55 · 明确称DeepSeek未回应",
+          "url": "https://finance.sina.com.cn/jjxw/2026-10-12/doc-iniuytnv5205606.shtml"
+        },
+        {
+          "label": "IT之家转载 · 2026-10-13 16:16:45 · 来源新浪科技",
+          "url": "https://www.ithome.com/1/012/419.htm"
+        },
+        {
+          "label": "DeepSeek官方研究与动态 · 用于核对是否出现正式发布",
+          "url": "https://www.deepseek.com/news/"
+        }
+      ],
+      "date_label": "媒体原报道日期"
+    },
+    {
+      "id": "loopwam-closed-loop",
+      "category": "embodied",
+      "title": "LoopWAM：把真实部署的成功、次优与失败经验都用于下一轮策略改进",
+      "organization": "清华大学 / Dexmal / Loopeva",
+      "published": "2026-10-13",
+      "summary": "联合视频—动作去噪，利用成功、次优与失败部署轨迹：保留失败视频的预测监督，降低或屏蔽失败动作模仿。作者报告Table30-V2三轮更新后成功率23.67%→43.33%；衬衫折叠两轮更新后13.20%→55.56%。",
+      "why": "直接回答具身数据飞轮如何利用部署中的失败，符合国内基础模型与实机闭环研究焦点。",
+      "limitation": "作者在实机任务中的自报结果，未独立复现。Table30-V2涵盖四种本体，每种本体训练自己的多任务模型，不能称一个策略跨四本体通用；衬衫折叠是DOS-W1单任务后训练，与前三轮的协议不同。具体代码发布范围尚未核验。",
+      "sources": [
+        {
+          "label": "原论文 / 项目 / 代码",
+          "url": "https://arxiv.org/abs/2610.18873"
+        },
+        {
+          "label": "论文HTML",
+          "url": "https://arxiv.org/html/2610.18873v1"
+        },
+        {
+          "label": "项目原页",
+          "url": "https://loop-wam.github.io/"
+        },
+        {
+          "label": "作者项目代码链接",
+          "url": "https://github.com/loop-wam/LoopWAM"
+        }
+      ],
+      "tag": "新论文 · 世界动作模型 · 实机闭环",
+      "date_label": "arXiv首版日期（UTC）"
+    },
+    {
+      "id": "x2real-release",
+      "category": "embodied",
+      "title": "自变量 X2Real：开源长程具身策略的仿真评测运行时",
+      "organization": "自变量 X Square",
+      "published": "2026-10-10",
+      "summary": "10月10日v0.9.0开放长程操作策略的ID评测运行时和发布文档。44类层级语义任务对应73个可运行ID案例，并隔离策略与仿真环境；报告设置中仿真与实机表现的线性相关为0.84。",
+      "why": "国内具身基础模型的进展需要可比较评测，X2Real提供长程任务、配置与结果工件，而非只看演示视频。",
+      "limitation": "本次为evaluation-only，训练不在该开源范围；仿真资产与数据另行分发。0.84是报告特定策略、任务和硬件设置中的相关性，不能当任意机器人迁移的可靠性。已读官方README、开放范围及机构链接，未运行基准。",
+      "sources": [
+        {
+          "label": "原论文 / 项目 / 代码",
+          "url": "https://github.com/X-Square-Robot/x2real"
+        },
+        {
+          "label": "原报告",
+          "url": "https://arxiv.org/abs/2609.27449"
+        },
+        {
+          "label": "机构身份",
+          "url": "https://x2robot.com/research"
+        },
+        {
+          "label": "资产",
+          "url": "https://huggingface.co/datasets/x-square-robot/x2real-assets"
+        }
+      ],
+      "tag": "代码更新 · 长程具身评测",
+      "date_label": "v0.9.0评测运行时发布"
+    },
+    {
+      "id": "agibot-ge-act-v2",
+      "category": "embodied",
+      "title": "智元 GE-Act 2.0：从零预训练世界—动作模块，研究数据规模与跨本体迁移",
+      "organization": "智元 AgiBot Research",
+      "published": "2026-10-09",
+      "summary": "控制导向autoencoder、单步视觉规划器与逆动力学模块分别预训练，再联合优化。论文研究无动作视频与动作轨迹共同扩展的数据收益，覆盖智元G1-OP与G2-90D。本期依据10月9日v2更新收录，首版为9月4日。",
+      "why": "国内世界动作模型把预测未来、动作生成和跨本体数据规模联系起来。可关注真实数据的组成、跨本体协议，以及扩大共训数据后操作成功率的变化。",
+      "limitation": "这是已有论文的修订，不是10月新模型；本次未对比v1/v2，不能说明哪些方法为修订新增。项目代码仍Coming soon。100任务协议多为原子任务、每格10次实验，不能等同长程自主部署；性能为作者自报，未复现。",
+      "sources": [
+        {
+          "label": "原论文 / 项目 / 代码",
+          "url": "https://ge-act-v2.github.io/"
+        },
+        {
+          "label": "原论文版本",
+          "url": "https://arxiv.org/abs/2609.05588"
+        },
+        {
+          "label": "官网研究索引",
+          "url": "https://www.agibot.com/research/content/featured.js"
+        }
+      ],
+      "tag": "版本更新 · 世界动作模型",
+      "date_label": "arXiv v2修订日期（UTC，首版 09-04）"
+    },
+    {
+      "id": "unitree-unifolm-wla",
+      "category": "embodied",
+      "title": "宇树 UnifoLM-WLA-1.0：Base权重与微调代码开放，覆盖全身及灵巧手操作",
+      "organization": "宇树 Unitree",
+      "published": "2026-09-28",
+      "summary": "官方仓库9月28日发布UnifoLM-WLA-1.0-Base权重与微调代码，补齐此前开放的推理模型和动作训练模块。README称6B模型使用约2500小时实机数据，覆盖64个桌面/全身操作任务和多种夹爪、五指灵巧手。本期补收此前漏掉的国内模型发布。",
+      "why": "把国内机器人公司的基础模型、实机数据、末端迁移与开放范围纳入持续追踪。",
+      "limitation": "9月发布的补收，不是今日新品。数据规模、64任务和泛化为作者项目声明，需结合任务协议与重复实测；不能凭演示推断通用能力。权重入口由官方仓库确认，本次未下载或运行模型。",
+      "sources": [
+        {
+          "label": "原论文 / 项目 / 代码",
+          "url": "https://github.com/unitreerobotics/unifolm-wla"
+        },
+        {
+          "label": "官方身份",
+          "url": "https://www.unitree.com/"
+        },
+        {
+          "label": "权重卡",
+          "url": "https://huggingface.co/unitreerobotics/UnifoLM-WLA-1.0-Base"
+        }
+      ],
+      "tag": "9月补收 · 开放权重 / 微调代码",
+      "date_label": "Base权重及微调代码发布"
+    },
+    {
+      "id": "pi-api-beta",
+      "category": "embodied",
+      "tag": "10月新发布 · 机器人基础模型 · 实机迭代",
+      "title": "Physical Intelligence开放Pi API beta：上传示范、微调模型、托管推理",
+      "organization": "Physical Intelligence",
+      "published": "2026-10-13",
+      "summary": "Physical Intelligence 开放 Pi API beta，让开发者上传自己的机器人数据、微调最新模型，再通过托管推理在实机上运行。公开合作案例展示了“采集示范—训练—测试—按失败补充数据”的迭代过程。",
+      "why": "这条进展把“通用机器人模型”连接到应用团队能自行运行的数据闭环：采集示范、微调、实机测试，再围绕失败补数据。值得追踪新机器人适配需要多少数据，以及服务延迟和连接质量是否满足任务要求。",
+      "limitation": "这是厂商的产品与合作案例发布，并非独立性能验证。文中说明部分云端部署仍受网络连接影响；不同机器人的延迟、可靠性与适配成本需单独评估。",
+      "sources": [
+        {
+          "label": "官方发布 · 2026-10-13",
+          "url": "https://www.pi.website/blog/api-beta"
+        }
+      ]
+    },
+    {
+      "id": "agent-replication-evaluation",
+      "category": "llm",
+      "tag": "近期研究 · 长程Agent评测",
+      "title": "Anthropic：用受控实验评估Agent部署推理服务与串联复制步骤的能力",
+      "organization": "Anthropic · Frontier Red Team",
+      "published": "2026-10-12",
+      "summary": "Anthropic 评估小模型在陌生硬件上建立推理服务，以及在简化网络环境中串联复制步骤的能力。研究把长期任务可靠性、端侧部署与自主行动边界连接起来。",
+      "why": "长期任务不只看单步成功率，还要检查模型能否完成环境适配、依赖安装与连续执行。评测条件和现实环境的差距是这类Agent研究的阅读重点。",
+      "limitation": "实验使用受控环境，并简化了网络攻击环节；文中强调其结果是现实成功率的上界。本文讨论能力与风险评估，不能据此声称模型已在现实网络自主扩散。",
+      "sources": [
+        {
+          "label": "官方研究报告 · 2026-10-12",
+          "url": "https://www.anthropic.com/research/self-replicating-ai"
+        }
+      ]
+    }
+  ],
+  "featured_ids": [
+    "xpeng-groundingpi-perception-to-action",
+    "deepseek-embodied-entry-reported",
+    "loopwam-closed-loop",
+    "x2real-release",
+    "agibot-ge-act-v2",
+    "unitree-unifolm-wla"
+  ],
+  "highlights": [
+    {
+      "title": "小鹏：精确感知如何帮助动作泛化",
+      "text": "GroundingPI论文、代码与开放模型是此次重点补收；机器人结果来自仿真，感知checkpoint不能直接当动作策略。",
+      "story_id": "xpeng-groundingpi-perception-to-action"
+    },
+    {
+      "title": "国内公司：看模型、数据和评测更新",
+      "text": "智元GE-Act 2.0修订、自变量X2Real评测运行时、宇树UnifoLM-WLA开放权重与微调代码，各自写清日期和开放范围。",
+      "story_id": "x2real-release"
+    },
+    {
+      "title": "具身闭环：失败轨迹也能成为学习数据",
+      "text": "LoopWAM在实机上迭代世界动作模型；DeepSeek进入具身的报道则继续跟踪，当前尚非正式研究发布。",
+      "story_id": "loopwam-closed-loop"
+    }
+  ],
+  "reading": [
+    {
+      "title": "GroundingPI: A Grounding Foundation Model towards Physical Intelligence with Visual Primitives",
+      "url": "https://arxiv.org/abs/2609.39601",
+      "reason": "读感知预训练到动作迁移的受控比较，分清仿真、开环驾驶及真实部署。"
+    },
+    {
+      "title": "LoopWAM: Closed-Loop Generalist Policy Improvement from Deployment Rollouts",
+      "url": "https://arxiv.org/abs/2610.18873",
+      "reason": "读失败视频监督、质量条件与逐轮实机协议；不同本体分别训练，避免误解为统一跨本体策略。"
+    },
+    {
+      "title": "X2Real v0.9.0：公开评测范围与运行方式",
+      "url": "https://github.com/X-Square-Robot/x2real",
+      "reason": "看长程任务如何运行，哪些资产另行下载，以及evaluation-only的边界。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "具身感知与视觉定位 / grounding for physical intelligence",
+      "explanation": "GroundingPI研究精确点、框和空间关系如何帮助动作模型；它是感知骨干，不是直接机器人控制器。"
+    },
+    {
+      "term": "世界动作模型 / world-action models (WAM)",
+      "explanation": "联合预测视觉变化和动作；本期LoopWAM与GE-Act 2.0提供部署闭环和预训练两类例子。"
+    },
+    {
+      "term": "部署后策略改进 / policy improvement from deployment",
+      "explanation": "把成功、次优与失败实机轨迹纳入下一轮训练，检查逐轮收益和数据预算。"
+    },
+    {
+      "term": "质量条件与失败数据 / quality conditioning and failure data",
+      "explanation": "保留失败视频提供的世界信息，避免直接模仿失败动作；对应LoopWAM。"
+    },
+    {
+      "term": "长程具身评测 / long-horizon embodied evaluation",
+      "explanation": "从单一原子动作转向层级语义任务；X2Real需检查任务覆盖及仿真实机相关性的适用范围。"
+    },
+    {
+      "term": "跨本体迁移 / cross-embodiment transfer",
+      "explanation": "不同机器人、本体配置或末端执行器是否真的共享能力；区分统一策略与分别训练的模型。"
+    },
+    {
+      "term": "具身模型开放范围 / embodied model release scope",
+      "explanation": "分别核对代码、感知权重、动作权重、数据与可运行环境，不把项目链接等同完整复现。"
+    },
+    {
+      "term": "基础模型团队的具身布局 / foundation-model teams entering robotics",
+      "explanation": "跟进DeepSeek报道后的团队与成果证据，当前属于未官宣产业信号，不是技术结果。"
+    }
+  ],
+  "technical_explainer": {
+    "id": "robot-evaluation-mechanisms",
+    "title": "机器人评测机制：怎样判断一个VLA真的会做事？",
+    "summary": "看懂完整任务如何计分，分清训练内测试与泛化、仿真与实机，再理解成功率背后的试验次数、干预和运行预算。",
+    "reading_minutes": 7,
+    "why_now": "GroundingPI比较感知骨干，LoopWAM用部署数据改进策略，X2Real发布评测运行时。它们都在报“效果”，但测量对象和协议不同。固定任务、重复试验、独立测试集和闭环执行仍是当前VLA评测的核心；新基准在补充长程任务与更接近真实环境的检验。",
+    "sections": [
+      {
+        "heading": "1. 一次测试测的是完整策略",
+        "paragraphs": [
+          "VLA（视觉—语言—动作模型）把图像、语言指令和机器人状态变成动作。一次episode就是从指定初始场景开始，机器人观察、执行一段动作、再次观察，直到达成目标、超时或失败。闭环表示动作改变环境后，系统继续接收反馈；VLA可以每次预测一段动作，不必每个控制周期都调用大模型。",
+          "先写清任务成功条件，例如“杯子进入篮子、机器人松手、最终位置保持稳定”。仿真可由环境状态或接触/位置条件判定，实机用预先约定的传感器或人工标注规则。LIBERO把目标写成可检查的谓词，要求任务目标全部满足；漂亮轨迹或低动作预测误差，不能代替任务完成。"
+        ],
+        "bullets": [
+          "训练用示范，测试用预先固定的初始状态，避免直接复用训练轨迹；比较时环境版本、动作接口与成功判定一致。",
+          "每个策略在同一组场景/随机种子上多次执行，保留所有尝试；碰撞、掉落、超时和人为接管按事先规则处理。",
+          "按任务分别统计，再说明如何汇总。各任务成功率的等权平均，与把所有episode混在一起计算可能不同。"
+        ]
+      },
+      {
+        "heading": "2. 成功率的分母与预算很重要",
+        "paragraphs": [
+          "成功率 = 完成任务的episode数 ÷ 总episode数。报告应说明每个任务做了多少次、训练了多少个种子，以及结果波动。一次模型训练后的测试重复，与多个独立训练种子的波动，是两种不同的不确定性。",
+          "长程任务还要看子任务完成、整条任务完成和失败恢复。例如每一步成功率都是90%，假设10步独立、全部必须成功且不允许重试，整条任务成功率只有0.9¹⁰≈35%。这只是教学近似，真实步骤通常相关，也可能允许纠错。",
+          "速度和运行条件属于能力的一部分：动作chunk长度、重新观测频率、推理延迟、任务时限、重试次数、外部规划器及人工干预会影响成功率。各项预算不一致时，不能只比较一个总分。"
+        ]
+      },
+      {
+        "heading": "3. 泛化要说清究竟什么没见过",
+        "paragraphs": [
+          "ID（分布内）测试仍处于训练覆盖的任务或环境分布；OOD（分布外）测试主动改变物体、摆放、语言指令、背景、任务组合或机器人。要问“究竟哪一个因素没见过”，不能只看零样本或泛化标签。",
+          "测试episode和示范不得直接复用训练样本；若声称未见物体或场景泛化，相应对象、布局等应明确留出。若换机器人后又采数据微调，就应报告适配数据与预算；这与完全不更新参数的零样本迁移不同。每种本体各自训练一个模型，也不同于一个策略跨本体执行。",
+          "LIBERO等可复用环境支持受控比较；LIBERO-PRO通过物体、位置、指令、任务目标和环境扰动，进一步检查原有高分能否保持。每个基准覆盖有限，榜单领先不能自动推出厨房、工厂或所有机器人都可靠。"
+        ]
+      },
+      {
+        "heading": "4. 本期三个例子，分别测了哪一层",
+        "paragraphs": [
+          "GroundingPI：视觉定位分数测“找得准”；接上动作模型后的仿真成功率才测“做得好”。机器人实验在仿真，nuScenes驾驶是离线开环，不能写成真实机器人或车辆闭环部署。",
+          "LoopWAM：看实机部署数据回流后，各轮策略的成功率是否提高，也要检查新采数据量、任务和本体。Table30-V2的每种本体各有策略，不等于一个策略同时跨四种机器人。",
+          "X2Real：通过可运行的长程仿真任务提高比较的一致性，再研究仿真与实机分数的相关。报告中的相关系数0.84表示特定设置下分数变化有关联；它不是84%的真实任务成功率，也不能保证每个策略都能迁移。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "四种常见结果，回答的是不同问题",
+      "columns": [
+        "结果类型",
+        "主要回答什么",
+        "还需要补什么证据"
+      ],
+      "rows": [
+        [
+          "视觉定位 / 动作预测分数",
+          "是否找准对象，或接近示范动作",
+          "执行时是否真正完成任务"
+        ],
+        [
+          "仿真闭环成功率",
+          "策略能否在模拟环境交互完成任务",
+          "真实传感、接触、延迟和硬件中的重复测试"
+        ],
+        [
+          "实机闭环成功率",
+          "在指定机器人和任务中能否完成",
+          "任务覆盖、试验次数、干预与OOD变化"
+        ],
+        [
+          "离线开环误差",
+          "给定观测下预测是否接近记录答案",
+          "策略执行改变观测分布后能否持续纠错"
+        ]
+      ]
+    },
+    "example": {
+      "title": "教学算例：60%成功率不是精确的能力常数",
+      "paragraphs": [
+        "假设“把杯子放入篮子”测试100次：60次按约定完成、20次掉落、15次超时、5次需要人工接管。若规则规定接管算失败，则自主成功率是60/100=60%，不能只挑成功视频，也不能把5次辅助完成混入自主成功。",
+        "在独立同分布的二项试验假设下，60/100的95% Wilson置信区间约为50%—69%。因此60%和64%的单次结果不足以宣布稳定领先，应使用相同场景与预算增加试验，并检查任务级差异。真实测试若共享场景或存在相关性，要按设计处理，不能机械套这个区间。",
+        "模型B若只成功55次但从不需接管，模型A若允许更多重试或更长时限，先统一协议再判断优劣。数字全为假设，用于说明评测机制，不对应本期论文成绩。"
+      ]
+    },
+    "checklist": [
+      "成功具体怎么判？失败、超时、重试和接管如何计分？",
+      "多少任务、每任务多少次、多少训练种子？是否报告分任务结果与波动？",
+      "是仿真、离线开环还是实机闭环？机器人与控制/推理预算一致吗？",
+      "测试到底改了哪些未见因素？有无训练数据泄漏或额外微调？",
+      "代码、资产、动作适配器和权重是否足以复跑？第三方有没有验证？"
+    ],
+    "takeaway": "读机器人论文时，把“分数”展开成：什么机器人、什么任务、多少次、怎样判成功、允许多少帮助，以及是否真的换过环境。先核协议，才知道提升意味着什么。",
+    "sources": [
+      {
+        "label": "LIBERO官方代码与论文入口：可复用的操作评测、目标谓词和rollout（当前仍使用的基础基准）",
+        "url": "https://github.com/Lifelong-Robot-Learning/LIBERO"
+      },
+      {
+        "label": "LIBERO-PRO原论文：任务扰动与泛化检查（2025-10-04首版，2026-05-25修订）",
+        "url": "https://arxiv.org/abs/2510.03827"
+      },
+      {
+        "label": "GroundingPI原论文：感知分数、下游仿真与开环驾驶评测",
+        "url": "https://arxiv.org/abs/2609.39601"
+      },
+      {
+        "label": "X2Real官方README：运行协议、成功条件与evaluation-only范围",
+        "url": "https://github.com/X-Square-Robot/x2real"
+      }
+    ]
+  }
+}

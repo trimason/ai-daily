@@ -1,130 +1,116 @@
 {
-  "title": "最近都在研究什么",
-  "intro": "扩展来源后重新筛选2026-09-03至2026-10-13的可核验样本：国内团队、小鹏物理AI、机器人部署与会议议题分别保留日期；这是研究动向精选，不是全行业热度榜。",
-  "window_start": "2026-09-03",
+  "title": "最近在推进什么：从感知到具身数据闭环",
+  "intro": "观察2026-09-28—10-13已核验样本：国内具身论文、代码和版本更新，与未官宣产业动向分别标注。更早遗漏是补收，不表示当天发布或行业热度排名。",
+  "window_start": "2026-09-28",
   "window_end": "2026-10-13",
   "signals": [
     {
-      "id": "seed-kv-phase-sensitivity",
-      "title": "字节Seed发现KV缓存压缩的“周期性弱点”：平均分可能掩盖位置失效",
-      "summary": "研究关注把连续token窗口压缩为较少缓存条目的长上下文模型：同一信息相对于压缩窗口边界的位置不同，可能出现明显不同的检索准确率。作者在开放权重模型中观察到相位敏感性，并从零训练多种KV压缩设计的小型模型，通过因果干预分析不同注意力组件的相位分工。",
+      "id": "xpeng-groundingpi-perception-to-action",
+      "title": "小鹏 GroundingPI：先把“在哪里”学准，再提升机器人动作泛化与数据效率",
+      "summary": "4B GroundingPI 用统一坐标词表学习检测、指代表达定位、指向、OCR等精确感知，再作为动作模型的视觉骨干。受控仿真比较研究这种预训练能否改善操作泛化和数据效率。论文9月30日首发，作者日志列10月1日权重、10月3日代码与评测；本期补收此前漏检的原始研究。",
       "keywords": [
-        "KV缓存压缩 / KV-cache Compression",
-        "相位敏感性 / Phase Sensitivity",
-        "长上下文检索 / Long-context Retrieval"
+        "Grounding / 精确定位",
+        "具身感知 / Embodied Perception",
+        "数据效率 / Data Efficiency"
       ],
-      "published": "2026-09-28",
-      "source_label": "ByteDance Seed 等合作团队 · 原始研究/官方发布",
-      "url": "https://seed.bytedance.com/en/public_papers/periodic-weak-spots-phase-sensitivity-from-chunked-kv-cache-compression",
-      "limitation": "这是9月28日的近期论文精选，未纳入10月新品。已核验Seed官方研究条目的摘要，尚未精读论文全文或独立复现；结论针对采用分块KV压缩的模型，不应推及所有长上下文模型。官方摘要报告的最大差距依赖所测模型和检索设置。"
+      "published": "2026-10-03",
+      "source_label": "XPeng · 北大 · 港大等合作团队 · 代码与评测发布（论文首版 2026-09-30）",
+      "url": "https://arxiv.org/abs/2609.39601",
+      "limitation": "机器人全部为仿真实验，驾驶为nuScenes离线开环，没有真实机器人或车辆部署验证。预训练骨干的规模、结构和监督仍不同；全数据ID成绩也并非全面领先。开放模型是感知VLM，官方仓库未提供可直接配套执行的动作适配器。已读相关实验、局限和代码说明，未复现；HF直连超时，权重事件依作者日志。"
     },
     {
-      "id": "xpeng-xos630-physical-ai",
-      "title": "小鹏披露 XOS 6.3.0 技术路线：历史记忆、未来预测与车端蒸馏",
-      "summary": "小鹏官方技术文章介绍第二代 VLA 在 XOS 6.3.0 中的部署：InfiniVLA 用缓存和流式推理让历史视觉信息参与决策，本次车端配置选择 30 秒历史上下文；X-Foresight 世界模型提供 6 秒未来场景预测。Flow Matching Head 用生成轨迹表达多种合理动作，MoT 按场景分配专家。Max 版本围绕目标芯片重构视觉架构，再结合教师信号、数据分布和编译部署优化进行蒸馏。",
+      "id": "deepseek-embodied-entry-reported",
+      "title": "媒体报道DeepSeek考虑进入具身智能：自研团队与投资两种路径仍待确认",
+      "summary": "新浪科技10月12日报道，梁文锋近期与具身创业者交流；据知情人士，DeepSeek可能组建研发团队，也可能通过投资切入。原文明确截至发稿DeepSeek未回应，10月13日IT之家转载。当前应作为产业观察跟进。",
       "keywords": [
-        "世界模型 / World Models",
-        "长时序VLA / Long-horizon VLA",
-        "流式推理 / Streaming Inference",
-        "车端蒸馏 / On-device Distillation"
+        "产业动向 / Industry Signal",
+        "未官宣 / Unconfirmed"
       ],
-      "published": "2026-09-15",
-      "source_label": "XPENG 小鹏 · 原始研究/官方发布",
-      "url": "https://www.xiaopeng.com/news/company_news/5593.html",
-      "limitation": "这是 2026-09-15 的官方技术精选，不是 10 月新发布成果。已核验官方文章和 X-Foresight 论文摘要，尚未阅读论文全文或独立实测。30 秒历史、6 秒预测及汽车到机器人底座复用均为厂商描述，文章未给出统一开放评测来证明跨本体泛化。X-Foresight 论文首版为 2026-05-24，最新列出的修订为 2026-07-07。"
+      "published": "2026-10-12",
+      "source_label": "DeepSeek（媒体报道，未获官方确认） · 媒体原报道日期",
+      "url": "https://finance.sina.com.cn/jjxw/2026-10-12/doc-iniuytnv5205606.shtml",
+      "limitation": "匿名信源的媒体报道，未获官方确认。本次检查的官方研究动态、API日志和公开代码中未找到对应具身发布；这不能证明不存在未公开研究。IT之家为同一原报道转载，不是独立确认；未核验的投资金额或交易细节不作事实。"
+    },
+    {
+      "id": "loopwam-closed-loop",
+      "title": "LoopWAM：把真实部署的成功、次优与失败经验都用于下一轮策略改进",
+      "summary": "联合视频—动作去噪，利用成功、次优与失败部署轨迹：保留失败视频的预测监督，降低或屏蔽失败动作模仿。作者报告Table30-V2三轮更新后成功率23.67%→43.33%；衬衫折叠两轮更新后13.20%→55.56%。",
+      "keywords": [
+        "世界动作模型 / WAM",
+        "失败数据 / Failure Data",
+        "实机闭环 / Deployment Loop"
+      ],
+      "published": "2026-10-13",
+      "source_label": "清华大学 / Dexmal / Loopeva · arXiv首版日期（UTC）",
+      "url": "https://arxiv.org/abs/2610.18873",
+      "limitation": "作者在实机任务中的自报结果，未独立复现。Table30-V2涵盖四种本体，每种本体训练自己的多任务模型，不能称一个策略跨四本体通用；衬衫折叠是DOS-W1单任务后训练，与前三轮的协议不同。具体代码发布范围尚未核验。"
+    },
+    {
+      "id": "x2real-release",
+      "title": "自变量 X2Real：开源长程具身策略的仿真评测运行时",
+      "summary": "10月10日v0.9.0开放长程操作策略的ID评测运行时和发布文档。44类层级语义任务对应73个可运行ID案例，并隔离策略与仿真环境；报告设置中仿真与实机表现的线性相关为0.84。",
+      "keywords": [
+        "长程评测 / Long-horizon Evaluation",
+        "Sim-to-real Correlation",
+        "Evaluation-only"
+      ],
+      "published": "2026-10-10",
+      "source_label": "自变量 X Square · v0.9.0评测运行时发布",
+      "url": "https://github.com/X-Square-Robot/x2real",
+      "limitation": "本次为evaluation-only，训练不在该开源范围；仿真资产与数据另行分发。0.84是报告特定策略、任务和硬件设置中的相关性，不能当任意机器人迁移的可靠性。已读官方README、开放范围及机构链接，未运行基准。"
+    },
+    {
+      "id": "agibot-ge-act-v2",
+      "title": "智元 GE-Act 2.0：从零预训练世界—动作模块，研究数据规模与跨本体迁移",
+      "summary": "控制导向autoencoder、单步视觉规划器与逆动力学模块分别预训练，再联合优化。论文研究无动作视频与动作轨迹共同扩展的数据收益，覆盖智元G1-OP与G2-90D。本期依据10月9日v2更新收录，首版为9月4日。",
+      "keywords": [
+        "世界动作模型 / WAM",
+        "跨本体 / Cross-embodiment",
+        "版本更新 / Revision"
+      ],
+      "published": "2026-10-09",
+      "source_label": "智元 AgiBot Research · arXiv v2修订日期（UTC，首版 09-04）",
+      "url": "https://ge-act-v2.github.io/",
+      "limitation": "这是已有论文的修订，不是10月新模型；本次未对比v1/v2，不能说明哪些方法为修订新增。项目代码仍Coming soon。100任务协议多为原子任务、每格10次实验，不能等同长程自主部署；性能为作者自报，未复现。"
+    },
+    {
+      "id": "unitree-unifolm-wla",
+      "title": "宇树 UnifoLM-WLA-1.0：Base权重与微调代码开放，覆盖全身及灵巧手操作",
+      "summary": "官方仓库9月28日发布UnifoLM-WLA-1.0-Base权重与微调代码，补齐此前开放的推理模型和动作训练模块。README称6B模型使用约2500小时实机数据，覆盖64个桌面/全身操作任务和多种夹爪、五指灵巧手。本期补收此前漏掉的国内模型发布。",
+      "keywords": [
+        "开放权重 / Open Weights",
+        "全身操作 / Whole-body Manipulation"
+      ],
+      "published": "2026-09-28",
+      "source_label": "宇树 Unitree · Base权重及微调代码发布",
+      "url": "https://github.com/unitreerobotics/unifolm-wla",
+      "limitation": "9月发布的补收，不是今日新品。数据规模、64任务和泛化为作者项目声明，需结合任务协议与重复实测；不能凭演示推断通用能力。权重入口由官方仓库确认，本次未下载或运行模型。"
     },
     {
       "id": "pi-api-beta",
-      "title": "机器人基础模型走向可微调、可部署的服务",
+      "title": "Physical Intelligence开放Pi API beta：上传示范、微调模型、托管推理",
       "summary": "Physical Intelligence 开放 Pi API beta，让开发者上传自己的机器人数据、微调最新模型，再通过托管推理在实机上运行。公开合作案例展示了“采集示范—训练—测试—按失败补充数据”的迭代过程。",
       "keywords": [
-        "机器人基础模型 / Robotic Foundation Models",
-        "VLA / Vision-Language-Action",
-        "数据微调 / Fine-tuning",
-        "云端推理 / Hosted Inference",
-        "实机数据闭环 / Real-world Data Loop"
+        "机器人API / Robot API",
+        "示范微调 / Fine-tuning"
       ],
       "published": "2026-10-13",
-      "source_label": "Physical Intelligence · 官方博客",
+      "source_label": "Physical Intelligence · 来源发布日期",
       "url": "https://www.pi.website/blog/api-beta",
       "limitation": "这是厂商的产品与合作案例发布，并非独立性能验证。文中说明部分云端部署仍受网络连接影响；不同机器人的延迟、可靠性与适配成本需单独评估。"
     },
     {
-      "id": "deepseek-deepep-ascend-moe-communication",
-      "title": "DeepSeek开源DeepEP-Ascend，为昇腾MoE训练与推理提供专家并行通信",
-      "summary": "DeepSeek公开面向华为昇腾NPU的DeepEP-Ascend，为MoE的dispatch/combine提供专家并行all-to-all通信，并包含FP8 dispatch等实现。团队披露了Ascend 950DT、CANN 9.2.0及PoC HDK上的测试条件和不同专家并行规模下的带宽结果，便于结合硬件与网络配置检查瓶颈。",
-      "keywords": [
-        "MoE / Mixture of Experts",
-        "专家并行 / Expert Parallelism",
-        "昇腾NPU / Ascend NPU"
-      ],
-      "published": "2026-09-30",
-      "source_label": "DeepSeek · 官方代码（日期为仓库创建记录）",
-      "url": "https://github.com/deepseek-ai/DeepEP-Ascend",
-      "limitation": "日期采用官方仓库创建日期2026-09-30；初始代码commit标为2026-09-29。仓库创建或commit时间不能证明首次公开时间，具体公开发布时间未由独立带日期公告确认。带宽数据来自DeepSeek在未公开发售的PoC硬件配置上的自测，不是公开商业固件的结果；更大EP规模及combine仍在优化，PP、Engram等接口也属实验阶段。不能把这些数字直接外推到其他硬件、网络拓扑或生产负载。"
-    },
-    {
-      "id": "qwen-ecommerce-bench",
-      "title": "Qwen E-Commerce Bench：让Agent经营模拟网店一年，分开衡量赚钱、风控和学习",
-      "summary": "评测让Agent从10万元启动资金出发，在365个模拟经营日内处理选品、议价、库存、发货和现金流。环境基于脱敏电商数据构建，用确定性内核控制需求和供应商报价，语言模型只负责呈现对话；最终同时检查资产、谈判、欺诈规避、现金流、操作效率、执行和长期学习七个维度。",
-      "keywords": [
-        "长程Agent / Long-horizon Agents",
-        "模拟经营 / Simulated Business Operation",
-        "环境学习 / Environment Learning"
-      ],
-      "published": "2026-09-03",
-      "source_label": "Qwen · 淘宝天猫集团等合作团队 · 原始研究/官方发布",
-      "url": "https://qwen.ai/blog?id=e-commerce-bench",
-      "limitation": "这是9月3日的研究回顾。已核验Qwen官方博文正文与其论文/代码链接，尚未精读论文全文或复现。365天是模拟时间，并非真实网店运营一年；确定性需求和谈判内核利于比较，也限制了对真实市场、供应商和突发事件的外推。模型表现还受运行框架、上下文管理和工具预算影响。"
-    },
-    {
-      "id": "sail-colm-2026",
-      "title": "COLM样本显示上下文管理、推理效率与真实Agent数据受到关注",
-      "summary": "SAIL 的 COLM 2026 汇总列出真实用户 Coding Agent 交互数据、线性注意力与递归架构等主会成果；另列 workshop 工作，涵盖强化学习驱动的上下文与 KV cache 管理、推理时计算扩展和知识蒸馏。",
-      "keywords": [
-        "上下文管理 / Context Management",
-        "KV缓存 / KV Cache",
-        "推理时计算扩展 / Test-time Scaling",
-        "线性注意力 / Linear Attention",
-        "Coding Agent真实用户数据 / In-the-wild Coding Agent Data",
-        "知识蒸馏 / Knowledge Distillation"
-      ],
-      "published": "2026-10-06",
-      "source_label": "Stanford AI Lab · COLM 2026 论文汇总",
-      "url": "https://ai.stanford.edu/blog/colm-2026/",
-      "limitation": "这是单个实验室的会议成果样本，不能代表会议或行业整体热度。页面分别列出主会与 workshop，部分 Oral 属于 workshop；录用类型不能混用。这里只核验汇总页面，未独立复现各篇论文。"
-    },
-    {
       "id": "agent-replication-evaluation",
-      "title": "Agent评估深入长期任务与自主复制风险",
+      "title": "Anthropic：用受控实验评估Agent部署推理服务与串联复制步骤的能力",
       "summary": "Anthropic 评估小模型在陌生硬件上建立推理服务，以及在简化网络环境中串联复制步骤的能力。研究把长期任务可靠性、端侧部署与自主行动边界连接起来。",
       "keywords": [
-        "自主复制评估 / Autonomous Replication Evaluation",
-        "Agent安全 / Agent Safety",
-        "长期任务可靠性 / Long-horizon Reliability",
-        "端侧推理 / Edge Inference",
-        "分布式推理 / Distributed Inference"
+        "Agent评测 / Agent Evaluation",
+        "长程可靠性 / Long-horizon Reliability"
       ],
       "published": "2026-10-12",
-      "source_label": "Anthropic · Frontier Red Team",
+      "source_label": "Anthropic · Frontier Red Team · 来源发布日期",
       "url": "https://www.anthropic.com/research/self-replicating-ai",
       "limitation": "实验使用受控环境，并简化了网络攻击环节；文中强调其结果是现实成功率的上界。本文讨论能力与风险评估，不能据此声称模型已在现实网络自主扩散。"
-    },
-    {
-      "id": "multi-agent-uv-science",
-      "title": "多Agent科研从找资料进入数据处理与验证",
-      "summary": "一位 Johns Hopkins 天体物理研究者与 Claude Science 协作，整合多个紫外巡天数据集、交叉校准，并估计尚无紫外观测的区域。项目同时标记测量与预测区域，给出不确定性估计。",
-      "keywords": [
-        "AI科研 / AI for Science",
-        "多Agent协作 / Multi-agent Collaboration",
-        "数据校准 / Data Calibration",
-        "科学数据补全 / Scientific Inpainting",
-        "不确定性估计 / Uncertainty Estimation"
-      ],
-      "published": "2026-10-08",
-      "source_label": "Anthropic · Science，研究者案例",
-      "url": "https://www.anthropic.com/research/the-missing-map-of-the-sky",
-      "limitation": "官方案例文章称约三分之一地图来自预测，并非新增天文观测。科研结论需结合原始数据、验证方法与研究者审查；该案例不能证明模型能独立完成所有科研任务。"
     }
   ]
 }
