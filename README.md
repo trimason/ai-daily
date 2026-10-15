@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为大模型进入具身与自我改进专题精选：Gemini 4 Argon 的机器人进展、RSI 研究，以及小鹏 GroundingPI、LoopWAM、国内具身公司的研究或发布，另保留明确标注未官宣的 DeepSeek 产业报道。原始样刊及此前精选保留在归档。精选按实际事件日期补收，**不代表当天完整新闻汇总**。每期新增「每日技术点」，帮助理解当前主流模型与具身研究中的重要机制。
+当前首页为2026年10月15日日报：沿Gemini 4与具身RSI主线，跟进SEAR、EmbodiedEvo、高德ABot-ER、ChunkAct，以及智元VINE、小鹏合作团队和Qwen的开源更新；SAIL旧论文的新解读明确保留原日期。10月14日专题及样刊保留在归档。每期「每日技术点」帮助理解当前主流机制，本期讲动作分块与滚动执行。
 
 ## 本地构建与预览
 

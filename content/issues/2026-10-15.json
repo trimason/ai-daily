@@ -1,0 +1,432 @@
+{
+  "date": "2026-10-15",
+  "status": "daily",
+  "title": "Gemini 4 与具身 RSI：从演示走向可复用改进",
+  "intro": "沿着human five提出的Gemini 4机器人线索，继续看通用大模型怎样通过代码、物理反馈、技能与训练数据进入具身闭环。今天重点区分：一次做得更好、留下可复用经验，以及下一轮改进方法本身变强。",
+  "coverage": "采集与核验于北京时间2026-10-15，新增发现重点覆盖10-13—10-14；逐条保留UTC首版、代码发布或作者解读日期。Gemini 4为已收录发布的专题续论，不算今日新模型；旧论文的博客解读与资源更新也分别注明。已与此前三期去重；没有可核新增的团队不凑数。",
+  "stories": [
+    {
+      "id": "embodiedevo-skills-lessons",
+      "category": "llm",
+      "tag": "大模型进入具身 · 可复用技能",
+      "title": "EmbodiedEvo：让编码Agent积累机器人技能与失败经验，在新场景复用",
+      "organization": "Navers Lab · Einsia.AI · 清华大学（依论文署名）",
+      "published": "2026-10-13",
+      "date_label": "arXiv首版 2026-10-13 17:59 UTC；北京时间10-14 01:59，本期补收",
+      "summary": "模型权重和机器人接口保持不变。编码Agent在每项任务的一个Playground场景里，通过代码执行与物理反馈形成可执行Skills和适用条件、失败经验Lessons，再冻结这些资料，让独立Test agents用于新场景。作者在RoboDojo-Sim的42项任务、每项50个场景中报告平均得分44.48、成功率37.82%；在同一执行器和场景的配对小规模比较中，仅任务描述条件下的成功率从8.50%升至30.17%。",
+      "why": "这与Gemini 4机器人案例共同指向通用编码Agent进入具身研发与执行：改进可以发生在可继承的代码、技能和记忆里。它把“生成动作”进一步连接到“保留有用经验”，适合追问自我改进实际更新了哪一层，以及能否在独立新场景重用。",
+      "limitation": "已读方法、实验、成本和讨论，未复现或核验代码开放范围。全部结果来自仿真，完整集只有一个seed；配对比较为每任务5场景、210 episodes。精密接触与长程任务仍较弱。Skills/Lessons相对原始历史的53.0%费用下降只指Test执行，排除Playground经验采集；相对无经验基线，Test每episode估算费用反而从$4.058增至$5.732（+41.3%）。冻结经验带来任务收益，未证明改进程序本身逐轮更有效，不等于完整RSI。",
+      "sources": [
+        {
+          "label": "论文及首版时间",
+          "url": "https://arxiv.org/abs/2610.18867"
+        },
+        {
+          "label": "论文全文（方法、配对比较与成本）",
+          "url": "https://arxiv.org/html/2610.18867v1"
+        },
+        {
+          "label": "作者项目入口（由论文确认，本轮未重读页面）",
+          "url": "https://lab.einsia.ai/embodiedevo"
+        }
+      ]
+    },
+    {
+      "id": "qwen-blenderworld-release",
+      "category": "llm",
+      "tag": "Qwen · 视觉Agent评测",
+      "title": "Qwen开源BlenderWorld：从真实参考资料创建可编辑3D工程的223项任务",
+      "organization": "阿里 Qwen（官方QwenLM组织）",
+      "published": "2026-10-14",
+      "date_label": "官方仓库创建及首次代码提交 2026-10-14（UTC）；非仅仓库更新时间",
+      "summary": "BlenderWorld要求Agent根据文字、图像或视频参考和规格附件，交付可编辑Blender工程与所需导出资产。官方README列出223项任务、2651条二元判据，其中130项图文任务、15项视频任务；59项带尺寸、材质或相机规格附件。评估结合8个自适应视角、场景结构检查、带权二元rubric与8项整体视觉评分，最终两类分数各占50%。",
+      "why": "多模态Agent的评测开始检验有结构、可编辑、符合尺寸和交付要求的3D资产。它与具身中的空间理解、仿真资产生成有交叉，可用于追踪大模型能否把参考资料转成可运行工程，以及评委和渲染协议如何影响分数。",
+      "limitation": "已读官方README并核对GitHub初始提交日期，未运行基准、未核论文全文及独立评委一致性。该项目属于3D创作评测，不能称为机器人控制或实机能力成果；部分判据由Agent-as-Judge和视觉模型评分，结果依赖评委、视角与渲染设置。数据入口由官方仓库确认，本轮未下载数据；不引用未核模型排名。",
+      "sources": [
+        {
+          "label": "官方代码与评测协议",
+          "url": "https://github.com/QwenLM/BlenderWorld"
+        },
+        {
+          "label": "首次公开代码提交",
+          "url": "https://github.com/QwenLM/BlenderWorld/commit/69a9d56bb45a6a9c298ef6d6514fc3dbd24a1fe8"
+        },
+        {
+          "label": "官方数据入口（由README确认）",
+          "url": "https://huggingface.co/datasets/Qwen/BlenderWorld"
+        }
+      ]
+    },
+    {
+      "id": "abot-er-data-model-coevolution",
+      "category": "embodied",
+      "tag": "国内具身 · 数据闭环",
+      "title": "高德 ABot-ER：让具身推理的数据随模型短板迭代",
+      "organization": "高德 AMAP CV Lab",
+      "published": "2026-10-13",
+      "date_label": "arXiv首版10-13 13:21 UTC／北京时间21:21；官方仓库10-14 23:25北京时间创建",
+      "summary": "ABot-ER 将空间、场景、时序理解、目标点定位和长程规划纳入同一视觉语言模型。它按评测暴露的能力缺口，修订监督内容、坐标协议和数据配比，再用确定性规则筛查并训练下一轮；共享底座上的任务条件低秩残差减少问答与规划输出之间的干扰。报告中的 9B 模型在所列十二项基准中六项领先，具身问答均分 64.57、规划均分 41.61；官方仓库已给出训练与评测代码及 ModelScope 模型入口。",
+      "why": "这是国内“大模型进入具身＋自改进”交叉方向的直接进展：重点是维护可追溯的数据与评测闭环。论文把 RSI 限定在训练语料的诊断、修订与再训练，提供了比笼统的“机器人自主进化”更具体、可检查的实现。",
+      "limitation": "以上是作者报告、相对所列基线的结果，基线来源含历史快照，尚无独立复现。Execution 均分 67.06 衡量目标点与可供性，不是机械臂成功率；Galaxea R1 Pro 仅定性演示，ABot-ER 负责感知判断，AgentOS 协调、独立 ABot-M 执行动作。各自演化轮次算力不同，多轮重启于预训练模型，不能由跨轮增分证明递归改进本身的因果收益；训练数据入口为 JSONL/清单，图像视频须依原始来源获取。",
+      "sources": [
+        {
+          "label": "ABot-ER 原论文：方法、表8及第6.5–6.6节",
+          "url": "https://arxiv.org/html/2610.18355v1"
+        },
+        {
+          "label": "高德 AMAP CV Lab 官方仓库（中文）",
+          "url": "https://github.com/amap-cvlab/ABot-ER/blob/main/README.zh-CN.md"
+        },
+        {
+          "label": "官方 9B 模型卡",
+          "url": "https://www.modelscope.cn/models/amap_cvlab/ABot-ER-9B"
+        }
+      ]
+    },
+    {
+      "id": "sear-self-evolving-agentic-robotics",
+      "category": "embodied",
+      "tag": "新论文 · RSI × 具身机器人 · 评测协议",
+      "title": "SEAR：用受控评测检验机器人是在学习，还是只是在多试几次",
+      "organization": "Luma AI",
+      "published": "2026-10-14",
+      "date_label": "arXiv首版 2026-10-13 17:40:20 UTC（北京时间10-14 01:40:20）",
+      "summary": "SEAR（Self-Evolving Agentic Robotics）把机器人自我改进拆成三种模式：代码即策略、Agent直接留在控制循环中、以及用自身rollout微调π0.5 VLA的自动研究。论文在两个物理引擎的330个仿真任务和5个实机任务上，比较短重启、无继承库、密封测试和多层泛化，专门检验成功率上升是否只是重采样或预算增加。",
+      "why": "这是把RSI问题放进具身机器人评测的清晰基线：经验库、代码技能和记忆能否跨任务/模拟器转移，实机上由Agent设计的练习能否迁移到人类设计的新场景。它也提醒我们，Gemini 4式通用推理进入机器人后，必须把推理能力、工具使用、策略更新和真实闭环分开测。",
+      "limitation": "论文所说的完整co-evolving loop（同时更新模型权重和harness）仍是提案；当前实证主要让技能/记忆库跨任务继承，LM权重固定，VLA在各自任务套件内训练。论文称发布代码，但截至核验仓库只有LICENSE、README和assets，代码尚未出现，不能写成已可复现。实机任务数量少、场景有人工摆放和人工judge，结果尚未独立复现。",
+      "sources": [
+        {
+          "label": "论文摘要与首版日期",
+          "url": "https://arxiv.org/abs/2610.18792"
+        },
+        {
+          "label": "论文HTML：协议、实验与局限",
+          "url": "https://arxiv.org/html/2610.18792v1"
+        },
+        {
+          "label": "作者仓库（核验时尚未发布实现代码）",
+          "url": "https://github.com/Self-Evolving-Agentic-Robotics/SEAR"
+        }
+      ]
+    },
+    {
+      "id": "chunkact-memory-compiled-robot-primitives",
+      "category": "embodied",
+      "tag": "新论文 · 机器人Agent · 技能编译与效率",
+      "title": "ChunkAct：把经验编译成可执行动作块，让大模型在决策和出错时介入",
+      "organization": "南加州大学 · 中佛罗里达大学 · 石溪大学",
+      "published": "2026-10-13",
+      "date_label": "arXiv首版（17:59 UTC；北京时间10-14 01:59）",
+      "summary": "每调用一个原语都让LLM重读经验、重新推理，成本很高。ChunkAct在部署前把记忆编译成带参数、感知与异常返回的程序块；在线由LLM选块，块内自行执行多项感知和控制原语，失败后再交回规划器。论文LIBERO-Pro指令重定向/位置互换的High reasoning受控比较中，任务成功率78.8%→83.8%，每回合平均LLM调用24.2→8.3次。",
+      "why": "大模型进入机器人，并不意味着每个控制周期都需要大模型推理。可执行技能保留过程知识，规划器处理任务理解与失败恢复，能同时改善效率和完成率。这也与自我改进有关：积累经验之后，怎样把经验变成下一次可以直接调用的能力，而不是无限增长的聊天历史？",
+      "limitation": "已读方法与实验，未复现。结果来自LIBERO-Pro/Plus仿真，主对照共享模型、工具与记忆；部分其他基线数字引自先前论文。原语块可持续使用感知，减少的是LLM调用，不是取消反馈。调用数和token下降不等于实机延迟或总研发成本同比下降，离线记忆收集/编译也需计入部署评估。未证明编译流程会递归地自我改进。",
+      "sources": [
+        {
+          "label": "ChunkAct原论文与首版时间",
+          "url": "https://arxiv.org/abs/2610.18874"
+        },
+        {
+          "label": "原论文HTML · §3编译与触发、§4受控比较",
+          "url": "https://arxiv.org/html/2610.18874v1"
+        }
+      ]
+    },
+    {
+      "id": "dexagent-sail-human-to-sim-to-robot-explained",
+      "category": "embodied",
+      "tag": "作者新解读 · 旧论文非首发 · 视频到机器人",
+      "title": "SAIL解读DexAgent：从一段人类视频重建物理交互，扩展机器人训练数据",
+      "organization": "斯坦福大学 SAIL · 哥伦比亚大学",
+      "published": "2026-10-13",
+      "date_label": "SAIL作者博客日期；论文首版09-28、v2为10-02",
+      "summary": "作者新博客拆解Human2Sim2Robot流程：理解视频里的交互语义，重建物体及运动约束，优化机器人轨迹，再改变初始状态扩增训练数据。Agent按物体性质选择或编写技能与验证器，并保留工具库。作者报告11项实机任务中，生成数据训练的策略平均成功率63.6%，对照SPIDER为18.2%。",
+      "why": "这为Gemini所展示的视频—仿真—实机路径提供一项具体研究对照：重点不是视频看起来像真实世界，而是重建是否保留开瓶、抽屉、绳结等交互的约束，以及生成数据能否真的训练出更好的实机策略。技能与验证器的复用，也让“自我改进”落到可检查的软件产物。",
+      "limitation": "本条是10-13作者新解读，不把9月论文重报为新发表。已读博客及论文方法/实验设置；11任务每项策略测试10次，为作者自报，未独立复现。策略成功率与轨迹回放“10次中至少1次成功”的判定不同；后者不能当稳定成功率。语义、几何、接触与验证器错误仍会传递，工具库增长也不证明改进机制已递归增强。",
+      "sources": [
+        {
+          "label": "SAIL作者博客 · 2026-10-13新解读",
+          "url": "https://ai.stanford.edu/blog/dexagent/"
+        },
+        {
+          "label": "论文版本与原始日期",
+          "url": "https://arxiv.org/abs/2609.35318"
+        },
+        {
+          "label": "作者项目页 · 四阶段流程与实验",
+          "url": "https://dexagent1.github.io/"
+        }
+      ]
+    },
+    {
+      "id": "agibot-vine-code-release",
+      "category": "embodied",
+      "tag": "代码首发 · 流匹配策略 · 价值梯度RL",
+      "title": "智元开放 VINE 复现代码：让流匹配动作策略稳定接入价值梯度强化学习",
+      "organization": "智元机器人 AgiBot / 香港科技大学 / 北京大学",
+      "published": "2026-10-14",
+      "date_label": "GitHub仓库创建 2026-10-14 06:12:42 UTC；初始提交 06:13:00 UTC（北京时间14:13:00）",
+      "summary": "AgiBotTech/vine-code 发布VINE（Value-gradient Iterative Noise Exploration）的实现。方法在流匹配采样的每个去噪步骤重建插值状态，再沿整条采样链反传critic的价值梯度，改进采样器而不改网络结构；公开包包含训练、评测、OGBench数据脚本和任务配置。",
+      "why": "它把生成式控制策略与在线/离线RL接起来，是国内具身基础模型从论文走向可运行复现的重要信号。对RSI主线而言，VINE体现的是策略更新机制；应和SEAR的Agent/流程自我改进区分，不能把一次RL优化自动称作递归自我改进。",
+      "limitation": "论文首版其实是2026-07-11，10月14日是代码首发事件，不是新算法论文。公开实现明确只支持state observations，create中要求encoder为空；它覆盖OGBench离线RL，不包含项目宣传中的图像VLA微调或完整实机闭环。论文中的实机20/20和人工干预等结果属于7月历史实验，也不等于此次代码已复现。",
+      "sources": [
+        {
+          "label": "官方代码仓库",
+          "url": "https://github.com/AgibotTech/vine-code"
+        },
+        {
+          "label": "10月14日初始提交",
+          "url": "https://github.com/AgibotTech/vine-code/commit/e6c9019f49286b179ee3f7c125b5d67cf85733d7"
+        },
+        {
+          "label": "原论文（首版2026-07-11）",
+          "url": "https://arxiv.org/abs/2607.10369"
+        }
+      ]
+    },
+    {
+      "id": "groundingpi-groundanything-resources",
+      "category": "embodied",
+      "tag": "资源更新 · XPENG合作团队 · 感知与评测可复现",
+      "title": "GroundingPI / GroundAnything：小鹏合作团队补齐国内模型与评测资源入口",
+      "organization": "XPENG / 北京大学 / 香港大学等合作团队",
+      "published": "2026-10-14",
+      "date_label": "GroundingPI提交 09:41:47 UTC（北京时间17:41:47）；GroundAnything提交 10:21:51 UTC（北京时间18:21:51）",
+      "summary": "GroundingPI仓库新增Grounding-EvalData的ModelScope中英文镜像，以及stage2/stage3预训练checkpoint入口；评测数据覆盖34项任务，GroundAnything使用其中30项子集。同日GroundAnything仓库更新README并宣布GroundAnything DLM与GroundAnything-VLM权重上线ModelScope，使论文中的精确定位/指代表达/指向/OCR感知路线更接近可复现实验。",
+      "why": "这条更新对应小鹏具身研究的重点方向：具身系统先要把“物体在哪里、指的是什么”学准，再看动作模型能否泛化。ModelScope镜像降低国内访问和评测门槛，也便于把感知分数、动作成功率和真实部署分开核验。",
+      "limitation": "这是代码、数据和模型入口补齐，不是10月14日新算法或新成绩；GroundingPI论文首版为9月30日，checkpoint页面显示10月13日创建/修改。评测数据卡明确不含模型权重和推理输出，尚未下载权重或独立推理。GroundAnything的ModelScope页面本次只核到作者公告与模型条目，未独立核完整文件清单；不要写成已完成复现。",
+      "sources": [
+        {
+          "label": "GroundingPI 10月14日资源提交",
+          "url": "https://github.com/groundingpi/GroundingPI/commit/2600996be10a2bdf7ba8e3668e02a9735bc6947f"
+        },
+        {
+          "label": "Grounding-EvalData（ModelScope）",
+          "url": "https://modelscope.cn/datasets/AndySkywalker/Grounding-EvalData"
+        },
+        {
+          "label": "GroundAnything 10月14日资源提交",
+          "url": "https://github.com/groundingpi/GroundAnything/commit/d5b7d5670bc47087a0e4ef9c5ad9e9e4b0434c4a"
+        },
+        {
+          "label": "GroundAnything项目页",
+          "url": "https://groundingpi.github.io/groundanything/"
+        }
+      ]
+    },
+    {
+      "id": "gemini-robotics-rsi-evidence-discussion",
+      "category": "discussion",
+      "tag": "本刊专题续论 · Gemini 4 × 具身 × RSI",
+      "title": "Gemini 4 × RSI：大模型进入机器人后，什么才算持续自我改进？",
+      "organization": "Google DeepMind官方材料 / human five线索 / 本刊对照讨论",
+      "published": "2026-10-15",
+      "date_label": "本刊讨论整理日期；Gemini 4官方总发布为10-13 UTC",
+      "summary": "Gemini 4 Argon应放在重点位置：通用多模态与代码能力开始连接机器人感知、工具控制、从人类视频生成仿真代码和研发流程。官方总公告的ERQA 87%及Apollo连续命中7次，是两类不同证据。human five进一步讨论Real2Sim、事后标注、任务进度估计与自我改进；这些问题应落实成独立研究追踪，而不只成为信息源目录中的关键词。",
+      "why": "从Gemini案例读到本期SEAR、EmbodiedEvo、ABot-ER与技能编译，可以看到三种具体路径：改模型或策略权重，改数据与验证流程，改可继承的代码、工具和记忆。后两种即使固定基础模型也有研究价值。更强的递归主张还需要证明：保留下来的修改，使后续独立任务上的改进过程持续更有效，而不只是多尝试几次、消耗更多预算。",
+      "limitation": "这是基于已公开材料的本刊续论，不是Google今天的新公告，也不把这些论文归属Google。Argon通用模型、Gemini Robotics ER 2具身推理和Robotics 2动作模型分开看。87%并非实机成功率；Apollo为厂商案例。机器人专篇仍超时，公众号56%→75%、4500+episodes、68sandbox尚未独立核实。官方安全报告在其端到端AI研发评估中未观察到显著加速，复杂流程仍需人工；不能据单个演示宣布已实现RSI。",
+      "sources": [
+        {
+          "label": "Google官方总发布 · 已复核ERQA、Apollo与Video-to-Sim-to-Real",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/"
+        },
+        {
+          "label": "用户指定的human five文章 · 2026-10-14北京时间",
+          "url": "https://mp.weixin.qq.com/s/c6jtVqfZ0bI3JtCtExzlhg"
+        },
+        {
+          "label": "官方安全报告 · §3.4.2端到端研发评估、§5.7机器人",
+          "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_4_safety_report.pdf"
+        },
+        {
+          "label": "Self-Evolving Agent Harness · 固定权重的持续软件修改与验证",
+          "url": "https://arxiv.org/abs/2610.18813"
+        }
+      ]
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Gemini 4 × 具身：进入控制，也进入研发闭环",
+      "text": "以human five线索为重点，串联官方机器人案例与本期新研究；分别核对感知、代码、控制、仿真及自我改进。",
+      "story_id": "gemini-robotics-rsi-evidence-discussion"
+    },
+    {
+      "title": "具身 RSI：经验有用，还是仅仅多试了几次？",
+      "text": "SEAR控制预算和重启，EmbodiedEvo把技能与经验冻结后测新场景。关注可继承改进及独立验证。",
+      "story_id": "sear-self-evolving-agentic-robotics"
+    },
+    {
+      "title": "国内具身：数据演化、策略训练与精确感知",
+      "text": "高德ABot-ER把数据随能力短板迭代，智元VINE开放训练代码，小鹏合作团队更新评测资源。",
+      "story_id": "abot-er-data-model-coevolution"
+    }
+  ],
+  "reading": [
+    {
+      "title": "Gemini 4 Argon官方发布与机器人案例",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
+      "reason": "回查human five的核心线索；具身推理得分、实机案例与完整研发自主化分别判断。"
+    },
+    {
+      "title": "SEAR：机器人是否从经验中学习？",
+      "url": "https://arxiv.org/abs/2610.18792",
+      "reason": "重点读短重启、经验继承、预算控制与陌生场景测试，再看哪些co-evolution仍只是提案。"
+    },
+    {
+      "title": "EmbodiedEvo：Skills与Lessons如何帮助新场景？",
+      "url": "https://arxiv.org/abs/2610.18867",
+      "reason": "对照无经验、原始历史与整理后的技能库，并把经验采集和执行成本一起计算。"
+    },
+    {
+      "title": "ChunkAct：把常规操作交给程序块",
+      "url": "https://arxiv.org/abs/2610.18874",
+      "reason": "结合每日技术点，分清程序块与连续动作块，理解LLM决策、失败恢复和低层控制的职责。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "Foundation Models for Robotics / 大模型进入具身",
+      "explanation": "通用多模态与编码能力接入感知、控制工具、仿真和研发。要分清推理模型、动作策略与整个系统的贡献。"
+    },
+    {
+      "term": "RSI / 递归自我改进",
+      "explanation": "既看系统留下什么可继承修改，也追问这些修改是否让后续独立任务上的改进过程更有效；单轮收益不自动等于递归加速。"
+    },
+    {
+      "term": "Skills & Lessons / 技能与经验沉淀",
+      "explanation": "把有效控制代码、适用条件和失败教训保存下来，让新场景中的Agent复用。检查是否固定模型、冻结经验并独立测试。"
+    },
+    {
+      "term": "Human2Sim2Robot / 视频—仿真—机器人",
+      "explanation": "从人类交互理解物体约束，在仿真生成数据再训练机器人；仿真重建与实机任务成功是不同验证环节。"
+    },
+    {
+      "term": "Action Chunking / 动作分块",
+      "explanation": "一次生成未来一段动作，以滚动执行结合新反馈；高层程序块打包工具流程，连续动作块打包数值控制。"
+    },
+    {
+      "term": "Embodied Reasoning / 具身推理",
+      "explanation": "空间、时间、任务规划、目标点与可供性判断；离线答题或目标点得分不能直接当作真实机器人闭环成功率。"
+    },
+    {
+      "term": "Grounding / 精确感知与定位",
+      "explanation": "将语言、对象与具体坐标对应；感知预训练可能帮助动作泛化，但仍需独立核对策略与实机结果。"
+    },
+    {
+      "term": "Compute-matched Evaluation / 同预算评测",
+      "explanation": "控制总时间、模型调用、尝试次数和经验采集成本，再判断提升来自学习、重试还是更大的预算。"
+    }
+  ],
+  "featured_ids": [
+    "gemini-robotics-rsi-evidence-discussion",
+    "sear-self-evolving-agentic-robotics",
+    "embodiedevo-skills-lessons",
+    "abot-er-data-model-coevolution",
+    "chunkact-memory-compiled-robot-primitives",
+    "groundingpi-groundanything-resources"
+  ],
+  "technical_explainer": {
+    "id": "action-chunks-and-receding-horizon",
+    "title": "动作分块与滚动执行：机器人为什么预测一段，却只先执行一小段？",
+    "summary": "理解ACT、扩散/流匹配VLA和机器人Agent中常见的action chunk：把连续动作作为整体生成，用及时反馈纠偏。再分清低层动作序列与ChunkAct的高层程序块。",
+    "reading_minutes": 6,
+    "why_now": "本期ChunkAct把常规执行从LLM逐步推理中取出；Gemini与SEAR也让通用Agent进入机器人工作流。读这些研究，要先区分“决定做什么”和“连续怎样动”。动作分块不是今天才出现：ACT与Diffusion Policy在2023年已系统使用，π0.5在2025年继续用连续动作块，是理解当前VLA与控制效率的重要基础。",
+    "sections": [
+      {
+        "heading": "1. 一次只猜下一个动作，为什么不够？",
+        "paragraphs": [
+          "抓杯子不是几个互不相关的动作。接近、对齐、闭合夹爪与抬起之间有时间关系；人类示范中也存在停顿、不同速度和多种可行抓法。如果每次只学当前画面对应的一个动作，微小误差可能逐步累积，模型也难以表达整段动作的一致意图。",
+          "动作分块把学习目标改成未来一段动作序列。例如输入当前相机图像、机器人关节状态和指令，输出未来H步的关节目标或末端位姿。这里H叫预测时域。一次联合生成有助于表达时间上的协调；它仍需要足够的数据、正确的动作标定和合适的控制接口，分块本身不会自动补齐这些条件。"
+        ]
+      },
+      {
+        "heading": "2. 预测H步，不必盲目走完H步",
+        "paragraphs": [
+          "常见滚动执行方式是：观察当前状态，预测H步，只执行前K步，然后获取新观察，重新预测。K叫执行时域，通常不大于H。模型可以提前考虑较远的动作衔接，又能在执行过程中根据杯子偏移、抓取滑落等变化更新计划。Diffusion Policy就把动作序列生成与这种receding-horizon控制结合起来；H/K只是这里的通用记号，具体实现的符号与数值会不同。",
+          "H和K控制不同的取舍：较大的H让模型表达更长的协调过程，但预测远端更不确定；较大的K减少推理频率，却推迟了新视觉信息改变动作的机会。接触精细、环境会动或传感器有延迟的任务，尤其需要报告真实时间尺度，而不只写“块长50”。同样50步，在50Hz是1秒，在10Hz就是5秒。",
+          "低层伺服仍可能以更高频率根据关节或力反馈工作。因此“模型暂时不重新看相机”不等于整个机器人完全没有反馈；反过来，底层能跟踪关节目标，也不保证上层计划能及时发现物体已经滑走。读论文要问反馈在哪一层、多久更新一次。"
+        ]
+      },
+      {
+        "heading": "3. ACT、扩散、流匹配，和“分块”是什么关系？",
+        "paragraphs": [
+          "分块规定的是输出组织方式，不限定生成方法。ACT用Transformer与条件变分自编码器学习动作序列；Diffusion Policy从噪声出发，迭代去噪生成一段动作；π0.5的连续动作专家通过流匹配生成动作块。它们可以输出相似形式的动作序列，内部训练目标和采样过程却不同。不能把action chunking直接当作某一种网络。",
+          "ACT还提出时间集成：通常每个控制步重新预测，再融合指向同一执行时刻的重叠动作建议，使轨迹更平滑。它与前文执行K步后才重新规划是两种不同的部署选择。注意这不是把不同时刻的动作随便平均，也不是所有VLA都默认使用的步骤。集成增加推理需求，并在平滑与迅速响应新信息之间形成取舍。",
+          "π0.5官方示例把高层语言动作与50步、约1秒的连续关节动作块结合。高层决定“拿起枕头”，低层输出如何移动的数值序列。这个例子帮助理解两层职责，不能推断所有模型或所有部署都使用相同块长、频率和执行策略。"
+        ]
+      },
+      {
+        "heading": "4. ChunkAct的“块”在另一个层级",
+        "paragraphs": [
+          "ChunkAct把多项感知、运动与VLA工具调用编成程序块，例如“定位杯子—计算抓点—接近—夹取—确认—移动”。块内可以继续感知或调用低层控制，并在出错时返回结构化信息；LLM负责选块和恢复。这与一次输出未来32个关节动作不是同一层的分块，二者可以同时存在。",
+          "程序块保存的是可执行流程，低层动作块保存的是短时间的连续运动。前者减少LLM反复解释经验和发工具调用的成本，后者组织运动时序。论文中LLM调用从24.2降到8.3次，是规划层指标；不能直接写成机器人速度提高2.9倍，更不能用它证明系统已经学会递归改进自身。"
+        ]
+      },
+      {
+        "heading": "5. 真正的难点是动作与反馈对得上时间",
+        "paragraphs": [
+          "摄像头曝光、图像传输、模型推理和动作排队都消耗时间。新动作如果按旧画面生成，执行时的真实场景可能已改变。比较两种策略时，要同时看成功率、推理耗时、控制频率、块长、实际执行步数，以及是否异步计算下一块；只比较每秒生成多少动作不够。",
+          "失败也有不同来源：动作序列不连贯可能需要更好的联合预测；来不及纠偏可能需要缩短执行窗口或降低延迟；错误抓点可能是感知问题。增大或减小块长只解决其中一部分，不能代替精确定位、接触感知或可靠的失败检测。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "同样叫chunk，先确认它打包的是什么",
+      "columns": [
+        "层级",
+        "一块包含什么",
+        "主要决策与反馈"
+      ],
+      "rows": [
+        [
+          "连续动作块",
+          "未来H步的关节目标或末端动作",
+          "执行前K步后可重新观察；底层伺服继续跟踪"
+        ],
+        [
+          "ACT时间集成",
+          "多次预测对同一时刻的动作建议",
+          "融合重叠预测；平滑与反馈响应需要权衡"
+        ],
+        [
+          "ChunkAct程序块",
+          "感知、运动和VLA等多个可执行原语",
+          "块内执行与检查，失败或需要决策时交回LLM"
+        ]
+      ]
+    },
+    "example": {
+      "title": "假设算例：32步计划，先走8步",
+      "paragraphs": [
+        "假设控制频率50Hz，预测H=32步，对应未来0.64秒；先执行K=8步，对应0.16秒，再用新图像预测。如果杯子在这0.16秒内被轻轻移动，下一轮就有机会修正余下路径。若直接执行32步，视觉计划最长要到0.64秒后才更新。以上仅用于解释，不是某篇论文的实测设置。",
+        "忽略计算和通信开销时，K=8意味着每秒约6.25次策略更新，K=32约1.56次。但实际推理若要0.2秒，前一种更新目标已来不及按时完成，需要更快推理、异步执行或调整窗口。提高更新频率的价值，要和系统真实延迟一起评估。"
+      ]
+    },
+    "checklist": [
+      "输出的是关节位置、速度、末端增量还是高层工具？动作单位与控制频率是否写清楚？",
+      "预测H步，实际执行K步？相机、关节或力反馈各在何时进入闭环？",
+      "块内有没有感知与失败检测？报告的是模型调用、整机延迟还是总成本？",
+      "比较是否固定模型、数据、传感器与推理预算？快了以后实机成功率是否保持？",
+      "经验保存在权重、记忆还是程序块？保存经验的收益与递归改进的证据是否分别测量？"
+    ],
+    "takeaway": "动作分块让模型联合考虑一段运动，滚动执行让它及时用新反馈纠偏；高层程序块则把可复用流程交给代码执行。",
+    "sources": [
+      {
+        "label": "ACT · 2023原理来源 · 动作分块与时间集成",
+        "url": "https://arxiv.org/abs/2304.13705"
+      },
+      {
+        "label": "Diffusion Policy · 2023原理来源 · 动作序列与滚动执行",
+        "url": "https://diffusion-policy.cs.columbia.edu/"
+      },
+      {
+        "label": "π0.5 · 2025现有VLA用法 · 连续动作块与流匹配",
+        "url": "https://www.pi.website/blog/pi05"
+      },
+      {
+        "label": "ChunkAct · 2026-10新研究 · 高层原语编译",
+        "url": "https://arxiv.org/html/2610.18874v1"
+      }
+    ]
+  }
+}

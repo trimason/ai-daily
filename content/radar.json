@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-10-14",
+  "updated_on": "2026-10-15",
   "intro": "每日从研究目录、作者项目、论文、代码和模型卡交叉发现成果，重点跟踪国内大模型与具身公司、小鹏 GroundingPI。主入口可达与具体内容已核验分开标注；媒体产业信号保留报道来源及确认状态。",
   "groups": [
     {
@@ -402,7 +402,7 @@
               "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
               "kind": "官方发布",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
+              "checked_on": "2026-10-15",
               "note": "已读正文；UTC10-13 16:00／北京时间10-14 00:00发布，ERQA 87%与Apollo案例为官方自报。"
             },
             {
@@ -410,7 +410,7 @@
               "url": "https://developers.googleblog.com/gemini-4-argon-for-robotics",
               "kind": "官方机器人专题",
               "status": "unreadable",
-              "checked_on": "2026-10-14",
+              "checked_on": "2026-10-15",
               "note": "入口由Google总公告与DeepMind索引确认；正文直连反复超时，公众号具体机器人数字尚待逐项回查。"
             },
             {
@@ -418,7 +418,7 @@
               "url": "https://deepmind.google/models/gemini-robotics/",
               "kind": "官方模型与相关研究",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
+              "checked_on": "2026-10-15",
               "note": "已核Robotics 2为VLA、ER 2为专用具身推理；Argon为通用模型。"
             },
             {
@@ -426,7 +426,7 @@
               "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_4_safety_report.pdf",
               "kind": "官方技术报告",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
+              "checked_on": "2026-10-15",
               "note": "已读§3.4.2研发自动化与§5.7机器人相关段落；尚不能据案例证明递归改进。"
             }
           ]
@@ -499,7 +499,17 @@
             "checked_on": "2026-10-14",
             "http_status": 200,
             "resolved_url": "https://ai.stanford.edu/blog/"
-          }
+          },
+          "channels": [
+            {
+              "label": "DexAgent作者新解读",
+              "url": "https://ai.stanford.edu/blog/dexagent/",
+              "kind": "作者技术博客",
+              "status": "content_verified",
+              "checked_on": "2026-10-15",
+              "note": "已读正文与对应论文实验；10-13为博客解读，论文首版9-28。"
+            }
+          ]
         },
         {
           "id": "bair",
@@ -615,7 +625,7 @@
           "note": "研究动态为主入口，API日志仅辅助。同时跟踪具身团队、合作、数据或模型的公开证据；媒体消息可入产业观察，必须注明未获官方确认。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-14",
+            "checked_on": "2026-10-15",
             "http_status": 200,
             "resolved_url": "https://www.deepseek.com/news/",
             "note": "已读取研究与动态目录；本次未找到对应具身论文或模型官宣，不表示不存在未公开研究。"
@@ -641,7 +651,7 @@
               "url": "https://www.deepseek.com/news/",
               "kind": "官方研究索引",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
+              "checked_on": "2026-10-15",
               "note": "已读论文与模型动态列表。"
             },
             {
@@ -649,7 +659,7 @@
               "url": "https://github.com/deepseek-ai",
               "kind": "代码与论文发现",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
+              "checked_on": "2026-10-15",
               "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
             },
             {
@@ -657,7 +667,7 @@
               "url": "https://api-docs.deepseek.com/zh-cn/updates/",
               "kind": "产品与API辅助渠道",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
+              "checked_on": "2026-10-15",
               "note": "已读更新目录，不能单独覆盖具身产业动向。"
             },
             {
@@ -740,6 +750,22 @@
               "status": "unverified",
               "checked_on": "2026-10-14",
               "note": "链接由官方README给出；本次未读取博文正文。"
+            },
+            {
+              "label": "BlenderWorld官方代码与评测",
+              "url": "https://github.com/QwenLM/BlenderWorld",
+              "kind": "10-14代码首发",
+              "status": "content_verified",
+              "checked_on": "2026-10-15",
+              "note": "已读README、任务组成和评分协议；3D创作Agent评测，不能当实机控制成果。"
+            }
+          ],
+          "evidence": [
+            {
+              "label": "BlenderWorld：223项多模态3D创作任务",
+              "url": "https://github.com/QwenLM/BlenderWorld",
+              "published": "2026-10-14",
+              "date_basis": "仓库创建与首次代码提交，非updated_at"
             }
           ]
         },
@@ -1067,6 +1093,48 @@
               "note": "官网公开资源链接该组织，API确认组织存在；具体研究仍逐项核验。"
             }
           ]
+        },
+        {
+          "id": "amap-cvlab",
+          "name": "高德 AMAP CV Lab",
+          "url": "https://github.com/amap-cvlab",
+          "role": "国内具身推理研究团队",
+          "scope": "空间与时序推理、目标点定位、长程规划、Agent数据—模型迭代",
+          "aliases": [
+            "AMAP CV Lab",
+            "高德视觉技术",
+            "ABot-ER"
+          ],
+          "watch_terms": [
+            "embodied reasoning",
+            "grounding",
+            "data-model co-evolution",
+            "RSI"
+          ],
+          "note": "官方GitHub组织名为Alibaba AMAP CV Lab，模型卡署名高德；不因ABot名称把成果归给蚂蚁灵波。",
+          "verification": {
+            "status": "content_verified",
+            "checked_on": "2026-10-15",
+            "note": "已读官方仓库、ModelScope模型卡与原论文机构证据。"
+          },
+          "channels": [
+            {
+              "label": "ABot-ER官方仓库（中文）",
+              "url": "https://github.com/amap-cvlab/ABot-ER/blob/main/README.zh-CN.md",
+              "kind": "训练评测代码与模型入口",
+              "status": "content_verified",
+              "checked_on": "2026-10-15",
+              "note": "Execution为目标点/可供性，实机为定性演示且动作由独立ABot-M执行。"
+            }
+          ],
+          "evidence": [
+            {
+              "label": "ABot-ER：数据与具身推理模型共同迭代",
+              "url": "https://arxiv.org/abs/2610.18355",
+              "published": "2026-10-13",
+              "date_basis": "arXiv首版；仓库北京时间10-14深夜创建"
+            }
+          ]
         }
       ]
     },
@@ -1141,6 +1209,22 @@
               "status": "content_verified",
               "checked_on": "2026-10-14",
               "note": "已读官方README和方法说明。"
+            },
+            {
+              "label": "GroundingPI资源更新提交",
+              "url": "https://github.com/groundingpi/GroundingPI/commit/2600996be10a2bdf7ba8e3668e02a9735bc6947f",
+              "kind": "10-14镜像与checkpoint入口更新",
+              "status": "content_verified",
+              "checked_on": "2026-10-15",
+              "note": "已读实际patch和数据卡；模型卡10-13已有，不能说10-14首次发checkpoint。"
+            },
+            {
+              "label": "GroundAnything ModelScope入口更新",
+              "url": "https://github.com/groundingpi/GroundAnything/commit/d5b7d5670bc47087a0e4ef9c5ad9e9e4b0434c4a",
+              "kind": "10-14资源公告",
+              "status": "content_verified",
+              "checked_on": "2026-10-15",
+              "note": "已核作者公告及模型条目，未核完整权重文件。"
             }
           ],
           "evidence": [
@@ -1269,6 +1353,14 @@
               "label": "公司新闻",
               "checked_on": "2026-10-14",
               "status": "unverified"
+            },
+            {
+              "label": "VINE官方复现代码",
+              "url": "https://github.com/AgibotTech/vine-code",
+              "kind": "10-14代码首发",
+              "status": "content_verified",
+              "checked_on": "2026-10-15",
+              "note": "已读README与训练实现；仅state-only OGBench，不含完整图像VLA和实机闭环。"
             }
           ],
           "verification": {
@@ -1286,6 +1378,14 @@
             "real-world evaluation",
             "release",
             "benchmark"
+          ],
+          "evidence": [
+            {
+              "label": "VINE代码首发（论文7-11）",
+              "url": "https://github.com/AgibotTech/vine-code",
+              "published": "2026-10-14",
+              "date_basis": "GitHub仓库创建与初始提交"
+            }
           ]
         },
         {
@@ -1765,6 +1865,14 @@
               "label": "官方新闻目录",
               "checked_on": "2026-10-14",
               "status": "unverified"
+            },
+            {
+              "label": "Thinker-WM原论文",
+              "url": "https://arxiv.org/html/2610.18447v1",
+              "kind": "10-13技术报告",
+              "status": "content_verified",
+              "checked_on": "2026-10-15",
+              "note": "已读架构、实验与结论；世界模型榜单为离线评测，RoboTwin闭环为仿真，实机闭环仍待建立。"
             }
           ],
           "verification": {
@@ -1782,6 +1890,14 @@
             "real-world evaluation",
             "release",
             "benchmark"
+          ],
+          "evidence": [
+            {
+              "label": "Thinker-WM：RGB、深度与动作共享表征",
+              "url": "https://arxiv.org/abs/2610.18447",
+              "published": "2026-10-13",
+              "date_basis": "arXiv首版，未核到顶会录用"
+            }
           ]
         },
         {
