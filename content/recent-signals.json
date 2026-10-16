@@ -1,35 +1,47 @@
 {
-  "title": "最近在推进什么：具身RSI、动作反馈与长程Agent",
-  "intro": "观察2026-10-12—10-16实际核验样本：Gemini 4持续背景、AdaRSI按需改进、WorldOracle动作后果评测、AutoRSR数据闭环，以及国内外长程Agent模型。原论文、权重、代码和解读日期分别保留；这是来源样本，不是全行业热度排名。",
+  "title": "最近在推进什么：机器人Agent、长程任务与高效模型",
+  "intro": "观察2026-10-12—10-16已核验的新材料：编码Agent调度与改进机器人技能，长程多模态Agent的训练和部署，动作条件世界模型与机器人数据生成。以下为带日期的研究动向，不是全行业热度排名；尚缺独立讨论证据的内容不标为社区热议。",
   "window_start": "2026-10-12",
   "window_end": "2026-10-16",
   "signals": [
     {
-      "id": "gemini-4-argon-robotics",
-      "title": "Gemini 4 Argon：通用大模型进入机器人控制、仿真生成与研发闭环",
-      "summary": "沿human five指定文章持续关注：Gemini 4 Argon把通用多模态、编码与工具能力接入机器人控制和仿真生成。官方总公告自报ERQA具身推理87%；Apollo连续命中7次是另一项厂商实机案例。今日没有核到新的官方机器人发布，作为本期AdaRSI与具身数据闭环的背景保留。",
-      "keywords": [
-        "基础模型进入具身 / Foundation Models for Robotics",
-        "Video-to-Sim-to-Real",
-        "Physical Reasoning"
-      ],
-      "published": "2026-10-13",
-      "source_label": "Google DeepMind / Google · 10月13日原发布；10月16日复核，持续背景、无可核新事件",
-      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
-      "limitation": "87%是ERQA推理得分，不是实机任务成功率；Apollo连续命中是厂商内部案例，试验覆盖与独立复现不足。已读官方总公告、机器人产品页、模型卡和安全报告相关段落；机器人专篇入口由官方交叉确认，但正文直连超时，公众号中的56%→75%、4500+episode、68sandbox暂不当作已核验事实。安全报告按其内部评估口径认为当前端到端AI研发加速并不显著，完整研究流程仍需人工介入；这些案例不能证明递归自我改进已实现。"
-    },
-    {
       "id": "adarsi-on-demand-harness-policy-improvement",
       "title": "AdaRSI：先修机器人调用流程，再按需训练真正缺失的动作",
       "published": "2026-10-15",
-      "summary": "先修harness，再按需训练缺失子策略；在RoboCasa仿真中，陌生组合任务成功率由基础4.6%提升到13.8%，仅修流程为9.9%。这为具身RSI提供具体可查的归因与复用路径。",
+      "summary": "编码Agent通过工具调用VLA技能、修改执行流程，再按需训练缺失子策略。在RoboCasa仿真的陌生组合任务上，基础成功率4.6%，仅修流程9.9%，AdaRSI为13.8%；上层Agent与动作策略的贡献可分开检查。",
       "keywords": [
-        "Physical RSI",
+        "Agent + VLA",
         "Failure Attribution"
       ],
       "url": "https://arxiv.org/abs/2610.20474",
       "source_label": "Northeastern University、AgiBot（智元）、University of Chinese Academy of Sciences（中国科学院大学） · arXiv首版提交为10月14日16:51 UTC／北京时间10月15日00:51；论文使用GR00T N1.5与GPT-6.1-sol/Codex",
       "limitation": "全部仿真；28%训练GPU时间只相对AlwaysTrain，另有LLM和仿真成本，未证明持续递归加速。"
+    },
+    {
+      "id": "step5-preview-agent-architecture",
+      "title": "Step 5新技术解读：92层深网络、稀疏GQA与长程Agent训练",
+      "published": "2026-10-15",
+      "summary": "阶跃10月15日技术博客解释92层深网络、局部/稀疏全注意力和长程Agent训练；这次新增是技术细节，模型已于此前公开。",
+      "keywords": [
+        "Long-horizon Agents",
+        "Sparse GQA"
+      ],
+      "url": "https://platform.stepfun.ai/blog/inside-step-5-preview",
+      "source_label": "阶跃星辰 StepFun · 10月15日官方技术博客；Step-5-Preview仓库10月12日创建，区分模型公开与技术解读",
+      "limitation": "官方自述，未独立测评；通用Agent训练与机器人控制的证据分别判断。"
+    },
+    {
+      "id": "meta-muse-spark-open",
+      "title": "Meta Muse Spark Open：816B总参数、42B激活与百万上下文的开放权重多模态MoE",
+      "published": "2026-10-15",
+      "summary": "Meta开放Muse Spark Open权重：816B总参数、42B激活，文本/图像/音频/视频输入，统一百万上下文；实现已接入多个推理与训练框架。",
+      "keywords": [
+        "Multimodal MoE",
+        "Long-context Agents"
+      ],
+      "url": "https://huggingface.co/blog/meta-muse-spark-open",
+      "source_label": "Meta · Meta/NVIDIA公开材料均标注10月15日；北京时间10月16日07:36 IT之家报道。Transformers集成文档注明10月14日贡献，不能当模型首发日",
+      "limitation": "开放权重不等于OSI开源；本轮未读到许可证正文，未独立跑分，机器人应用仍需单独的实验依据。"
     },
     {
       "id": "worldoracle-paired-real-execution",
@@ -43,32 +55,6 @@
       "url": "https://arxiv.org/pdf/2610.18826",
       "source_label": "智元 AgiBot、NVIDIA、Princeton、UT Austin、University of Toronto · 项目日志：10-15网站与基线榜上线、10-16投稿入口开放；代码首公开10-14 13:45 UTC；论文首版10-13 17:52 UTC（北京时间10-14 01:52），本期补收研究与新资源",
       "limitation": "离线开环预测基准，不是机器人成功率。论文和在线榜的VLM裁判版本不同，分数不能混比。"
-    },
-    {
-      "id": "autorsr-automated-real-sim-real",
-      "title": "人大AutoRSR：把工作台扫描与少量人类示范自动变成机器人训练数据",
-      "published": "2026-10-14",
-      "summary": "人大AutoRSR把扫描、示范与目标查询串成可训练仿真数据；PiperX三任务各用1000段合成轨迹训练，实机各测试15次。",
-      "keywords": [
-        "Real2Sim2Real",
-        "Synthetic Robot Data"
-      ],
-      "url": "https://arxiv.org/abs/2610.20336",
-      "source_label": "中国人民大学 · arXiv首版10-14 15:19 UTC／北京时间10-14 23:19；近48小时新预印本，未核到顶会录用",
-      "limitation": "仍有人类扫描、参考示范和查询；三任务小样本，不能称零人工，也不能把自动增广耗时当端到端十倍提速。"
-    },
-    {
-      "id": "step5-preview-agent-architecture",
-      "title": "Step 5新技术解读：92层深网络、稀疏GQA与长程Agent训练",
-      "published": "2026-10-15",
-      "summary": "阶跃10月15日技术博客解释92层深网络、局部/稀疏全注意力和长程Agent训练；这次新增是技术细节，模型已于此前公开。",
-      "keywords": [
-        "Long-horizon Agents",
-        "Sparse GQA"
-      ],
-      "url": "https://platform.stepfun.ai/blog/inside-step-5-preview",
-      "source_label": "阶跃星辰 StepFun · 10月15日官方技术博客；Step-5-Preview仓库10月12日创建，区分模型公开与技术解读",
-      "limitation": "官方自述，未独立测评；通用Agent训练与具身控制、RSI的证据分开判断。"
     },
     {
       "id": "baidu-vha-linear-reparameterization",
@@ -97,19 +83,6 @@
       "limitation": "这是权重开放，首次发布为9月30日。模型卡与部署文档的激活参数、上下文口径有冲突，LingCode尚未开源。"
     },
     {
-      "id": "meta-muse-spark-open",
-      "title": "Meta Muse Spark Open：816B总参数、42B激活与百万上下文的开放权重多模态MoE",
-      "published": "2026-10-15",
-      "summary": "Meta开放Muse Spark Open权重：816B总参数、42B激活，文本/图像/音频/视频输入，统一百万上下文；实现已接入多个推理与训练框架。",
-      "keywords": [
-        "Multimodal MoE",
-        "Long-context Agents"
-      ],
-      "url": "https://huggingface.co/blog/meta-muse-spark-open",
-      "source_label": "Meta · Meta/NVIDIA公开材料均标注10月15日；北京时间10月16日07:36 IT之家报道。Transformers集成文档注明10月14日贡献，不能当模型首发日",
-      "limitation": "开放权重不等于OSI开源；本轮未读到许可证正文，未独立跑分，也没有机器人或RSI实证。"
-    },
-    {
       "id": "nemotron35-super-vl-agent-efficiency",
       "title": "NVIDIA Nemotron 3.5 Super VL：多模态Agent开始把训练与服务优化一起交付",
       "published": "2026-10-15",
@@ -121,6 +94,32 @@
       "url": "https://blogs.nvidia.com/blog/nemotron-3-5-super-vl/",
       "source_label": "NVIDIA · NVIDIA官方公告及技术博客10月15日；本期核验公开技术材料，未独立运行权重",
       "limitation": "吞吐和成本依赖硬件、精度、工具与并发；企业案例包含预期收益，不等于机器人能力或普遍实测。"
+    },
+    {
+      "id": "autorsr-automated-real-sim-real",
+      "title": "人大AutoRSR：把工作台扫描与少量人类示范自动变成机器人训练数据",
+      "published": "2026-10-14",
+      "summary": "人大AutoRSR把扫描、示范与目标查询串成可训练仿真数据；PiperX三任务各用1000段合成轨迹训练，实机各测试15次。",
+      "keywords": [
+        "Real2Sim2Real",
+        "Synthetic Robot Data"
+      ],
+      "url": "https://arxiv.org/abs/2610.20336",
+      "source_label": "中国人民大学 · arXiv首版10-14 15:19 UTC／北京时间10-14 23:19；近48小时新预印本，未核到顶会录用",
+      "limitation": "仍有人类扫描、参考示范和查询；三任务小样本，不能称零人工，也不能把自动增广耗时当端到端十倍提速。"
+    },
+    {
+      "id": "groundingpi-groundanything-resources",
+      "title": "GroundingPI / GroundAnything：小鹏合作团队补齐国内模型与评测资源入口",
+      "published": "2026-10-14",
+      "summary": "GroundingPI仓库新增Grounding-EvalData的ModelScope中英文镜像，以及stage2/stage3预训练checkpoint入口；评测数据覆盖34项任务，GroundAnything使用其中30项子集。同日GroundAnything仓库更新README并宣布GroundAnything DLM与GroundAnything-VLM权重上线ModelScope，使论文中的精确定位/指代表达/指向/OCR感知路线更接近可复现实验。",
+      "keywords": [
+        "Grounding",
+        "Reproducibility"
+      ],
+      "url": "https://github.com/groundingpi/GroundingPI/commit/2600996be10a2bdf7ba8e3668e02a9735bc6947f",
+      "source_label": "XPENG / 北京大学 / 香港大学等合作团队 · GroundingPI提交 09:41:47 UTC（北京时间17:41:47）；GroundAnything提交 10:21:51 UTC（北京时间18:21:51）",
+      "limitation": "这是代码、数据和模型入口补齐，不是10月14日新算法或新成绩；GroundingPI论文首版为9月30日，checkpoint页面显示10月13日创建/修改。评测数据卡明确不含模型权重和推理输出，尚未下载权重或独立推理。GroundAnything的ModelScope页面本次只核到作者公告与模型条目，未独立核完整文件清单；不要写成已完成复现。"
     },
     {
       "id": "sear-self-evolving-agentic-robotics",
@@ -136,17 +135,18 @@
       "limitation": "论文所说的完整co-evolving loop（同时更新模型权重和harness）仍是提案；当前实证主要让技能/记忆库跨任务继承，LM权重固定，VLA在各自任务套件内训练。论文称发布代码，但截至核验仓库只有LICENSE、README和assets，代码尚未出现，不能写成已可复现。实机任务数量少、场景有人工摆放和人工judge，结果尚未独立复现。"
     },
     {
-      "id": "groundingpi-groundanything-resources",
-      "title": "GroundingPI / GroundAnything：小鹏合作团队补齐国内模型与评测资源入口",
-      "published": "2026-10-14",
-      "summary": "GroundingPI仓库新增Grounding-EvalData的ModelScope中英文镜像，以及stage2/stage3预训练checkpoint入口；评测数据覆盖34项任务，GroundAnything使用其中30项子集。同日GroundAnything仓库更新README并宣布GroundAnything DLM与GroundAnything-VLM权重上线ModelScope，使论文中的精确定位/指代表达/指向/OCR感知路线更接近可复现实验。",
+      "id": "gemini-4-argon-robotics",
+      "title": "Gemini 4 Argon：通用大模型进入机器人控制、仿真生成与研发闭环",
+      "summary": "10月13日官方发布的背景案例：Gemini 4 Argon把通用多模态、编码与工具能力接入机器人控制和仿真生成。官方总公告自报ERQA具身推理87%；Apollo连续命中7次是另一项厂商实机案例。10月16日未核到新的官方机器人发布。",
       "keywords": [
-        "Grounding",
-        "Reproducibility"
+        "基础模型进入具身 / Foundation Models for Robotics",
+        "Video-to-Sim-to-Real",
+        "Physical Reasoning"
       ],
-      "url": "https://github.com/groundingpi/GroundingPI/commit/2600996be10a2bdf7ba8e3668e02a9735bc6947f",
-      "source_label": "XPENG / 北京大学 / 香港大学等合作团队 · GroundingPI提交 09:41:47 UTC（北京时间17:41:47）；GroundAnything提交 10:21:51 UTC（北京时间18:21:51）",
-      "limitation": "这是代码、数据和模型入口补齐，不是10月14日新算法或新成绩；GroundingPI论文首版为9月30日，checkpoint页面显示10月13日创建/修改。评测数据卡明确不含模型权重和推理输出，尚未下载权重或独立推理。GroundAnything的ModelScope页面本次只核到作者公告与模型条目，未独立核完整文件清单；不要写成已完成复现。"
+      "published": "2026-10-13",
+      "source_label": "Google DeepMind / Google · 10月13日原发布；10月16日复核的背景材料",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
+      "limitation": "87%是ERQA推理得分，不是实机任务成功率；Apollo连续命中是厂商内部案例，试验覆盖与独立复现不足。已读官方总公告、机器人产品页、模型卡和安全报告相关段落；机器人专篇入口由官方交叉确认，但正文直连超时，公众号中的56%→75%、4500+episode、68sandbox暂不当作已核验事实。安全报告按其内部评估口径认为当前端到端AI研发加速并不显著，完整研究流程仍需人工介入；这些案例不能证明递归自我改进已实现。"
     },
     {
       "id": "deepseek-embodied-entry-reported",

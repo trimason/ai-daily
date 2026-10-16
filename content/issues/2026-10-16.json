@@ -1,24 +1,24 @@
 {
   "date": "2026-10-16",
   "status": "daily",
-  "title": "具身RSI怎样闭环：AdaRSI、世界模型评测与国内模型架构",
-  "intro": "大模型进入具身，正在从写控制代码延伸到失败归因、按需训练与仿真反馈。本期重点读AdaRSI、WorldOracle和AutoRSR，再看Step、百度、蚂蚁及Meta、NVIDIA怎样支撑长程Agent。Gemini 4作为持续重点保留，不重复当作今日新发布。",
-  "coverage": "北京时间2026-10-16采集与核验，重点为近24–48小时公开事件；WorldOracle、VHA等7日内重要遗漏按论文/代码/榜单日期补收。与此前四期按标题、arXiv ID和URL去重。已查会议公开列表、固定国内团队和研究渠道；human five指定文章本轮遇验证码，具身智能之心仅公开检索，均不声称账号全量覆盖。以下厂商/作者结果尚未独立复现。",
+  "title": "大模型的新用法：机器人Agent、长程任务与世界模型",
+  "intro": "编码Agent怎样调度机器人技能并改进失败步骤？长程多模态Agent怎样管理上下文与计算成本？世界模型能否忠实预测动作后果？本期结合AdaRSI、Step、Muse与WorldOracle等新材料展开，同时跟进国内团队的注意力架构、开放权重和机器人数据生成。",
+  "coverage": "北京时间2026-10-16采集与核验，重点为近24–48小时公开事件；WorldOracle、VHA等7日内重要遗漏按论文/代码/榜单日期补收。与此前四期按标题、arXiv ID和URL去重。本期主要为新研究、新发布及本刊对照阅读，尚不足以判断社区热度。已查会议公开列表、固定国内团队和研究渠道；human five指定文章本轮遇验证码，具身智能之心仅公开检索，均不声称账号全量覆盖。以下厂商/作者结果尚未独立复现。",
   "highlights": [
     {
-      "title": "具身RSI：先找到失败原因，再决定训练什么",
-      "text": "AdaRSI把流程修补、动作策略训练和经验继承拆开，在陌生组合任务上检验收益；总成本和仿真边界同时保留。",
+      "title": "编码Agent接入机器人：能改进哪些环节？",
+      "text": "AdaRSI让Agent调用VLA技能、定位失败，再按需修流程或训练子策略。看清上层工具调度与底层动作策略如何配合。",
       "story_id": "adarsi-on-demand-harness-policy-improvement"
     },
     {
-      "title": "真实→仿真→真实：反馈到底可靠吗？",
-      "text": "WorldOracle用真实配对执行约束世界模型；AutoRSR把扫描与示范变成训练数据，分别看离线预测与小样本实机。",
-      "story_id": "worldoracle-paired-real-execution"
+      "title": "长程Agent：上下文更长，任务就做得更好吗？",
+      "text": "Step公开架构与长程训练细节，Muse开放多模态权重；对照记忆压缩、工具调用、缓存和真实部署成本。",
+      "story_id": "step5-preview-agent-architecture"
     },
     {
-      "title": "国内大模型：长程Agent与缓存效率",
-      "text": "Step公开稀疏注意力与长程训练细节，百度VHA改变训练参数化，百灵开放混合注意力模型权重。",
-      "story_id": "step5-preview-agent-architecture"
+      "title": "世界模型：画面逼真，动作后果也对吗？",
+      "text": "WorldOracle用同一动作的真实执行检验预测；AutoRSR则探索怎样把扫描与示范变成可训练的机器人数据。",
+      "story_id": "worldoracle-paired-real-execution"
     }
   ],
   "stories": [
@@ -31,7 +31,7 @@
       "published": "2026-10-15",
       "date_label": "arXiv首版提交为10月14日16:51 UTC／北京时间10月15日00:51；论文使用GR00T N1.5与GPT-6.1-sol/Codex",
       "summary": "AdaRSI让编码Agent先检查和改进VLA的工具、技能与执行流程；对反复失败的子步骤，从仿真快照重跑以区分流程问题和执行器问题，只有后者才用拒绝采样或特权状态专家收集演示并微调子策略，最后把有效流程和策略写入可复用库。RoboCasa365的50个目标任务、每任务50个场景共2500 episodes中，GR00T N1.5基础VLA在Composite-Unseen成功率为4.6%，仅改harness为9.9%，AdaRSI为13.8%，全部50项任务平均48.8%（基础42.4%）。",
-      "why": "这是目前很具体的具身RSI候选：改进对象被拆成harness、程序、子策略和经验文档，而不是笼统地说机器人会自我进化。相比给每个操作子步骤都训练策略，AdaRSI在Composite-Unseen对照中使用38个策略和416个演示、966 GPU分钟；AlwaysTrain对照为118个策略、1877个演示、3411 GPU分钟（包含其复用的AdaRSI策略成本），论文因此报告约28%训练GPU时间和22%演示量，但这个比例只相对该对照的训练成本，未计Agent token和仿真成本。",
+      "why": "它展示了通用编码Agent怎样进入机器人改进流程：改进对象被拆成harness、程序、子策略和经验文档，而不是笼统地说机器人会自我进化。相比给每个操作子步骤都训练策略，AdaRSI在Composite-Unseen对照中使用38个策略和416个演示、966 GPU分钟；AlwaysTrain对照为118个策略、1877个演示、3411 GPU分钟（包含其复用的AdaRSI策略成本），论文因此报告约28%训练GPU时间和22%演示量，但这个比例只相对该对照的训练成本，未计Agent token和仿真成本。",
       "limitation": "全部结果来自RoboCasa仿真，论文没有真实机器人成功率；特权状态用于开发/标注，部署时不使用。Composite-Unseen套件中，改进阶段每任务约154M输入和0.64M输出token，部署每episode约4.2M输入、7.2k输出且约97%输入命中缓存，不能只看GPU分钟。固定规则选择训练预算，论文证明了流程和策略复用，但没有证明开放式、持续加速的元级递归自改进；个别任务会回归（如CuttingToolSelection）。未找到作者公开可运行代码链接。",
       "sources": [
         {
@@ -53,7 +53,7 @@
       "published": "2026-10-15",
       "date_label": "项目日志：10-15网站与基线榜上线、10-16投稿入口开放；代码首公开10-14 13:45 UTC；论文首版10-13 17:52 UTC（北京时间10-14 01:52），本期补收研究与新资源",
       "summary": "WorldOracle给世界模型同一初始画面与低层动作序列，再把生成视频与该动作在现实中的配对执行比较。评测覆盖智元G2、YAM双臂平台和人手，共335段真实参考执行，涵盖抓水果、挂毛巾、倒水与拉抽屉中的成功和失败。四个维度分别检查物理状态、交互空间对齐、关键区域保真和多视角动作一致性；公开仓库已有评测实现，项目给出数据与榜单入口。",
-      "why": "机器人世界模型若把抓空“脑补”为抓成功，视觉逼真也不能可靠用于策略学习或自我改进。这个基准把“是否服从给定动作”“换本体/动作分布后是否仍对”“长时间是否漂移”拆成可检查的问题，直接约束具身数据闭环与RSI所依赖的模拟反馈。",
+      "why": "机器人世界模型若把抓空“脑补”为抓成功，视觉逼真也不能可靠用于策略学习或自我改进。这个基准把“是否服从给定动作”“换本体/动作分布后是否仍对”“长时间是否漂移”拆成可检查的问题，帮助判断生成的模拟反馈能否用于机器人训练与验证。",
       "limitation": "这是基于真实参考视频的离线、开环预测评测，不是控制机器人的任务成功率或独立复现。当前只有三类本体、四类任务，策略生成动作分布仅覆盖G2；各本体适配数据/预算不同。每次只有一个真实执行参考，随机接触可能出现其他同样合理的结果。论文物理状态裁判为GPT-5.5；官方README说明在线榜的基线和新提交统一使用GPT-5.6 Luna，两种分数不可直接混比。本轮读到榜单News与规则，动态榜分数未加载；HF数据文件下载未核验，测试集真值依规则不公开。",
       "sources": [
         {
@@ -106,7 +106,7 @@
       "date_label": "10月15日官方技术博客；Step-5-Preview仓库10月12日创建，区分模型公开与技术解读",
       "summary": "阶跃10月15日公开Step 5 Preview架构与训练细节。模型标称600B总参数、27B激活、1M上下文；92层窄而深网络按3:1交错Gated SWA与稀疏全注意力。Sparse GQA以8-token块合并降低索引与Top-k开销；FP32隐藏状态、RMSNorm缩放及细粒度梯度约束处理深层训练不稳定。长程RL还涉及训练推理一致、rollout replay、上下文压缩与信用分配。",
       "why": "这是国内大模型团队对实际Agent训练问题的新公开解释，连接长上下文计算、数值稳定和多轮工具使用。它与具身研发中的代码Agent有方法交集；应继续比较模型推理、执行框架与训练流程各自的收益，并追问压缩历史后怎样保留决定长期结果的证据。",
-      "limitation": "已核官方博客、README和文档，未复现、未读取独立测评。它是通用Agent模型，不是机器人控制模型；“智能体参与数据合成”也不证明递归自我改进。模型公开与10月15日解读是两件事，不把仓库更新当新模型首发；官方README介绍含视频，但规格表只列文本/图像，本条不延伸视频接口能力。",
+      "limitation": "已核官方博客、README和文档，未复现、未读取独立测评。它面向通用Agent任务，公开材料尚不足以判断机器人控制能力。模型公开与10月15日解读是两件事，不把仓库更新当新模型首发；官方README介绍含视频，但规格表只列文本/图像，本条不延伸视频接口能力。",
       "sources": [
         {
           "label": "10月15日官方技术博客",
@@ -187,8 +187,8 @@
       "published": "2026-10-15",
       "date_label": "Meta/NVIDIA公开材料均标注10月15日；北京时间10月16日07:36 IT之家报道。Transformers集成文档注明10月14日贡献，不能当模型首发日",
       "summary": "Muse Spark Open是面向长程Agent编码的多模态开放权重模型：约8160亿总参数、每token约420亿激活，256个专家中路由8个，支持文本、图像、音频和视频输入、文本输出，统一上下文上限1,048,576 token。架构资料还给出62层、128个查询头/16个KV头的GQA、1.8B视觉编码器和每秒12.5个音频token；BF16与面向Blackwell的NVFP4检查点已接入Transformers、PyTorch Torchtitan和SGLang。",
-      "why": "它适合放在大模型前沿主线，也能和具身方向对接：多模态感知、长上下文、工具调用和自纠错是机器人研发Agent需要的上层能力，但目前公开材料证明的是编码与电脑/浏览器工作流，不是机器人控制或Physical RSI。对读者最有价值的技术点是稀疏MoE的‘激活参数’与‘驻留权重’要分开看，以及GQA如何压低KV cache；1M上下文仍需按部署硬件和缓存预算理解。",
-      "limitation": "本文只核验Meta/Hugging Face技术说明、Transformers/PyTorch/SGLang实现和NVIDIA部署文章；Hugging Face模型文件与许可证正文在本轮网络条件下未读到，因此写‘开放权重’而不写OSI开源。尚未独立运行模型或复核Meta/NVIDIA性能宣称；50K tokens/s/GPU、600 tokens/s/user是特定GB300 NVL72部署数据，不能外推为通用速度。未发现其已发布机器人实验或RSI实证。",
+      "why": "多模态输入、百万上下文与开放权重，让研究者有机会对照长程编码Agent的能力和部署代价。值得继续追问：更大的上下文是否真的改善长任务，模型与执行框架分别贡献了多少，稀疏MoE的激活参数减少又能节省多少实际成本。本期技术点可帮助区分驻留权重、KV缓存和长上下文利用能力。",
+      "limitation": "本文只核验Meta/Hugging Face技术说明、Transformers/PyTorch/SGLang实现和NVIDIA部署文章；Hugging Face模型文件与许可证正文在本轮网络条件下未读到，因此写‘开放权重’而不写OSI开源。尚未独立运行模型或复核Meta/NVIDIA性能宣称；50K tokens/s/GPU、600 tokens/s/user是特定GB300 NVL72部署数据，不能外推为通用速度。机器人应用仍需单独的实验依据。",
       "sources": [
         {
           "label": "Hugging Face官方技术文章源码：架构、模态、上下文与运行方式",
@@ -221,7 +221,7 @@
       "published": "2026-10-15",
       "date_label": "NVIDIA官方公告及技术博客10月15日；本期核验公开技术材料，未独立运行权重",
       "summary": "Nemotron 3.5 Super VL采用120B总参数、每token激活12B的MoE，把文本、图像、文档、视频理解和工具调用放在同一模型里。训练采用两阶段SFT、多教师on-policy蒸馏；服务侧结合LiLiCorr并行投机解码、MTP与上下文复用。官方同时给出NVFP4检查点和训练、定制及部署资源。作者报告CharXiv图表推理80.8%，加入Python工具为84%；两种工具条件应分别看。",
-      "why": "长程Agent的成本既取决于答题能力，也取决于反复读取上下文、生成草稿和调用工具的开销。这个发布把模型、量化和服务配方连在一起，适合与Step、Ling、Muse的长程Agent路线对照。它提供机器人研发Agent可借鉴的上层组件，但公开材料没有证明机器人动作能力。",
+      "why": "长程Agent的成本既取决于答题能力，也取决于反复读取上下文、生成草稿和调用工具的开销。这个发布把模型、量化和服务配方连在一起，适合与Step、Ling、Muse的长程Agent路线对照。对照时应分别记录模型本身的表现、工具带来的收益和服务系统的提速。",
       "limitation": "已读两篇官方原文，未运行模型、下载全部数据或核验独立评测。其混合架构同时保存注意力缓存和Mamba状态，不能把普通GQA缓存公式直接套到整个模型。Blackwell的NVFP4权重/激活配置与其他平台的4位权重/16位激活不同；“最高5倍吞吐”等依赖硬件、精度、并发和基线。Dynamo的多卡服务收益属于特定部署配方，不能当作模型固有提速。企业成本案例含预期值，不泛化为已实现的通用收益。",
       "sources": [
         {
@@ -246,9 +246,9 @@
       "organization": "本刊基于AdaRSI、SEAR与Google官方材料整理",
       "published": "2026-10-16",
       "date_label": "本刊讨论整理日期；研究证据分别保留原始发布日期，非新的模型公告",
-      "summary": "沿human five提出的Gemini 4机器人线索，本期把问题推进到“改进了哪一层、代价由谁承担”。AdaRSI将错误归因到调用流程或动作策略后再训练：相对AlwaysTrain，Composite-Unseen实验的训练GPU时间为966对3411分钟，演示为416对1877段；但同一Composite-Unseen套件的改进阶段每任务还需约154M输入token和0.64M输出token。训练更省的证据，与整个自主改进流程更便宜的结论之间，仍隔着模型调用、仿真、验证和人工准备。",
+      "summary": "从AdaRSI等近期机器人改进研究出发，本期对照“改进了哪一层、代价由谁承担”。AdaRSI将错误归因到调用流程或动作策略后再训练：相对AlwaysTrain，Composite-Unseen实验的训练GPU时间为966对3411分钟，演示为416对1877段；但同一Composite-Unseen套件的改进阶段每任务还需约154M输入token和0.64M输出token。训练更省的证据，与整个自主改进流程更便宜的结论之间，仍隔着模型调用、仿真、验证和人工准备。",
       "why": "大模型进入具身的重点已经延伸到代码、工具、仿真数据和策略更新。关注RSI不能只看单次任务成功率：要记录保留下来的修改，冻结后测陌生任务，并比较后续每轮在相同总预算下是否学得更快。WorldOracle提醒我们，若世界模型把失败动作预测成成功，闭环可能在优化错误反馈；AutoRSR则让真实扫描到可训练仿真的人工输入变得具体可查。",
-      "limitation": "这是对本期材料的分析，不是行业统一定义或新实验。AdaRSI报告部署阶段约97%的输入token命中缓存，未给出相同口径的改进阶段缓存率；token数不能直接换算成账单；但GPU分钟同样不能替代总成本。其结果全部来自仿真，WorldOracle是离线预测评测，AutoRSR是小样本实机验证，三者不可直接横比成功率。Gemini 4保留为10月13日发布的持续背景，本轮未核到新的官方机器人事件；不由单个机器人案例推断已经实现持续递归加速。",
+      "limitation": "这是对本期材料的分析，不是行业统一定义或新实验。AdaRSI报告部署阶段约97%的输入token命中缓存，未给出相同口径的改进阶段缓存率；token数不能直接换算成账单；但GPU分钟同样不能替代总成本。其结果全部来自仿真，WorldOracle是离线预测评测，AutoRSR是小样本实机验证，三者不可直接横比成功率。所引Google机器人案例发表于10月13日，属于带日期的背景材料，不能据此推断已经实现持续递归加速。",
       "sources": [
         {
           "label": "AdaRSI：失败归因、消融及LLM/训练成本",
@@ -259,7 +259,7 @@
           "url": "https://arxiv.org/abs/2610.18792"
         },
         {
-          "label": "Gemini 4 Argon官方发布：机器人案例（10月13日持续背景）",
+          "label": "Google官方机器人案例（10月13日背景材料）",
           "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/"
         },
         {
@@ -271,14 +271,14 @@
   ],
   "reading": [
     {
-      "title": "Gemini 4 × 具身：持续重点的官方背景",
-      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
-      "reason": "10月13日发布，今日无可核新事件。沿human five线索继续对照通用模型、机器人推理与控制的证据。"
+      "title": "AdaRSI：编码Agent与动作策略怎样分工",
+      "url": "https://arxiv.org/html/2610.20474v1",
+      "reason": "从工具调用、失败归因读到按需训练，再看陌生组合任务、消融和完整成本。"
     },
     {
-      "title": "AdaRSI：失败归因、消融和完整成本",
-      "url": "https://arxiv.org/html/2610.20474v1",
-      "reason": "先读harness-only和AlwaysTrain对照，再把GPU分钟、演示、LLM调用与陌生任务收益放到一起。"
+      "title": "Step 5：长程Agent训练与上下文压缩",
+      "url": "https://platform.stepfun.ai/blog/inside-step-5-preview",
+      "reason": "读稀疏注意力、训练推理一致与信用分配，区分模型能力、执行框架和训练流程的贡献。"
     },
     {
       "title": "WorldOracle：世界模型能否预测动作后果？",
@@ -331,11 +331,11 @@
   ],
   "featured_ids": [
     "adarsi-on-demand-harness-policy-improvement",
-    "worldoracle-paired-real-execution",
-    "autorsr-automated-real-sim-real",
     "step5-preview-agent-architecture",
+    "meta-muse-spark-open",
+    "worldoracle-paired-real-execution",
     "baidu-vha-linear-reparameterization",
-    "meta-muse-spark-open"
+    "autorsr-automated-real-sim-real"
   ],
   "technical_explainer": {
     "id": "gqa-kv-cache-memory",
