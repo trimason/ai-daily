@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-10-15",
+  "updated_on": "2026-10-16",
   "intro": "每日从研究目录、作者项目、论文、代码和模型卡交叉发现成果，重点跟踪国内大模型与具身公司、小鹏 GroundingPI。主入口可达与具体内容已核验分开标注；媒体产业信号保留报道来源及确认状态。",
   "groups": [
     {
@@ -954,6 +954,38 @@
               "status": "content_verified",
               "checked_on": "2026-10-14",
               "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
+            },
+            {
+              "label": "Paddle VHA 原论文与首版时间",
+              "url": "https://arxiv.org/abs/2610.17959",
+              "kind": "研究论文",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已核摘要与首版时间：10-13 08:39 UTC。VHA独立记为Paddle研究，不等于新ERNIE模型；作者自称会议录用尚未交叉核验。"
+            },
+            {
+              "label": "VHA 原论文全文",
+              "url": "https://arxiv.org/html/2610.17959v1",
+              "kind": "论文方法与实验",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已读全文。默认线性Premix/Postmix可折叠为标准GQA-2；SiLU变体不能如此折叠。1KB指每层每token KV缓存，-7.9%是特定规模训练/prefill FLOPs，均为论文报告，未复现。"
+            },
+            {
+              "label": "PaddlePaddle VHA 官方代码",
+              "url": "https://github.com/PaddlePaddle/VHA",
+              "kind": "官方研究代码",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已读README；初始公开提交10-14 05:52 UTC（北京时间13:52）。记录代码公开事件，不把仓库创建当论文首发。"
+            }
+          ],
+          "evidence": [
+            {
+              "label": "VHA 官方代码公开",
+              "url": "https://github.com/PaddlePaddle/VHA",
+              "published": "2026-10-14",
+              "date_basis": "官方仓库初始提交05:52 UTC；原论文首版10-13。"
             }
           ]
         },
@@ -1091,6 +1123,38 @@
               "status": "reachable",
               "checked_on": "2026-10-14",
               "note": "官网公开资源链接该组织，API确认组织存在；具体研究仍逐项核验。"
+            },
+            {
+              "label": "Inside Step 5 Preview 官方技术博客",
+              "url": "https://platform.stepfun.ai/blog/inside-step-5-preview",
+              "kind": "官方技术解读",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已读正文；博客发布10-15，模型仓库10-12创建，分别记录。涉及92层架构、稀疏GQA、数值稳定与长程RL；通用Agent模型，不能直接称为机器人控制或递归自我改进。"
+            },
+            {
+              "label": "Step 5 Preview 官方模型仓库",
+              "url": "https://github.com/stepfun-ai/Step-5-Preview",
+              "kind": "模型说明与部署入口",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已读README与提交记录；仓库10-12创建。官方参数与成绩未独立复现；仓库更新不代替模型首发日期。"
+            },
+            {
+              "label": "Step 5 Preview 官方模型文档",
+              "url": "https://platform.stepfun.ai/docs/en/guides/models/step-5-preview",
+              "kind": "模型规格与接口文档",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已读官方规格与调用说明；作为博客和README的交叉入口，不从通用Agent能力推断实机闭环。"
+            }
+          ],
+          "evidence": [
+            {
+              "label": "Step 5 Preview 新技术解读",
+              "url": "https://platform.stepfun.ai/blog/inside-step-5-preview",
+              "published": "2026-10-15",
+              "date_basis": "官方博客日期；区别于10-12创建的模型仓库。"
             }
           ]
         },
@@ -1133,6 +1197,70 @@
               "url": "https://arxiv.org/abs/2610.18355",
               "published": "2026-10-13",
               "date_basis": "arXiv首版；仓库北京时间10-14深夜创建"
+            }
+          ]
+        },
+        {
+          "id": "inclusionai-ling",
+          "name": "蚂蚁百灵 inclusionAI",
+          "url": "https://modelscope.cn/models/inclusionAI/Ling-3.1-flash",
+          "role": "国内大模型团队原始发布",
+          "scope": "百灵基础模型、混合注意力、长上下文、推理与长程Agent部署",
+          "aliases": [
+            "蚂蚁百灵",
+            "百灵",
+            "inclusionAI",
+            "Ling"
+          ],
+          "watch_terms": [
+            "Ling",
+            "KDA",
+            "MLA",
+            "hybrid attention",
+            "long-context",
+            "agent",
+            "MTP",
+            "embodied intelligence",
+            "RSI"
+          ],
+          "note": "以官方模型卡、代码与部署资料追踪具体成果。与蚂蚁灵波Robbyant分别归属；通用Agent能力不能直接推断机器人控制能力。",
+          "verification": {
+            "status": "content_verified",
+            "checked_on": "2026-10-16",
+            "note": "已读官方ModelScope模型卡及原始README；HF直连超时，未检查全部权重文件或运行模型。"
+          },
+          "channels": [
+            {
+              "label": "Ling-3.1-flash 官方 ModelScope 模型卡",
+              "url": "https://modelscope.cn/models/inclusionAI/Ling-3.1-flash",
+              "kind": "模型卡与权重入口",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已读；模型条目10-14 03:00 UTC创建、10-15 12:06 UTC更新，10-15开源公告与9-30在线发布分别记录。官方卡标560B总参数、25B激活与1M上下文；未下载完整权重。"
+            },
+            {
+              "label": "Ling-3.1-flash 原始 README",
+              "url": "https://modelscope.cn/models/inclusionAI/Ling-3.1-flash/resolve/master/README.md",
+              "kind": "架构、许可与部署原文",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已读；MIT许可，63层KDA加9层Gated MLA，附SGLang/vLLM与MTP部署说明。LingCode仅称考虑未来开源，不能视为已开放harness。"
+            },
+            {
+              "label": "SGLang Ling-3.1-flash 部署说明",
+              "url": "https://docs.sglang.io/cookbook/autoregressive/InclusionAI/Ling-3.1-flash",
+              "kind": "模型卡所链部署文档",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已读；本页写约17B激活、262144上下文，与官方模型卡25B/1M存在口径差异，应分别核对，不能拼接为统一规格。"
+            }
+          ],
+          "evidence": [
+            {
+              "label": "Ling-3.1-flash 权重开放时间线",
+              "url": "https://www.ithome.com/1/013/700.htm",
+              "published": "2026-10-16",
+              "date_basis": "当日报道10-15开源公告；模型卡为技术主来源，9-30首次在线发布不重报成新模型首发。"
             }
           ]
         }
@@ -1361,6 +1489,46 @@
               "status": "content_verified",
               "checked_on": "2026-10-15",
               "note": "已读README与训练实现；仅state-only OGBench，不含完整图像VLA和实机闭环。"
+            },
+            {
+              "label": "WorldOracle 官方评测代码",
+              "url": "https://github.com/AgibotTech/WorldOracle",
+              "kind": "评测实现与发布记录",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已读README与提交；初始公开提交10-14 13:45 UTC（北京时间21:45）。对照相同初始观测及动作的真实记录，离线评估世界模型预测；不是机器人策略闭环成功率。论文裁判GPT-5.5与在线GPT-5.6Luna版本分开记录。"
+            },
+            {
+              "label": "WorldOracle 官方项目页",
+              "url": "https://worldoracle-benchmark.github.io/",
+              "kind": "具身世界模型评测项目",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已读；网站10-15上线。四维检查物理状态、交互空间、关键区域与多视角一致性；335段真实参考执行用于离线预测比较，不能据此证明真实机器人闭环提升。"
+            },
+            {
+              "label": "WorldOracle 榜单与开放投稿",
+              "url": "https://worldoracle-benchmark.github.io/leaderboard.html",
+              "kind": "官方榜单与事件日志",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已读静态正文与News；10-16开放注册投稿、10-15上线路径。动态榜单结果未完整提取，不将静态页面示例当本次完整排名。"
+            },
+            {
+              "label": "WorldOracle 原论文",
+              "url": "https://arxiv.org/abs/2610.18826",
+              "kind": "论文日期与研究原文",
+              "status": "content_verified",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已核摘要与PDF全文；首版10-13 17:52:55 UTC（北京时间10-14 01:52）。论文、10-14代码首发、10-15网站与10-16投稿开放分别记录；HTML直连未成功。"
+            },
+            {
+              "label": "WorldOracle 数据集官方入口",
+              "url": "https://huggingface.co/WorldOracle",
+              "kind": "官方README所链数据组织",
+              "status": "unreadable",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-16已核官方README链接归属；HF接口本轮超时，未读取数据卡或下载文件，不能声称数据内容已核验。"
             }
           ],
           "verification": {
@@ -1385,6 +1553,18 @@
               "url": "https://github.com/AgibotTech/vine-code",
               "published": "2026-10-14",
               "date_basis": "GitHub仓库创建与初始提交"
+            },
+            {
+              "label": "WorldOracle 初次公开代码",
+              "url": "https://github.com/AgibotTech/WorldOracle/commit/27ba4e92b0f99cff96c2286a769e397509043b13",
+              "published": "2026-10-14",
+              "date_basis": "Initial public release提交13:45:06 UTC（北京时间21:45）；区别于论文首版日期。"
+            },
+            {
+              "label": "WorldOracle 开放榜单投稿",
+              "url": "https://worldoracle-benchmark.github.io/leaderboard.html",
+              "published": "2026-10-16",
+              "date_basis": "官方News写明Submission portal opened；网站上线日期为10-15。"
             }
           ]
         },
@@ -2269,17 +2449,17 @@
           "note": "用户指定的重点技术发现源。线索要进入精选与讨论筛选，公众号未贴出处时继续独立找官方材料；公开检索后续文章并记录实际可读范围。",
           "verification": {
             "status": "unverified",
-            "checked_on": "2026-10-14",
-            "note": "公众号身份与指定文章已核验；尚未核验独立账号主页或完整历史入口，见下方具体文章渠道。"
+            "checked_on": "2026-10-16",
+            "note": "保留2026-10-14历史身份核验：human five／How-to-AI／gh_7f0ee33c662a；本轮2026-10-16访问指定文章触发微信验证码，未读取本轮全文，账号完整历史入口仍未核验。"
           },
           "channels": [
             {
               "label": "用户指定文章：Gemini 4 Argon for Robotics",
               "url": "https://mp.weixin.qq.com/s/c6jtVqfZ0bI3JtCtExzlhg",
               "kind": "公开微信文章 · 账号识别与话题发现",
-              "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "已读指定文章，核对账号与北京时间2026-10-14 08:00发布时间。原文未贴官方出处；现已独立找到Google/DeepMind总发布、机器人专篇和安全报告，本期已纳入Gemini 4具身重点，按具体指标分别核验。"
+              "status": "unreadable",
+              "checked_on": "2026-10-16",
+              "note": "2026-10-14历史已读记录核对账号与08:00发布时间；2026-10-16当前访问触发微信验证码，未读取本轮全文，不代表账号或技术结论被否定。用户指出的Gemini 4、大模型进入具身及RSI列为优先追踪；具体结论另查官方资料，搜狗转载摘要不当本号原文。"
             }
           ],
           "watch_terms": [

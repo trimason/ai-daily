@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年10月15日日报：沿Gemini 4与具身RSI主线，跟进SEAR、EmbodiedEvo、高德ABot-ER、ChunkAct，以及智元VINE、小鹏合作团队和Qwen的开源更新；SAIL旧论文的新解读明确保留原日期。10月14日专题及样刊保留在归档。每期「每日技术点」帮助理解当前主流机制，本期讲动作分块与滚动执行。
+当前首页为2026年10月16日日报：重点读AdaRSI的具身按需自改进、WorldOracle的动作后果评测和人大AutoRSR数据闭环；国内模型侧跟进Step 5技术解读、百度/北大VHA代码及百灵权重开放，并收录Meta Muse Spark Open、NVIDIA Nemotron 3.5 Super VL。Gemini 4保留在首页近期动向和背景阅读，明确原日期；本期讨论RSI总成本。每日技术点讲GQA与KV cache，区分缓存容量、推理速度与长上下文能力。此前四期保留在归档。
 
 ## 本地构建与预览
 

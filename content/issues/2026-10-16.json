@@ -1,0 +1,451 @@
+{
+  "date": "2026-10-16",
+  "status": "daily",
+  "title": "具身RSI怎样闭环：AdaRSI、世界模型评测与国内模型架构",
+  "intro": "大模型进入具身，正在从写控制代码延伸到失败归因、按需训练与仿真反馈。本期重点读AdaRSI、WorldOracle和AutoRSR，再看Step、百度、蚂蚁及Meta、NVIDIA怎样支撑长程Agent。Gemini 4作为持续重点保留，不重复当作今日新发布。",
+  "coverage": "北京时间2026-10-16采集与核验，重点为近24–48小时公开事件；WorldOracle、VHA等7日内重要遗漏按论文/代码/榜单日期补收。与此前四期按标题、arXiv ID和URL去重。已查会议公开列表、固定国内团队和研究渠道；human five指定文章本轮遇验证码，具身智能之心仅公开检索，均不声称账号全量覆盖。以下厂商/作者结果尚未独立复现。",
+  "highlights": [
+    {
+      "title": "具身RSI：先找到失败原因，再决定训练什么",
+      "text": "AdaRSI把流程修补、动作策略训练和经验继承拆开，在陌生组合任务上检验收益；总成本和仿真边界同时保留。",
+      "story_id": "adarsi-on-demand-harness-policy-improvement"
+    },
+    {
+      "title": "真实→仿真→真实：反馈到底可靠吗？",
+      "text": "WorldOracle用真实配对执行约束世界模型；AutoRSR把扫描与示范变成训练数据，分别看离线预测与小样本实机。",
+      "story_id": "worldoracle-paired-real-execution"
+    },
+    {
+      "title": "国内大模型：长程Agent与缓存效率",
+      "text": "Step公开稀疏注意力与长程训练细节，百度VHA改变训练参数化，百灵开放混合注意力模型权重。",
+      "story_id": "step5-preview-agent-architecture"
+    }
+  ],
+  "stories": [
+    {
+      "id": "adarsi-on-demand-harness-policy-improvement",
+      "category": "embodied",
+      "tag": "具身智能 · Physical RSI · 按需自改进",
+      "title": "AdaRSI：先修机器人调用流程，再按需训练真正缺失的动作",
+      "organization": "Northeastern University、AgiBot（智元）、University of Chinese Academy of Sciences（中国科学院大学）",
+      "published": "2026-10-15",
+      "date_label": "arXiv首版提交为10月14日16:51 UTC／北京时间10月15日00:51；论文使用GR00T N1.5与GPT-6.1-sol/Codex",
+      "summary": "AdaRSI让编码Agent先检查和改进VLA的工具、技能与执行流程；对反复失败的子步骤，从仿真快照重跑以区分流程问题和执行器问题，只有后者才用拒绝采样或特权状态专家收集演示并微调子策略，最后把有效流程和策略写入可复用库。RoboCasa365的50个目标任务、每任务50个场景共2500 episodes中，GR00T N1.5基础VLA在Composite-Unseen成功率为4.6%，仅改harness为9.9%，AdaRSI为13.8%，全部50项任务平均48.8%（基础42.4%）。",
+      "why": "这是目前很具体的具身RSI候选：改进对象被拆成harness、程序、子策略和经验文档，而不是笼统地说机器人会自我进化。相比给每个操作子步骤都训练策略，AdaRSI在Composite-Unseen对照中使用38个策略和416个演示、966 GPU分钟；AlwaysTrain对照为118个策略、1877个演示、3411 GPU分钟（包含其复用的AdaRSI策略成本），论文因此报告约28%训练GPU时间和22%演示量，但这个比例只相对该对照的训练成本，未计Agent token和仿真成本。",
+      "limitation": "全部结果来自RoboCasa仿真，论文没有真实机器人成功率；特权状态用于开发/标注，部署时不使用。Composite-Unseen套件中，改进阶段每任务约154M输入和0.64M输出token，部署每episode约4.2M输入、7.2k输出且约97%输入命中缓存，不能只看GPU分钟。固定规则选择训练预算，论文证明了流程和策略复用，但没有证明开放式、持续加速的元级递归自改进；个别任务会回归（如CuttingToolSelection）。未找到作者公开可运行代码链接。",
+      "sources": [
+        {
+          "label": "论文摘要与首版日期",
+          "url": "https://arxiv.org/abs/2610.20474"
+        },
+        {
+          "label": "论文全文HTML：方法、RoboCasa365协议、消融与成本",
+          "url": "https://arxiv.org/html/2610.20474v1"
+        }
+      ]
+    },
+    {
+      "id": "worldoracle-paired-real-execution",
+      "category": "embodied",
+      "tag": "国内具身 · 世界模型评测",
+      "title": "智元与NVIDIA等发布WorldOracle：预测视频必须重现同一动作的真实后果",
+      "organization": "智元 AgiBot、NVIDIA、Princeton、UT Austin、University of Toronto",
+      "published": "2026-10-15",
+      "date_label": "项目日志：10-15网站与基线榜上线、10-16投稿入口开放；代码首公开10-14 13:45 UTC；论文首版10-13 17:52 UTC（北京时间10-14 01:52），本期补收研究与新资源",
+      "summary": "WorldOracle给世界模型同一初始画面与低层动作序列，再把生成视频与该动作在现实中的配对执行比较。评测覆盖智元G2、YAM双臂平台和人手，共335段真实参考执行，涵盖抓水果、挂毛巾、倒水与拉抽屉中的成功和失败。四个维度分别检查物理状态、交互空间对齐、关键区域保真和多视角动作一致性；公开仓库已有评测实现，项目给出数据与榜单入口。",
+      "why": "机器人世界模型若把抓空“脑补”为抓成功，视觉逼真也不能可靠用于策略学习或自我改进。这个基准把“是否服从给定动作”“换本体/动作分布后是否仍对”“长时间是否漂移”拆成可检查的问题，直接约束具身数据闭环与RSI所依赖的模拟反馈。",
+      "limitation": "这是基于真实参考视频的离线、开环预测评测，不是控制机器人的任务成功率或独立复现。当前只有三类本体、四类任务，策略生成动作分布仅覆盖G2；各本体适配数据/预算不同。每次只有一个真实执行参考，随机接触可能出现其他同样合理的结果。论文物理状态裁判为GPT-5.5；官方README说明在线榜的基线和新提交统一使用GPT-5.6 Luna，两种分数不可直接混比。本轮读到榜单News与规则，动态榜分数未加载；HF数据文件下载未核验，测试集真值依规则不公开。",
+      "sources": [
+        {
+          "label": "原论文PDF：机构、335段评测、§3–6与附录F",
+          "url": "https://arxiv.org/pdf/2610.18826"
+        },
+        {
+          "label": "项目与真实参考执行/指标说明",
+          "url": "https://worldoracle-benchmark.github.io/"
+        },
+        {
+          "label": "官方榜单News：10-15上线、10-16开放投稿",
+          "url": "https://worldoracle-benchmark.github.io/leaderboard.html"
+        },
+        {
+          "label": "官方评测代码、开放数据范围及裁判版本说明",
+          "url": "https://github.com/AgibotTech/WorldOracle"
+        }
+      ]
+    },
+    {
+      "id": "autorsr-automated-real-sim-real",
+      "category": "embodied",
+      "tag": "国内高校 · Real2Sim2Real",
+      "title": "人大AutoRSR：把工作台扫描与少量人类示范自动变成机器人训练数据",
+      "organization": "中国人民大学",
+      "published": "2026-10-14",
+      "date_label": "arXiv首版10-14 15:19 UTC／北京时间10-14 23:19；近48小时新预印本，未核到顶会录用",
+      "summary": "AutoRSR把多视角扫描、机器人状态、示范视频与开放词汇目标查询串成数据流水线：重建工作区、抽取独立物体、把场景与机器人基座对齐、重定向参考动作，再用轨迹插值与域随机化扩成仿真示范。在PiperX实机的倒水、放鸭子、关笔记本三项任务中，π0.5分别用每项1000段合成轨迹训练后，成功率为73.3%、80.0%、86.7%；每任务测试15次，对应150段真实遥操数据基线为73.3%、86.7%、86.7%。",
+      "why": "重点是减少从“扫描到像真的场景”到“机器人能执行、能训练的场景”之间的人工处理，而不是只做漂亮视频。这为把真实世界变成可扩展训练环境提供具体实现，也帮助检查大模型驱动的具身数据生成到底自动化了哪些环节。",
+      "limitation": "作者实机小样本结果，每任务15次，只覆盖三个桌面任务。流程仍需人提供扫描、参考示范视频和目标查询，不能称无人工/零示范；设备相机关系、参考运动也需准备。摘要称人工时间降低一个数量级，但表VIII的25–28分钟是1000段自动增广计算时间，不能解读成端到端总耗时缩短十倍；此外还有扫描、重建、对齐等生成前处理，不能省略计算。本轮只核论文原文，未找到已发布的作者代码、模型或数据链接，不写成已开源。",
+      "sources": [
+        {
+          "label": "AutoRSR原论文与首版日期",
+          "url": "https://arxiv.org/abs/2610.20336"
+        },
+        {
+          "label": "原论文全文：§III人类输入、§IV设置与表I/VI–VIII",
+          "url": "https://arxiv.org/html/2610.20336v1"
+        }
+      ]
+    },
+    {
+      "id": "step5-preview-agent-architecture",
+      "category": "llm",
+      "tag": "国内大模型 · 新技术解读 · 长程Agent",
+      "title": "Step 5新技术解读：92层深网络、稀疏GQA与长程Agent训练",
+      "organization": "阶跃星辰 StepFun",
+      "published": "2026-10-15",
+      "date_label": "10月15日官方技术博客；Step-5-Preview仓库10月12日创建，区分模型公开与技术解读",
+      "summary": "阶跃10月15日公开Step 5 Preview架构与训练细节。模型标称600B总参数、27B激活、1M上下文；92层窄而深网络按3:1交错Gated SWA与稀疏全注意力。Sparse GQA以8-token块合并降低索引与Top-k开销；FP32隐藏状态、RMSNorm缩放及细粒度梯度约束处理深层训练不稳定。长程RL还涉及训练推理一致、rollout replay、上下文压缩与信用分配。",
+      "why": "这是国内大模型团队对实际Agent训练问题的新公开解释，连接长上下文计算、数值稳定和多轮工具使用。它与具身研发中的代码Agent有方法交集；应继续比较模型推理、执行框架与训练流程各自的收益，并追问压缩历史后怎样保留决定长期结果的证据。",
+      "limitation": "已核官方博客、README和文档，未复现、未读取独立测评。它是通用Agent模型，不是机器人控制模型；“智能体参与数据合成”也不证明递归自我改进。模型公开与10月15日解读是两件事，不把仓库更新当新模型首发；官方README介绍含视频，但规格表只列文本/图像，本条不延伸视频接口能力。",
+      "sources": [
+        {
+          "label": "10月15日官方技术博客",
+          "url": "https://platform.stepfun.ai/blog/inside-step-5-preview"
+        },
+        {
+          "label": "官方模型仓库与参数、部署说明",
+          "url": "https://github.com/stepfun-ai/Step-5-Preview"
+        },
+        {
+          "label": "官方模型文档",
+          "url": "https://platform.stepfun.ai/docs/en/guides/models/step-5-preview"
+        }
+      ]
+    },
+    {
+      "id": "baidu-vha-linear-reparameterization",
+      "category": "llm",
+      "tag": "百度Paddle · 注意力新研究 · KV cache",
+      "title": "VHA：训练时扩展虚拟查询头，部署时折叠回标准GQA",
+      "organization": "百度 · 北京大学（依论文署名）；PaddlePaddle官方代码",
+      "published": "2026-10-14",
+      "date_label": "论文首版10月13日08:39 UTC；官方代码仓库初始提交10月14日05:52 UTC（北京时间13:52），本期补收",
+      "summary": "Virtual Head Attention用Q Premix扩展虚拟查询头，再用低秩Linear Postmix混合注意力输出。默认模块严格线性，训练后分别吸收进Q/O投影，以标准GQA-2部署。1.7B、50B-token预训练实验中，八基准均分54.50，对照GQA-8为54.09；每层每token的BF16 KV缓存从4KB降到1KB，S=4096时训练/prefill FLOPs由10.61降至9.78G。",
+      "why": "它回应了当前长上下文模型的关键问题：减少KV头以省显存时，怎样保留质量，并继续使用现有GQA服务内核。新意主要是训练参数化和梯度耦合；把推理缓存、训练计算和模型质量放在同一受控比较里，也适合作为理解GQA与KV cache的当日技术案例。",
+      "limitation": "已读原论文及官方代码说明，未独立复现。1KB是每层每token的KV缓存，不是总显存；-7.9%是该规模的训练/prefill FLOPs，不能写成实测解码提速。折叠只适用于论文默认线性模块，加入SiLU的变体不具备此性质。更大规模、不同训练配方下能否保持质量，仍需验证。",
+      "sources": [
+        {
+          "label": "论文首版、方法与实验",
+          "url": "https://arxiv.org/html/2610.17959v1"
+        },
+        {
+          "label": "首版日期与摘要",
+          "url": "https://arxiv.org/abs/2610.17959"
+        },
+        {
+          "label": "PaddlePaddle官方VHA代码",
+          "url": "https://github.com/PaddlePaddle/VHA"
+        }
+      ]
+    },
+    {
+      "id": "ling31-flash-open-weights",
+      "category": "llm",
+      "tag": "国内大模型 · 权重开放 · 混合注意力",
+      "title": "蚂蚁百灵开放Ling-3.1-flash：KDA与MLA混合，关注长程Agent部署",
+      "organization": "蚂蚁集团 百灵 / inclusionAI",
+      "published": "2026-10-15",
+      "date_label": "10月15日开源公告（10月16日报道）；魔搭模型条目10月14日创建、15日更新；模型首次发布为9月30日",
+      "summary": "Ling-3.1-flash从此前在线发布转向权重开放。官方模型卡标称560B总参数、25B每token激活、1M上下文；72层由63层KDA与9层Gated MLA按7:1混合，采用512个路由专家、每token选8个，另有1个共享专家。模型卡提供MIT许可、SGLang/vLLM部署和MTP投机解码入口，并介绍可处理长程任务及反复上下文压缩的LingCode框架。",
+      "why": "国内模型竞争的实质也在推理结构、部署成本与长程工具调用：线性递归状态和潜在注意力怎样搭配，比只看参数规模更值得追踪。该事件把可用权重及部署路径放到研究者手中，能推动实际Agent框架的对照测试；但不能从通用Agent成绩直接推导具身控制能力。",
+      "limitation": "已读官方魔搭模型卡及其链接的SGLang文档，未运行模型。二者口径不一致：模型卡标25B激活/1M，SGLang页面写约17B/262144上下文；部署上限与模型标称应分别核对。未引用媒体MXFP4量化、292GB占用或榜单截图。LingCode仅称考虑未来开源，不把其harness当已开放资源，也不将开源公告重报成新模型首发。",
+      "sources": [
+        {
+          "label": "官方ModelScope模型卡与权重入口",
+          "url": "https://modelscope.cn/models/inclusionAI/Ling-3.1-flash"
+        },
+        {
+          "label": "模型卡原文（MIT、架构及部署）",
+          "url": "https://modelscope.cn/models/inclusionAI/Ling-3.1-flash/resolve/master/README.md"
+        },
+        {
+          "label": "模型卡所链SGLang部署文档（存在口径差异）",
+          "url": "https://docs.sglang.io/cookbook/autoregressive/InclusionAI/Ling-3.1-flash"
+        },
+        {
+          "label": "10月16日开源公告报道与时间线索",
+          "url": "https://www.ithome.com/1/013/700.htm"
+        }
+      ]
+    },
+    {
+      "id": "meta-muse-spark-open",
+      "category": "llm",
+      "tag": "海外大模型 · 多模态MoE · 长程Agent",
+      "title": "Meta Muse Spark Open：816B总参数、42B激活与百万上下文的开放权重多模态MoE",
+      "organization": "Meta",
+      "published": "2026-10-15",
+      "date_label": "Meta/NVIDIA公开材料均标注10月15日；北京时间10月16日07:36 IT之家报道。Transformers集成文档注明10月14日贡献，不能当模型首发日",
+      "summary": "Muse Spark Open是面向长程Agent编码的多模态开放权重模型：约8160亿总参数、每token约420亿激活，256个专家中路由8个，支持文本、图像、音频和视频输入、文本输出，统一上下文上限1,048,576 token。架构资料还给出62层、128个查询头/16个KV头的GQA、1.8B视觉编码器和每秒12.5个音频token；BF16与面向Blackwell的NVFP4检查点已接入Transformers、PyTorch Torchtitan和SGLang。",
+      "why": "它适合放在大模型前沿主线，也能和具身方向对接：多模态感知、长上下文、工具调用和自纠错是机器人研发Agent需要的上层能力，但目前公开材料证明的是编码与电脑/浏览器工作流，不是机器人控制或Physical RSI。对读者最有价值的技术点是稀疏MoE的‘激活参数’与‘驻留权重’要分开看，以及GQA如何压低KV cache；1M上下文仍需按部署硬件和缓存预算理解。",
+      "limitation": "本文只核验Meta/Hugging Face技术说明、Transformers/PyTorch/SGLang实现和NVIDIA部署文章；Hugging Face模型文件与许可证正文在本轮网络条件下未读到，因此写‘开放权重’而不写OSI开源。尚未独立运行模型或复核Meta/NVIDIA性能宣称；50K tokens/s/GPU、600 tokens/s/user是特定GB300 NVL72部署数据，不能外推为通用速度。未发现其已发布机器人实验或RSI实证。",
+      "sources": [
+        {
+          "label": "Hugging Face官方技术文章源码：架构、模态、上下文与运行方式",
+          "url": "https://huggingface.co/blog/meta-muse-spark-open"
+        },
+        {
+          "label": "官方Transformers模型文档",
+          "url": "https://github.com/huggingface/transformers/blob/main/docs/source/en/model_doc/muse_spark.md"
+        },
+        {
+          "label": "NVIDIA部署文章（10月15日）",
+          "url": "https://developer.nvidia.com/blog/scale-agentic-coding-workflows-with-metas-muse-spark-open-on-nvidia-gb300-nvl72/"
+        },
+        {
+          "label": "精确模型仓库入口",
+          "url": "https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B"
+        },
+        {
+          "label": "北京时间报道与发布日期线索",
+          "url": "https://www.ithome.com/1/013/706.htm"
+        }
+      ]
+    },
+    {
+      "id": "nemotron35-super-vl-agent-efficiency",
+      "category": "llm",
+      "tag": "海外大模型 · 多模态Agent · 推理效率",
+      "title": "NVIDIA Nemotron 3.5 Super VL：多模态Agent开始把训练与服务优化一起交付",
+      "organization": "NVIDIA",
+      "published": "2026-10-15",
+      "date_label": "NVIDIA官方公告及技术博客10月15日；本期核验公开技术材料，未独立运行权重",
+      "summary": "Nemotron 3.5 Super VL采用120B总参数、每token激活12B的MoE，把文本、图像、文档、视频理解和工具调用放在同一模型里。训练采用两阶段SFT、多教师on-policy蒸馏；服务侧结合LiLiCorr并行投机解码、MTP与上下文复用。官方同时给出NVFP4检查点和训练、定制及部署资源。作者报告CharXiv图表推理80.8%，加入Python工具为84%；两种工具条件应分别看。",
+      "why": "长程Agent的成本既取决于答题能力，也取决于反复读取上下文、生成草稿和调用工具的开销。这个发布把模型、量化和服务配方连在一起，适合与Step、Ling、Muse的长程Agent路线对照。它提供机器人研发Agent可借鉴的上层组件，但公开材料没有证明机器人动作能力。",
+      "limitation": "已读两篇官方原文，未运行模型、下载全部数据或核验独立评测。其混合架构同时保存注意力缓存和Mamba状态，不能把普通GQA缓存公式直接套到整个模型。Blackwell的NVFP4权重/激活配置与其他平台的4位权重/16位激活不同；“最高5倍吞吐”等依赖硬件、精度、并发和基线。Dynamo的多卡服务收益属于特定部署配方，不能当作模型固有提速。企业成本案例含预期值，不泛化为已实现的通用收益。",
+      "sources": [
+        {
+          "label": "NVIDIA官方发布（10月15日）",
+          "url": "https://blogs.nvidia.com/blog/nemotron-3-5-super-vl/"
+        },
+        {
+          "label": "NVIDIA技术博客：训练、评测与服务条件",
+          "url": "https://developer.nvidia.com/blog/nvidia-nemotron-3-5-super-vl-powers-specialized-agents-with-multimodal-reasoning/"
+        },
+        {
+          "label": "官方博客所链的精确NVFP4模型入口",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-NVFP4"
+        }
+      ]
+    },
+    {
+      "id": "physical-rsi-total-cost-discussion",
+      "category": "discussion",
+      "tag": "本刊对照阅读 · 具身RSI · 总成本与验证",
+      "title": "具身RSI的账该怎么算：训练GPU时间下降，还要加上Agent与验证成本",
+      "organization": "本刊基于AdaRSI、SEAR与Google官方材料整理",
+      "published": "2026-10-16",
+      "date_label": "本刊讨论整理日期；研究证据分别保留原始发布日期，非新的模型公告",
+      "summary": "沿human five提出的Gemini 4机器人线索，本期把问题推进到“改进了哪一层、代价由谁承担”。AdaRSI将错误归因到调用流程或动作策略后再训练：相对AlwaysTrain，Composite-Unseen实验的训练GPU时间为966对3411分钟，演示为416对1877段；但同一Composite-Unseen套件的改进阶段每任务还需约154M输入token和0.64M输出token。训练更省的证据，与整个自主改进流程更便宜的结论之间，仍隔着模型调用、仿真、验证和人工准备。",
+      "why": "大模型进入具身的重点已经延伸到代码、工具、仿真数据和策略更新。关注RSI不能只看单次任务成功率：要记录保留下来的修改，冻结后测陌生任务，并比较后续每轮在相同总预算下是否学得更快。WorldOracle提醒我们，若世界模型把失败动作预测成成功，闭环可能在优化错误反馈；AutoRSR则让真实扫描到可训练仿真的人工输入变得具体可查。",
+      "limitation": "这是对本期材料的分析，不是行业统一定义或新实验。AdaRSI的输入token多数可缓存，token数不能直接换算成账单；但GPU分钟同样不能替代总成本。其结果全部来自仿真，WorldOracle是离线预测评测，AutoRSR是小样本实机验证，三者不可直接横比成功率。Gemini 4保留为10月13日发布的持续背景，本轮未核到新的官方机器人事件；不由单个机器人案例推断已经实现持续递归加速。",
+      "sources": [
+        {
+          "label": "AdaRSI：失败归因、消融及LLM/训练成本",
+          "url": "https://arxiv.org/html/2610.20474v1"
+        },
+        {
+          "label": "SEAR：经验继承、重启与预算控制（此前已收录）",
+          "url": "https://arxiv.org/abs/2610.18792"
+        },
+        {
+          "label": "Gemini 4 Argon官方发布：机器人案例（10月13日持续背景）",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/"
+        },
+        {
+          "label": "WorldOracle原论文：真实参考与预测反馈的局限",
+          "url": "https://arxiv.org/pdf/2610.18826"
+        }
+      ]
+    }
+  ],
+  "reading": [
+    {
+      "title": "Gemini 4 × 具身：持续重点的官方背景",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
+      "reason": "10月13日发布，今日无可核新事件。沿human five线索继续对照通用模型、机器人推理与控制的证据。"
+    },
+    {
+      "title": "AdaRSI：失败归因、消融和完整成本",
+      "url": "https://arxiv.org/html/2610.20474v1",
+      "reason": "先读harness-only和AlwaysTrain对照，再把GPU分钟、演示、LLM调用与陌生任务收益放到一起。"
+    },
+    {
+      "title": "WorldOracle：世界模型能否预测动作后果？",
+      "url": "https://arxiv.org/pdf/2610.18826",
+      "reason": "重点看配对真实执行、失败片段和裁判版本，分清视觉质量、动作服从与策略成功率。"
+    },
+    {
+      "title": "GQA原论文与本期VHA",
+      "url": "https://arxiv.org/html/2305.13245v3",
+      "reason": "结合每日技术点读头共享、缓存公式和质量取舍，再看VHA怎样折叠回标准GQA。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "Foundation Models for Robotics / 大模型进入具身",
+      "explanation": "从多模态推理和写代码，延伸到工具流程、仿真、策略训练；上层Agent能力与实机控制证据分别核验。"
+    },
+    {
+      "term": "Physical RSI / 具身递归自我改进",
+      "explanation": "检查流程、策略和经验是否持久更新，再看下一轮改进效率；一次任务增分或自采数据不直接证明递归加速。"
+    },
+    {
+      "term": "Failure Attribution / 失败归因",
+      "explanation": "AdaRSI从保存的仿真状态重跑子步骤，区分调用流程出错与动作策略缺能力，再决定是否训练。"
+    },
+    {
+      "term": "Action-conditioned World Models / 动作条件世界模型",
+      "explanation": "生成结果必须服从给定动作。WorldOracle以同一动作的真实执行检查物理状态与交互一致性。"
+    },
+    {
+      "term": "Real2Sim2Real / 真实—仿真—真实",
+      "explanation": "从扫描和示范构建可训练场景，再把仿真策略放回机器人；记录人类输入、标定、数据与实机样本量。"
+    },
+    {
+      "term": "GQA & KV Cache / 分组查询与键值缓存",
+      "explanation": "多查询头共享K/V来降低长上下文缓存；本期技术点区分缓存容量、服务速度与真正利用长文本的能力。"
+    },
+    {
+      "term": "Hybrid Attention / 混合注意力",
+      "explanation": "Step混合局部与稀疏全注意力，Ling混合KDA与MLA；不同层保存的状态和实际部署上限需逐项确认。"
+    },
+    {
+      "term": "MoE / 混合专家",
+      "explanation": "每token只激活部分专家，并不等于只需存放这些权重；Muse、Step、Ling与Nemotron的激活规模和部署成本分别看。"
+    },
+    {
+      "term": "Total-budget Evaluation / 总预算评测",
+      "explanation": "同时统计训练、模型调用、仿真、验证、数据采集和人工投入，再判断自改进流程是否更有效率。"
+    }
+  ],
+  "featured_ids": [
+    "adarsi-on-demand-harness-policy-improvement",
+    "worldoracle-paired-real-execution",
+    "autorsr-automated-real-sim-real",
+    "step5-preview-agent-architecture",
+    "baidu-vha-linear-reparameterization",
+    "meta-muse-spark-open"
+  ],
+  "technical_explainer": {
+    "id": "gqa-kv-cache-memory",
+    "title": "GQA 与 KV cache：为什么上下文越长，显存越吃紧？",
+    "summary": "从逐字生成的缓存讲起，理解多组查询如何共享键和值、它节省了什么，以及它和 MLA、FlashAttention、长上下文能力的区别。",
+    "reading_minutes": 7,
+    "why_now": "本期百度 VHA 研究怎样在减少 KV 头时保留质量，Step 5 的架构解读也使用稀疏 GQA。理解这些新结果，需要先掌握仍被广泛采用的 GQA 与 KV cache。GQA 原论文发表于2023年；这里讲的是当前模型持续使用的基础机制，VHA 则作为新研究例子，不把它称为已经普及的标准。",
+    "sections": [
+      {
+        "heading": "1. 模型每生成一个 token，都要回看哪些信息？",
+        "paragraphs": [
+          "以常见的自回归 Transformer 为例，模型先读入提示词，再一个 token 接一个 token 地生成。每一层注意力把输入表示投影为查询 Q、键 K、值 V：当前查询与历史键比较，得到注意力权重，再按这些权重汇总历史值。可以把 Q 理解为“现在要找什么”、K 理解为“有哪些检索线索”、V 理解为“找到后取什么内容”；这只是帮助理解向量计算的比喻。",
+          "读入提示词的阶段叫 prefill，可以并行计算提示词各位置。后续 decode 每次增加一个位置，旧位置在因果注意力中不会因为未来 token 到来而改变。因此实现通常保存每层历史位置的 K 和 V；下一步只为新位置计算投影，把新 K/V 接到缓存后，再用新 Q 读取历史缓存。通常不需要把历史 Q 一起保存。",
+          "这就是 KV cache。它省去反复计算旧位置表示的工作，但保存和读取缓存本身需要显存与带宽。上下文变长、同时处理的请求变多、生成继续增长，缓存也随之变大。缓存是当前计算的中间状态，不等于 Agent 的长期记忆，也不会把这段对话训练进模型权重。"
+        ]
+      },
+      {
+        "heading": "2. GQA：保留多种查询，让一组查询共享 K/V",
+        "paragraphs": [
+          "多头注意力 MHA 为每个查询头配套独立的 K/V 头。假设有32个查询头，就分别保存32套键和值。这样不同头可以学习不同表示，但长上下文下需要搬运的历史数据很多。",
+          "多查询注意力 MQA 保留多个查询头，却让它们共享一套 K/V。GQA（Grouped-Query Attention，分组查询注意力）位于二者之间：例如32个查询头分成8组，每组4个查询头共享一套 K/V，总共缓存8套。注意力权重仍由每个查询头单独计算；共享键和值不等于所有头给出同样的注意力分布。",
+          "共享越多，缓存通常越省，表达能力也可能受到影响。具体质量取决于训练与任务，不能从头数直接推出。GQA 原论文还研究了把已有 MHA 模型转换后继续训练；这意味着不能只在配置文件里把 KV 头从32改成8，就期待原模型无损运行。架构、权重转换与训练需要配合。"
+        ]
+      },
+      {
+        "heading": "3. 显存怎么算？先区分缓存和整个模型",
+        "paragraphs": [
+          "对普通、未量化、全注意力的 KV cache，若 K/V 头维度相同，粗略字节数为：2 × B × L × T × Hkv × d × s。2代表 K 和 V；B是同时保留的序列数，L是层数，T是每条序列已缓存的 token 数，Hkv是 KV 头数，d是每头维度，s是每个数的字节数。查询头数 Hq 不直接进入这条缓存公式。",
+          "这只是教学估算。不同长度请求应逐条求和；滑动窗口层只保留局部历史，量化会改变每个数的存储，分页有块和管理开销，张量并行可能引入复制。MLA 等架构缓存的对象也不同，不能直接套用。",
+          "KV 缓存缩小4倍，不代表整个模型显存缩小4倍，更不代表推理必然快4倍。权重、临时张量、算子、通信和请求调度仍在消耗资源；小批量解码可能还受权重读取影响。比较速度时，要给出硬件、精度、输入输出长度、并发以及首 token 延迟与输出速度。"
+        ]
+      },
+      {
+        "heading": "4. GQA、MLA、FlashAttention分别改了什么？",
+        "paragraphs": [
+          "GQA通过共享K/V头减少缓存表示。DeepSeek-V3采用的 MLA（多头潜在注意力）则缓存压缩后的潜在向量及解耦的位置相关键，再利用投影关系计算注意力；它不是把 GQA 的组数继续调小。其节省量与延迟要看具体维度和实现。",
+          "FlashAttention主要改变注意力的计算与数据搬运方式，通过分块等方法减少对高带宽显存的读写和中间矩阵。它可以和 GQA 配合，但单靠换一个 FlashAttention 内核，不会把同一架构必须保存的 KV 头数变少。缓存量化、分页管理和稀疏注意力也分别解决不同问题。",
+          "本期 VHA 在训练时增加查询混合与输出混合，用不同参数化改善少 KV 头的训练效果；作者设计的线性模块可以在推理时折叠进投影，形成标准 GQA 形式。这里的新意在训练参数化及受控实验，不是推理时凭空保存更多“虚拟缓存头”。论文中的方法与模型规模有边界，不能将它直接视为所有大模型的通用替换件。"
+        ]
+      },
+      {
+        "heading": "5. 能放下百万 token，不等于能可靠利用百万 token",
+        "paragraphs": [
+          "显存容量回答“能不能装下”，长上下文评测回答“能不能找到并用对”。位置编码、长文本训练、检索和多跳推理都会影响后者。即使缓存足够小，模型仍可能遗漏中间位置的信息，或在跨文档推理时失败。",
+          "标准全注意力解码时，新查询仍要和已有历史交互；共享 K/V 头不自动让每步读取历史的工作量变成常数，也不自动消除 prefill 的长序列计算。读到“1M context”时，应继续看不同长度的任务表现、实际延迟与并发显存，而不只比较标称窗口。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "假设都有32个查询头，先看缓存表示如何变化",
+      "columns": [
+        "方式",
+        "保存什么",
+        "关键取舍"
+      ],
+      "rows": [
+        [
+          "MHA",
+          "32套K/V头",
+          "独立表示较多，历史缓存较大"
+        ],
+        [
+          "GQA，8个KV头",
+          "8套K/V头，每组4个查询头共享",
+          "减少缓存，质量需要训练与评测支持"
+        ],
+        [
+          "MQA",
+          "1套K/V头供所有查询头共享",
+          "共享程度最高，质量和并行部署需单独检查"
+        ],
+        [
+          "MLA",
+          "压缩潜在向量与位置相关键等",
+          "改变缓存表示，公式与内核不同"
+        ]
+      ]
+    },
+    "example": {
+      "title": "假设算例：同一段32K上下文，缓存从16 GiB变成4 GiB",
+      "paragraphs": [
+        "假设一条序列、32层、32768个已缓存token、32个查询头、每头128维、K/V使用BF16（每个数2字节），全部为全注意力层。MHA的缓存约为 2×1×32×32768×32×128×2 字节，即16 GiB。改成8个KV头的GQA，在其余条件相同时为4 GiB；1个KV头的MQA约为0.5 GiB。",
+        "以上是缓存容量的假设算例，不是某个发布模型的配置或实测。若同时保留4条同长度序列，GQA缓存总量约为16 GiB；生成继续增长也会继续占用显存。还要另加模型权重和运行开销，不能据此判断一张16 GiB显卡一定能运行这个模型。"
+      ]
+    },
+    "checklist": [
+      "查询头Hq和KV头Hkv各是多少？层内是否混合全注意力、滑动窗口或潜在注意力？",
+      "缓存精度、上下文长度、并发序列数、分页开销与并行复制是否写清楚？",
+      "节省的是KV缓存、整个显存、训练FLOPs还是服务费用？这些指标是否混用？",
+      "速度比较是否使用同硬件、输入输出长度、批量和推理内核，并同时报告质量？",
+      "标称长窗口是否有不同位置、不同长度、检索与推理任务上的证据？"
+    ],
+    "takeaway": "GQA让多个查询头共享历史键和值，减少长上下文的缓存与读取负担；容量、速度和真正利用上下文的能力仍要分别评测。",
+    "sources": [
+      {
+        "label": "GQA原论文 · 2023 · 分组共享与转换后继续训练",
+        "url": "https://arxiv.org/html/2305.13245v3"
+      },
+      {
+        "label": "DeepSeek-V3报告 · 2024/2025 · §2.1.1的MLA缓存表示",
+        "url": "https://arxiv.org/html/2412.19437v2"
+      },
+      {
+        "label": "Virtual Head Attention · 2026-10-13原论文 · 本期代码新事件",
+        "url": "https://arxiv.org/html/2610.17959v1"
+      },
+      {
+        "label": "Step 5技术博客 · 2026-10-15 · 稀疏GQA的当前架构实例",
+        "url": "https://platform.stepfun.ai/blog/inside-step-5-preview"
+      }
+    ]
+  }
+}

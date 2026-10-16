@@ -1,22 +1,126 @@
 {
-  "title": "最近在推进什么：大模型进入具身、经验复用与 RSI",
-  "intro": "观察2026-10-11—10-15已核验样本：Gemini 4机器人案例、SEAR与EmbodiedEvo的经验继承、高德具身推理及国内开源更新。日期区分论文、代码与资源事件；DeepSeek保留未官宣产业观察。这是来源样本，不是全行业热度排名。",
-  "window_start": "2026-10-11",
-  "window_end": "2026-10-15",
+  "title": "最近在推进什么：具身RSI、动作反馈与长程Agent",
+  "intro": "观察2026-10-12—10-16实际核验样本：Gemini 4持续背景、AdaRSI按需改进、WorldOracle动作后果评测、AutoRSR数据闭环，以及国内外长程Agent模型。原论文、权重、代码和解读日期分别保留；这是来源样本，不是全行业热度排名。",
+  "window_start": "2026-10-12",
+  "window_end": "2026-10-16",
   "signals": [
     {
       "id": "gemini-4-argon-robotics",
       "title": "Gemini 4 Argon：通用大模型进入机器人控制、仿真生成与研发闭环",
-      "summary": "Google正式开放Gemini 4 Argon，并把机器人研发列为重点应用。总公告自报ERQA具身推理87%；内部案例中，模型从人类投掷视频推算空间与全身关节动作、生成仿真代码，再让Apptronik Apollo实机连续命中7次。官方安全报告还说明它能用相机图像感知、规划多步任务、通过工具调用控制机器人。human five的指定文章由此提供了本期重点线索。",
+      "summary": "沿human five指定文章持续关注：Gemini 4 Argon把通用多模态、编码与工具能力接入机器人控制和仿真生成。官方总公告自报ERQA具身推理87%；Apollo连续命中7次是另一项厂商实机案例。今日没有核到新的官方机器人发布，作为本期AdaRSI与具身数据闭环的背景保留。",
       "keywords": [
         "基础模型进入具身 / Foundation Models for Robotics",
         "Video-to-Sim-to-Real",
         "Physical Reasoning"
       ],
       "published": "2026-10-13",
-      "source_label": "Google DeepMind / Google · 官方总公告日期（UTC；北京时间10-14 00:00）",
+      "source_label": "Google DeepMind / Google · 10月13日原发布；10月16日复核，持续背景、无可核新事件",
       "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
       "limitation": "87%是ERQA推理得分，不是实机任务成功率；Apollo连续命中是厂商内部案例，试验覆盖与独立复现不足。已读官方总公告、机器人产品页、模型卡和安全报告相关段落；机器人专篇入口由官方交叉确认，但正文直连超时，公众号中的56%→75%、4500+episode、68sandbox暂不当作已核验事实。安全报告按其内部评估口径认为当前端到端AI研发加速并不显著，完整研究流程仍需人工介入；这些案例不能证明递归自我改进已实现。"
+    },
+    {
+      "id": "adarsi-on-demand-harness-policy-improvement",
+      "title": "AdaRSI：先修机器人调用流程，再按需训练真正缺失的动作",
+      "published": "2026-10-15",
+      "summary": "先修harness，再按需训练缺失子策略；在RoboCasa仿真中，陌生组合任务成功率由基础4.6%提升到13.8%，仅修流程为9.9%。这为具身RSI提供具体可查的归因与复用路径。",
+      "keywords": [
+        "Physical RSI",
+        "Failure Attribution"
+      ],
+      "url": "https://arxiv.org/abs/2610.20474",
+      "source_label": "Northeastern University、AgiBot（智元）、University of Chinese Academy of Sciences（中国科学院大学） · arXiv首版提交为10月14日16:51 UTC／北京时间10月15日00:51；论文使用GR00T N1.5与GPT-6.1-sol/Codex",
+      "limitation": "全部仿真；28%训练GPU时间只相对AlwaysTrain，另有LLM和仿真成本，未证明持续递归加速。"
+    },
+    {
+      "id": "worldoracle-paired-real-execution",
+      "title": "智元与NVIDIA等发布WorldOracle：预测视频必须重现同一动作的真实后果",
+      "published": "2026-10-15",
+      "summary": "智元与NVIDIA等用335段真实配对执行，检查世界模型是否预测了给定动作的真实后果；10月15日上线网站与基线榜，16日开放投稿。",
+      "keywords": [
+        "World Model Evaluation",
+        "Action Conditioning"
+      ],
+      "url": "https://arxiv.org/pdf/2610.18826",
+      "source_label": "智元 AgiBot、NVIDIA、Princeton、UT Austin、University of Toronto · 项目日志：10-15网站与基线榜上线、10-16投稿入口开放；代码首公开10-14 13:45 UTC；论文首版10-13 17:52 UTC（北京时间10-14 01:52），本期补收研究与新资源",
+      "limitation": "离线开环预测基准，不是机器人成功率。论文和在线榜的VLM裁判版本不同，分数不能混比。"
+    },
+    {
+      "id": "autorsr-automated-real-sim-real",
+      "title": "人大AutoRSR：把工作台扫描与少量人类示范自动变成机器人训练数据",
+      "published": "2026-10-14",
+      "summary": "人大AutoRSR把扫描、示范与目标查询串成可训练仿真数据；PiperX三任务各用1000段合成轨迹训练，实机各测试15次。",
+      "keywords": [
+        "Real2Sim2Real",
+        "Synthetic Robot Data"
+      ],
+      "url": "https://arxiv.org/abs/2610.20336",
+      "source_label": "中国人民大学 · arXiv首版10-14 15:19 UTC／北京时间10-14 23:19；近48小时新预印本，未核到顶会录用",
+      "limitation": "仍有人类扫描、参考示范和查询；三任务小样本，不能称零人工，也不能把自动增广耗时当端到端十倍提速。"
+    },
+    {
+      "id": "step5-preview-agent-architecture",
+      "title": "Step 5新技术解读：92层深网络、稀疏GQA与长程Agent训练",
+      "published": "2026-10-15",
+      "summary": "阶跃10月15日技术博客解释92层深网络、局部/稀疏全注意力和长程Agent训练；这次新增是技术细节，模型已于此前公开。",
+      "keywords": [
+        "Long-horizon Agents",
+        "Sparse GQA"
+      ],
+      "url": "https://platform.stepfun.ai/blog/inside-step-5-preview",
+      "source_label": "阶跃星辰 StepFun · 10月15日官方技术博客；Step-5-Preview仓库10月12日创建，区分模型公开与技术解读",
+      "limitation": "官方自述，未独立测评；通用Agent训练与具身控制、RSI的证据分开判断。"
+    },
+    {
+      "id": "baidu-vha-linear-reparameterization",
+      "title": "VHA：训练时扩展虚拟查询头，部署时折叠回标准GQA",
+      "published": "2026-10-14",
+      "summary": "百度与北大VHA用线性参数化改善少KV头的训练，推理折叠回标准GQA；10月14日官方代码首发，本期补收。",
+      "keywords": [
+        "GQA",
+        "KV Cache"
+      ],
+      "url": "https://arxiv.org/html/2610.17959v1",
+      "source_label": "百度 · 北京大学（依论文署名）；PaddlePaddle官方代码 · 论文首版10月13日08:39 UTC；官方代码仓库初始提交10月14日05:52 UTC（北京时间13:52），本期补收",
+      "limitation": "1KB是每层每token缓存，FLOPs下降不是实测解码提速；默认线性模块的折叠性质不适用于所有变体。"
+    },
+    {
+      "id": "ling31-flash-open-weights",
+      "title": "蚂蚁百灵开放Ling-3.1-flash：KDA与MLA混合，关注长程Agent部署",
+      "published": "2026-10-15",
+      "summary": "蚂蚁百灵10月15日开放Ling-3.1-flash权重；模型卡以7:1混合KDA与Gated MLA，提供MIT许可和部署入口。",
+      "keywords": [
+        "Hybrid Attention",
+        "Open Weights"
+      ],
+      "url": "https://modelscope.cn/models/inclusionAI/Ling-3.1-flash",
+      "source_label": "蚂蚁集团 百灵 / inclusionAI · 10月15日开源公告（10月16日报道）；魔搭模型条目10月14日创建、15日更新；模型首次发布为9月30日",
+      "limitation": "这是权重开放，首次发布为9月30日。模型卡与部署文档的激活参数、上下文口径有冲突，LingCode尚未开源。"
+    },
+    {
+      "id": "meta-muse-spark-open",
+      "title": "Meta Muse Spark Open：816B总参数、42B激活与百万上下文的开放权重多模态MoE",
+      "published": "2026-10-15",
+      "summary": "Meta开放Muse Spark Open权重：816B总参数、42B激活，文本/图像/音频/视频输入，统一百万上下文；实现已接入多个推理与训练框架。",
+      "keywords": [
+        "Multimodal MoE",
+        "Long-context Agents"
+      ],
+      "url": "https://huggingface.co/blog/meta-muse-spark-open",
+      "source_label": "Meta · Meta/NVIDIA公开材料均标注10月15日；北京时间10月16日07:36 IT之家报道。Transformers集成文档注明10月14日贡献，不能当模型首发日",
+      "limitation": "开放权重不等于OSI开源；本轮未读到许可证正文，未独立跑分，也没有机器人或RSI实证。"
+    },
+    {
+      "id": "nemotron35-super-vl-agent-efficiency",
+      "title": "NVIDIA Nemotron 3.5 Super VL：多模态Agent开始把训练与服务优化一起交付",
+      "published": "2026-10-15",
+      "summary": "NVIDIA发布Nemotron 3.5 Super VL，把120B/12B多模态MoE、蒸馏、投机解码与量化服务配方连在一起。",
+      "keywords": [
+        "Multimodal Agents",
+        "Speculative Decoding"
+      ],
+      "url": "https://blogs.nvidia.com/blog/nemotron-3-5-super-vl/",
+      "source_label": "NVIDIA · NVIDIA官方公告及技术博客10月15日；本期核验公开技术材料，未独立运行权重",
+      "limitation": "吞吐和成本依赖硬件、精度、工具与并发；企业案例包含预期收益，不等于机器人能力或普遍实测。"
     },
     {
       "id": "sear-self-evolving-agentic-robotics",
@@ -32,32 +136,6 @@
       "limitation": "论文所说的完整co-evolving loop（同时更新模型权重和harness）仍是提案；当前实证主要让技能/记忆库跨任务继承，LM权重固定，VLA在各自任务套件内训练。论文称发布代码，但截至核验仓库只有LICENSE、README和assets，代码尚未出现，不能写成已可复现。实机任务数量少、场景有人工摆放和人工judge，结果尚未独立复现。"
     },
     {
-      "id": "embodiedevo-skills-lessons",
-      "title": "EmbodiedEvo：让编码Agent积累机器人技能与失败经验，在新场景复用",
-      "published": "2026-10-13",
-      "summary": "模型权重和机器人接口保持不变。编码Agent在每项任务的一个Playground场景里，通过代码执行与物理反馈形成可执行Skills和适用条件、失败经验Lessons，再冻结这些资料，让独立Test agents用于新场景。作者在RoboDojo-Sim的42项任务、每项50个场景中报告平均得分44.48、成功率37.82%；在同一执行器和场景的配对小规模比较中，仅任务描述条件下的成功率从8.50%升至30.17%。",
-      "keywords": [
-        "Skills & Lessons",
-        "Coding Agents for Robotics"
-      ],
-      "url": "https://arxiv.org/abs/2610.18867",
-      "source_label": "Navers Lab · Einsia.AI · 清华大学（依论文署名） · arXiv首版 2026-10-13 17:59 UTC；北京时间10-14 01:59，本期补收",
-      "limitation": "已读方法、实验、成本和讨论，未复现或核验代码开放范围。全部结果来自仿真，完整集只有一个seed；配对比较为每任务5场景、210 episodes。精密接触与长程任务仍较弱。Skills/Lessons相对原始历史的53.0%费用下降只指Test执行，排除Playground经验采集；相对无经验基线，Test每episode估算费用反而从$4.058增至$5.732（+41.3%）。冻结经验带来任务收益，未证明改进程序本身逐轮更有效，不等于完整RSI。"
-    },
-    {
-      "id": "abot-er-data-model-coevolution",
-      "title": "高德 ABot-ER：让具身推理的数据随模型短板迭代",
-      "published": "2026-10-13",
-      "summary": "ABot-ER 将空间、场景、时序理解、目标点定位和长程规划纳入同一视觉语言模型。它按评测暴露的能力缺口，修订监督内容、坐标协议和数据配比，再用确定性规则筛查并训练下一轮；共享底座上的任务条件低秩残差减少问答与规划输出之间的干扰。报告中的 9B 模型在所列十二项基准中六项领先，具身问答均分 64.57、规划均分 41.61；官方仓库已给出训练与评测代码及 ModelScope 模型入口。",
-      "keywords": [
-        "Embodied Reasoning",
-        "Data-Model Co-evolution"
-      ],
-      "url": "https://arxiv.org/html/2610.18355v1",
-      "source_label": "高德 AMAP CV Lab · arXiv首版10-13 13:21 UTC／北京时间21:21；官方仓库10-14 23:25北京时间创建",
-      "limitation": "以上是作者报告、相对所列基线的结果，基线来源含历史快照，尚无独立复现。Execution 均分 67.06 衡量目标点与可供性，不是机械臂成功率；Galaxea R1 Pro 仅定性演示，ABot-ER 负责感知判断，AgentOS 协调、独立 ABot-M 执行动作。各自演化轮次算力不同，多轮重启于预训练模型，不能由跨轮增分证明递归改进本身的因果收益；训练数据入口为 JSONL/清单，图像视频须依原始来源获取。"
-    },
-    {
       "id": "groundingpi-groundanything-resources",
       "title": "GroundingPI / GroundAnything：小鹏合作团队补齐国内模型与评测资源入口",
       "published": "2026-10-14",
@@ -71,19 +149,6 @@
       "limitation": "这是代码、数据和模型入口补齐，不是10月14日新算法或新成绩；GroundingPI论文首版为9月30日，checkpoint页面显示10月13日创建/修改。评测数据卡明确不含模型权重和推理输出，尚未下载权重或独立推理。GroundAnything的ModelScope页面本次只核到作者公告与模型条目，未独立核完整文件清单；不要写成已完成复现。"
     },
     {
-      "id": "agibot-vine-code-release",
-      "title": "智元开放 VINE 复现代码：让流匹配动作策略稳定接入价值梯度强化学习",
-      "published": "2026-10-14",
-      "summary": "AgiBotTech/vine-code 发布VINE（Value-gradient Iterative Noise Exploration）的实现。方法在流匹配采样的每个去噪步骤重建插值状态，再沿整条采样链反传critic的价值梯度，改进采样器而不改网络结构；公开包包含训练、评测、OGBench数据脚本和任务配置。",
-      "keywords": [
-        "Flow Matching",
-        "Value-gradient RL"
-      ],
-      "url": "https://github.com/AgibotTech/vine-code",
-      "source_label": "智元机器人 AgiBot / 香港科技大学 / 北京大学 · GitHub仓库创建 2026-10-14 06:12:42 UTC；初始提交 06:13:00 UTC（北京时间14:13:00）",
-      "limitation": "论文首版其实是2026-07-11，10月14日是代码首发事件，不是新算法论文。公开实现明确只支持state observations，create中要求encoder为空；它覆盖OGBench离线RL，不包含项目宣传中的图像VLA微调或完整实机闭环。论文中的实机20/20和人工干预等结果属于7月历史实验，也不等于此次代码已复现。"
-    },
-    {
       "id": "deepseek-embodied-entry-reported",
       "title": "媒体报道DeepSeek考虑进入具身智能：自研团队与投资两种路径仍待确认",
       "summary": "新浪科技10月12日报道，梁文锋近期与具身创业者交流；据知情人士，DeepSeek可能组建研发团队，也可能通过投资切入。原文明确截至发稿DeepSeek未回应，10月13日IT之家转载。当前应作为产业观察跟进。",
@@ -95,19 +160,6 @@
       "source_label": "DeepSeek（媒体报道，未获官方确认） · 媒体原报道日期",
       "url": "https://finance.sina.com.cn/jjxw/2026-10-12/doc-iniuytnv5205606.shtml",
       "limitation": "匿名信源的媒体报道，未获官方确认。本次检查的官方研究动态、API日志和公开代码中未找到对应具身发布；这不能证明不存在未公开研究。IT之家为同一原报道转载，不是独立确认；未核验的投资金额或交易细节不作事实。"
-    },
-    {
-      "id": "qwen-blenderworld-release",
-      "title": "Qwen开源BlenderWorld：从真实参考资料创建可编辑3D工程的223项任务",
-      "published": "2026-10-14",
-      "summary": "BlenderWorld要求Agent根据文字、图像或视频参考和规格附件，交付可编辑Blender工程与所需导出资产。官方README列出223项任务、2651条二元判据，其中130项图文任务、15项视频任务；59项带尺寸、材质或相机规格附件。评估结合8个自适应视角、场景结构检查、带权二元rubric与8项整体视觉评分，最终两类分数各占50%。",
-      "keywords": [
-        "Multimodal Agents",
-        "3D Asset Evaluation"
-      ],
-      "url": "https://github.com/QwenLM/BlenderWorld",
-      "source_label": "阿里 Qwen（官方QwenLM组织） · 官方仓库创建及首次代码提交 2026-10-14（UTC）；非仅仓库更新时间",
-      "limitation": "已读官方README并核对GitHub初始提交日期，未运行基准、未核论文全文及独立评委一致性。该项目属于3D创作评测，不能称为机器人控制或实机能力成果；部分判据由Agent-as-Judge和视觉模型评分，结果依赖评委、视角与渲染设置。数据入口由官方仓库确认，本轮未下载数据；不引用未核模型排名。"
     }
   ]
 }
