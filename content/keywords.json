@@ -2,7 +2,7 @@
   "metadata": {
     "title": "研究方向与检索关键词",
     "status": "sample-research-map",
-    "updated": "2026-10-16",
+    "updated": "2026-10-18",
     "intro": "中英关键词连接具体研究问题，覆盖大模型与具身的多条路线，作为可扩展的检索地图。每日热点由近期新增研究和实际社区讨论重新筛选，主题随证据轮换；Gemini、RSI等是历史案例与候选方向，不是固定推荐或实时热度排名。",
     "verification": "来源通过HTTP读取，核验标题、日期及摘要或官方正文；部分本期论文还检查了方法、实验与局限段落，具体范围见来源说明。未执行全文精读归档或独立复现。",
     "dating_policy": "来源日期默认记录arXiv首版提交日期；官方文章单独注明发布日期。更新日期表示研究地图整理时间。"
@@ -316,14 +316,18 @@
         "记忆提取",
         "记忆更新",
         "图记忆",
-        "上下文压缩"
+        "上下文压缩",
+        "记忆写入",
+        "归因强化学习"
       ],
       "keywords_en": [
         "long-term memory",
         "memory consolidation",
         "graph memory",
         "context management",
-        "retrieval"
+        "retrieval",
+        "memory writing",
+        "attributed reinforcement learning"
       ],
       "explanation": "把对话和任务经历中有用的信息保存下来，在未来任务中按需找回。关键不只是“记得多”，还包括记得准、及时更新，以及控制检索和输入成本。",
       "researchers_do": [
@@ -342,6 +346,13 @@
           "published": "2025-04-28",
           "date_basis": "论文首版提交日期",
           "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "混元Hy-Memory-30B-A3B：训练长期记忆写入器",
+          "url": "https://arxiv.org/abs/2610.22196",
+          "published": "2026-10-16",
+          "date_basis": "首版UTC10月15日16:46／北京时间10月16日00:46；10月18日补收",
+          "verified": "已读原报告方法、固定20%评测矩阵、统计显著性限制，以及官方框架/Release；未独立运行。"
         }
       ]
     },
@@ -570,14 +581,18 @@
         "潜空间预测",
         "视频自监督",
         "行动条件预测",
-        "模型预测控制"
+        "模型预测控制",
+        "测试时环境适应",
+        "环境潜变量"
       ],
       "keywords_en": [
         "world models",
         "latent prediction",
         "video self-supervision",
         "action-conditioned models",
-        "model-based planning"
+        "model-based planning",
+        "test-time environment adaptation",
+        "environment latent"
       ],
       "explanation": "学习“世界接下来会怎样变”，再借助这个预测选择动作。预测可以发生在特征空间，不一定生成一段可观看的视频。",
       "researchers_do": [
@@ -610,6 +625,13 @@
           "published": "2026-10-09",
           "date_basis": "v2修订日期（首版09-04），未比较版本变化",
           "verified": "已核版本、官方项目与机构"
+        },
+        {
+          "label": "T2-z：冻结世界模型，测试时优化环境latent",
+          "url": "https://arxiv.org/abs/2610.22364",
+          "published": "2026-10-16",
+          "date_basis": "首版UTC10月15日17:59／北京时间10月16日01:59；10月18日补收",
+          "verified": "已读方法、真实四任务表2与交互预算；模拟/真实汇总分开，未独立复现。"
         }
       ]
     },

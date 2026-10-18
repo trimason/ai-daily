@@ -1,0 +1,445 @@
+{
+  "date": "2026-10-18",
+  "status": "daily",
+  "title": "Agent记忆、实时工具与机器人测试时适应：本周的新用法",
+  "intro": "这次补跑聚焦三个正在出现的技术问题：模型怎样通过实时搜索与工具完成更长任务，Agent怎样把长期记忆写入可维护的外部状态，机器人怎样用进度记忆或测试时环境变量适应新条件。DeepSeek、腾讯混元、智元及近期机器人研究提供了具体材料；社区讨论另行标出，不能把单篇新论文写成全行业热议。",
+  "coverage": "北京时间2026-10-18补跑；由于10月17日和18日上午自动任务未触发，本期合并收录10月17日新发布及10月15–16日首版、10月16–17日代码/SDK更新，并在每条保留原始事件日期。近24–48小时重点检查国内大模型、国内具身团队、顶会入口、官方代码和公开社区讨论；周末公开论文批次按7天补收。DeepSeek、混元、智元GE-Sim等原始页面已读取；公众号具身智能之心和human five本窗口未稳定读取全文，不声称全量覆盖。论文与厂商结果尚未独立复现；HN讨论只代表具体观察窗口，不等于行业共识。",
+  "highlights": [
+    {
+      "title": "Agent接上实时网页：模型、Search/Fetch与Harness怎样分工？",
+      "text": "DeepSeek 1017 同时更新模型、工具接口和执行框架，真正要比较的是完成同一任务的墙钟时间、重试与工具成本。",
+      "story_id": "deepseek-flash-1017-search-fetch"
+    },
+    {
+      "title": "长期记忆不只是“把历史塞进上下文”",
+      "text": "Hy-Memory训练记忆写入器处理事实、经验与代码版本；今天的技术点进一步区分上下文、KV cache、外部记忆和模型权重。",
+      "story_id": "hunyuan-hy-memory-writer-release"
+    },
+    {
+      "title": "机器人遇到新物理条件，能在测试时适应吗？",
+      "text": "VaM把value预测历史当任务进度记忆，T2-z只优化环境latent；两者都要用真实任务和固定预算检查适应是否可靠。",
+      "story_id": "t2z-test-time-environment-latent-adaptation"
+    }
+  ],
+  "reading": [
+    {
+      "title": "DeepSeek 1017与Search／Fetch接口",
+      "url": "https://api-docs.deepseek.com/zh-cn/news/news261017",
+      "reason": "先看模型、工具、Harness和计费窗口如何一起变化，再检查官方基准使用的框架与边界。"
+    },
+    {
+      "title": "Hy-Memory：长期记忆写入与版本状态",
+      "url": "https://arxiv.org/html/2610.22196v1",
+      "reason": "重点读写入奖励、冲突处理、留出记忆框架和宏平均口径，配合技术点理解外部状态。"
+    },
+    {
+      "title": "Value as Memory：进度记忆与在线机器人RL",
+      "url": "https://arxiv.org/html/2610.22368v1",
+      "reason": "看value历史怎样进入动作策略，以及在线数据、人工干预、离线训练和真实任务结果如何分开。"
+    },
+    {
+      "title": "T2-z：测试时环境latent优化",
+      "url": "https://arxiv.org/html/2610.22364v1",
+      "reason": "对照真实四任务表与摘要汇总，理解冻结世界模型后只更新环境表示的适应边界。"
+    },
+    {
+      "title": "GE-Sim WorldOracle评测资源更新",
+      "url": "https://github.com/AgibotTech/GE-Sim-V2/commit/2e8f6d71f1c2a04eb7f667eaee2adf016bd75c56",
+      "reason": "查看G02/YAM配置和video-only流程，分清新增可复核资源与机器人成功率。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "Agent Memory / 长期记忆",
+      "explanation": "把事实、经验、任务进度或代码版本写入外部状态，按需检索回当前上下文；要分开评测写入、检索、纠错和成本。"
+    },
+    {
+      "term": "Search／Fetch Tools / 实时搜索与抓取",
+      "explanation": "模型输出工具调用，应用执行搜索或网页抓取，再把结果放回上下文；接口开放不等于Agent自动可靠。"
+    },
+    {
+      "term": "Harness-aware Post-training / 执行框架协同后训练",
+      "explanation": "模型基准结果依赖Claude Code、Mini-SWE或其他Harness；比较能力时同时报告工具、重试、缓存和完成成本。"
+    },
+    {
+      "term": "Value as Memory / 任务进度记忆",
+      "explanation": "把value预测的最近历史作为紧凑进度信号，帮助动作策略区分推进、停滞与倒退。"
+    },
+    {
+      "term": "Test-time Environment Adaptation / 测试时环境适应",
+      "explanation": "冻结世界模型权重，只用少量交互预测误差优化当前环境latent；真实任务、交互预算和可迁移范围需要单独核验。"
+    },
+    {
+      "term": "World Model Evaluation / 世界模型评测",
+      "explanation": "GE-Sim和WorldOracle把动作条件视频、真实参考与跨本体流程接起来，检查预测是否忠实对应动作后果。"
+    },
+    {
+      "term": "Verifier-guided Search / 验证器引导搜索",
+      "explanation": "Claude量子电路研究用程序验证正确性并按资源打分，让长程搜索得到可检查反馈；这类闭环与物理机器人反馈成本不同。"
+    },
+    {
+      "term": "Prefill vs Decode / 预填充与解码",
+      "explanation": "本地Agent的完成体验由首 token、长上下文预填充、KV缓存、输出速度和返工共同决定，不能只看tokens/s。"
+    },
+    {
+      "term": "Online Robot RL / 真实机器人在线强化学习",
+      "explanation": "VaM混合离线示范、人工干预、离线轨迹和在线rollout；报告中要分清每个对照和人工投入。"
+    }
+  ],
+  "featured_ids": [
+    "deepseek-flash-1017-search-fetch",
+    "hunyuan-hy-memory-writer-release",
+    "agibot-gesim-worldoracle-g02-yam-update",
+    "vam-value-progress-memory-online-rl",
+    "t2z-test-time-environment-latent-adaptation",
+    "community-local-agent-prefill-completion-speed"
+  ],
+  "technical_explainer": {
+    "id": "agent-memory-and-context-management",
+    "title": "Agent 长期记忆与上下文管理：怎样连续做事，又不把所有历史塞进提示词？",
+    "summary": "从“模型这一步能看到什么”出发，理解外部记忆的写入、检索、更新和淘汰；分清上下文、KV cache、持久状态与模型权重，再看记忆为什么也需要评测。",
+    "reading_minutes": 7,
+    "why_now": "长程 Agent 的研究与工具接口更新都在追问同一件事：经过很多轮调用，系统怎样保留目标、证据与未完成工作？本期用正在跟踪的 Agent 记忆和工具调用线索补齐这项基础。ReAct、MemGPT 分别是 2022/2023 年提出的基础思路；Anthropic 的 2025 年工程文章总结了压缩、笔记与按需读取的实践。这些材料用于解释当前仍常见的机制，不作为今天的新发布，也不把一种具体记忆系统当作已经统一的行业标准。",
+    "sections": [
+      {
+        "heading": "1. 模型继续生成，不代表它看得到全部历史",
+        "paragraphs": [
+          "一次推理时，语言模型根据当前输入和已生成内容产生下一步输出。Agent 把它放进循环：接收目标，决定调用什么工具，执行工具，读回结果，再决定下一步。ReAct 的基础做法是让推理、动作与观察交替出现，使外部结果能改变后续计划；它本身并没有自动解决跨很多轮、很多次会话的记忆问题。",
+          "搜索十几篇论文、修改一套代码或运行多次机器人实验，都会积累大量正文、日志与失败记录。把它们全部放进下一轮，既占用窗口和计算，也可能让关键约束被重复信息淹没。扩大窗口能容纳更多信息，仍需要实测模型能否在其中找到并用对细节。上下文管理解决的是每一步应带入哪些信息、按什么结构带入，而不是简单追求提示词越长越好。"
+        ]
+      },
+      {
+        "heading": "2. 四种“记住”，保存的东西不同",
+        "paragraphs": [
+          "当前上下文是本轮实际提供的指令、消息、工具定义、检索片段和观察。存放在磁盘或数据库里的历史，如果没有通过读取工具等方式进入当前推理，模型通常不能直接利用其正文。外部记忆因此更像可查阅的工作档案：可以保存到下一次会话，但需要可靠的索引与读取流程。",
+          "上一期的 KV cache 是另一层：它保存 Transformer 已处理前缀对应的键和值，减少重复计算。有些服务能复用前缀缓存或把缓存移出显存；这仍是计算状态的复用，不会自动整理出“用户改了要求”或“哪次抓取失败”。清理或重建缓存，也不等于删除应用数据库里的长期记忆。",
+          "模型权重保存训练形成的参数。把失败原因写进 NOTES.md、下一轮读回，可以在权重不变时改变行为；它属于推理时状态更新。SFT 或使用任务奖励训练的 RL 通常会更新模型参数，作用机制与成本都不同。一个系统也可以训练如何选记忆、再在运行时读写记忆，应分别说明训练改了什么、部署时又更新什么。"
+        ]
+      },
+      {
+        "heading": "3. 一套可用的记忆循环：写入、找回、合并、移出",
+        "paragraphs": [
+          "写入时先判断什么值得跨步骤保留。稳定要求、任务进度、关键决策、证据位置和失败条件通常比整段重复日志更有价值。尽量保存原始材料的链接或文件路径、时间和适用范围，把观察事实、推断和待验证假设分开。例如“这一次杯子滑落”是观察；“所有玻璃杯都不能抓”是需要更多实验的泛化，不能直接写成既定规则。",
+          "检索时从当前子目标生成查询，先读取候选条目的标题、时间和来源，再展开真正相关的正文。向量相似度、关键词和结构化条件可以结合使用；相似不保证正确，排第一也不保证仍然有效。版本、机器人本体、任务条件或用户范围往往比措辞相似更决定能不能复用。Anthropic 把通过路径、查询或链接在运行时读取的做法称为 just-in-time context。",
+          "合并与淘汰同样重要。新要求覆盖旧要求时，需要保留生效时间和修改来源；同名事项发生冲突，要回查原始记录。已完成步骤和重复工具输出可以移出活跃上下文，把未完成事项、当前约束及可追溯证据留下。移出上下文只是暂时不携带；删除外部记录是另一项操作，不能把二者混为一谈。",
+          "MemGPT 用分层存储具体展示了这个过程：有限的主上下文容纳当前工作，外部存储保存更长历史，模型通过函数调用读取或修改记忆，队列管理器在接近窗口上限时发出提示并压缩历史。它提供的是一套可执行的存储与调度机制，并没有让有限窗口在单次推理中变成无限。"
+        ]
+      },
+      {
+        "heading": "4. 工具接口让记忆可操作，执行逻辑仍要落地",
+        "paragraphs": [
+          "给 Agent 提供 read_note、search_history、update_task 这样的工具，需要定义输入、返回结构与失败行为。模型输出函数名和参数，应用程序验证参数、执行实际操作，再把结果放回模型可见的上下文。DeepSeek 的官方工具调用示例也明确说明：模型本身不执行示例中的天气函数，具体功能由调用方提供。记忆读写遵循同样的分工。",
+          "因此，有 function calling 不等于已经拥有可靠长期记忆。系统还要决定写入什么、如何处理版本冲突、哪些记录在本任务可读写，以及检索失败后是否扩大查询。结构化工具调用可以减少接口歧义，不能单独保证记录真实、检索完整或后续决策正确。"
+        ]
+      },
+      {
+        "heading": "5. 摘要会丢信息，持久错误会反复影响决策",
+        "paragraphs": [
+          "压缩常把“只在条件 A 下有效、条件 B 尚未测试”缩成“有效”，也可能遗漏用户后来的一次更正。下一次摘要又以旧摘要为依据，错误会继续传播。更稳妥的实现是保留原记录，摘要携带来源索引，把日期、未解决问题、否定条件和待验证结论列为必须保留的字段；重要决策前允许回读原文。摘要质量应在多轮压缩后测试，不能只看第一次是否通顺。",
+          "外部内容可能把指令写进正文。如果直接把它提炼成“今后都应该这样做”的持久规则，就把资料内容提升成了执行权限。技术上应保留来源与内容角色，区分用户要求和网页陈述；检索时按任务或用户范围过滤，执行读写动作时重新检查权限。保存过一次，不代表以后每个任务都有权使用或执行它。",
+          "评测要同时回答记忆是否帮忙、代价多大。使用相同基础模型、工具权限与任务，比较无记忆、只保留短摘要、检索原记录等设置；测跨会话任务成功、对旧信息的纠正、关键约束遗漏、错误记忆复用，以及 token、检索次数和端到端延迟。对机器人还要区分“记住高层失败经验”和“低层动作策略真的学会了”，前者不能替代实机泛化评测。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "读到“Agent 学会了”，先确认更新的是哪一层",
+      "columns": [
+        "层次",
+        "存什么、怎样生效",
+        "不能直接推出什么"
+      ],
+      "rows": [
+        [
+          "当前上下文",
+          "本轮实际传给模型的 token；直接参与推理",
+          "历史存在某处，不代表本轮已经读到"
+        ],
+        [
+          "KV cache",
+          "已计算前缀的注意力中间状态；用于加速复用",
+          "不会自动形成可查询的事实与任务笔记"
+        ],
+        [
+          "持久外部记忆",
+          "笔记、历史或数据库；检索后影响本轮决策",
+          "记录更多不等于检索更准或策略更强"
+        ],
+        [
+          "模型权重",
+          "训练更新的参数；影响后续模型计算",
+          "运行时写了一条笔记，不代表做了 RL 或微调"
+        ]
+      ]
+    },
+    "example": {
+      "title": "假设例子：整理机器人实验，下一天仍能接着做",
+      "paragraphs": [
+        "假设 Agent 要比较三种抓取策略，第一天产生 20 份日志，用户后来要求“最终比较只计自主完成，人工接管算失败”。Agent 保留完整日志，把任务笔记更新为：评分规则及其修改时间、已经完成的实验、待补的场景、每份原始日志路径。下一天只先加载这份状态；遇到某个失败样本，再按路径读原始记录。这里的数字和场景均为教学假设。",
+        "如果摘要误把规则写成“接管后完成也算成功”，第二天即使检索准确，也会持续算错。因此应在摘要里保留规则来源，计算前核对最新版本。修正笔记可以立刻改变报告，却没有训练机器人抓取得更好；要声称策略能力提高，仍需独立的训练更新与固定评测。",
+        "若有 20 份日志、每份 3000 token，全部读入约 60000 token；只先读 1000 token 状态笔记，再展开两份原日志，输入约 7000 token。这只是信息量的假设算例，不是实测速率或效果：检索本身耗时，漏掉第三份关键日志也可能导致错误，需要用任务结果检验取舍。"
+      ]
+    },
+    "checklist": [
+      "记忆保存在上下文、外部存储、缓存还是权重？新会话如何找回？",
+      "谁决定写入与检索？是否保存原始证据、时间、版本和适用范围？",
+      "更正、冲突、过期与移出上下文如何处理？原文还能不能回读？",
+      "外部资料与用户指令是否区分？跨任务检索和实际工具执行是否检查范围与权限？",
+      "同模型、同权限、同预算比较后，任务成功与纠错是否提高？延迟、token 和记忆错误是否一起报告？"
+    ],
+    "takeaway": "Agent 的长期记忆是一套可追溯地保存、筛选和取回状态的机制；让正确的信息在需要时进入上下文，才可能持续做事。记忆更新、缓存复用与权重学习需要分别判断。",
+    "sources": [
+      {
+        "label": "ReAct 作者项目页 · 论文首版 2022-10-06，ICLR 2023 · 已读方法与交互示例，作为工具循环的基础来源",
+        "url": "https://react-lm.github.io/"
+      },
+      {
+        "label": "MemGPT 原论文 §2 · 首版 2023-10-12，此处读取 2024-02-12 的 v2 · 主上下文、外部存储、队列与函数执行",
+        "url": "https://arxiv.org/html/2310.08560v2"
+      },
+      {
+        "label": "Anthropic 官方工程文章 · 2025-09-29 · 已读按需读取、压缩与结构化笔记；作为持续使用的工程机制来源",
+        "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+      },
+      {
+        "label": "DeepSeek 官方 Tool Calls 文档 · 2026-10-18 读取，页面未标原始发布日期 · 已读应用执行工具并回传结果的示例；不作为今天发布事件",
+        "url": "https://api-docs.deepseek.com/guides/tool_calls/"
+      }
+    ]
+  },
+  "stories": [
+    {
+      "id": "deepseek-flash-1017-search-fetch",
+      "category": "llm",
+      "tag": "国内大模型 · 10月17日新版本 · 搜索与Agent成本",
+      "title": "DeepSeek V4.1 Flash 1017：优化完整项目开发，并开放原生Search／Fetch接口",
+      "organization": "DeepSeek",
+      "published": "2026-10-17",
+      "date_label": "10月17日官方更新；同日DeepSeek Harness 0.2.1-rc.1发布，模型权重已提供官方入口",
+      "summary": "DeepSeek将网页、APP与API同步升级为V4.1-Flash-1017。官方称通过基于自反馈的强化学习加强游戏、3D建模等完整项目开发，并缩短任务运行时间与输出。模型卡报告Terminal-Bench 4.0从31.2升至42.3、DeepSWE v1.1从74.2升至77.0；两者分别使用Claude Code与Mini-SWE-V2框架。新开放Search返回结构化搜索结果，Fetch返回网页Markdown，供Agent和RAG自行编排；两接口均标5元／千次。",
+      "why": "这次变化连接了模型后训练、执行框架与实时检索。真正值得跟踪的技术问题是：在相同任务、工具和重试预算下，较短输出能否改善完成成本，以及便宜模型实施、强模型审查的分工是否划算。10月17日HN主帖已有具体工作流与反例：有开发者用强模型规划、DeepSeek实施，也有人报告审查返工抵消价格优势。",
+      "limitation": "基准和自反馈RL机制来自官方，未独立运行；官方未在本公告详述训练配方与消融，演示不证明普遍项目成功率。社区案例属个人体验，部分明确是此前V4.1而非1017新版本，不能拿来证明1017胜过某模型。Server端Search／Fetch此前已在部分Harness中调用，官方明确这部分调用11月1日00:00北京时间开始计费，不能把两周过渡期写成永久免费。",
+      "sources": [
+        {
+          "label": "10月17日官方公告与开源入口",
+          "url": "https://api-docs.deepseek.com/zh-cn/news/news261017"
+        },
+        {
+          "label": "官方Search／Fetch接口指南",
+          "url": "https://api-docs.deepseek.com/zh-cn/guides/search"
+        },
+        {
+          "label": "官方魔搭模型卡：基准、评测框架与推理说明",
+          "url": "https://modelscope.cn/models/deepseek-ai/DeepSeek-V4.1-Flash-1017/resolve/master/README.md"
+        },
+        {
+          "label": "10月17日HN主讨论：模型、框架、完成成本与返工",
+          "url": "https://news.ycombinator.com/item?id=50129045"
+        },
+        {
+          "label": "具体反例：代码审查速度与发现质量（个人体验）",
+          "url": "https://news.ycombinator.com/item?id=50129977"
+        },
+        {
+          "label": "具体争点：便宜模型反复返工是否抵消优势",
+          "url": "https://news.ycombinator.com/item?id=50135196"
+        }
+      ]
+    },
+    {
+      "id": "hunyuan-hy-memory-writer-release",
+      "category": "llm",
+      "tag": "国内大模型 · 长期记忆 · RL训练写入策略",
+      "title": "混元Hy-Memory：把“写什么、改什么、忘什么”训练成专用记忆能力",
+      "organization": "腾讯混元 Tencent Hunyuan",
+      "published": "2026-10-16",
+      "date_label": "报告首版10月15日16:46 UTC（北京10月16日00:46）；框架与MemHub首个Release于10月16日16:44北京时间公开，10月17日更新SDK至2.0.3，本期补收",
+      "summary": "Hy-Memory-30B-A3B专门训练外部记忆写入器：先用on-policy蒸馏学会Mem0、MemOS、Hy-Memory的操作协议，再以分块召回探针、跨片段证据归因、记忆增长惩罚和chunk级GRPO训练写入质量。评测冻结检索、回答模型与裁判，仅替换写入器；在四框架、六指标的固定20%子样本上，作者报告宏平均55.49%，对照Opus 5为54.62%。同时公开Hy-Memory SDK与MemHub本地桌面／CLI，编码记忆保存事实、可复用经验和版本差异链。",
+      "why": "近期Agent研究正在从“把历史全塞进上下文”转向可维护的长期状态：事实更新后，系统怎样避免召回旧值；跨会话工作怎样保留失败经验和代码修订。新意是训练写入决策而非只调检索。该工作还在未参与训练的EverMemOS中测试，是检查能力能否跨记忆框架转移的具体案例，可与今天技术点一起读。",
+      "limitation": "55.49%是作者规定的四框架六指标宏平均，不是单一任务成功率或完整数据集成绩；部分框架领先仅0.01–0.02个百分点，论文明确不具统计显著性，未提供主要奖励分量的受控消融。EverMemOS只是一个留出框架，不证明任意OOD或机器人泛化。论文、SDK、MemHub是不同层；第三方10月16日源码审阅提出评测工具缺口与删除语义问题，但该审阅依赖LLM且未实际运行，针对固定旧提交，不能当作当前版本已复现漏洞。",
+      "sources": [
+        {
+          "label": "官方报告首版与精确日期",
+          "url": "https://arxiv.org/abs/2610.22196"
+        },
+        {
+          "label": "原文：训练、固定20%评测矩阵与局限",
+          "url": "https://arxiv.org/html/2610.22196v1"
+        },
+        {
+          "label": "混元官方代码与SDK、MemHub说明",
+          "url": "https://github.com/Tencent-Hunyuan/Hy-Memory"
+        },
+        {
+          "label": "10月16日首个公开Release",
+          "url": "https://github.com/Tencent-Hunyuan/Hy-Memory/releases/tag/v1.0.0"
+        },
+        {
+          "label": "10月17日SDK2.0.3更新提交",
+          "url": "https://github.com/Tencent-Hunyuan/Hy-Memory/commit/2a4c5e38e78a42ae0acae1fe6f12cfcd8ecb64ed"
+        },
+        {
+          "label": "第三方10月16日固定版本源码审阅（非运行复现）",
+          "url": "https://neoneye.github.io/agent-memory-atlas/systems/hy-memory/"
+        }
+      ]
+    },
+    {
+      "id": "claude-quantum-circuit-evaluator-search",
+      "category": "llm",
+      "tag": "AI for Science · 验证器引导搜索 · 10月16日研究",
+      "title": "Claude用可验证反馈设计量子电路：模型提出新结构，程序检验正确性与资源代价",
+      "organization": "Anthropic · Harvard University · QuEra Computing",
+      "published": "2026-10-16",
+      "date_label": "论文首版10月15日17:59 UTC（北京10月16日01:59）；Anthropic技术文章10月16日，本期补收",
+      "summary": "研究让Claude Mythos 5通过Python提出量子计算原语设计，独立程序检查行为并按Toffoli门数×峰值量子比特数评分，多条算法路线并行搜索、交换有用候选。八项任务中七项同时降低两类资源；第八项发现可逆模逆架构，改善时间与空间取舍。一个点加法方案比此前最省比特方案多用12%比特、少用17倍门；DQI所用解码子程序门数约降12倍，两数字对应不同子任务。",
+      "why": "这是“模型＋可验证环境＋长程搜索”产生新算法结构的具体进展：研究价值在可回查的验证与资源约束，而不只是一段聪明回答。它也解释为什么同样的闭环迁移到机器人更难：代码与受限量子原语能得到便宜、确定的反馈，物理任务反馈往往更贵、噪声更大。10月16日HN原帖也有讨论，但本条主要按新研究呈现。",
+      "limitation": "这是算法／电路设计与经典程序验证，尚非量子硬件上演示加速；12倍仅是相关解码子程序，不能写成整个量子算法或所有任务都提速12倍。验证利用可高效模拟的一类基态保持电路，不覆盖任意量子电路；较大输入域采用抽样轨迹检验，不能等同穷举证明所有输入。53小时案例仍有初始人工规格与偶尔拓宽思路的提示；最终证明与程序检查的范围需逐项看，不等于大模型自主完成全部科学工作。",
+      "sources": [
+        {
+          "label": "Anthropic10月16日技术文章",
+          "url": "https://www.anthropic.com/research/designing-efficient-quantum-circuits"
+        },
+        {
+          "label": "论文首版与精确日期",
+          "url": "https://arxiv.org/abs/2610.22367"
+        },
+        {
+          "label": "论文正文：搜索框架、资源指标与八项任务",
+          "url": "https://arxiv.org/html/2610.22367v1"
+        },
+        {
+          "label": "10月16日HN讨论入口",
+          "url": "https://news.ycombinator.com/item?id=50121939"
+        }
+      ]
+    },
+    {
+      "id": "community-local-agent-prefill-completion-speed",
+      "category": "discussion",
+      "tag": "社区技术讨论 · 本地Agent · Prefill与完成时间",
+      "title": "本地Agent到底快不快：这轮讨论追问预填充、缓存与返工，而非只看每秒输出token",
+      "organization": "Hacker News开发者讨论 · llmspeed作者与使用者",
+      "published": "2026-10-17",
+      "date_label": "HN原帖10月17日04:36 UTC（北京12:36）；观察至10月18日中午，主帖约264分／77条评论，仅代表该站窗口",
+      "summary": "llmspeed用模拟输出帮助选择本地硬件，作者说明数据混合社区实测与按规格推算，限单设备短提示。10月17日讨论的实质争点是：编码Agent经常读长历史并并行调用，只看decode tokens/s会漏掉prefill、首token等待、KV缓存及CPU/GPU卸载；引擎版本、量化、投机解码与具体上下文也会显著改变结果。有用户认可购买前模拟的价值，也有人提交与自身设备结果不一致的反例。",
+      "why": "这组讨论适合回答“当下开发者在解决什么”：同一模型能跑起来之后，瓶颈从参数量移到整个Agent的交互体验。和DeepSeek新版本的短输出主张一起看，应该比较完成同一任务的墙钟时间、成功率、输入重用与重试总成本。可操作的检查是分开记录prefill、decode、并发、上下文长度与cache命中。",
+      "limitation": "这是单个开发者社区的具体话题，不代表全行业共识；评论设备跑分未经本刊复现，不能作为购机性能表。模拟器本身不是浏览器内实际运行模型，也不是科学基准。264分和77评论是采集时快照，热度不计为技术结论；相关多GPU或缓存建议也不自动证明已支持。",
+      "sources": [
+        {
+          "label": "10月17日HN原帖与作者答复",
+          "url": "https://news.ycombinator.com/item?id=50127979"
+        },
+        {
+          "label": "原作者工具与数据范围声明",
+          "url": "https://llmspeed.dev/"
+        },
+        {
+          "label": "明确讨论prefill对编码Agent的重要性",
+          "url": "https://news.ycombinator.com/item?id=50128720"
+        },
+        {
+          "label": "讨论真实长提示、缓存与吞吐条件",
+          "url": "https://news.ycombinator.com/item?id=50131687"
+        },
+        {
+          "label": "作者承认框架与版本资料不足",
+          "url": "https://news.ycombinator.com/item?id=50128660"
+        },
+        {
+          "label": "源代码与数据入口",
+          "url": "https://github.com/nicorobinreal/llmspeed"
+        }
+      ]
+    },
+    {
+      "id": "agibot-gesim-worldoracle-g02-yam-update",
+      "category": "embodied",
+      "tag": "官方评测资源更新",
+      "title": "智元GE-Sim补齐G02/YAM的WorldOracle评测：把动作后果预测接到可复核流程",
+      "organization": "智元 AgiBot",
+      "published": "2026-10-17",
+      "date_label": "10月17日代码/资源更新；原技术报告5月28日",
+      "summary": "智元在10月17日提交中新增G02和YAM两套WorldOracle配置、推理脚本和文档，并在News公告相配权重。相比原有G01闭环模拟流程，新增资源面向WorldOracle的动作条件视频预测与评测，给“世界模型到底有没有忠实预测动作后果”提供了更具体的复核入口。",
+      "why": "本次是实际新增的评测接口与资源，不是重复报道日前的WorldOracle论文。世界模型的价值开始从“视频像不像”转向“同一动作的结果能不能对上真实记录”。",
+      "limitation": "新G02/YAM流程为video-only评测，不能直接替代原G01服务端加载流程；文档说明YAM相机标定由作者从验证集估计。本次读过提交diff、README和运行文档，但没有执行GPU推理、下载大权重或做第三方复现；资源开放不等于真实机器人成功率已提高。",
+      "sources": [
+        {
+          "label": "10月17日原始提交与完整diff",
+          "url": "https://github.com/AgibotTech/GE-Sim-V2/commit/2e8f6d71f1c2a04eb7f667eaee2adf016bd75c56"
+        },
+        {
+          "label": "WorldOracle推理文档",
+          "url": "https://github.com/AgibotTech/GE-Sim-V2/blob/main/docs/worldoracle.md"
+        },
+        {
+          "label": "模型权重入口（官方README所链）",
+          "url": "https://huggingface.co/agibot-world/Genie-Envisioner-Sim-v2.0"
+        }
+      ]
+    },
+    {
+      "id": "vam-value-progress-memory-online-rl",
+      "category": "embodied",
+      "tag": "新研究 · 7天内补收",
+      "title": "Value as Memory：把任务进度变成机器人的短期记忆，再用真实反馈在线改进",
+      "organization": "上海交通大学、Shanghai Innovation Institute、Noematrix",
+      "published": "2026-10-16",
+      "date_label": "首版10月15日17:59 UTC／北京时间10月16日01:59；本期补收",
+      "summary": "VaM让动作专家读取最近的value预测，用进度历史辨别“正在完成任务”与“看起来相似但实际卡住了”的状态，再结合离线示范、人类干预和在线自主rollout更新策略。作者在盒子装配、叠衣和磁性公交装配三个真实任务中报告：value缓存相比去掉缓存的平均绝对成功率提升29.4个百分点；在线RL相对匹配离线RL的另一组比较提升32.8个百分点。",
+      "why": "这是一种与长期Agent记忆相呼应、又贴近机器人控制的记忆设计：保存的不是大段对话，而是紧凑的任务进度轨迹。新意在于让value同时参与决策条件和在线后训练，不只作为筛选分数。",
+      "limitation": "29.4与32.8个百分点来自不同比较，不能相加或混写；三个真实任务、作者自测和checkpoint均值不能外推为开放世界泛化。在线流程仍使用示范、人类干预和奖励，时间节省来自实验中的并行采集/训练设置，不能宣称零人工或递归自我改进。 作者代码已公开，本轮仅查阅说明，未执行训练或独立复现。",
+      "sources": [
+        {
+          "label": "原论文与提交时间",
+          "url": "https://arxiv.org/abs/2610.22368"
+        },
+        {
+          "label": "原论文方法、表1/2及预算比较",
+          "url": "https://arxiv.org/html/2610.22368v1"
+        },
+        {
+          "label": "作者项目与任务演示",
+          "url": "https://virlus.github.io/vam/"
+        },
+        {
+          "label": "官方复现代码与部署/训练流程",
+          "url": "https://github.com/Virlus/VaM"
+        },
+        {
+          "label": "官方VaM代码（已读README，未运行）",
+          "url": "https://github.com/Virlus/VaM"
+        }
+      ]
+    },
+    {
+      "id": "t2z-test-time-environment-latent-adaptation",
+      "category": "embodied",
+      "tag": "新研究 · 7天内补收",
+      "title": "T2-z：不改世界模型权重，只在测试时优化32维环境变量来适应新物理条件",
+      "organization": "Stanford、CMU、Toyota Research Institute、USC",
+      "published": "2026-10-16",
+      "date_label": "首版10月15日17:59 UTC／北京时间10月16日01:59；本期补收",
+      "summary": "T2-z把环境里看不见的摩擦、质量或交互规则编码为32维latent。训练时交替更新世界模型与环境变量，测试时冻结模型，只用一条或少量交互轨迹的预测误差来优化新的latent。论文包含7种模拟设置与4个真实任务；表2中真实任务平均action success由26.47%升至70.80%，平均跟踪状态预测误差（像素）由19.30降至10.85。",
+      "why": "近期的具身OOD讨论正在寻找“到新环境后如何用少量交互适应”的具体办法；这里的可检验思路是先修正世界模型对当前环境的条件表征，再用预测帮助选动作。它与全参数微调、长上下文直接条件化和递归自改进有不同的更新对象。",
+      "limitation": "26.47%→70.80%是论文表2的四个真实任务结果；摘要33.73%→72.96%跨模拟和真实汇总，不能叫真实机器人成功率。仍是作者控制的物理因素和小任务集；32维latent不保证等同可解释物理参数，也没有证明解决任意OOD行为。代码入口已读，数据集入口本次超时，无第三方复现。",
+      "sources": [
+        {
+          "label": "原论文与提交时间",
+          "url": "https://arxiv.org/abs/2610.22364"
+        },
+        {
+          "label": "原论文表1/2与方法",
+          "url": "https://arxiv.org/html/2610.22364v1"
+        },
+        {
+          "label": "作者项目",
+          "url": "https://t2-z-latent-optimization.github.io/"
+        },
+        {
+          "label": "官方代码",
+          "url": "https://github.com/T2-z-latent-optimization/T2-z"
+        }
+      ]
+    }
+  ]
+}

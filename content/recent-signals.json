@@ -1,21 +1,99 @@
 {
-  "title": "最近在推进什么：机器人Agent、长程任务与高效模型",
-  "intro": "观察2026-10-12—10-16已核验的新材料：编码Agent调度与改进机器人技能，长程多模态Agent的训练和部署，动作条件世界模型与机器人数据生成。以下为带日期的研究动向，不是全行业热度排名；尚缺独立讨论证据的内容不标为社区热议。",
-  "window_start": "2026-10-12",
-  "window_end": "2026-10-16",
+  "title": "最近在推进什么：Agent记忆、实时工具与测试时适应",
+  "intro": "观察2026-10-14—10-18：本期新增长期记忆写入、实时网页工具、机器人进度记忆和测试时环境适应；日期较早的WorldOracle、Step、Muse和GroundingPI资源保留为背景，尚未核到新事件的项目不重复冒充今日新闻。社区讨论含DeepSeek开发工作流与本地Agent速度争点，均有具体原帖；其他论文按新研究呈现，这不是全行业热度排名。",
+  "window_start": "2026-10-14",
+  "window_end": "2026-10-18",
   "signals": [
     {
-      "id": "adarsi-on-demand-harness-policy-improvement",
-      "title": "AdaRSI：先修机器人调用流程，再按需训练真正缺失的动作",
-      "published": "2026-10-15",
-      "summary": "编码Agent通过工具调用VLA技能、修改执行流程，再按需训练缺失子策略。在RoboCasa仿真的陌生组合任务上，基础成功率4.6%，仅修流程9.9%，AdaRSI为13.8%；上层Agent与动作策略的贡献可分开检查。",
+      "id": "deepseek-flash-1017-search-fetch",
+      "title": "DeepSeek V4.1 Flash 1017：优化完整项目开发，并开放原生Search／Fetch接口",
+      "published": "2026-10-17",
+      "summary": "DeepSeek将网页、APP与API同步升级为V4.1-Flash-1017。官方称通过基于自反馈的强化学习加强游戏、3D建模等完整项目开发，并缩短任务运行时间与输出。模型卡报告Terminal-Bench 4.0从31.2升至42.3、DeepSWE v1.1从74.2升至77.0；两者分别使用Claude Code与Mini-SWE-V2框架。新开放Search返回结构化搜索结果，Fetch返回网页Markdown，供Agent和RAG自行编排；两接口均标5元／千次。",
       "keywords": [
-        "Agent + VLA",
-        "Failure Attribution"
+        "Search / Fetch",
+        "Harness-aware Agents"
       ],
-      "url": "https://arxiv.org/abs/2610.20474",
-      "source_label": "Northeastern University、AgiBot（智元）、University of Chinese Academy of Sciences（中国科学院大学） · arXiv首版提交为10月14日16:51 UTC／北京时间10月15日00:51；论文使用GR00T N1.5与GPT-6.1-sol/Codex",
-      "limitation": "全部仿真；28%训练GPU时间只相对AlwaysTrain，另有LLM和仿真成本，未证明持续递归加速。"
+      "url": "https://api-docs.deepseek.com/zh-cn/news/news261017",
+      "source_label": "DeepSeek · 10月17日官方更新；同日DeepSeek Harness 0.2.1-rc.1发布，模型权重已提供官方入口",
+      "limitation": "基准和自反馈RL机制来自官方，未独立运行；官方未在本公告详述训练配方与消融，演示不证明普遍项目成功率。社区案例属个人体验，部分明确是此前V4.1而非1017新版本，不能拿来证明1017胜过某模型。Server端Search／Fetch此前已在部分Harness中调用，官方明确这部分调用11月1日00:00北京时间开始计费，不能把两周过渡期写成永久免费。"
+    },
+    {
+      "id": "hunyuan-hy-memory-writer-release",
+      "title": "混元Hy-Memory：把“写什么、改什么、忘什么”训练成专用记忆能力",
+      "published": "2026-10-16",
+      "summary": "Hy-Memory-30B-A3B专门训练外部记忆写入器：先用on-policy蒸馏学会Mem0、MemOS、Hy-Memory的操作协议，再以分块召回探针、跨片段证据归因、记忆增长惩罚和chunk级GRPO训练写入质量。评测冻结检索、回答模型与裁判，仅替换写入器；在四框架、六指标的固定20%子样本上，作者报告宏平均55.49%，对照Opus 5为54.62%。同时公开Hy-Memory SDK与MemHub本地桌面／CLI，编码记忆保存事实、可复用经验和版本差异链。",
+      "keywords": [
+        "Long-term Memory",
+        "Memory Writing"
+      ],
+      "url": "https://arxiv.org/abs/2610.22196",
+      "source_label": "腾讯混元 Tencent Hunyuan · 报告首版10月15日16:46 UTC（北京10月16日00:46）；框架与MemHub首个Release于10月16日16:44北京时间公开，10月17日更新SDK至2.0.3，本期补收",
+      "limitation": "55.49%是作者规定的四框架六指标宏平均，不是单一任务成功率或完整数据集成绩；部分框架领先仅0.01–0.02个百分点，论文明确不具统计显著性，未提供主要奖励分量的受控消融。EverMemOS只是一个留出框架，不证明任意OOD或机器人泛化。论文、SDK、MemHub是不同层；第三方10月16日源码审阅提出评测工具缺口与删除语义问题，但该审阅依赖LLM且未实际运行，针对固定旧提交，不能当作当前版本已复现漏洞。"
+    },
+    {
+      "id": "t2z-test-time-environment-latent-adaptation",
+      "title": "T2-z：不改世界模型权重，只在测试时优化32维环境变量来适应新物理条件",
+      "published": "2026-10-16",
+      "summary": "T2-z把环境里看不见的摩擦、质量或交互规则编码为32维latent。训练时交替更新世界模型与环境变量，测试时冻结模型，只用一条或少量交互轨迹的预测误差来优化新的latent。论文包含7种模拟设置与4个真实任务；表2中真实任务平均action success由26.47%升至70.80%，平均跟踪状态预测误差（像素）由19.30降至10.85。",
+      "keywords": [
+        "Test-time Adaptation",
+        "Environment Latent"
+      ],
+      "url": "https://arxiv.org/abs/2610.22364",
+      "source_label": "Stanford、CMU、Toyota Research Institute、USC · 首版10月15日17:59 UTC／北京时间10月16日01:59；本期补收",
+      "limitation": "26.47%→70.80%是论文表2的四个真实任务结果；摘要33.73%→72.96%跨模拟和真实汇总，不能叫真实机器人成功率。仍是作者控制的物理因素和小任务集；32维latent不保证等同可解释物理参数，也没有证明解决任意OOD行为。代码入口已读，数据集入口本次超时，无第三方复现。"
+    },
+    {
+      "id": "vam-value-progress-memory-online-rl",
+      "title": "Value as Memory：把任务进度变成机器人的短期记忆，再用真实反馈在线改进",
+      "published": "2026-10-16",
+      "summary": "VaM让动作专家读取最近的value预测，用进度历史辨别“正在完成任务”与“看起来相似但实际卡住了”的状态，再结合离线示范、人类干预和在线自主rollout更新策略。作者在盒子装配、叠衣和磁性公交装配三个真实任务中报告：value缓存相比去掉缓存的平均绝对成功率提升29.4个百分点；在线RL相对匹配离线RL的另一组比较提升32.8个百分点。",
+      "keywords": [
+        "Value as Memory",
+        "Online Robot RL"
+      ],
+      "url": "https://arxiv.org/abs/2610.22368",
+      "source_label": "上海交通大学、Shanghai Innovation Institute、Noematrix · 首版10月15日17:59 UTC／北京时间10月16日01:59；本期补收",
+      "limitation": "29.4与32.8个百分点来自不同比较，不能相加或混写；三个真实任务、作者自测和checkpoint均值不能外推为开放世界泛化。在线流程仍使用示范、人类干预和奖励，时间节省来自实验中的并行采集/训练设置，不能宣称零人工或递归自我改进。 作者代码已公开，本轮仅查阅说明，未执行训练或独立复现。"
+    },
+    {
+      "id": "agibot-gesim-worldoracle-g02-yam-update",
+      "title": "智元GE-Sim补齐G02/YAM的WorldOracle评测：把动作后果预测接到可复核流程",
+      "published": "2026-10-17",
+      "summary": "智元在10月17日提交中新增G02和YAM两套WorldOracle配置、推理脚本和文档，并在News公告相配权重。相比原有G01闭环模拟流程，新增资源面向WorldOracle的动作条件视频预测与评测，给“世界模型到底有没有忠实预测动作后果”提供了更具体的复核入口。",
+      "keywords": [
+        "World Model Evaluation",
+        "Cross-embodiment"
+      ],
+      "url": "https://github.com/AgibotTech/GE-Sim-V2/commit/2e8f6d71f1c2a04eb7f667eaee2adf016bd75c56",
+      "source_label": "智元 AgiBot · 10月17日代码/资源更新；原技术报告5月28日",
+      "limitation": "新G02/YAM流程为video-only评测，不能直接替代原G01服务端加载流程；文档说明YAM相机标定由作者从验证集估计。本次读过提交diff、README和运行文档，但没有执行GPU推理、下载大权重或做第三方复现；资源开放不等于真实机器人成功率已提高。"
+    },
+    {
+      "id": "community-local-agent-prefill-completion-speed",
+      "title": "本地Agent到底快不快：这轮讨论追问预填充、缓存与返工，而非只看每秒输出token",
+      "published": "2026-10-17",
+      "summary": "llmspeed用模拟输出帮助选择本地硬件，作者说明数据混合社区实测与按规格推算，限单设备短提示。10月17日讨论的实质争点是：编码Agent经常读长历史并并行调用，只看decode tokens/s会漏掉prefill、首token等待、KV缓存及CPU/GPU卸载；引擎版本、量化、投机解码与具体上下文也会显著改变结果。有用户认可购买前模拟的价值，也有人提交与自身设备结果不一致的反例。",
+      "keywords": [
+        "Prefill / Decode",
+        "Task Completion Cost"
+      ],
+      "url": "https://news.ycombinator.com/item?id=50127979",
+      "source_label": "Hacker News开发者讨论 · llmspeed作者与使用者 · HN原帖10月17日04:36 UTC（北京12:36）；观察至10月18日中午，主帖约264分／77条评论，仅代表该站窗口",
+      "limitation": "这是单个开发者社区的具体话题，不代表全行业共识；评论设备跑分未经本刊复现，不能作为购机性能表。模拟器本身不是浏览器内实际运行模型，也不是科学基准。264分和77评论是采集时快照，热度不计为技术结论；相关多GPU或缓存建议也不自动证明已支持。"
+    },
+    {
+      "id": "claude-quantum-circuit-evaluator-search",
+      "title": "Claude用可验证反馈设计量子电路：模型提出新结构，程序检验正确性与资源代价",
+      "published": "2026-10-16",
+      "summary": "研究让Claude Mythos 5通过Python提出量子计算原语设计，独立程序检查行为并按Toffoli门数×峰值量子比特数评分，多条算法路线并行搜索、交换有用候选。八项任务中七项同时降低两类资源；第八项发现可逆模逆架构，改善时间与空间取舍。一个点加法方案比此前最省比特方案多用12%比特、少用17倍门；DQI所用解码子程序门数约降12倍，两数字对应不同子任务。",
+      "keywords": [
+        "Verifier-guided Search",
+        "AI for Science"
+      ],
+      "url": "https://www.anthropic.com/research/designing-efficient-quantum-circuits",
+      "source_label": "Anthropic · Harvard University · QuEra Computing · 论文首版10月15日17:59 UTC（北京10月16日01:59）；Anthropic技术文章10月16日，本期补收",
+      "limitation": "这是算法／电路设计与经典程序验证，尚非量子硬件上演示加速；12倍仅是相关解码子程序，不能写成整个量子算法或所有任务都提速12倍。验证利用可高效模拟的一类基态保持电路，不覆盖任意量子电路；较大输入域采用抽样轨迹检验，不能等同穷举证明所有输入。53小时案例仍有初始人工规格与偶尔拓宽思路的提示；最终证明与程序检查的范围需逐项看，不等于大模型自主完成全部科学工作。"
     },
     {
       "id": "step5-preview-agent-architecture",
@@ -57,58 +135,6 @@
       "limitation": "离线开环预测基准，不是机器人成功率。论文和在线榜的VLM裁判版本不同，分数不能混比。"
     },
     {
-      "id": "baidu-vha-linear-reparameterization",
-      "title": "VHA：训练时扩展虚拟查询头，部署时折叠回标准GQA",
-      "published": "2026-10-14",
-      "summary": "百度与北大VHA用线性参数化改善少KV头的训练，推理折叠回标准GQA；10月14日官方代码首发，本期补收。",
-      "keywords": [
-        "GQA",
-        "KV Cache"
-      ],
-      "url": "https://arxiv.org/html/2610.17959v1",
-      "source_label": "百度 · 北京大学（依论文署名）；PaddlePaddle官方代码 · 论文首版10月13日08:39 UTC；官方代码仓库初始提交10月14日05:52 UTC（北京时间13:52），本期补收",
-      "limitation": "1KB是每层每token缓存，FLOPs下降不是实测解码提速；默认线性模块的折叠性质不适用于所有变体。"
-    },
-    {
-      "id": "ling31-flash-open-weights",
-      "title": "蚂蚁百灵开放Ling-3.1-flash：KDA与MLA混合，关注长程Agent部署",
-      "published": "2026-10-15",
-      "summary": "蚂蚁百灵10月15日开放Ling-3.1-flash权重；模型卡以7:1混合KDA与Gated MLA，提供MIT许可和部署入口。",
-      "keywords": [
-        "Hybrid Attention",
-        "Open Weights"
-      ],
-      "url": "https://modelscope.cn/models/inclusionAI/Ling-3.1-flash",
-      "source_label": "蚂蚁集团 百灵 / inclusionAI · 10月15日开源公告（10月16日报道）；魔搭模型条目10月14日创建、15日更新；模型首次发布为9月30日",
-      "limitation": "这是权重开放，首次发布为9月30日。模型卡与部署文档的激活参数、上下文口径有冲突，LingCode尚未开源。"
-    },
-    {
-      "id": "nemotron35-super-vl-agent-efficiency",
-      "title": "NVIDIA Nemotron 3.5 Super VL：多模态Agent开始把训练与服务优化一起交付",
-      "published": "2026-10-15",
-      "summary": "NVIDIA发布Nemotron 3.5 Super VL，把120B/12B多模态MoE、蒸馏、投机解码与量化服务配方连在一起。",
-      "keywords": [
-        "Multimodal Agents",
-        "Speculative Decoding"
-      ],
-      "url": "https://blogs.nvidia.com/blog/nemotron-3-5-super-vl/",
-      "source_label": "NVIDIA · NVIDIA官方公告及技术博客10月15日；本期核验公开技术材料，未独立运行权重",
-      "limitation": "吞吐和成本依赖硬件、精度、工具与并发；企业案例包含预期收益，不等于机器人能力或普遍实测。"
-    },
-    {
-      "id": "autorsr-automated-real-sim-real",
-      "title": "人大AutoRSR：把工作台扫描与少量人类示范自动变成机器人训练数据",
-      "published": "2026-10-14",
-      "summary": "人大AutoRSR把扫描、示范与目标查询串成可训练仿真数据；PiperX三任务各用1000段合成轨迹训练，实机各测试15次。",
-      "keywords": [
-        "Real2Sim2Real",
-        "Synthetic Robot Data"
-      ],
-      "url": "https://arxiv.org/abs/2610.20336",
-      "source_label": "中国人民大学 · arXiv首版10-14 15:19 UTC／北京时间10-14 23:19；近48小时新预印本，未核到顶会录用",
-      "limitation": "仍有人类扫描、参考示范和查询；三任务小样本，不能称零人工，也不能把自动增广耗时当端到端十倍提速。"
-    },
-    {
       "id": "groundingpi-groundanything-resources",
       "title": "GroundingPI / GroundAnything：小鹏合作团队补齐国内模型与评测资源入口",
       "published": "2026-10-14",
@@ -120,46 +146,6 @@
       "url": "https://github.com/groundingpi/GroundingPI/commit/2600996be10a2bdf7ba8e3668e02a9735bc6947f",
       "source_label": "XPENG / 北京大学 / 香港大学等合作团队 · GroundingPI提交 09:41:47 UTC（北京时间17:41:47）；GroundAnything提交 10:21:51 UTC（北京时间18:21:51）",
       "limitation": "这是代码、数据和模型入口补齐，不是10月14日新算法或新成绩；GroundingPI论文首版为9月30日，checkpoint页面显示10月13日创建/修改。评测数据卡明确不含模型权重和推理输出，尚未下载权重或独立推理。GroundAnything的ModelScope页面本次只核到作者公告与模型条目，未独立核完整文件清单；不要写成已完成复现。"
-    },
-    {
-      "id": "sear-self-evolving-agentic-robotics",
-      "title": "SEAR：用受控评测检验机器人是在学习，还是只是在多试几次",
-      "published": "2026-10-14",
-      "summary": "SEAR（Self-Evolving Agentic Robotics）把机器人自我改进拆成三种模式：代码即策略、Agent直接留在控制循环中、以及用自身rollout微调π0.5 VLA的自动研究。论文在两个物理引擎的330个仿真任务和5个实机任务上，比较短重启、无继承库、密封测试和多层泛化，专门检验成功率上升是否只是重采样或预算增加。",
-      "keywords": [
-        "Physical RSI",
-        "Budget-matched Evaluation"
-      ],
-      "url": "https://arxiv.org/abs/2610.18792",
-      "source_label": "Luma AI · arXiv首版 2026-10-13 17:40:20 UTC（北京时间10-14 01:40:20）",
-      "limitation": "论文所说的完整co-evolving loop（同时更新模型权重和harness）仍是提案；当前实证主要让技能/记忆库跨任务继承，LM权重固定，VLA在各自任务套件内训练。论文称发布代码，但截至核验仓库只有LICENSE、README和assets，代码尚未出现，不能写成已可复现。实机任务数量少、场景有人工摆放和人工judge，结果尚未独立复现。"
-    },
-    {
-      "id": "gemini-4-argon-robotics",
-      "title": "Gemini 4 Argon：通用大模型进入机器人控制、仿真生成与研发闭环",
-      "summary": "10月13日官方发布的背景案例：Gemini 4 Argon把通用多模态、编码与工具能力接入机器人控制和仿真生成。官方总公告自报ERQA具身推理87%；Apollo连续命中7次是另一项厂商实机案例。10月16日未核到新的官方机器人发布。",
-      "keywords": [
-        "基础模型进入具身 / Foundation Models for Robotics",
-        "Video-to-Sim-to-Real",
-        "Physical Reasoning"
-      ],
-      "published": "2026-10-13",
-      "source_label": "Google DeepMind / Google · 10月13日原发布；10月16日复核的背景材料",
-      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
-      "limitation": "87%是ERQA推理得分，不是实机任务成功率；Apollo连续命中是厂商内部案例，试验覆盖与独立复现不足。已读官方总公告、机器人产品页、模型卡和安全报告相关段落；机器人专篇入口由官方交叉确认，但正文直连超时，公众号中的56%→75%、4500+episode、68sandbox暂不当作已核验事实。安全报告按其内部评估口径认为当前端到端AI研发加速并不显著，完整研究流程仍需人工介入；这些案例不能证明递归自我改进已实现。"
-    },
-    {
-      "id": "deepseek-embodied-entry-reported",
-      "title": "媒体报道DeepSeek考虑进入具身智能：自研团队与投资两种路径仍待确认",
-      "summary": "新浪科技10月12日报道，梁文锋近期与具身创业者交流；据知情人士，DeepSeek可能组建研发团队，也可能通过投资切入。原文明确截至发稿DeepSeek未回应，10月13日IT之家转载。当前应作为产业观察跟进。",
-      "keywords": [
-        "产业动向 / Industry Signal",
-        "未官宣 / Unconfirmed"
-      ],
-      "published": "2026-10-12",
-      "source_label": "DeepSeek（媒体报道，未获官方确认） · 媒体原报道日期",
-      "url": "https://finance.sina.com.cn/jjxw/2026-10-12/doc-iniuytnv5205606.shtml",
-      "limitation": "匿名信源的媒体报道，未获官方确认。本次检查的官方研究动态、API日志和公开代码中未找到对应具身发布；这不能证明不存在未公开研究。IT之家为同一原报道转载，不是独立确认；未核验的投资金额或交易细节不作事实。"
     }
   ]
 }

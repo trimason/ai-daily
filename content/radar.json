@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-10-16",
+  "updated_on": "2026-10-18",
   "intro": "每日从研究目录、作者项目、论文、代码、模型卡、技术博客和社区原帖交叉发现大模型与具身的新进展及讨论问题，按当期证据轮换选题。持续覆盖国内外团队与小鹏 GroundingPI 等原始研究；主入口可达、内容已读和社区关注度分别核验。",
   "groups": [
     {
@@ -622,7 +622,7 @@
           "url": "https://www.deepseek.com/news/",
           "role": "国内团队原始研究发布",
           "scope": "模型训练、推理与后训练、技术报告、开源代码及API版本变化",
-          "note": "研究动态为主入口，API日志仅辅助。同时跟踪具身团队、合作、数据或模型的公开证据；媒体消息可入产业观察，必须注明未获官方确认。",
+          "note": "研究目录、API新闻/模型日志、官方模型卡和代码并行检查；API新闻是模型新版本的一手渠道，不能因主站目录较旧而只作次要线索。具身产业动向另查官方与媒体原报道，未获确认则明示。",
           "verification": {
             "status": "content_verified",
             "checked_on": "2026-10-15",
@@ -665,10 +665,10 @@
             {
               "label": "API / 模型更新日志",
               "url": "https://api-docs.deepseek.com/zh-cn/updates/",
-              "kind": "产品与API辅助渠道",
+              "kind": "模型版本与API原始公告",
               "status": "content_verified",
-              "checked_on": "2026-10-15",
-              "note": "已读更新目录，不能单独覆盖具身产业动向。"
+              "checked_on": "2026-10-18",
+              "note": "已读10月17日1017版本公告及Search/Fetch指南；主站news目录未同步列出本条，采集必须同时检查本渠道。"
             },
             {
               "label": "官方知乎",
@@ -677,6 +677,22 @@
               "status": "unverified",
               "checked_on": "2026-10-14",
               "note": "官网所链接账号，正文未读取。"
+            },
+            {
+              "label": "1017模型更新与Search/Fetch官方公告",
+              "url": "https://api-docs.deepseek.com/zh-cn/news/news261017",
+              "kind": "具体模型与API发布",
+              "status": "content_verified",
+              "checked_on": "2026-10-18",
+              "note": "已读完整公告；原事件2026-10-17，包含模型、Harness、工具开放与计费说明，未独立运行。"
+            },
+            {
+              "label": "Search/Fetch工具指南",
+              "url": "https://api-docs.deepseek.com/zh-cn/guides/search",
+              "kind": "官方工具接口文档",
+              "status": "content_verified",
+              "checked_on": "2026-10-18",
+              "note": "已读Search结构化结果、Fetch Markdown与应用编排方式；不是机器人控制发布。"
             }
           ],
           "evidence": [
@@ -1014,7 +1030,11 @@
             "embodied intelligence",
             "robotics",
             "VLA",
-            "world model"
+            "world model",
+            "long-term memory",
+            "memory writing",
+            "Hy-Memory",
+            "MemHub"
           ],
           "channels": [
             {
@@ -1032,6 +1052,14 @@
               "status": "content_verified",
               "checked_on": "2026-10-14",
               "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
+            },
+            {
+              "label": "Hy-Memory长期记忆框架、模型与版本",
+              "url": "https://github.com/Tencent-Hunyuan/Hy-Memory",
+              "kind": "官方代码、报告与Release",
+              "status": "content_verified",
+              "checked_on": "2026-10-18",
+              "note": "已读README、记忆写入报告与Release；报告/首Release北京10月16日，SDK更新10月17日，旧家族论文不计为同日首发。"
             }
           ]
         },
@@ -1529,6 +1557,14 @@
               "status": "unreadable",
               "checked_on": "2026-10-16",
               "note": "2026-10-16已核官方README链接归属；HF接口本轮超时，未读取数据卡或下载文件，不能声称数据内容已核验。"
+            },
+            {
+              "label": "GE-Sim-V2代码与WorldOracle评测流程",
+              "url": "https://github.com/AgibotTech/GE-Sim-V2",
+              "kind": "官方代码与评测资源",
+              "status": "content_verified",
+              "checked_on": "2026-10-18",
+              "note": "已读10月17日G02/YAM更新diff与WorldOracle文档，video-only资源，未下载大权重或GPU复现。"
             }
           ],
           "verification": {
