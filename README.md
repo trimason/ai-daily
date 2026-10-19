@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年10月18日补跑日报：聚焦DeepSeek 1017与Search/Fetch、混元Hy-Memory长期记忆、机器人Value as Memory与T2-z测试时适应；另收智元GE-Sim的G02/YAM评测资源、Claude可验证量子电路搜索，以及HN关于本地Agent预填充/解码与完成成本的真实讨论。合并10月17日新事件和近7日遗漏，逐条保留原始日期，不把补跑当首发；公众号本窗口未稳定读取全文，覆盖缺口明示。每日技术点讲Agent长期记忆与上下文管理。此前各期保留归档。
+当前首页为2026年10月19日日报：聚焦HybridAgent隐空间推理与当日社区讨论、HexaShell代码工具控制机器人、LAW语言—动作—世界模型闭环，以及RealCLI／IMEP对人机协作和记忆使用的评测；另收MIT本体感觉插孔、vLLM为Kimi K3做Agent辅助GPU内核优化、百度FlashMask-3长上下文训练。周一arXiv新批次发现与近7日遗漏分清首版、代码和讨论日期；公众号近期全文和部分模型卡缺口明示。每日技术点讲推理时计算、验证器、best-of-N与pass@N。此前各期保留归档。
 
 ## 本地构建与预览
 

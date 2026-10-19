@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-10-18",
+  "updated_on": "2026-10-19",
   "intro": "每日从研究目录、作者项目、论文、代码、模型卡、技术博客和社区原帖交叉发现大模型与具身的新进展及讨论问题，按当期证据轮换选题。持续覆盖国内外团队与小鹏 GroundingPI 等原始研究；主入口可达、内容已读和社区关注度分别核验。",
   "groups": [
     {
@@ -923,6 +923,14 @@
               "status": "content_verified",
               "checked_on": "2026-10-14",
               "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
+            },
+            {
+              "label": "Kimi官方研究博客（官网真实链接）",
+              "url": "https://www.kimi.ai/blog/",
+              "kind": "官方研究目录",
+              "status": "content_verified",
+              "checked_on": "2026-10-19",
+              "note": "已读实际目录，Kimi K3显示7月16日；不把新抓取或vLLM优化文章当模型首发。"
             }
           ]
         },
@@ -994,6 +1002,14 @@
               "status": "content_verified",
               "checked_on": "2026-10-16",
               "note": "2026-10-16已读README；初始公开提交10-14 05:52 UTC（北京时间13:52）。记录代码公开事件，不把仓库创建当论文首发。"
+            },
+            {
+              "label": "Paddle FlashMask官方研究代码",
+              "url": "https://github.com/PaddlePaddle/FlashMask",
+              "kind": "长上下文训练代码与原论文",
+              "status": "content_verified",
+              "checked_on": "2026-10-19",
+              "note": "已读FlashMask-3原论文、表1与仓库README/首提交；论文10月13日、代码10月15日。当前仓库含-4，结果不可混用；会方已核NeurIPS2026 Poster。"
             }
           ],
           "evidence": [

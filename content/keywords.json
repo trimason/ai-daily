@@ -2,12 +2,51 @@
   "metadata": {
     "title": "研究方向与检索关键词",
     "status": "sample-research-map",
-    "updated": "2026-10-18",
+    "updated": "2026-10-19",
     "intro": "中英关键词连接具体研究问题，覆盖大模型与具身的多条路线，作为可扩展的检索地图。每日热点由近期新增研究和实际社区讨论重新筛选，主题随证据轮换；Gemini、RSI等是历史案例与候选方向，不是固定推荐或实时热度排名。",
     "verification": "来源通过HTTP读取，核验标题、日期及摘要或官方正文；部分本期论文还检查了方法、实验与局限段落，具体范围见来源说明。未执行全文精读归档或独立复现。",
     "dating_policy": "来源日期默认记录arXiv首版提交日期；官方文章单独注明发布日期。更新日期表示研究地图整理时间。"
   },
   "directions": [
+    {
+      "id": "latent-tool-agents",
+      "title": "隐空间推理与文本工具协作",
+      "category": "llm",
+      "keywords_zh": [
+        "隐空间推理",
+        "模式切换",
+        "工具调用",
+        "推理成本"
+      ],
+      "keywords_en": [
+        "latent reasoning",
+        "hybrid reasoning",
+        "tool calling",
+        "end-to-end inference cost"
+      ],
+      "explanation": "推理过程可以在连续隐藏状态中展开，到工具边界再输出文本。HybridAgent提供具体训练和切换机制；减少可见token不自动等同减少全部计算或可忠实读取思维。",
+      "researchers_do": [
+        "训练隐藏状态到输入embedding的连接，以及latent/text模式切换。",
+        "把模型性能、文字token、模型计算、工具延迟与本地运行兼容性分开比较。"
+      ],
+      "evidence_to_check": [
+        "对照模型、硬件、seed与工具框架是否一致。",
+        "成本是否包含prefill、上下文attention、外部工具和重试。",
+        "pseudo-text是否只是近似解码；独立用户循环反馈是否能在固定实现中复现。"
+      ],
+      "sources": [
+        {
+          "label": "HybridAgent原论文；首版UTC10月13日／北京14日",
+          "url": "https://arxiv.org/abs/2610.18861",
+          "published": "2026-10-13"
+        },
+        {
+          "label": "10月19日北京时间HN讨论；个人反馈不当受控复现",
+          "url": "https://news.ycombinator.com/item?id=50145337",
+          "published": "2026-10-19"
+        }
+      ]
+    },
     {
       "id": "grounding-physical-intelligence",
       "title": "精确视觉定位与具身感知",
@@ -70,7 +109,7 @@
         "hindsight labeling",
         "task progress estimation"
       ],
-      "explanation": "通用多模态与代码模型正连接机器人研发链。Gemini 4 Argon提供物理推理、工具调用控制和视频生成仿真案例；具身专用模型与VLA策略继续承担不同角色。需要检查感知、规划、控制、标注与反馈各由谁完成，以及实机结果能否重复。",
+      "explanation": "通用多模态与代码模型连接机器人研发链，既可以通过工具发出控制命令，也可以做语义规划、定位、生成仿真和反馈分析。HexaShell提供代码工具仿真案例，LAW提供世界动作模型执行闭环；需逐项检查感知、规划、低层控制与人工干预各由谁完成。历史Gemini等案例保留原日期，后续依实际新证据轮换。",
       "researchers_do": [
         "把精确定位、空间理解等基础能力迁移到动作模型，固定下游模块比较迁移收益。",
         "结合机器人数据训练或后训练，研究导航、操作等任务是否可以共用模型与表示。",
@@ -83,6 +122,12 @@
         "所谓跨本体泛化，是否在新机器人、新场景和未见任务上评测，并披露微调数据、推理延迟和失败案例。"
       ],
       "sources": [
+        {
+          "label": "HexaShell：通用代码Agent、冻结工具新布局仿真重测",
+          "url": "https://arxiv.org/abs/2610.23479",
+          "published": "2026-10-16",
+          "verified": "已读方法、仿真实验、等待成本与README事件；未独立运行，未有实机"
+        },
         {
           "label": "Gemini 4 Argon官方发布：ERQA与视频—仿真—实机案例",
           "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",

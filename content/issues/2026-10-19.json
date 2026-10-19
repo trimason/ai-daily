@@ -1,0 +1,447 @@
+{
+  "date": "2026-10-19",
+  "status": "daily",
+  "title": "隐空间Agent、机器人代码工具与评测可靠性",
+  "intro": "今天值得跟进的是三组问题：Agent能否少写思维文字、仍可靠调用工具；通用代码模型怎样把机器人失败变成可复用技能；任务成功的数字有没有测到真实的记忆使用与人机协作。HybridAgent有当日独立社区讨论，HexaShell、LAW、IMEP和RealCLI给出具体研究材料；另收本体感觉实机插孔、Kimi K3的Agent辅助内核优化及百度FlashMask-3。",
+  "coverage": "北京时间2026-10-19重试完成的日报。以近24–48小时发现为主，读取当日arXiv cs.CL／cs.AI／cs.LG与cs.RO新批次、官方研究目录、代码和具体HN讨论。周一批次中论文多在10月15–16日UTC提交，本期按7日遗漏补收，逐条保留首版日期；HybridAgent的当前事件为10月19日北京时间HN讨论，不把采集日改成论文首发。国内9家大模型团队、13家具身团队与XPENG多渠道补查；GroundingPI／GroundAnything项目和代码已读，本轮未核到新的论文或模型事件，不重复旧资源。顶会目录用于发现；仅对入选论文核相应正文和实验边界，不声称已读全量评审。human five、具身智能之心等公众号近期全文本轮未稳定取得，多个HF模型列表／模型卡超时，TARS官方研究入口仍未核验；这些是覆盖缺口，并非无新研究。论文和厂商数据均未独立复现；只有HybridAgent附具体多方讨论证据，其余按新研究或技术解读呈现。",
+  "highlights": [
+    {
+      "title": "Agent一定要把每一步思考都写成文字吗？",
+      "text": "HybridAgent把隐状态推理与文本工具调用结合；今日HN既讨论新意与可解释性，也出现本地运行循环的反例。",
+      "story_id": "hybridagent-latent-thinking-tool-agents"
+    },
+    {
+      "title": "模型控制机器人，失败后改的究竟是什么？",
+      "text": "HexaShell把失败变成Python工具，冻结后重测新布局；LAW则把语义进度、动作价值和世界动作模型接成闭环。",
+      "story_id": "hexashell-frozen-tools-rgb-retest"
+    },
+    {
+      "title": "任务做完了，是否真的听懂了人、用到了记忆？",
+      "text": "RealCLI检查约束与协作，IMEP干预关键记忆；共同提醒成功率需要与协议、预算和因果证据一起读。",
+      "story_id": "realcli-human-agent-collaboration-evaluation"
+    }
+  ],
+  "reading": [
+    {
+      "title": "HybridAgent论文与当日社区讨论",
+      "url": "https://arxiv.org/html/2610.18861v1",
+      "reason": "看latent/text切换、训练方式和成本估算范围，再回看正文链接的独立用户反馈。"
+    },
+    {
+      "title": "HexaShell：冻结工具后重测",
+      "url": "https://arxiv.org/html/2610.23479v1",
+      "reason": "看工具开发布局、重测布局、提示变化与episode耗时：中位739秒、其中绝大部分为模型延迟；所有结果均为仿真。"
+    },
+    {
+      "title": "LAW：语言、动作和世界模型的闭环",
+      "url": "https://arxiv.org/html/2610.23334v1",
+      "reason": "对照RoboTwin与真实三个长程任务，不把95.56%的仿真成功率用于实机。"
+    },
+    {
+      "title": "RealCLI：配对人机协作评测",
+      "url": "https://arxiv.org/html/2610.22507v1",
+      "reason": "看同一任务渐进给信息后为什么既可能救回失败，也可能破坏原本成功的运行。"
+    },
+    {
+      "title": "FlashMask-3：训练吞吐与注意力提速",
+      "url": "https://arxiv.org/html/2610.17901v1",
+      "reason": "读表1的128张H100配置和消融，明确7.3–11.0%端到端收益的适用条件。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "Latent Reasoning / 隐空间推理",
+      "explanation": "HybridAgent在连续隐藏状态中思考，用文本与工具交互；关注训练—推理差异、实际加速和可审计性。"
+    },
+    {
+      "term": "Robot Coding Agent / 机器人代码Agent",
+      "explanation": "HexaShell用通用代码Agent操作机器人接口，并将失败沉淀为跨episode保留的Python工具；本期证据仍在仿真。"
+    },
+    {
+      "term": "Frozen-tool Retest / 冻结工具后重测",
+      "explanation": "先开发工具再固定代码，在未参与开发的新布局测表现；还要控制提示、任务说明、seed与工具notes。"
+    },
+    {
+      "term": "World Action Model / 世界动作模型",
+      "explanation": "LAW把语义子任务、动作价值和动作生成接成闭环；仿真基准与真实长程任务的成功率分别看。"
+    },
+    {
+      "term": "Interventional Evaluation / 干预式评测",
+      "explanation": "IMEP主动替换关键记忆事实与表面形式，RealCLI配对完整规格与渐进沟通，检验系统究竟依赖了什么。"
+    },
+    {
+      "term": "Human–Agent Collaboration / 人机协作",
+      "explanation": "Agent执行结果通过测试，并不保证保留了用户约束、正确恢复状态或遵守授权；RealCLI把两类成功分开评分。"
+    },
+    {
+      "term": "Proprioceptive Sim-to-Real / 本体感觉仿真到现实",
+      "explanation": "用关节反馈学习局部接触技能；MIT插孔实验提醒高层推理与精密控制承担不同工作。"
+    },
+    {
+      "term": "Agent-generated Kernels / Agent生成GPU内核",
+      "explanation": "vLLM的Kimi K3优化将编码Agent接入高性能实现，也要求固定硬件负载、验证正确性与完整成本。"
+    },
+    {
+      "term": "Mask-aware Context Parallelism / 感知mask的上下文并行",
+      "explanation": "FlashMask-3按有效注意力工作量分配跨卡任务并裁剪通信；内核提速和整轮训练吞吐不是同一指标。"
+    },
+    {
+      "term": "Test-time Compute & Verifiers / 推理时计算与验证器",
+      "explanation": "每日技术点：分清多想、多候选、搜索与RLVR训练，尤其是pass@N有解和best-of-N能选对的区别。"
+    }
+  ],
+  "featured_ids": [
+    "hybridagent-latent-thinking-tool-agents",
+    "hexashell-frozen-tools-rgb-retest",
+    "law-language-action-world-closed-loop",
+    "realcli-human-agent-collaboration-evaluation",
+    "imep-interventional-robot-memory-evaluation",
+    "flashmask3-mask-aware-distributed-attention"
+  ],
+  "technical_explainer": {
+    "id": "test-time-compute-and-verifiers",
+    "title": "推理时计算与验证器：让模型多想、多试，为什么还不一定更可靠？",
+    "summary": "理解长思考、并行采样、搜索与工具反馈怎样花费推理预算，分清“候选里有答案”和“系统能选对答案”，再看可验证奖励怎样与训练衔接。",
+    "reading_minutes": 8,
+    "why_now": "HybridAgent讨论减少显式文字推理，HexaShell把模型等待与机器人执行分开报告，RealCLI揭示任务通过与协作通过的差别：这些研究都要求同时检查预算和判定机制。本期用推理时计算与验证器补齐基础链。引用的原理材料发表于2023—2025年，是当前研究仍使用的基础机制，并非今日新发布；并行候选、外部验证和可验证奖励已有广泛实践，具体搜索或过程打分方案的优劣仍取决于任务。",
+    "sections": [
+      {
+        "heading": "1. 多花的计算，可以花在四个不同地方",
+        "paragraphs": [
+          "最直观的做法是串行推理：给同一个问题更多生成步骤，让模型分解问题、检查中间结果、修订原方案。另一种是并行采样：针对同一问题生成多个候选，再通过投票或评分选择。还可以做搜索：保留有希望的分支，扩展下一步，遇到差的分支就停止。Agent 常把这些做法与工具结合，运行程序、查资料或执行实验，把外部反馈带进下一轮。",
+          "它们都可能增加推理阶段的计算，但并不等价。把一句结论重复写得更长，未必增加有效推理；生成很多相似候选，也未必带来更好的覆盖。2024年的推理计算研究把系统拆成“提出候选”和“评价候选”，并研究并行采样、顺序修订与验证器搜索如何分配固定预算。其结果与数学任务、模型和训练设置相关，不能推成所有问题上多算就一定优于扩大模型。"
+        ]
+      },
+      {
+        "heading": "2. 验证器负责判定，可靠程度决定搜索能走多远",
+        "paragraphs": [
+          "验证器是一个功能角色：给候选结果或中间步骤提供可用的判断。数学题可以检查最终数值或形式化证明；代码可以编译并运行测试；结构化任务可以检查约束。若没有便宜而明确的程序判定，也可以训练奖励模型，或让语言模型作裁判，但这时分数只是模型判断，不能自动当成事实。",
+          "结果验证关注“最后得到的答案或状态是否符合要求”。过程验证还检查中间步骤，试图更早定位错误。Let’s Verify Step by Step 比较了结果奖励模型（ORM）和过程奖励模型（PRM），通过对同一生成器的多份解答排序来评测验证器。该论文在特定数学设置发现过程监督有优势；这不说明PRM在所有领域都必需，也不说明当时的分数能代表现在的模型表现。",
+          "规则判定同样存在覆盖边界。代码通过公开测试，只能证明通过了这些测试；遗漏的输入、性能要求或副作用仍可能出错。机器人在模拟器中满足目标、视觉裁判看到物体移动，也不能自动证明真实抓持稳定、没有碰撞，或完整任务已经闭环完成。验证应尽量对应用户实际要的结果，并保留独立测试。"
+        ]
+      },
+      {
+        "heading": "3. best-of-N 与 pass@N，差别在最后能不能选对",
+        "paragraphs": [
+          "best-of-N通常指生成N个候选，使用预先规定的评分或判定规则，选出一个交付。简单多数投票依赖候选答案的频率，不需要知道标准答案；如果许多候选共享同一误解，多数仍会选错。由验证器选最高分也有另一种风险：生成的候选越多，就越有机会碰到擅长骗过评分器的错误答案。",
+          "pass@N考察N次尝试里是否至少出现一次符合评测判定的解，通常可由掌握参考答案或测试程序的评测器事后统计。它衡量候选覆盖能力，不能代替部署时选择一个答案的能力。论文如果只报“多次尝试有一次成功”，需要继续问：真实使用时能否识别那次成功，失败尝试是否计入成本？",
+          "搜索和修订可以配合使用。例如先生成几个不同计划，在合法性检查后扩展，再根据测试失败修改局部步骤。2024年的研究显示预算分配与问题难度有关；如果用已知标准答案来事后估计最佳分配，必须与部署时可获得的难度预测分开。实际系统还需要停止规则：什么时候再试一次有价值，什么时候应交付已有结果或报告未解决。"
+        ]
+      },
+      {
+        "heading": "4. 训练时用奖励，和推理时选答案，是两件事",
+        "paragraphs": [
+          "同一个验证信号可以用于不同阶段。在推理时用测试结果淘汰候选，主要改变当前这一次求解的轨迹；若没有额外学习步骤，模型权重保持不变。在训练时，把一批模型输出的验证结果变成奖励，再用强化学习更新参数，才会形成供后续任务使用的参数变化。通常所说的RLVR强调可验证奖励，并不是某一个独立固定的优化算法。",
+          "DeepSeek-R1论文描述的R1-Zero使用准确性与格式两类规则奖励：数学题检查答案，代码题利用测试反馈；这一阶段没有使用神经网络结果或过程奖励模型。论文也报告了过程奖励模型在实际训练中的困难。这是提醒：可验证反馈有价值，不代表一定要额外训练一个PRM，更不能从“使用了验证器”推断其模型在部署中实时做RL。",
+          "模型在本次任务中自我修订、Agent修改自己的工具代码、通过训练更新权重，可以分别带来改善。要称为持续自我改进，还要看改动是否保留、在独立新任务上是否有效；一次搜索选中了更好的候选，本身不能证明跨任务能力增长或递归加速。"
+        ]
+      },
+      {
+        "heading": "5. 公平比较要把生成、判定和执行成本都算进去",
+        "paragraphs": [
+          "预算至少应包含候选生成token、验证器计算、检索和工具调用，以及失败后的重试。并行采样可能缩短等待时间，却仍消耗总计算；串行思考可能只有一次交付，也可能生成大量隐藏在界面后的推理token。只看最终答案长度或每秒输出token，容易遗漏真正的任务成本。",
+          "报告效果时，应在相同任务和可比预算下看最终可交付结果的成功率、端到端延迟和费用，并说明验证器能访问什么信息。测试集答案不能作为实际求解器的隐含输入。机器人还需报告动作执行时间、重置、人工接管和物理试验次数；在离线搜索里多试八个计划，与实机连试八次，并不承担相同成本。",
+          "也需要把“多算后提升”和“算法更有效率”分开。比较一条很短的单次生成与几十次搜索，可以证明额外预算带来的收益，却不足以说明在同预算下方法更好。对验证器要专门测试漏判与误判，尤其是分布外任务和搜索专门挑出的高分错误候选。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "看到“模型会思考、会检查、会学习”，分别问是哪一层在工作",
+      "columns": [
+        "做法",
+        "额外计算花在哪里",
+        "主要限制"
+      ],
+      "rows": [
+        [
+          "长思考／顺序修订",
+          "生成更多步骤，利用前一次结果继续修正",
+          "可能反复自信犯错，需要外部约束与停止规则"
+        ],
+        [
+          "并行采样／best-of-N",
+          "生成多个候选，再投票或评分选一个",
+          "候选有正确解，不代表最后能选中；需计总生成与评分成本"
+        ],
+        [
+          "验证器引导搜索",
+          "对部分步骤或完整结果打分，决定扩展哪些分支",
+          "评分器偏差可能被搜索放大；规则测试也有覆盖边界"
+        ],
+        [
+          "用可验证奖励做RL",
+          "训练中生成尝试、评奖并更新参数",
+          "不同于部署时多试几次，需报告训练与独立泛化评测"
+        ]
+      ]
+    },
+    "example": {
+      "title": "教学假设：四次尝试的潜力，取决于谁来选答案",
+      "paragraphs": [
+        "假设某个固定问题每次独立采样产生正确候选的概率都是25%，四次中至少有一个正确候选的概率为1−(1−0.25)^4≈68.4%。这是独立同分布采样、固定成功概率的教学算例，不是任何真实模型的实验，也不能把一套不同难度题目的平均成功率直接代入。",
+        "68.4%表示候选集合里可能存在正确答案；只有能识别正确候选的判定机制，才可能把这种覆盖变成最终交付的成功率。假设实际的评分器偏爱长而错误的解答，四份里即使有正确解，也可能选错。简单多数投票也无法保证把少数的正确答案留下。",
+        "若每个候选约1000 token，四份合计约4000 token，还没计评分、测试和修订。真实代码任务中，可以运行预先设定的测试来过滤候选，再用独立隐藏测试衡量泛化；不能用隐藏测试反复挑答案后，仍把它当作独立评测。对机器人，先在模型中筛计划也需回到真实执行验证，不能把预测可行直接记作任务成功。"
+      ]
+    },
+    "checklist": [
+      "新增预算用于更长推理、更多候选、搜索、工具反馈，还是训练更新？最终权重是否改变？",
+      "验证器是什么：确定性规则、程序测试、学习到的奖励模型，还是语言模型裁判？检查的是过程还是结果？",
+      "报的是单次交付成功、best-of-N还是pass@N？实际部署如何识别并选出正确候选？",
+      "生成、打分、工具、重试与执行成本是否一起计入？比较是否使用相同或可比预算？",
+      "验证信号会漏掉哪些要求？是否检查评分器误判、独立留出任务与分布外情况？机器人结论是否经过实机闭环验证？"
+    ],
+    "takeaway": "推理时计算把预算花在提出、修订和选择候选；验证器决定这些尝试能否转成可交付的结果。多想、多试和训练学习分别衡量，效果与完整成本一起看。",
+    "sources": [
+      {
+        "label": "Let’s Verify Step by Step · OpenAI作者原论文，2023-05-31 v1 · 已读§2、§3与局限；解释过程／结果监督和best-of-N，不作为今日新闻",
+        "url": "https://arxiv.org/html/2305.20050v1"
+      },
+      {
+        "label": "Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters · UC Berkeley／Google DeepMind，2024-08-06 v1 · 已读§2—§3、§5—§6；解释候选、验证、修订与预算分配",
+        "url": "https://arxiv.org/html/2408.03314v1"
+      },
+      {
+        "label": "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning · DeepSeek，2025-01-22 v1 · 已读§2.2.2、§2.3与§4.2；区分规则奖励、训练更新与过程奖励模型局限",
+        "url": "https://arxiv.org/html/2501.12948v1"
+      }
+    ]
+  },
+  "stories": [
+    {
+      "id": "hybridagent-latent-thinking-tool-agents",
+      "category": "discussion",
+      "tag": "当日社区讨论 · 隐空间Agent · 近7日论文补收",
+      "title": "HybridAgent：让Agent在隐状态中思考，用文本调用工具",
+      "organization": "Stanford University、UIUC、Together AI、Meta",
+      "published": "2026-10-14",
+      "date_label": "arXiv首版10月13日17:59 UTC／北京时间10月14日01:59；10月19日北京时间出现活跃HN讨论，补收此前遗漏的论文",
+      "summary": "HybridAgent把一次Agent生成划分为latent mode与text mode：内部推理可以传递连续隐藏状态，工具调用、外部观察和最终输出仍通过文本完成。HybridLink将最后层隐藏状态映射回输入embedding，HybridSFT用自条件训练缓解训练与推理差异，HybridRL学习何时切换模式。作者在Qwen3-Base的4B、8B、14B模型和11个数学、知识搜索与Agent基准上实验，报告在其对照设置中性能改善、生成token减少35.5%–54.7%，并开放代码、模型与数据。",
+      "why": "它把“Agent是否必须把每一步思考都写成文本”变成可训练的架构选择，关联推理效率、工具可靠性和过程监测。10月19日北京时间的HN讨论包含多位独立参与者（采集快照约240分、146条有正文评论）：有人质疑它相对连续CoT或循环Transformer的新意，有人讨论latent thought的伪文本是否忠实，也有运行者反馈8B／14B在llama.cpp中循环。论文、代码和具体反例已形成值得追踪的争点，尚未形成社区共识。",
+      "limitation": "论文是10月14日北京时间的旧事件，因此前遗漏且当日出现独立讨论而补收。实验为作者自测，使用H100和五个seed，未独立复现，也没有机器人闭环实验。1.8–2.6倍推理加速取决于文中配置；2.7–3.7倍成本改善来自固定H100单价与利用率下的生成计算估算，不含prompt prefill、上下文attention与外部工具。把latent state映射成pseudo-text不等于完整、忠实地读取内部推理；HN的循环反馈可能涉及实现、量化或模板兼容性，不能直接判定论文方法失效。",
+      "sources": [
+        {
+          "label": "论文首版日期与作者",
+          "url": "https://arxiv.org/abs/2610.18861"
+        },
+        {
+          "label": "论文全文：HybridLink、训练、11项评测及成本边界",
+          "url": "https://arxiv.org/html/2610.18861v1"
+        },
+        {
+          "label": "官方代码与模型／数据入口",
+          "url": "https://github.com/togethercomputer/HybridAgent"
+        },
+        {
+          "label": "10月19日北京时间HN讨论主帖",
+          "url": "https://news.ycombinator.com/item?id=50145337"
+        },
+        {
+          "label": "具体争点：相对连续CoT的新意",
+          "url": "https://news.ycombinator.com/item?id=50147270"
+        },
+        {
+          "label": "具体反例：14B在llama.cpp中的循环反馈",
+          "url": "https://news.ycombinator.com/item?id=50146330"
+        },
+        {
+          "label": "独立用户8B GGUF的循环反馈",
+          "url": "https://news.ycombinator.com/item?id=50147768"
+        }
+      ]
+    },
+    {
+      "id": "hexashell-frozen-tools-rgb-retest",
+      "category": "embodied",
+      "tag": "机器人Coding Agent／代码工具自我改进",
+      "title": "HexaShell：机器人失败变成可复用代码工具，冻结后再测新布局",
+      "organization": "HexaFuture",
+      "published": "2026-10-16",
+      "date_label": "10月16日13:56 UTC／北京时间21:56 arXiv首版与新布局重测更新；10月19日公开批次新见，项目10月9日已公开",
+      "summary": "Codex＋GPT-6-Astra通过一个很薄的命令行接口控制RoboDojo中的双臂ARX X5，只接收三路RGB与标定信息。失败后第二个Agent读取日志，修改Python工具，跨episode保留；工具用三角测量、已知平面和主动移动腕部相机定位。每任务在10个布局开发工具，冻结后在同一seed的新布局重测；42个Isaac Sim仿真任务整体成功率39.7%、progress 48.0。10月16日更新加入任务recipe和工具notes，不能把重测提升全部归因于工具演化。",
+      "why": "通用Coding Agent进入机器人控制后，持续改进的载体可以是可检查的代码工具。该工作具体展示“看失败—改工具—重试—冻结后测试”的闭环，也暴露紧配合接触操作的弱点：论文中推物92.5%，紧插入8.3%。这是值得关注的新方向；本轮未找到足够独立研究者讨论，不能称为社区共识或行业热榜。",
+      "limitation": "全部是RoboDojo／Isaac Sim仿真，没有实机闭环。新layout属于同一seed；一次重测episode耗时中位数约739秒，对应26秒机器人时间，绝大部分耗时来自模型延迟，不能称实时控制。开发集与新布局的prompt不同，不能直接当纯泛化消融。更新的是代码／工具与提示信息，非模型权重，也没有证明递归加速。仓库发布冻结工具、接口和结果，未发布完整harness、Agent容器及RoboDojo环境。",
+      "sources": [
+        {
+          "label": "arXiv v1 · 2026-10-16；已读方法、实验和成本",
+          "url": "https://arxiv.org/html/2610.23479v1"
+        },
+        {
+          "label": "HexaFuture官方代码 · README记录10-09／10-15／10-16事件及冻结重测协议",
+          "url": "https://github.com/HexaFuture/HexaShell"
+        },
+        {
+          "label": "arXiv摘要与提交历史",
+          "url": "https://arxiv.org/abs/2610.23479"
+        }
+      ]
+    },
+    {
+      "id": "law-language-action-world-closed-loop",
+      "category": "embodied",
+      "tag": "世界动作模型／语义进度闭环",
+      "title": "LAW：把语言规划、动作价值与世界动作模型接成执行闭环",
+      "organization": "北京大学多媒体信息处理全国重点实验室；北京人形机器人创新中心",
+      "published": "2026-10-16",
+      "date_label": "首版10月16日11:39 UTC／北京时间19:39；10月19日arXiv新批次发现并补收",
+      "summary": "VLM planner预测剩余语义子任务，WAM生成动作片段，value expert给候选动作评分／融合，再由异步状态判断决定继续还是切换子任务。MoTE分开video／action私有专家并保留共享专家，双流层级记忆支持长程上下文，subtask-local value learning保留失败轨迹中的成功前缀。RoboTwin 50任务中LAW＋Fast-WAM平均94.21%、＋OpenWAM-alpha为95.56%；三个真实长程任务每方法每任务20次，LAW完整任务成功率平均65%。",
+      "why": "世界动作模型需要一个与语义目标对应的执行接口。LAW将“还剩什么子任务、当前是否已完成、哪个动作更有价值”做成显式训练与运行环节，帮助分析语言规划怎样参与真实闭环，而不只在动作策略前面生成一句计划。模型、数据链接已由代码README给出，权重文件本轮未下载或验证。",
+      "limitation": "95.56%是RoboTwin仿真基准，不能写成真实机器人成功率。实机是AgileX Cobot Magic双PiPER臂，只有Puzzle、Domino、Organize三个桌面任务，20次／任务；每任务300条遥操作训练轨迹，共900条。不是开放世界或跨本体泛化。README列完整训练／评测配置为4节点×8 GPU；本文自报结果未独立复现。",
+      "sources": [
+        {
+          "label": "arXiv v1 · 2026-10-16；已读方法、训练细节与真实任务实验",
+          "url": "https://arxiv.org/html/2610.23334v1"
+        },
+        {
+          "label": "作者项目页 · 方法、仿真与实机分开展示",
+          "url": "https://hey-cjj.github.io/LAW-project/"
+        },
+        {
+          "label": "作者代码 · 训练配置、模型和数据卡入口",
+          "url": "https://github.com/hey-cjj/LAW"
+        }
+      ]
+    },
+    {
+      "id": "realcli-human-agent-collaboration-evaluation",
+      "category": "llm",
+      "tag": "新评测 · 人机协作 · 10月19日arXiv公开列表",
+      "title": "RealCLI：Agent完成任务后，还要检查它是否记住用户约束",
+      "organization": "IQuest Research、北京航空航天大学、中国人民大学",
+      "published": "2026-10-16",
+      "date_label": "10月19日arXiv cs.CL公开批次；首版提交10月15日18:03 UTC／北京时间10月16日02:03，日期分别保留",
+      "summary": "RealCLI把同一组101个CLI任务做成配对测试：EXEC开头提供完整规格，COLLAB用脚本化用户逐步补充信息、纠正、修改约束和决定授权；两轨共享任务目标、环境与结果验证器。团队把协作拆成可理解性、可引导性、观察恢复、信任校准和风险意识五维，并用51类场景与1658项检查评分。在11个模型、三种Agent框架的33种配置中，Claude Code的交互和自主执行平均任务通过率分别为46.8%与47.4%；但17.9%的运行由失败转成功，同时18.5%由成功转失败。",
+      "why": "它针对一个正在变重要的评测问题：现实里的Agent会收到后续要求，单看最终文件是否通过测试，可能漏掉遗忘既有约束、误把新要求当全局替换等问题。论文报告，在通过任务结果验证的交互轨迹中，91.0%仍至少未通过一项适用协作检查。这个结果提出“任务成功”和“协作成功”应分开测的研究方向；目前是单篇新评测，尚无独立复现或足够社区讨论证据。",
+      "limitation": "这是10月19日公开列表中的论文，但实际首版提交为10月16日北京时间。结果由作者评测，脚本化用户不等于真实用户研究；每配置101项、avg@3、最多600轮，EXEC给6小时而COLLAB给10小时，不能直接推广为所有人机协作收益。场景要全部检查通过，再以跨任务75%阈值二值化，最后五维等权；联合分数是任务成功率乘协作分，强烈依赖这套严格聚合。摘要／主表的最高平均49.2%与引言52.7%不一致，本条不采用该排名数字。官方README仍写Dataset Coming Soon、runner待发布，不能声称基准已完整开源可复现。",
+      "sources": [
+        {
+          "label": "首版日期与摘要",
+          "url": "https://arxiv.org/abs/2610.22507"
+        },
+        {
+          "label": "论文全文：配对协议、打分、主表、预算与失败分析",
+          "url": "https://arxiv.org/html/2610.22507v1"
+        },
+        {
+          "label": "10月19日公开批次列表（第二页）",
+          "url": "https://arxiv.org/list/cs.CL/recent?skip=100&show=100"
+        },
+        {
+          "label": "官方仓库README：Dataset Coming Soon与artifact待发布说明",
+          "url": "https://github.com/RealCLI-Team/RealCLI-Benchmark-v1.0"
+        }
+      ]
+    },
+    {
+      "id": "imep-interventional-robot-memory-evaluation",
+      "category": "embodied",
+      "tag": "Agent记忆／因果干预评测",
+      "title": "IMEP：机器人加了记忆，怎样证明它真的使用了关键事实？",
+      "organization": "Hainan Bielefeld University of Applied Sciences；慕尼黑工业大学；柏林工业大学",
+      "published": "2026-10-16",
+      "date_label": "首版10月16日12:23 UTC／北京时间20:23；10月19日arXiv新批次发现并补收",
+      "summary": "Interventional Memory Evaluation Protocol不只比较memory on／off，还替换关键事实、保持事实但改变表面表示、施加最小数值扰动或装入精确副本，分开统计决策正确和动作执行成功。ChainBench要求决策依赖当前画面看不到的历史；在共享录制执行的条件下，完整记忆成功率从39.1%变成74.3%。cross-episode learned bank中，1 ULP扰动连同安装过程改变11.9%的seed配对结果，而事实替换相对保留事实的替换没有清晰额外作用。",
+      "why": "长程Agent和机器人记忆研究正在增长；“开记忆后成功率更高”仍不能定位提升究竟来自记忆内容、实现扰动还是动作执行差异。该协议给出更具体的事实依赖测试，可与此前Hy-Memory等工作对照阅读，但两者不是同一实验，也不能由本论文否定全部记忆机制。",
+      "limitation": "实验在SimplerEnv、MIKASA-Robo和LIBERO仿真完成，无实体机器人。ChainBench的39.1%→74.3%使用共享录制执行，不能表述为真实闭环成功率提升；11.9%也不能单独归因于一位数值变化，包含干预安装过程。公开匿名包提供协议／材料而非完整实验复跑。本轮没有足够独立讨论证据，将它标为新评测方向。",
+      "sources": [
+        {
+          "label": "arXiv v1 · 2026-10-16；已读干预设计、ChainBench、局限",
+          "url": "https://arxiv.org/html/2610.23372v1"
+        },
+        {
+          "label": "arXiv摘要与作者机构／提交日期",
+          "url": "https://arxiv.org/abs/2610.23372"
+        },
+        {
+          "label": "作者匿名公开协议包 · 页面为动态壳，协议范围以论文陈述为准，未验证完整复跑",
+          "url": "https://anonymous.4open.science/r/IMEP-ChainBench-DC83/"
+        }
+      ]
+    },
+    {
+      "id": "mit-blind-proprioceptive-assembly",
+      "category": "embodied",
+      "tag": "本体感觉／接触技能与Sim-to-Real",
+      "title": "MIT盲装配：只靠关节反馈，仿真训练策略零样本完成真实插孔",
+      "organization": "麻省理工学院 MIT",
+      "published": "2026-10-17",
+      "date_label": "首版10月16日17:58 UTC／北京时间10月17日01:58；10月19日arXiv新批次发现并补收",
+      "summary": "策略只用关节位置、速度、由编码器推导的夹爪状态及历史动作，不看图像，也不用力矩、力或触觉传感器。PPO在随机化几何、抓取姿态、接触参数与fixture位置的仿真中学习接触搜索；覆盖插孔、齿轮啮合和拧螺母，并提出精确小间隙装配件生成器mjfit。插孔策略冻结后部署Flexiv Rizon 4S＋Robotiq 2F-85，50Hz，8种3D打印peg、其中3种分布外；237次实机试验成功173次，约73%。",
+      "why": "通用大模型控制的瓶颈常落到精密接触动作。这项研究提供互补视角：身体反馈和专门训练的低层技能可对新几何泛化，不能只凭更强语言推理解决接触控制。它不是VLA或大模型论文，但对理解具身系统中高层规划与接触技能分工有价值。",
+      "limitation": "开始时peg已接触fixture并在孔附近，需要其他系统先完成接近和放置；这是局部装配技能，不会全局找回掉落零件。73%限于该平台、物体及初始化协议；真实部署只验证插孔，齿轮啮合与螺母旋入主要为仿真任务。结果为作者自报，未独立复现；不是通用跨任务机器人能力。 作者项目页将mjfit标为“soon”，本轮未找到可直接访问的独立代码仓库，不能声称生成器已完整开源。",
+      "sources": [
+        {
+          "label": "arXiv v1 · 2026-10-16；已读任务初始化、Sim-to-Real与真实试验",
+          "url": "https://arxiv.org/html/2610.23849v1"
+        },
+        {
+          "label": "arXiv摘要与提交历史",
+          "url": "https://arxiv.org/abs/2610.23849"
+        },
+        {
+          "label": "作者项目页 · 已读方法、真实试验；mjfit标记soon，未找到独立代码仓库",
+          "url": "https://younghyopark.me/blind-proprioceptive-assembly/"
+        }
+      ]
+    },
+    {
+      "id": "vllm-kimi-k3-agent-kernel-verification",
+      "category": "llm",
+      "tag": "代码Agent · 推理系统 · 10月16日技术博客补收",
+      "title": "Agent开始写GPU内核：vLLM为Kimi K3建立优化与验证闭环",
+      "organization": "NVIDIA、vLLM贡献者；模型来自Moonshot AI／月之暗面",
+      "published": "2026-10-16",
+      "date_label": "10月16日vLLM官方技术博客；补收新的Agent辅助推理优化事件，Kimi K3模型发布此前已收录",
+      "summary": "NVIDIA／vLLM团队介绍用编码Agent协助开发Kimi K3的CuTe DSL decode路径，覆盖attention、MoE、通信重叠和权重预取。在16张GB300、batch 1、DSpark七个draft token且合成接受长度AL=6的受控配置中，作者报告842 decode tokens/s，相比相同投机解码设置的stock vLLM为1.73倍。团队同时承认，Agent生成优化代码的速度已超过人工逐行审查速度，因此提出把模型改动隔离、限定硬件与负载范围，并系统验证正确性、生产功能及性能。",
+      "why": "这里的新用法是让代码Agent进入复杂GPU kernel和分布式执行优化。技术问题随之从“能否写出更快代码”转向“怎样证明优化在目标负载下正确且可维护”。该博客提供了优化方法、硬件配置、PR与验证机制，适合观察Agent如何改变推理软件的开发流程；目前证据主要是团队发布，不能据此称全社区热议。",
+      "limitation": "这是10月16日事件的补收，并非新的Kimi K3模型。842 tokens/s为整个TP组的decode吞吐，排除prefill，且使用合成接受长度；不代表任意真实Agent任务都能达到该速度。文中AgentX P90 interactivity最高1.8倍的比较同时从8张GB300增加到16张，不能归因为等硬件纯软件提升。其余增益也限于给定硬件、并行与batch配置；未独立跑测。",
+      "sources": [
+        {
+          "label": "vLLM官方博客全文：方法、配置、性能和验证流程",
+          "url": "https://vllm.ai/blog/2026-10-16-kimi-k3-megakernel"
+        },
+        {
+          "label": "博客指向的实现与完整性能表PR",
+          "url": "https://github.com/vllm-project/vllm/pull/61867"
+        },
+        {
+          "label": "博客指向的fast-track模型优化RFC",
+          "url": "https://github.com/vllm-project/vllm/issues/59665"
+        }
+      ]
+    },
+    {
+      "id": "flashmask3-mask-aware-distributed-attention",
+      "category": "llm",
+      "tag": "长上下文训练 · NeurIPS 2026 Poster · 7日补收",
+      "title": "百度FlashMask-3：让结构化稀疏注意力的计算和跨卡通信一起调度",
+      "organization": "百度 Baidu / PaddlePaddle",
+      "published": "2026-10-13",
+      "date_label": "论文首版10月13日07:55 UTC／北京时间15:55；独立仓库首个代码提交10月15日09:07 UTC，补收近7日遗漏",
+      "summary": "长上下文与多模态训练中，不同文档、前缀和滑动窗口的mask使每块序列的实际工作量不同。FlashMask-3用按列边界向量表示mask，在各GPU本地转换mask，并按照有效计算量分配任务、裁剪不必传输的KV块，把计算与通信重叠。在118B总参数、14B激活的MoE上，作者以128张H100训练128K上下文，三种document-mask稀疏度下整轮训练吞吐提升7.3%–11.0%；对应attention前后向提速24.5%–44.9%。",
+      "why": "模型长上下文扩展的瓶颈同时涉及注意力内核、GPU负载和跨节点通信；单卡快并不保证多机训练快。这项工作把mask的语义结构用于整个执行流程，是国内团队近期值得补收的训练效率研究。它提供完整配置与消融，适合区分局部内核收益和实际整轮训练收益；尚未找到足够独立讨论，按新研究呈现。",
+      "limitation": "收益来自论文给定的H100集群、模型、结构化mask与通信拓扑，未独立复现；不能推成所有模型、硬件或推理任务均提速11%。表1每配置70步，去掉最高与最低各10步后统计50步，不是长期大规模训练的完整耗时。当前仓库同时含FlashMask-4；README的9月25日版本标签早于独立仓库代码提交，不能把其FlashMask-4跑分混成本文FlashMask-3结果。已核NeurIPS 2026会方单篇页面标为Poster；会方摘要仍写代码将发布，与当前代码状态有版本差异，未读OpenReview评审。",
+      "sources": [
+        {
+          "label": "arXiv首版时间、作者及会议自述",
+          "url": "https://arxiv.org/abs/2610.17901"
+        },
+        {
+          "label": "论文方法、§4.3表1与消融；原始实验结果",
+          "url": "https://arxiv.org/html/2610.17901v1"
+        },
+        {
+          "label": "Paddle官方仓库；区分FlashMask-3与-4",
+          "url": "https://github.com/PaddlePaddle/FlashMask"
+        },
+        {
+          "label": "独立仓库首个代码提交：10月15日",
+          "url": "https://github.com/PaddlePaddle/FlashMask/commit/6a150fcf771bdbbaded07a427b53513ad1f5fb7b"
+        },
+        {
+          "label": "NeurIPS 2026官方单篇页面：Poster，标题和作者相符",
+          "url": "https://neurips.cc/virtual/2026/poster/148370"
+        }
+      ]
+    }
+  ]
+}

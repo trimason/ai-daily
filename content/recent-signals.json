@@ -1,9 +1,105 @@
 {
-  "title": "最近在推进什么：Agent记忆、实时工具与测试时适应",
-  "intro": "观察2026-10-14—10-18：本期新增长期记忆写入、实时网页工具、机器人进度记忆和测试时环境适应；日期较早的WorldOracle、Step、Muse和GroundingPI资源保留为背景，尚未核到新事件的项目不重复冒充今日新闻。社区讨论含DeepSeek开发工作流与本地Agent速度争点，均有具体原帖；其他论文按新研究呈现，这不是全行业热度排名。",
-  "window_start": "2026-10-14",
-  "window_end": "2026-10-18",
+  "title": "最近在推进什么：隐空间推理、机器人工具与评测证据",
+  "intro": "观察2026-10-13—10-19。本期前列是新批次发现和当日具体讨论：隐空间Agent、代码工具控制机器人、世界动作模型闭环，以及记忆和协作评测。10月13–17日首版或代码事件按遗漏补收保留原日期；DeepSeek、混元、WorldOracle和GroundingPI的既有条目作为窗口内背景，不冒充今日新发布。HybridAgent有独立社区争点，其他入选内容主要是新研究；此页不是全行业热度排名。",
+  "window_start": "2026-10-13",
+  "window_end": "2026-10-19",
   "signals": [
+    {
+      "id": "hybridagent-latent-thinking-tool-agents",
+      "title": "HybridAgent：让Agent在隐状态中思考，用文本调用工具",
+      "published": "2026-10-14",
+      "summary": "HybridAgent把一次Agent生成划分为latent mode与text mode：内部推理可以传递连续隐藏状态，工具调用、外部观察和最终输出仍通过文本完成。HybridLink将最后层隐藏状态映射回输入embedding，HybridSFT用自条件训练缓解训练与推理差异，HybridRL学习何时切换模式。作者在Qwen3-Base的4B、8B、14B模型和11个数学、知识搜索与Agent基准上实验，报告在其对照设置中性能改善、生成token减少35.5%–54.7%，并开放代码、模型与数据。",
+      "keywords": [
+        "Latent Reasoning"
+      ],
+      "url": "https://arxiv.org/abs/2610.18861",
+      "source_label": "Stanford University、UIUC、Together AI、Meta · arXiv首版10月13日17:59 UTC／北京时间10月14日01:59；10月19日北京时间出现活跃HN讨论，补收此前遗漏的论文",
+      "limitation": "论文是10月14日北京时间的旧事件，因此前遗漏且当日出现独立讨论而补收。实验为作者自测，使用H100和五个seed，未独立复现，也没有机器人闭环实验。1.8–2.6倍推理加速取决于文中配置；2.7–3.7倍成本改善来自固定H100单价与利用率下的生成计算估算，不含prompt prefill、上下文attention与外部工具。把latent state映射成pseudo-text不等于完整、忠实地读取内部推理；HN的循环反馈可能涉及实现、量化或模板兼容性，不能直接判定论文方法失效。"
+    },
+    {
+      "id": "hexashell-frozen-tools-rgb-retest",
+      "title": "HexaShell：机器人失败变成可复用代码工具，冻结后再测新布局",
+      "published": "2026-10-16",
+      "summary": "Codex＋GPT-6-Astra通过一个很薄的命令行接口控制RoboDojo中的双臂ARX X5，只接收三路RGB与标定信息。失败后第二个Agent读取日志，修改Python工具，跨episode保留；工具用三角测量、已知平面和主动移动腕部相机定位。每任务在10个布局开发工具，冻结后在同一seed的新布局重测；42个Isaac Sim仿真任务整体成功率39.7%、progress 48.0。10月16日更新加入任务recipe和工具notes，不能把重测提升全部归因于工具演化。",
+      "keywords": [
+        "Robot Coding Agent"
+      ],
+      "url": "https://arxiv.org/html/2610.23479v1",
+      "source_label": "HexaFuture · 10月16日13:56 UTC／北京时间21:56 arXiv首版与新布局重测更新；10月19日公开批次新见，项目10月9日已公开",
+      "limitation": "全部是RoboDojo／Isaac Sim仿真，没有实机闭环。新layout属于同一seed；一次重测episode耗时中位数约739秒，对应26秒机器人时间，绝大部分耗时来自模型延迟，不能称实时控制。开发集与新布局的prompt不同，不能直接当纯泛化消融。更新的是代码／工具与提示信息，非模型权重，也没有证明递归加速。仓库发布冻结工具、接口和结果，未发布完整harness、Agent容器及RoboDojo环境。"
+    },
+    {
+      "id": "law-language-action-world-closed-loop",
+      "title": "LAW：把语言规划、动作价值与世界动作模型接成执行闭环",
+      "published": "2026-10-16",
+      "summary": "VLM planner预测剩余语义子任务，WAM生成动作片段，value expert给候选动作评分／融合，再由异步状态判断决定继续还是切换子任务。MoTE分开video／action私有专家并保留共享专家，双流层级记忆支持长程上下文，subtask-local value learning保留失败轨迹中的成功前缀。RoboTwin 50任务中LAW＋Fast-WAM平均94.21%、＋OpenWAM-alpha为95.56%；三个真实长程任务每方法每任务20次，LAW完整任务成功率平均65%。",
+      "keywords": [
+        "World Action Model"
+      ],
+      "url": "https://arxiv.org/html/2610.23334v1",
+      "source_label": "北京大学多媒体信息处理全国重点实验室；北京人形机器人创新中心 · 首版10月16日11:39 UTC／北京时间19:39；10月19日arXiv新批次发现并补收",
+      "limitation": "95.56%是RoboTwin仿真基准，不能写成真实机器人成功率。实机是AgileX Cobot Magic双PiPER臂，只有Puzzle、Domino、Organize三个桌面任务，20次／任务；每任务300条遥操作训练轨迹，共900条。不是开放世界或跨本体泛化。README列完整训练／评测配置为4节点×8 GPU；本文自报结果未独立复现。"
+    },
+    {
+      "id": "realcli-human-agent-collaboration-evaluation",
+      "title": "RealCLI：Agent完成任务后，还要检查它是否记住用户约束",
+      "published": "2026-10-16",
+      "summary": "RealCLI把同一组101个CLI任务做成配对测试：EXEC开头提供完整规格，COLLAB用脚本化用户逐步补充信息、纠正、修改约束和决定授权；两轨共享任务目标、环境与结果验证器。团队把协作拆成可理解性、可引导性、观察恢复、信任校准和风险意识五维，并用51类场景与1658项检查评分。在11个模型、三种Agent框架的33种配置中，Claude Code的交互和自主执行平均任务通过率分别为46.8%与47.4%；但17.9%的运行由失败转成功，同时18.5%由成功转失败。",
+      "keywords": [
+        "Human–Agent Collaboration"
+      ],
+      "url": "https://arxiv.org/abs/2610.22507",
+      "source_label": "IQuest Research、北京航空航天大学、中国人民大学 · 10月19日arXiv cs.CL公开批次；首版提交10月15日18:03 UTC／北京时间10月16日02:03，日期分别保留",
+      "limitation": "这是10月19日公开列表中的论文，但实际首版提交为10月16日北京时间。结果由作者评测，脚本化用户不等于真实用户研究；每配置101项、avg@3、最多600轮，EXEC给6小时而COLLAB给10小时，不能直接推广为所有人机协作收益。场景要全部检查通过，再以跨任务75%阈值二值化，最后五维等权；联合分数是任务成功率乘协作分，强烈依赖这套严格聚合。摘要／主表的最高平均49.2%与引言52.7%不一致，本条不采用该排名数字。官方README仍写Dataset Coming Soon、runner待发布，不能声称基准已完整开源可复现。"
+    },
+    {
+      "id": "imep-interventional-robot-memory-evaluation",
+      "title": "IMEP：机器人加了记忆，怎样证明它真的使用了关键事实？",
+      "published": "2026-10-16",
+      "summary": "Interventional Memory Evaluation Protocol不只比较memory on／off，还替换关键事实、保持事实但改变表面表示、施加最小数值扰动或装入精确副本，分开统计决策正确和动作执行成功。ChainBench要求决策依赖当前画面看不到的历史；在共享录制执行的条件下，完整记忆成功率从39.1%变成74.3%。cross-episode learned bank中，1 ULP扰动连同安装过程改变11.9%的seed配对结果，而事实替换相对保留事实的替换没有清晰额外作用。",
+      "keywords": [
+        "Interventional Evaluation"
+      ],
+      "url": "https://arxiv.org/html/2610.23372v1",
+      "source_label": "Hainan Bielefeld University of Applied Sciences；慕尼黑工业大学；柏林工业大学 · 首版10月16日12:23 UTC／北京时间20:23；10月19日arXiv新批次发现并补收",
+      "limitation": "实验在SimplerEnv、MIKASA-Robo和LIBERO仿真完成，无实体机器人。ChainBench的39.1%→74.3%使用共享录制执行，不能表述为真实闭环成功率提升；11.9%也不能单独归因于一位数值变化，包含干预安装过程。公开匿名包提供协议／材料而非完整实验复跑。本轮没有足够独立讨论证据，将它标为新评测方向。"
+    },
+    {
+      "id": "mit-blind-proprioceptive-assembly",
+      "title": "MIT盲装配：只靠关节反馈，仿真训练策略零样本完成真实插孔",
+      "published": "2026-10-17",
+      "summary": "策略只用关节位置、速度、由编码器推导的夹爪状态及历史动作，不看图像，也不用力矩、力或触觉传感器。PPO在随机化几何、抓取姿态、接触参数与fixture位置的仿真中学习接触搜索；覆盖插孔、齿轮啮合和拧螺母，并提出精确小间隙装配件生成器mjfit。插孔策略冻结后部署Flexiv Rizon 4S＋Robotiq 2F-85，50Hz，8种3D打印peg、其中3种分布外；237次实机试验成功173次，约73%。",
+      "keywords": [
+        "Proprioceptive Sim-to-Real"
+      ],
+      "url": "https://arxiv.org/html/2610.23849v1",
+      "source_label": "麻省理工学院 MIT · 首版10月16日17:58 UTC／北京时间10月17日01:58；10月19日arXiv新批次发现并补收",
+      "limitation": "开始时peg已接触fixture并在孔附近，需要其他系统先完成接近和放置；这是局部装配技能，不会全局找回掉落零件。73%限于该平台、物体及初始化协议；真实部署只验证插孔，齿轮啮合与螺母旋入主要为仿真任务。结果为作者自报，未独立复现；不是通用跨任务机器人能力。 作者项目页将mjfit标为“soon”，本轮未找到可直接访问的独立代码仓库，不能声称生成器已完整开源。"
+    },
+    {
+      "id": "vllm-kimi-k3-agent-kernel-verification",
+      "title": "Agent开始写GPU内核：vLLM为Kimi K3建立优化与验证闭环",
+      "published": "2026-10-16",
+      "summary": "NVIDIA／vLLM团队介绍用编码Agent协助开发Kimi K3的CuTe DSL decode路径，覆盖attention、MoE、通信重叠和权重预取。在16张GB300、batch 1、DSpark七个draft token且合成接受长度AL=6的受控配置中，作者报告842 decode tokens/s，相比相同投机解码设置的stock vLLM为1.73倍。团队同时承认，Agent生成优化代码的速度已超过人工逐行审查速度，因此提出把模型改动隔离、限定硬件与负载范围，并系统验证正确性、生产功能及性能。",
+      "keywords": [
+        "Agent-generated Kernels"
+      ],
+      "url": "https://vllm.ai/blog/2026-10-16-kimi-k3-megakernel",
+      "source_label": "NVIDIA、vLLM贡献者；模型来自Moonshot AI／月之暗面 · 10月16日vLLM官方技术博客；补收新的Agent辅助推理优化事件，Kimi K3模型发布此前已收录",
+      "limitation": "这是10月16日事件的补收，并非新的Kimi K3模型。842 tokens/s为整个TP组的decode吞吐，排除prefill，且使用合成接受长度；不代表任意真实Agent任务都能达到该速度。文中AgentX P90 interactivity最高1.8倍的比较同时从8张GB300增加到16张，不能归因为等硬件纯软件提升。其余增益也限于给定硬件、并行与batch配置；未独立跑测。"
+    },
+    {
+      "id": "flashmask3-mask-aware-distributed-attention",
+      "title": "百度FlashMask-3：让结构化稀疏注意力的计算和跨卡通信一起调度",
+      "published": "2026-10-13",
+      "summary": "长上下文与多模态训练中，不同文档、前缀和滑动窗口的mask使每块序列的实际工作量不同。FlashMask-3用按列边界向量表示mask，在各GPU本地转换mask，并按照有效计算量分配任务、裁剪不必传输的KV块，把计算与通信重叠。在118B总参数、14B激活的MoE上，作者以128张H100训练128K上下文，三种document-mask稀疏度下整轮训练吞吐提升7.3%–11.0%；对应attention前后向提速24.5%–44.9%。",
+      "keywords": [
+        "Mask-aware Context Parallelism"
+      ],
+      "url": "https://arxiv.org/abs/2610.17901",
+      "source_label": "百度 Baidu / PaddlePaddle · 论文首版10月13日07:55 UTC／北京时间15:55；独立仓库首个代码提交10月15日09:07 UTC，补收近7日遗漏",
+      "limitation": "收益来自论文给定的H100集群、模型、结构化mask与通信拓扑，未独立复现；不能推成所有模型、硬件或推理任务均提速11%。表1每配置70步，去掉最高与最低各10步后统计50步，不是长期大规模训练的完整耗时。当前仓库同时含FlashMask-4；README的9月25日版本标签早于独立仓库代码提交，不能把其FlashMask-4跑分混成本文FlashMask-3结果。已核NeurIPS 2026会方单篇页面标为Poster；会方摘要仍写代码将发布，与当前代码状态有版本差异，未读OpenReview评审。"
+    },
     {
       "id": "deepseek-flash-1017-search-fetch",
       "title": "DeepSeek V4.1 Flash 1017：优化完整项目开发，并开放原生Search／Fetch接口",
@@ -29,97 +125,6 @@
       "url": "https://arxiv.org/abs/2610.22196",
       "source_label": "腾讯混元 Tencent Hunyuan · 报告首版10月15日16:46 UTC（北京10月16日00:46）；框架与MemHub首个Release于10月16日16:44北京时间公开，10月17日更新SDK至2.0.3，本期补收",
       "limitation": "55.49%是作者规定的四框架六指标宏平均，不是单一任务成功率或完整数据集成绩；部分框架领先仅0.01–0.02个百分点，论文明确不具统计显著性，未提供主要奖励分量的受控消融。EverMemOS只是一个留出框架，不证明任意OOD或机器人泛化。论文、SDK、MemHub是不同层；第三方10月16日源码审阅提出评测工具缺口与删除语义问题，但该审阅依赖LLM且未实际运行，针对固定旧提交，不能当作当前版本已复现漏洞。"
-    },
-    {
-      "id": "t2z-test-time-environment-latent-adaptation",
-      "title": "T2-z：不改世界模型权重，只在测试时优化32维环境变量来适应新物理条件",
-      "published": "2026-10-16",
-      "summary": "T2-z把环境里看不见的摩擦、质量或交互规则编码为32维latent。训练时交替更新世界模型与环境变量，测试时冻结模型，只用一条或少量交互轨迹的预测误差来优化新的latent。论文包含7种模拟设置与4个真实任务；表2中真实任务平均action success由26.47%升至70.80%，平均跟踪状态预测误差（像素）由19.30降至10.85。",
-      "keywords": [
-        "Test-time Adaptation",
-        "Environment Latent"
-      ],
-      "url": "https://arxiv.org/abs/2610.22364",
-      "source_label": "Stanford、CMU、Toyota Research Institute、USC · 首版10月15日17:59 UTC／北京时间10月16日01:59；本期补收",
-      "limitation": "26.47%→70.80%是论文表2的四个真实任务结果；摘要33.73%→72.96%跨模拟和真实汇总，不能叫真实机器人成功率。仍是作者控制的物理因素和小任务集；32维latent不保证等同可解释物理参数，也没有证明解决任意OOD行为。代码入口已读，数据集入口本次超时，无第三方复现。"
-    },
-    {
-      "id": "vam-value-progress-memory-online-rl",
-      "title": "Value as Memory：把任务进度变成机器人的短期记忆，再用真实反馈在线改进",
-      "published": "2026-10-16",
-      "summary": "VaM让动作专家读取最近的value预测，用进度历史辨别“正在完成任务”与“看起来相似但实际卡住了”的状态，再结合离线示范、人类干预和在线自主rollout更新策略。作者在盒子装配、叠衣和磁性公交装配三个真实任务中报告：value缓存相比去掉缓存的平均绝对成功率提升29.4个百分点；在线RL相对匹配离线RL的另一组比较提升32.8个百分点。",
-      "keywords": [
-        "Value as Memory",
-        "Online Robot RL"
-      ],
-      "url": "https://arxiv.org/abs/2610.22368",
-      "source_label": "上海交通大学、Shanghai Innovation Institute、Noematrix · 首版10月15日17:59 UTC／北京时间10月16日01:59；本期补收",
-      "limitation": "29.4与32.8个百分点来自不同比较，不能相加或混写；三个真实任务、作者自测和checkpoint均值不能外推为开放世界泛化。在线流程仍使用示范、人类干预和奖励，时间节省来自实验中的并行采集/训练设置，不能宣称零人工或递归自我改进。 作者代码已公开，本轮仅查阅说明，未执行训练或独立复现。"
-    },
-    {
-      "id": "agibot-gesim-worldoracle-g02-yam-update",
-      "title": "智元GE-Sim补齐G02/YAM的WorldOracle评测：把动作后果预测接到可复核流程",
-      "published": "2026-10-17",
-      "summary": "智元在10月17日提交中新增G02和YAM两套WorldOracle配置、推理脚本和文档，并在News公告相配权重。相比原有G01闭环模拟流程，新增资源面向WorldOracle的动作条件视频预测与评测，给“世界模型到底有没有忠实预测动作后果”提供了更具体的复核入口。",
-      "keywords": [
-        "World Model Evaluation",
-        "Cross-embodiment"
-      ],
-      "url": "https://github.com/AgibotTech/GE-Sim-V2/commit/2e8f6d71f1c2a04eb7f667eaee2adf016bd75c56",
-      "source_label": "智元 AgiBot · 10月17日代码/资源更新；原技术报告5月28日",
-      "limitation": "新G02/YAM流程为video-only评测，不能直接替代原G01服务端加载流程；文档说明YAM相机标定由作者从验证集估计。本次读过提交diff、README和运行文档，但没有执行GPU推理、下载大权重或做第三方复现；资源开放不等于真实机器人成功率已提高。"
-    },
-    {
-      "id": "community-local-agent-prefill-completion-speed",
-      "title": "本地Agent到底快不快：这轮讨论追问预填充、缓存与返工，而非只看每秒输出token",
-      "published": "2026-10-17",
-      "summary": "llmspeed用模拟输出帮助选择本地硬件，作者说明数据混合社区实测与按规格推算，限单设备短提示。10月17日讨论的实质争点是：编码Agent经常读长历史并并行调用，只看decode tokens/s会漏掉prefill、首token等待、KV缓存及CPU/GPU卸载；引擎版本、量化、投机解码与具体上下文也会显著改变结果。有用户认可购买前模拟的价值，也有人提交与自身设备结果不一致的反例。",
-      "keywords": [
-        "Prefill / Decode",
-        "Task Completion Cost"
-      ],
-      "url": "https://news.ycombinator.com/item?id=50127979",
-      "source_label": "Hacker News开发者讨论 · llmspeed作者与使用者 · HN原帖10月17日04:36 UTC（北京12:36）；观察至10月18日中午，主帖约264分／77条评论，仅代表该站窗口",
-      "limitation": "这是单个开发者社区的具体话题，不代表全行业共识；评论设备跑分未经本刊复现，不能作为购机性能表。模拟器本身不是浏览器内实际运行模型，也不是科学基准。264分和77评论是采集时快照，热度不计为技术结论；相关多GPU或缓存建议也不自动证明已支持。"
-    },
-    {
-      "id": "claude-quantum-circuit-evaluator-search",
-      "title": "Claude用可验证反馈设计量子电路：模型提出新结构，程序检验正确性与资源代价",
-      "published": "2026-10-16",
-      "summary": "研究让Claude Mythos 5通过Python提出量子计算原语设计，独立程序检查行为并按Toffoli门数×峰值量子比特数评分，多条算法路线并行搜索、交换有用候选。八项任务中七项同时降低两类资源；第八项发现可逆模逆架构，改善时间与空间取舍。一个点加法方案比此前最省比特方案多用12%比特、少用17倍门；DQI所用解码子程序门数约降12倍，两数字对应不同子任务。",
-      "keywords": [
-        "Verifier-guided Search",
-        "AI for Science"
-      ],
-      "url": "https://www.anthropic.com/research/designing-efficient-quantum-circuits",
-      "source_label": "Anthropic · Harvard University · QuEra Computing · 论文首版10月15日17:59 UTC（北京10月16日01:59）；Anthropic技术文章10月16日，本期补收",
-      "limitation": "这是算法／电路设计与经典程序验证，尚非量子硬件上演示加速；12倍仅是相关解码子程序，不能写成整个量子算法或所有任务都提速12倍。验证利用可高效模拟的一类基态保持电路，不覆盖任意量子电路；较大输入域采用抽样轨迹检验，不能等同穷举证明所有输入。53小时案例仍有初始人工规格与偶尔拓宽思路的提示；最终证明与程序检查的范围需逐项看，不等于大模型自主完成全部科学工作。"
-    },
-    {
-      "id": "step5-preview-agent-architecture",
-      "title": "Step 5新技术解读：92层深网络、稀疏GQA与长程Agent训练",
-      "published": "2026-10-15",
-      "summary": "阶跃10月15日技术博客解释92层深网络、局部/稀疏全注意力和长程Agent训练；这次新增是技术细节，模型已于此前公开。",
-      "keywords": [
-        "Long-horizon Agents",
-        "Sparse GQA"
-      ],
-      "url": "https://platform.stepfun.ai/blog/inside-step-5-preview",
-      "source_label": "阶跃星辰 StepFun · 10月15日官方技术博客；Step-5-Preview仓库10月12日创建，区分模型公开与技术解读",
-      "limitation": "官方自述，未独立测评；通用Agent训练与机器人控制的证据分别判断。"
-    },
-    {
-      "id": "meta-muse-spark-open",
-      "title": "Meta Muse Spark Open：816B总参数、42B激活与百万上下文的开放权重多模态MoE",
-      "published": "2026-10-15",
-      "summary": "Meta开放Muse Spark Open权重：816B总参数、42B激活，文本/图像/音频/视频输入，统一百万上下文；实现已接入多个推理与训练框架。",
-      "keywords": [
-        "Multimodal MoE",
-        "Long-context Agents"
-      ],
-      "url": "https://huggingface.co/blog/meta-muse-spark-open",
-      "source_label": "Meta · Meta/NVIDIA公开材料均标注10月15日；北京时间10月16日07:36 IT之家报道。Transformers集成文档注明10月14日贡献，不能当模型首发日",
-      "limitation": "开放权重不等于OSI开源；本轮未读到许可证正文，未独立跑分，机器人应用仍需单独的实验依据。"
     },
     {
       "id": "worldoracle-paired-real-execution",
