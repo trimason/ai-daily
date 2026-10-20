@@ -14,7 +14,7 @@
       ],
       "url": "https://dreamlabs.ai/research/dream-1",
       "source_label": "Dream Labs（DreamZero团队；前NVIDIA GR00T成员） · Robocurve将Dream-1发布日期列为2026-10-19；官方研究页仅标注2026年10月；10月20日从凤凰科技转载机器之心报道发现并回查官方与独立评测",
-      "limitation": "Robocurve是独立评测，但RoboDojo-RC Tier 1是其对原RoboDojo做过适配的六项真实任务，不等于所有机器人场景；分数为人工按任务rubric评分的progress。Dream Labs全文给出的仿真汇总写27个未见本体、每本体300 rollout，而官方full-sim-eval页写297（147个language-following rollout加150个unseen-task rollout），存在统计口径差异，不能把300当无条件精确值。Dream-1只支持双臂平行夹爪操作，端执行器控制把路径规划交给IK；在障碍物、关节极限或明显不同动力学下可能产生不可行动作。官方明确未验证安全关键用途，应在受控环境测试。Robocurve页面显示的GPT-6/Gemini配置与媒体转载数字不完全一致，应以独立评测当前页面为准。"
+      "limitation": "Robocurve是独立评测，但RoboDojo-RC Tier 1是其对原RoboDojo做过适配的六项真实任务，不等于所有机器人场景；分数为人工按任务rubric评分的progress。Dream Labs全文给出的仿真汇总写27个未见本体、每本体300 rollout，而官方full-sim-eval页写297（147个language-following rollout加150个unseen-task rollout），存在统计口径差异，不能把300当无条件精确值。Dream-1只支持双臂平行夹爪操作，端执行器接口依赖机器人自身IK把目标位姿映射到关节配置，这不自动提供避障或可达性保证；在障碍物、关节极限或明显不同动力学下可能产生不可行动作。官方明确未验证安全关键用途，应在受控环境测试。Robocurve页面显示的GPT-6/Gemini配置与媒体转载数字不完全一致，应以独立评测当前页面为准。"
     },
     {
       "id": "rax-online-exploration-code-skills",
