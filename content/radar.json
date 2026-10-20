@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-10-19",
+  "updated_on": "2026-10-20",
   "intro": "每日从研究目录、作者项目、论文、代码、模型卡、技术博客和社区原帖交叉发现大模型与具身的新进展及讨论问题，按当期证据轮换选题。持续覆盖国内外团队与小鹏 GroundingPI 等原始研究；主入口可达、内容已读和社区关注度分别核验。",
   "groups": [
     {
@@ -693,6 +693,14 @@
               "status": "content_verified",
               "checked_on": "2026-10-18",
               "note": "已读Search结构化结果、Fetch Markdown与应用编排方式；不是机器人控制发布。"
+            },
+            {
+              "label": "deepseek-recipe 代码与发布历史",
+              "url": "https://github.com/deepseek-ai/deepseek-recipe",
+              "kind": "官方协议和提示工具",
+              "status": "content_verified",
+              "checked_on": "2026-10-20",
+              "note": "10-19 Release 0.2.0及README已读；协议转换、提示渲染与流式解析工程，不等于新模型或具身模型发布。"
             }
           ],
           "evidence": [
@@ -756,8 +764,8 @@
               "url": "https://github.com/QwenLM/Qwen-RobotManip",
               "kind": "具身研究专项",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "已读README及报告链接；演示和报告公开，README明确不计划发布RobotManip/RobotNav权重。"
+              "checked_on": "2026-10-20",
+              "note": "本轮重读README和提交，最新可核提交为6月；历史研究不作为今日新闻。"
             },
             {
               "label": "RobotManip 官方博文",
@@ -774,6 +782,14 @@
               "status": "content_verified",
               "checked_on": "2026-10-15",
               "note": "已读README、任务组成和评分协议；3D创作Agent评测，不能当实机控制成果。"
+            },
+            {
+              "label": "研究目录当前入口",
+              "url": "https://qwen.ai/research",
+              "kind": "官方研究索引",
+              "status": "unreadable",
+              "checked_on": "2026-10-20",
+              "note": "本轮HTTP取得动态空壳；旧博客提示迁移。不能以HTTP200证明已读取当前成果，已补查官方组织和RobotManip README。"
             }
           ],
           "evidence": [
@@ -1121,6 +1137,14 @@
               "status": "content_verified",
               "checked_on": "2026-10-14",
               "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
+            },
+            {
+              "label": "MiniMax M3.1 Flash 官方发布",
+              "url": "https://www.minimax.io/blog/minimax-m31f",
+              "kind": "模型发布与自报评测",
+              "status": "content_verified",
+              "checked_on": "2026-10-20",
+              "note": "10-19官方发布正文已读；更激进稀疏化、Agent评测与成本为官方自报；API可用，权重计划稍后，未独立复现。"
             }
           ]
         },
@@ -1249,12 +1273,15 @@
           "name": "蚂蚁百灵 inclusionAI",
           "url": "https://modelscope.cn/models/inclusionAI/Ling-3.1-flash",
           "role": "国内大模型团队原始发布",
-          "scope": "百灵基础模型、混合注意力、长上下文、推理与长程Agent部署",
+          "scope": "百灵基础模型、混合注意力、长上下文、推理与长程Agent部署、Ming音频理解与上下文ASR",
           "aliases": [
             "蚂蚁百灵",
             "百灵",
             "inclusionAI",
-            "Ling"
+            "Ling",
+            "Ming",
+            "百灵语音",
+            "Ming-3.0-asr-tiny"
           ],
           "watch_terms": [
             "Ling",
@@ -1297,6 +1324,38 @@
               "status": "content_verified",
               "checked_on": "2026-10-16",
               "note": "2026-10-16已读；本页写约17B激活、262144上下文，与官方模型卡25B/1M存在口径差异，应分别核对，不能拼接为统一规格。"
+            },
+            {
+              "label": "Ming-3.0-asr-tiny 官方代码",
+              "url": "https://github.com/inclusionAI/Ming-3.0-asr",
+              "kind": "音频模型代码与发布历史",
+              "status": "content_verified",
+              "checked_on": "2026-10-20",
+              "note": "已读README与10-19首次提交/发布提交；上下文ASR和部署边界已核，模型权重未下载。"
+            },
+            {
+              "label": "Ming-3.0-asr-tiny 作者项目页",
+              "url": "https://niniandy.github.io/Ming-3.0-asr-tiny-blog/",
+              "kind": "官方仓库链接的技术项目",
+              "status": "content_verified",
+              "checked_on": "2026-10-20",
+              "note": "已读音频编码器、混合注意力/MoE、分项评测和热词示例；作者数据非独立复现。"
+            },
+            {
+              "label": "Ming-3.0-asr-tiny HF 模型卡",
+              "url": "https://huggingface.co/inclusionAI/Ming-3.0-asr-tiny",
+              "kind": "模型卡和权重入口",
+              "status": "unreadable",
+              "checked_on": "2026-10-20",
+              "note": "官方仓库所链，直连模型卡超时；ModelScope本轮只有标题壳，不当作已读卡片。"
+            },
+            {
+              "label": "Ming-3.0-audio-flash 官方代码",
+              "url": "https://github.com/inclusionAI/Ming-3.0-audio-flash",
+              "kind": "音频理解/语音交互研究",
+              "status": "content_verified",
+              "checked_on": "2026-10-20",
+              "note": "已读README：126B/6.5B激活，8卡默认服务配置；未核定单独首发事件，未另凑新闻，HF卡超时。"
             }
           ],
           "evidence": [

@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年10月19日日报：聚焦HybridAgent隐空间推理与当日社区讨论、HexaShell代码工具控制机器人、LAW语言—动作—世界模型闭环，以及RealCLI／IMEP对人机协作和记忆使用的评测；另收MIT本体感觉插孔、vLLM为Kimi K3做Agent辅助GPU内核优化、百度FlashMask-3长上下文训练。周一arXiv新批次发现与近7日遗漏分清首版、代码和讨论日期；公众号近期全文和部分模型卡缺口明示。每日技术点讲推理时计算、验证器、best-of-N与pass@N。此前各期保留归档。
+当前首页为2026年10月20日日报：聚焦Dream-1跨本体机器人API、RAX／SCOPE的代码技能与选择性认证，以及Harness²自我改进的具体社区争点；另收MiniMax M3.1 Flash、蚂蚁Ming上下文ASR、Clairic类型化预测、Lean4过程奖励与GPT-6-Astra具身评测。区分公开API、厂商报告、独立评测和实机边界；近7日遗漏论文及旧论文的新讨论分别标注原日期。每日技术点讲MoE路由、负载均衡与专家并行。此前各期保留归档。
 
 ## 本地构建与预览
 
