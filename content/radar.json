@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-10-20",
+  "updated_on": "2026-10-21",
   "intro": "每日从研究目录、作者项目、论文、代码、模型卡、技术博客和社区原帖交叉发现大模型与具身的新进展及讨论问题，按当期证据轮换选题。持续覆盖国内外团队与小鹏 GroundingPI 等原始研究；主入口可达、内容已读和社区关注度分别核验。",
   "groups": [
     {
@@ -2409,6 +2409,116 @@
       ]
     },
     {
+      "id": "embodied-evaluators",
+      "group": "具身横向评测与开放失败分析",
+      "description": "追踪通用大模型、VLA和世界动作模型的共同测试；仿真与实机、任务进度与完整成功率分别解释，不跨协议拼成统一排名。",
+      "sources": [
+        {
+          "id": "robocoliseum",
+          "name": "RoboColiseum · Agent2Act跨模型具身评测",
+          "url": "https://robocoliseum.ai/",
+          "role": "评测团队原始技术报告与榜单",
+          "scope": "GPT、Claude、Gemini与专用策略；指令跟随、空间推理、操作、鲁棒性和实机案例",
+          "note": "2026-10-20四通用模型横评为当前事件；Agent2Act是系统接口，不能称裸模型控制电机。综合分由子步骤聚合，不是完整任务成功率；单case一次与不同reasoning档位限制排名解释。",
+          "aliases": [
+            "RoboColiseum",
+            "Agent2Act",
+            "具身角斗场"
+          ],
+          "watch_terms": [
+            "cross-model evaluation",
+            "general-purpose models for robotics",
+            "manipulation",
+            "robustness",
+            "latency",
+            "failure analysis"
+          ],
+          "verification": {
+            "status": "content_verified",
+            "checked_on": "2026-10-21",
+            "note": "已读用户指定公众号全文、官方技术报告静态正文与公开榜单API；未独立运行。"
+          },
+          "channels": [
+            {
+              "label": "Agent2Act官方技术报告",
+              "url": "https://robocoliseum.ai/techreport/agent2act",
+              "kind": "原始评测协议与实验",
+              "status": "content_verified",
+              "checked_on": "2026-10-21",
+              "note": "已读方法、四模型配置、分项成绩、消融、定性实机与失败边界；官方未给arXiv入口。"
+            },
+            {
+              "label": "官方实时榜单",
+              "url": "https://robocoliseum.ai/leaderboard",
+              "kind": "具身多维评测与版本跟踪",
+              "status": "content_verified",
+              "checked_on": "2026-10-21",
+              "note": "实际读取公开API；四通用模型记录10月20日14:51–14:52。榜单快照可能后续变化。"
+            },
+            {
+              "label": "官方代码Genie Sim",
+              "url": "https://github.com/AgibotTech/genie_sim",
+              "kind": "评测代码",
+              "status": "content_verified",
+              "checked_on": "2026-10-21",
+              "note": "已核README与报告关联；未运行，不以仓库updated_at代替横评发布日期。"
+            },
+            {
+              "label": "用户指定RoboColiseum公众号横评",
+              "url": "https://mp.weixin.qq.com/s/SNOEsZbY2vQXPW0mQG5p5Q",
+              "kind": "官方公众号发现入口",
+              "status": "content_verified",
+              "checked_on": "2026-10-21",
+              "note": "内部浏览器已读全文，账号RoboColiseum，10月20日17:46发布；文章宣传性胜负表述按原报告协议重新解释。"
+            }
+          ]
+        },
+        {
+          "id": "robocurve",
+          "name": "Robocurve · 独立真实机器人评测",
+          "url": "https://robocurve.org/",
+          "role": "独立机构原始评测与运行记录",
+          "scope": "通用大模型、VLA、WAM的实机进度、成本、时间和失败分析",
+          "note": "10月21日核读动态榜单；任务进度不是完整成功率，不声称今日新发布。每配置120次；LLM40调用、VLA3600步上限。",
+          "aliases": [
+            "Robocurve",
+            "RoboDojo-RC",
+            "Inspect Robots"
+          ],
+          "watch_terms": [
+            "frontier model robotics",
+            "real-world robotics benchmark",
+            "task progress",
+            "cost",
+            "latency"
+          ],
+          "verification": {
+            "status": "content_verified",
+            "checked_on": "2026-10-21",
+            "note": "已读首页分数/费用/时间表、协议与全部运行记录入口，未独立运行。"
+          },
+          "channels": [
+            {
+              "label": "RoboDojo-RC Tier 1协议",
+              "url": "https://robocurve.org/opus-5-5-robodojo-rc-tier-1/",
+              "kind": "实机评测协议",
+              "status": "content_verified",
+              "checked_on": "2026-10-21",
+              "note": "已读任务rubric、控制预算、评分和推理设置。"
+            },
+            {
+              "label": "全部运行记录",
+              "url": "https://robocurve.org/all-runs/?leaderboard=pareto&benchmark=robodojo-rc-tier-1",
+              "kind": "逐次运行与失败分析",
+              "status": "content_verified",
+              "checked_on": "2026-10-21",
+              "note": "公开记录入口与当前实机协议已核；不称其他团队已完整复现。"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "technical-blogs",
       "group": "知名技术博客与研究通讯",
       "description": "跟踪方法解读、工程实践、独立测评与社区分歧；正文区分作者意见、公开数据和已复现结果。博客不以更新频率代替研究价值。",
@@ -2745,10 +2855,10 @@
     }
   ],
   "selection_rules": [
-    "常规日报先发现最近24–48小时的新增论文、代码、权重、评测或实测；7天内重要遗漏可补收并写原因。来源审计专题可更早回补，但必须逐条标日期与补收身份，不能当今日新闻。",
+    "滚动热点优先：先发现最近24–72小时的新讨论、新评测、复现和发布，再沿主题追到仍在被引用或争论的原始研究；不设7天首发硬门槛。写清原成果日期、当前事件日期与重新关注原因；无新证据的旧内容不反复推荐。",
     "国内大模型、具身公司与小鹏每次先查研究目录、论文/作者项目、代码组织和模型或数据卡，再看新闻。记录实际读取页面、最新事件和访问缺口；HTTP200、SPA空壳、重定向首页都不代表读到成果。",
     "用公司中英文别名、作者机构及具身关键词在arXiv、会议论文列表和中文发现渠道补查。官网研究卡落后于作者发布时继续查原论文，不因首页无更新断言没有进展。",
-    "围绕大模型与具身当下的新机制、新能力、新问题和实际社区争点动态选题，按新增研究价值、讨论证据、时间与可核验程度排序。机器人控制、OOD泛化、RSI等是候选方向，Gemini 4或任何方法与品牌不设每日配额或固定首页席位；公众号重要线索回查后参与具体选题，不能只加目录。",
+    "围绕当前新机制、新能力和实际争点动态选题，持续追踪通用大模型进入具身任务及跨模型横评：模型版本、共享harness、动作与感知接口、prompt/ICL、预算、重试、延迟和成本均需对齐。按当前讨论/实证变化、研究相关性、技术新意和证据质量排序；不为任何模型/品牌设配额。",
     "新研究与热门话题分别标注：新论文、新发布或多次转载不自动等于热门。社区讨论保存具体原帖、作者博客、issue、复现实验或评测链接、日期、争点及不同观点；声称广泛热议时给出观察窗口、去重后的独立讨论证据和覆盖限制，不把作者推广当社区共识。",
     "自我改进写明更新对象：输出、代码/记忆/工具、模型权重、动作策略、世界模型或改进程序。自训练和闭环性能提升不自动证明递归改进；检查跨轮次继承、独立评估、计算与人工预算。",
     "优先研究相关性、具体新增内容、时间及证据；小鹏优先GroundingPI这类近期原始研究。不得用不相关的系统工程、旧技术解读或融资消息凑公司覆盖，也不强求每家每天都有新闻。",
