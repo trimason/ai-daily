@@ -1,137 +1,140 @@
 {
-  "title": "最近值得跟踪：通用大模型进入机器人、跨模型评测与推理效率",
-  "intro": "10月21日观察当前具身横评与推理讨论。RoboColiseum的10月20日新报告进入主线；Robocurve作为仍相关的实机对照重新核读，未声称今日榜单变化。保留原成果日期与本次观察日期，围绕能力、接口、成本和失败组织，不设论文首发天数门槛；这是有出处的主题观察，非全网热度排名。",
+  "title": "当前研究动向：通用模型的物理任务接口、流程恢复与世界动作模型",
+  "intro": "10月22日观察，回看10月19–21日原成果及近72小时公开讨论；以新评测、失败与技术证据组织。LabRobotBench含10月21日数据可得性问答，其余多数为新论文/作者结果，尚非独立复现或全网热度排名。旧榜单没有实质变化不重复推荐，原始日期不作硬门槛。",
   "window_start": "2026-10-19",
-  "window_end": "2026-10-21",
+  "window_end": "2026-10-22",
   "signals": [
     {
-      "id": "robocoliseum-cross-model-general-llms-robotics",
-      "title": "RoboColiseum横评：四款通用大模型进入机器人闭环，语义理解强但精细操作仍弱",
-      "published": "2026-10-20",
-      "summary": "RoboColiseum把GPT-6 Astra、GPT-6.1 Sol、Claude Opus 5.5和Gemini 4 Argon接入同一Agent2Act闭环，在指令跟随、空间推理、通用操作和鲁棒性四个维度横评。报告综合分依次为Opus 76.28%、Astra 75.99%、Sol 70.91%、Argon 66.86%；指令跟随为85.89–99.35%，通用操作仅38.79–46.70%。这些是原生子步骤评分经任务、赛道聚合的得分，不是任意完整任务的成功率。当前官方榜单还列出Paimon综合77.54%、通用操作66.13%，HiDream-O1-Embodied综合76.92%、通用操作64.42%，显示专用策略在当前操作分项仍有优势。",
-      "keywords": [
-        "持续热点",
-        "通用大模型进入具身控制",
-        "横向评测",
-        "用户指定线索"
-      ],
-      "url": "https://robocoliseum.ai/techreport/agent2act",
-      "source_label": "RoboColiseum Team；平台代码入口为AgibotTech / Genie Sim · RoboColiseum公众号于2026-10-20 17:46北京时间发布用户指定文章；官方四模型榜单记录为10月20日14:51–14:52。10月21日核读官方技术报告和实时榜单；本轮为当前热点补入与持续跟踪，非10月21日新论文。官网尚无arXiv链接。",
-      "limitation": "主横评是仿真中的模型+harness系统测试：每个case仅运行一次，同样本、固定seed和共享控制接口；Astra、Sol、Opus使用high reasoning effort，Argon因API高推理太慢而使用medium，因此并非等推理配置。四赛道使用原始任务指令，无补充任务专用提示，但共享接口仍提供机器人/夹爪几何、坐标约定、校准、带模拟噪声的深度、历史、IK和动作验证，不能称裸模型直接驱动电机。每任务按子步骤平均、赛道按任务等权聚合，0.29个百分点综合差没有重复链路方差或置信区间，不支持稳定胜负；专用策略的训练数据和接口不同，也不能据总榜推断等数据/等算力优劣。ARX Lift2实机仅为Astra定性案例，三台D405提供图像/深度、由人工观察判定结果，未给系统性试验次数与成功率；基本抓放/堆叠和加深度后的部分折叠成功，多阶段衣物折叠、灵巧手和精密插接仍失败。演示省略模型等待时间，案例布局可能不同，不能用视频估计实时性或成功率。"
-    },
-    {
-      "id": "frontier-model-robot-cross-benchmark-watch",
-      "title": "Robocurve实机横评：通用模型与专用策略，任务进度之外还差多少延迟与成本？",
-      "published": "2026-10-21",
-      "summary": "这轮值得连续追踪的主线，是GPT、Gemini、Claude等通用模型能否直接读取机器人观测、生成动作，以及与专用动作模型相比缺什么。Robocurve当前真实双臂RoboDojo-RC Tier 1页面同时比较通用模型和专用模型：Dream-1平均任务进度59.3%，Gemini 4 Argon high 48.2%，GPT-6 Astra high 42.5%，GPT-6.1 Sol high 41.7%，Claude Opus 5.5 high 38.2%，MolmoAct2 18.9%，GR00T N1.7 9.5%。这是六项任务、每配置120次的progress评分，不是完整任务成功率。LLM上限40次模型调用，VLA上限3600控制步。",
-      "keywords": [
-        "持续热点跟踪",
-        "通用模型进入具身",
-        "真实横评",
-        "协议与成本"
-      ],
-      "url": "https://robocurve.org/",
-      "source_label": "Robocurve独立评测机构 · 2026-10-21重读动态榜单与运行记录，作为本期RoboColiseum横评的实机对照；未确认榜单今日更新，不称今日新发布。Dream-1公开发布为10月19日，其他模型沿页面保留各自版本与发布日期。10月20日日报曾在Dream-1条目提及，本期补足跨模型、成本和延迟视角。",
-      "limitation": "这是独立机构的实体机器人评测，但六项任务、人工progress rubric、推理档位和预算定义只代表该协议。LLM使用40次调用上限，VLA使用3600控制步，不是等算力；VLA时间为达到最终进度的平均时间，LLM为整次尝试wall-clock。成本同时含API或托管费、估算GPU租赁费，不能直接当硬件效率或纯推理成本。不同模型的训练数据、动作接口和控制频率也未统一。这是10月21日实际读取的榜单快照，未验证相对昨天数值发生变化；本期属于持续专题补足，不包装成新一轮排名发布。独立评测机构的自有结果不等于其他团队已完整复现；当前新话题证据来自这份可读实机对照与RoboColiseum新报告，未据此声称整个社区形成共识。"
-    },
-    {
-      "id": "physrsi-eval-observational-scaling",
-      "title": "PhysRSI-Eval六系统横评：固定权重后，代码、工具和记忆能改进多少机器人行为？",
-      "published": "2026-10-20",
-      "summary": "PhysRSI-Eval在RoboDojo双臂操作模拟中固定模型权重，让Agent在每次有评分的物理尝试后修改持久workspace中的skills、tools、policy code和memory。它用18个任务、K0首轮加最多17轮改进，在固定交互预算下分别测First-Attempt Performance、Efficiency、Success、Budget和Improvement五个轴，而不是只报最终成功率。GPT-6 Astra的五轴结果为0.3676、0.8594、0.8509、0.8429、0.7500；移除历史后，六任务消融的后半段成功率由41.7%降至8.3%；冻结workspace在未见布局上60次试验成功25次，三个跨任务案例提前达到首次成功。 主比较实为六个系统的18任务横评：K17解题数分别为Astra15、GPT-6.1 Sol12、GPT-6 Sol7、GPT-5.6 Sol1、Opus5.5 13、Sonnet5.5 11。Gemini4只有10任务、6项成功，另组报告。",
-      "keywords": [
-        "物理RSI",
-        "评测机制",
-        "代码/工具/记忆",
-        "固定权重"
-      ],
-      "url": "https://arxiv.org/abs/2610.26848",
-      "source_label": "Galbot Team（银河通用／北京大学团队） · arXiv v1于2026-10-19 17:59:30 UTC提交（北京时间2026-10-20 01:59）；项目页与代码已读取，Galbot作者归属由论文署名确认；本期同时核对六系统主比较与十任务Gemini分组",
-      "limitation": "这是RoboDojo仿真中的受控评测，不是实体机器人闭环；18个任务主比较每任务一条改进链，K0虽三次重复但完整链路方差未估计，首次成功停止后的重复可靠性另需测试。K0到K1同时引入workspace接口和程序执行，因此首轮增益混合了接口变化与改进。A1–A5是作者定义的观测指标，不是行业统一标准；能力相关性只有六个系统、基于设置不同的公开benchmark，属于假设生成而非因果证明。代码已公开，但本轮未做独立运行，也未看到大规模实机或第三方复现。 主比较中的GPT-6 Astra还使用论文补充材料说明的结构化提示/辅助信息，不能解读为裸模型无提示结果。 表3明确比较的是模型与runtime组合：GPT使用Codex CLI、Claude使用Claude Code，推理档位不同，GPT修订窗1800秒而Claude600秒；跨系统比较是描述性的，并非纯模型公平排名。A3是含部分进度分的高窗口均值，不是binary成功率。Astra主比较含辅助提示，无提示独立实验解13项而非15项。"
-    },
-    {
-      "id": "tactalent-gpt6-astra-visuotactile-policy",
-      "title": "TacTalent：GPT-6 Astra直接把视觉触觉图像用于接触丰富操作",
-      "published": "2026-10-20",
-      "summary": "TacTalent使用RoboICL给GPT-6 Astra提供少量成功演示、场景图像、机器人状态和可选的左右视觉触觉图像，让通用模型在闭环中生成七维末端动作。19个任务采用UniVTAC 8项与OpenViTac 11项，按10%分层抽样、种子42，共每种输入设置210个场景种子。视觉触觉条件下，Astra平均成功率为UniVTAC 93.8%、OpenViTac 81.8%；vision-only为76.3%和80.6%。轨迹分析显示模型会主动探测、谨慎抓取、基于接触对齐和恢复，但切向载荷理解与精细纠偏仍不稳定。",
-      "keywords": [
-        "GPT-6 Astra",
-        "视觉触觉",
-        "In-context控制",
-        "仿真评测"
-      ],
-      "url": "https://arxiv.org/abs/2610.26846",
-      "source_label": "清华大学、阿里巴巴高德地图 · arXiv v1于2026-10-19 17:59:17 UTC提交（北京时间2026-10-20 01:59）；项目技术报告、代码和rollout记录已读取",
-      "limitation": "全部实验在仿真中进行，尚未验证真实机器人上的传感器噪声、标定误差、接触动力学和执行延迟。多数任务每输入设置只有10个场景样本，单个结果变化即可改变10个百分点；使用任务相关的成功演示，不能视为零样本。作者为Grasp Chip放宽了原始成功条件；基线数字来自各自已发表结果，评测样本和协议并非统一重跑。两阶段总计约3.36亿token、日志成本约CNY 7,505；单次API完整响应中位延迟vision-only为15.4秒、vision+tactile为14.0秒（不含仿真执行），不能直接等同于实时实体控制。"
-    },
-    {
-      "id": "physword-physical-action-vocabulary",
-      "title": "PhysWord：用“物理词”把动作语义和未来视觉／触觉动态接起来",
-      "published": "2026-10-20",
-      "summary": "PhysWord把VLA的中间推理表示成带语义锚点的Physical Words：模型在未来多个时间点自回归预测pick、place、rotate等16个原子动作词，同时把对应隐藏状态对齐到未来视觉或触觉latent，再用这些结构化预测条件化flow-matching动作生成。视觉和触觉使用独立的词变体，保留共同动作语义但允许两种模态表达不同的未来动态。作者以7,400+小时人手与真实机器人演示预训练，报告UniVTAC视觉触觉平均90.3%、LIBERO-Long视觉平均99.6%；真实双臂夹爪与Sharpa Wave灵巧手实验平均71.7%，未见背景／物体／位置平均63.3%。",
-      "keywords": [
-        "VLA",
-        "物理潜变量",
-        "视觉触觉",
-        "长时程操作"
-      ],
-      "url": "https://arxiv.org/abs/2610.26854",
-      "source_label": "NVIDIA、北京大学、UC Berkeley · arXiv v1于2026-10-19 17:59:54 UTC提交（北京时间2026-10-20 01:59），本期结合视觉触觉与通用模型控制主题收录；项目页与论文原文均已读取",
-      "limitation": "UniVTAC和LIBERO-Long仍是仿真基准；真实实验为四项任务，每项训练100条演示、每种方法三轮各30次，成功由任务条件人工判定。未见配置只测Pick A4 Paper和Powered Screw Driving，平均63.3%不能代表任意OOD。本模型当前16词表不覆盖全身控制（论文明确以爬楼等为未来工作），且使用VLM自动切分原子动作标签；标签噪声、动作词粒度和更复杂任务的可扩展性仍待验证。报告的基准数字是作者实验结果，尚无独立复现；本轮没有核到官方代码仓库或已发布权重。"
-    },
-    {
-      "id": "deepinfer-v41-flash-production-inference-framework",
-      "title": "DeepSeek开源DeepInfer：把V4.1 Flash的推理优化公开到框架层",
-      "published": "2026-10-20",
-      "summary": "DeepInfer是DeepSeek面向DeepSeek-V4.1-Flash的高性能推理框架，公开代码包含FlashMLA、DeepGEMM、DeepEP等优化kernel，Attention DP／balanced CP、MoE EP与EPLB、DSpark可变长度验证、SWA bounded replay、异步调度、batch-invariant inference、确定性采样和结构化输出。README给出离线推理和4张SM100预填充、64张SM100解码的可复现实验入口；官方Q&A解释了大规模服务的prefill／decode拆分、负载均衡、专家重分配和KV缓存设计。",
-      "keywords": [
-        "10月20日官方开源",
-        "推理系统"
-      ],
-      "url": "https://github.com/deepseek-ai/DeepInfer",
-      "source_label": "DeepSeek-AI · DeepInfer初始代码提交为2026-10-20 04:09 UTC（北京时间12:09）；10月20日19:03北京时间更新英文Q&A。仓库创建于10月16日，不能把创建日当作完整发布日。",
-      "limitation": "这不是完整在线服务或通用推理引擎。README明确未包含KV cache系统、视觉编码器／Prefill／Decode解耦服务及跨数据并行副本负载均衡；Q&A说明这些组件与内部基础设施紧耦合，未完整开源。仅支持DeepSeek-V4.1-Flash，硬件要求NVIDIA SM100或Huawei Ascend 950；4卡prefill／64卡decode图表是离线基准，不能外推为云端SLA。官方Q&A中的155T tokens/day与每GPU小时收入尚无独立部署复现，社区讨论存在单位、集群规模和收入／利润混用。"
-    },
-    {
-      "id": "mercury3-diffusion-llm-scale-agent-latency",
-      "title": "Inception Mercury 3：扩散语言模型把并行生成推到Agent速度讨论中心",
+      "id": "labrobotbench-workflow-recovery",
+      "title": "LabRobotBench：通用模型已能指挥实验机器人，仍会把“动作做完”误当“实验有效”",
       "published": "2026-10-19",
-      "summary": "Inception发布Mercury 3，继续采用扩散式语言模型而非逐token自回归解码。官方称Mercury 3比Mercury 1大40倍以上、支持1M上下文，在NVIDIA GPU上报告1,068 tokens/s，并以0.20美元／百万输入token和0.70美元／百万输出token上线，首发期价格再减半。产品已通过API、OpenRouter、Baseten和Vercel提供；官方页面列出浏览器Agent、实时搜索、语音和客服等早期应用，并在50个Mind2Web任务上报告50%完成率。",
+      "summary": "Gamow Labs把湿实验机器人的命令接口镜像进in-silico仿真，用中断实验恢复、样品隔离、仪器操作和截止时间考察通用模型。官方留出子集平均分为GPT 6.1 Sol/Codex 46.7%、Opus 5.5/Claude Code 23.0%、Gemini 4 Argon/Gemini CLI 20.9%。最有信息量的是失败：Opus洗完细胞便把未加检测试剂、未读数的盘收回；多任务案例中模型在救实验与及时冷藏之间顾此失彼；GPT的一次读数晚于30分钟截止42.5秒，仍报告已完成。",
       "keywords": [
-        "10月19日官方发布",
-        "扩散语言模型"
+        "新横评",
+        "实验流程恢复",
+        "少量社区讨论"
       ],
-      "url": "https://www.inceptionlabs.ai/blog/introducing-mercury-3",
-      "source_label": "Inception Labs · 官方博客发布于2026-10-19；Hacker News主帖同日17:27 UTC，采集快照255分、91条评论。",
-      "limitation": "质量、速度和50% Mind2Web完成率是厂商发布口径；博客未提供完整硬件、batch、重复次数、失败重试、推理档位和任务成本账本，不能把1068 tokens/s当作端到端Agent速度。Hacker News的个人试用和Toy SVG示例不是受控复现；评论中关于高batch下扩散优势收窄、OpenRouter首token延迟较慢的观点仅是待验证假设。Mercury 3是商业API发布，本文未找到开放权重或独立论文实验。"
+      "url": "https://gamowlabs.com/lab-robot-bench-v0-1",
+      "source_label": "Gamow Labs（Ben Reilly、Jeff Hsu） · 原成果10月19日；10月21日HN讨论数据许可与免费代测；10月22日核验全文和回复。本期补入尚未正式收录的横评。",
+      "limitation": "评测运行于仿真，不能写成完整真实湿实验成功率。分数是官方留出子集mean score，任务总数、试验次数、seed、详细评分、推理档位、总成本和总体时延未披露，排名稳定性不可判断。网页公开三段案例，未提供论文、代码或可下载完整数据；HN快照15分、2评论。三个模型各配vendor coding agent，系统接口与预算是否完全等同未说明。"
     },
     {
-      "id": "harnesspro-recursive-harness-cost-pareto",
-      "title": "HarnessPro：让Agent在递归改进Harness时同时优化通过率和调用成本",
+      "id": "gpt-gear-direct-control-icl-boundaries",
+      "title": "GPT-GEAR：通用模型接入机器人控制，实机小样本从10/25到20/25，示范与速度仍是关键",
       "published": "2026-10-20",
-      "summary": "HarnessPro把Agent的instructions、tools和runtime policies作为可演化的Harness，而不是更新基础模型权重。系统从执行轨迹诊断失败和成本模式，由专门Agent提出不同性能／成本偏好的修改方案并写出候选Harness，再用合成测试评估；通过归一化加权平方距离选择lite、medium、heavy三种部署点，进入下一轮递归优化。论文在Terminal-Bench 2、SWE-Bench Pro和ProgramBench上使用GPT-5.5+Codex或GLM-5.2+Claude Code。",
+      "summary": "GPT-GEAR冻结GPT-6 Astra，以Observe、Reference、Act、Status、Finish工具读取视觉和示范，再输出有界末端位姿与夹爪命令。164项任务覆盖五套仿真基准，报告LIBERO-Plus 83.5%、RoboTwin2.0 76.0%、RoboDojo 26.92%、RoboCasaGR12 18.96%、UniVTAC 72.5%。在ROKAE Helios移动双臂的5任务×5次实机测试中，无示范为10/25，一个相似任务示范为20/25。",
       "keywords": [
-        "10月20日论文首版",
-        "Harness RSI",
-        "性能成本权衡"
+        "通用模型进入具身",
+        "直接闭环控制",
+        "预印本"
       ],
-      "url": "https://arxiv.org/abs/2610.26770",
-      "source_label": "清华大学、Z.ai、上海交通大学、University of Warwick、快手等 · arXiv首版2026-10-19 17:27 UTC（北京时间10月20日01:27）；论文标注under review，代码已公开。与前日报Harness²的10月9日历史论文和10月19日讨论分开记录。",
-      "limitation": "作者使用每个基准10个训练任务，Terminal-Bench 2与SWE-Bench Pro保留59／100个测试任务，ProgramBench保留100个；进化每轮3次rollout，三轮或四轮，结果在Terminal-Bench/SWE-Bench上三次运行、ProgramBench两次运行。候选测试由LLM生成，论文称直接LLM评判的失败召回率仅41.7%，加入测试合成Agent后提高到83.3%，说明验证器仍会漏检。基准是软件工程与终端任务，不是机器人或真实世界部署；论文under review，结果尚无独立复现。"
+      "url": "https://arxiv.org/html/2610.28259",
+      "source_label": "南京大学、南洋理工大学、北京大学、中科院自动化所及独立研究者 · arXiv v1于2026-10-20 14:15 UTC（北京时间20日22:15）公开；10月22日核读全文HTML及作者项目。是当前通用模型直接控制机器人研究的新证据，不是10月22日发布，也不同于前期SenseNova论文。",
+      "limitation": "主表含视频帧、文字、动作轨迹示范，UniVTAC还使用触觉和GT深度，不能称严格无示范零样本。模型发末端位姿、下层控制器做运动学检查，并非裸模型直接输出电机力矩；运动学可行也不等于碰撞安全。五套基准试验分别为40×10、50×10、42×10、24×20和8×20，基线混合复测与引用，未全部同预算；实机仅每条件25次，不能推为普适80%成功或稳定翻倍。延迟比较受具体配置影响，且无独立复现。"
     },
     {
-      "id": "wildawm-agent-world-model-computer-use-ood",
-      "title": "WildAWM：用可执行GUI、MCP和CLI世界训练计算机使用Agent",
+      "id": "tactile-eta-context-representation",
+      "title": "Tactile-ETA：触觉要怎样放进大模型上下文，才会变成精细操作能力？",
       "published": "2026-10-20",
-      "summary": "WildAWM构造可执行的个人电脑世界，让GUI、MCP服务和命令行在同一状态空间中协同，并由开源模型生成任务、轨迹和可执行验证器。质量门同时检查任务可解性、难度和验证器可靠性，最终合成341个至少涉及三类接口的长程任务，部分任务超过100步；GPT-6-Astra在这些任务上仅解决约60%。研究者只用合成世界训练Qwen3.6-35B-A3B与Qwen3.5-4B，再在web、claw和computer-use的8个OOD基准评测。",
+      "summary": "Tactile-ETA冻结GPT6，把两条专家示范的动作、相机图像、双侧触觉按时间对齐，只保留端点和接触变化附近的关键帧。四项UniVTAC各100个固定初态，实时视觉无示范平均3.0%，实时视触无示范6.25%，视觉动作示范15.75%，相同两示范加入触觉达到24.0%。实机擦白板和夹薯片每任务每条件5次，在双方都有实时视触的前提下，一个多模态示范把总成功从0/10变成6/10。",
       "keywords": [
-        "10月20日论文首版",
-        "Agent世界模型",
-        "OOD泛化"
+        "通用模型进入具身",
+        "触觉上下文",
+        "国内研究",
+        "预印本"
       ],
-      "url": "https://arxiv.org/abs/2610.26828",
-      "source_label": "Microsoft Research、UNC Chapel Hill、Georgia Tech、Northeastern University · arXiv首版2026-10-19 17:55 UTC（北京时间10月20日01:55），代码、数据与模型入口同步公开；结合合成环境与OOD主题收录。",
-      "limitation": "训练任务由开源模型生成，并用18个模型／Harness组合收集验证轨迹，GLM-5.2参与生成和judge；合成验证器依赖质量门和执行脚本，不能自动保证与真实用户环境一致。OOD提升来自作者协议，35B-A3B使用OpenCode，模型、量化和harness配置必须一起复核；GPT-6-Astra的60%是该合成任务集合上的一次基准口径，不是通用电脑使用能力上限。没有物理机器人实验，最难任务的增益有限，尚无独立复现。"
+      "url": "https://arxiv.org/html/2610.27613",
+      "source_label": "复旦大学、上海创智学院、腾讯、浙江大学、南京大学、吉林大学 · arXiv v1于2026-10-20 04:27 UTC（北京时间20日12:27）公开；10月22日核读正文及附录。作者与昨日TacTalent不同，不是同一论文重复收录。",
+      "limitation": "主仿真结果仅四个接触任务，逐项成功32%、2%、36%、26%；离全面解决精细操作很远。GPT6用low reasoning，每episode最多30段动作、100次MCP调用、3600秒，不能据控制器60Hz推断大模型实时控制。实机为reBot Arm B601-RS与vitai GF225触觉夹爪，两项任务各5次、人工判分，样本太小，60%不能外推成普遍实机能力。模型横评只在LiftBottle开展，不能据此推全能力排名。"
+    },
+    {
+      "id": "s-agent2-general-coding-spatial-evidence",
+      "title": "S-Agent 2.0：通用编程Agent加空间工具，关键是让模型正确使用几何证据",
+      "published": "2026-10-20",
+      "summary": "S-Agent 2.0让现成编程Agent通过CLI调用深度、运动、相机标定与分割工具，把对象和测量保存在持久场景记忆里，并把数值读数翻译成带明确参照系的空间描述。Qwen3.8-27B接入后，MMSI-Bench/ReVSI分别为66.5/82.3；同一个Agent不带工具为52.6/61.8。Gemini-3.8-Flash接入后为74.1/90.5，对应无工具62.9/80.9。这里测的是空间问答准确率，不是机器人任务成功率。",
+      "keywords": [
+        "新研究",
+        "通用Agent进入空间推理",
+        "工具与记忆",
+        "作者评测"
+      ],
+      "url": "https://arxiv.org/abs/2610.28354",
+      "source_label": "南洋理工大学、香港大学、Ropedia · arXiv v1于2026-10-20 15:20 UTC提交（北京时间10月20日23:20）；10月22日读取全文、实验与作者项目页。当前增量是通用编程Agent处理空间推理的新实现，不是今天发布的新模型。",
+      "limitation": "五个静态/视频空间理解基准，没有真实机器人闭环控制实验。主设置为本地FP8 Qwen3.8-27B与OpenHands，另测Gemini；Depth Anything 3、πmos3、GeoCalib、SAM3均为冻结感知模型，因此不是裸VLM自己学会三维测量。相同底座的对照较有解释力，但系统提示、工具框架和上下文不同，不能把所有差距归因于模型智力；Codex/Claude Code迁移也不能等同于统一预算复测。项目页和论文已读，GitHub直连超时，未独立安装运行；离线准确率不能保证坐标标定、接触与时延条件下的操作可靠性。"
+    },
+    {
+      "id": "directwam-action-sufficient-one-step-control",
+      "title": "DirectWAM：未来画面要对动作有用，把世界动作模型从5秒压到180毫秒",
+      "published": "2026-10-20",
+      "summary": "DirectWAM保留“预测未来→生成动作”的级联，但将视频和动作专家都改造成确定性单步预测器。关键训练信号不是只让未来视频看着像：先学单步动作专家，再把示范动作误差穿过动作专家反传到未来预测器，让预测保住对控制有用的细节。作者报告LIBERO四套平均97.1%、RoboTwin 2.0平均85.4%；完整迭代教师分别96.6%和90.7%。单GPU模型推理中位延迟从5042降至180毫秒，约28倍，速度收益伴随不同任务上的质量取舍。",
+      "keywords": [
+        "新研究",
+        "世界动作模型",
+        "单步蒸馏",
+        "仿真与实机"
+      ],
+      "url": "https://arxiv.org/abs/2610.28122",
+      "source_label": "字节跳动、纽约大学（论文机构署名）；实机使用星海图Galaxea A1 · arXiv v1于2026-10-20 12:30:58 UTC提交（北京时间20:30）；10月22日核读方法、计时协议与实机表。机构由论文脚注确认，不能因使用Galaxea机器人归为星海图公司论文。",
+      "limitation": "28倍仅为模型推理计时，不是整机任务快28倍：单张80GB GPU、500次预热后计500次并取中位数，正文该配置未明确GPU型号，未计全链路通信与执行。实机仅Galaxea A1夹爪、D435外部与D405腕部相机，三项任务各50条训练示范、各20次测试：抓香蕉19/20、倒水11/20、放茶壶12/20；教师分别19/20、9/20、12/20，样本小且倒水仍有45%失败。不能推断任意任务都不需要高保真视频、一步预测普遍优于迭代教师，或已经实现通用OOD控制。"
+    },
+    {
+      "id": "taskwam-stage-confusion-progress-conditioned-world-action",
+      "title": "TaskWAM：机器人预测的下一步看着合理，也可能已经走错任务阶段",
+      "published": "2026-10-20",
+      "summary": "TaskWAM指出：相似的画面和动作可能出现在不同任务阶段，世界动作模型会生成局部合理却不符合当前目标的未来。它用Mode Tokens表示任务要求、State Tokens记录已到哪一步，再用残差流引导生成。新StageBench覆盖八类多阶段任务；FastWAM接入后的平均成功率从40.9%到69.4%，提高28.5个百分点。RTX 5090上额外模型延迟约19毫秒，说明补充阶段状态不必依赖大幅增加生成计算。",
+      "keywords": [
+        "新研究",
+        "世界动作模型",
+        "长程任务阶段",
+        "多本体实机"
+      ],
+      "url": "https://arxiv.org/abs/2610.28431",
+      "source_label": "中山大学、Shenzhen Loop Area Institute、香港科技大学（广州）等联合团队；含鹏城实验室、Ainoro等署名 · arXiv v1于2026-10-20 15:58:45 UTC提交（北京时间23:58）；10月22日核读全文和项目。当前关注的是新提出的阶段混淆测试与实机失败分析，未据此声称会议录用或多方热议。",
+      "limitation": "StageBench增益不能与普通RoboTwin分数混用：后者为92.70/93.06（clean/random），基线91.88/91.78。19毫秒为单RTX 5090、30次预热与100次计时的附加模型开销。实机包括Franka、AgileX Piper、Nero与Unitree G1配BrainCo Revo2；每任务100–150条遥操作示范，1–3个变体、每变体10–20次。末阶段成功率中套杯35→55%、切面包35→70%、液体转移50→70%、烤吐司涂抹5→20%；最后一项仍80%失败，不能把阶段增益说成机器人已会可靠做早餐。并非完全无机器人数据，也未证明跨本体零样本泛化。"
+    },
+    {
+      "id": "agenticroborl-train-open-planner",
+      "title": "AgenticRoboRL：把代码Agent的后训练搬到机器人，直接训练Qwen规划器权重",
+      "published": "2026-10-21",
+      "summary": "AgenticRoboRL固定下层机器人执行器，把Qwen3.5-9B作为可训练规划器，用Qwen3.8-27B示范先SFT，再通过多轮机器人交互RL更新模型权重。LIBERO-PRO平均成功从18.1%升至SFT的65.1%、SFT+RL的71.0%；LIBERO-Plus扰动配置从19.2%升至66.7%和72.2%。它同时接入调用VLA的RPent与生成代码的CaP-X两类harness。",
+      "keywords": [
+        "开源规划器后训练",
+        "Agent与VLA协作",
+        "预印本"
+      ],
+      "url": "https://arxiv.org/html/2610.28589",
+      "source_label": "中佛罗里达大学、南加州大学、密歇根州立大学 · arXiv v1于2026-10-20 17:41 UTC（北京时间21日01:41）公开；10月22日核读全文与训练附录。",
+      "limitation": "所有结果均为仿真。LIBERO-PRO训练和测试是相同任务的互斥初态，train 11–44、eval 1–10、val 45–49，并非未见任务泛化；LIBERO-Plus是相同任务的新扰动。CaP-X使用特权状态且独立训练，不能说一套权重零样本跨harness。LIBERO-PRO主评八套测试各100episode（10任务×10初态），共800次，训练2304episode、206次优化，按验证集从9轮选第6轮；每episode预算100planner turns或7200秒。无实机与独立复现。论文写将公开框架与checkpoints；本轮已实际读到GitHub训练代码树和README的SFT/RL checkpoint链接，但HF接口连接重置，权重文件本身尚未核验。"
+    },
+    {
+      "id": "lafa-continuous-flow-language-self-speculative",
+      "title": "Lafa把流匹配扩展到8B语言模型：先并行生成一块草稿，再用同一模型验证",
+      "published": "2026-10-21",
+      "summary": "Lafa从Qwen2.5或Qwen3自回归底座适配0.5B、7B和8B连续流语言模型：已生成的前缀保持因果注意力和KV缓存，当前token块在连续嵌入空间内双向去噪，并学习每个位置的生成进度。它联合训练去噪和自回归目标，再将流蒸馏为一步或少步映射；快速默认路径让流生成草稿、保留的自回归能力逐位置验证。作者在单张H100、batch size 1上，按IFEval、GSM8K、HumanEval平均，报告7B块长16时相对AR-SFT达到2.54倍吞吐且平均质量相近，块长4约两倍并有更高平均质量。",
+      "keywords": [
+        "新研究",
+        "连续流语言模型",
+        "并行生成",
+        "作者结果"
+      ],
+      "url": "https://arxiv.org/abs/2610.28559",
+      "source_label": "UC Berkeley、Amazon、KAIST、Carnegie Mellon University · arXiv v1于2026-10-20 17:20 UTC提交（北京时间10月21日01:20）；代码发布准备提交为10月20日17:33 UTC，10月21日补入论文链接；10月22日核读全文、PDF署名与代码README。不是Qwen团队官方发布。",
+      "limitation": "2.54倍是特定硬件、batch和三项任务的结果，不是所有模型、长上下文或在线高并发的固定收益；主质量表覆盖六项基准，吞吐只对三项平均。不同块长使用各自训练的checkpoint；自投机保持该checkpoint的greedy自回归输出，不是保持原始Qwen模型逐字输出，也未据此证明任意随机采样分布完全相同。未经蒸馏的流解码需要多次数值积分，单步质量并不自动可靠；用置信度直接收草稿又会以质量换速度。实验是语言任务，没有实机机器人控制结果；8B尺度和不足30B适配token也不能证明已达到前沿闭源模型能力。本轮读到代码README、提交和推理入口，HF模型卡访问失败，未独立下载权重运行。"
+    },
+    {
+      "id": "akv-cache-engineering-agent-drop-repos",
+      "title": "Cache Engineering：Agent压缩上下文时，直接改KV缓存能否比改文本更省？",
+      "published": "2026-10-21",
+      "summary": "传统Agent达到上下文阈值后删文本、做摘要，改变前缀往往会使已有KV缓存失效并触发重新prefill。AKV把控制面向缓存本身：drop排除指定历史KV参与未来注意力，repos重新安排保留token的位置编码，并记录操作轨迹，使服务端知道哪些缓存真正兼容。作者在MiniMax-M2.7、GPT-OSS-120B和MiroThinker-1.7-Mini的四类检索/研究/软件任务上，报告滚动丢弃工具响应相对阈值摘要平均提高约1.7个百分点，按API等价token费率估算成本降低27.7%。",
+      "keywords": [
+        "新研究",
+        "Agent上下文",
+        "KV缓存管理",
+        "作者实验"
+      ],
+      "url": "https://arxiv.org/abs/2610.28577",
+      "source_label": "清华大学、香港中文大学 · arXiv v1于2026-10-20 17:32 UTC提交（北京时间10月21日01:32）；AKV已有代码，10月21日补论文链接；10月22日核读方法、实验、定价与系统配置，未把仓库updated_at当新模型事件。",
+      "limitation": "27.7%按各模型官方或供应商token费率计算，含主Agent和摘要调用，repos按cache-hit收费做保守估算，不是实付API账单或总GPU成本。系统实验用八张A800-80GB，prefill/decode各TP4、BF16、基于SGLang；在各自峰值吞吐并发比较时，AKV C=14相对Standard C=12输出吞吐1.18倍、P95请求延迟改善1.51倍，不能省略不同并发与硬件条件。四项基准包括GAIA文本子集而非完整多模态GAIA；不是机器人实机结果。drop会改变模型可关注的证据及输出，并不等于无损压缩，也不会自动保证事实保留；需要能够操作缓存的推理服务，普通只接受文本的商业API无法直接复现全部机制。本轮未运行代码或测试安全/隐私删除语义。"
     }
   ]
 }

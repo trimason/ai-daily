@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年10月21日日报：以通用大模型进入机器人和跨模型横评为主线，核读RoboColiseum官方报告，结合Robocurve实机进度、费用与时间、PhysRSI六系统比较、TacTalent视觉触觉控制和PhysWord。另看DeepInfer推理框架、Mercury 3扩散解码、HarnessPro与WildAWM；每日技术点讲投机解码与MTP。所有榜单按具体协议解释，保留原成果日期和本期观察日期，不把旧数据重读当成新发布。此前各期保留归档。
+当前首页为2026年10月22日日报：围绕通用大模型进入物理任务，跟进LabRobotBench实验流程横评与数据访问讨论、GPT-GEAR示范控制、Tactile-ETA触觉上下文、S-Agent 2.0空间工具，以及DirectWAM/TaskWAM的控制效率和任务阶段。补充AgenticRoboRL规划器后训练、Lafa连续流语言模型与AKV缓存工程；每日技术点讲流匹配。保留原成果/当前讨论日期和实证边界，不重复没有变化的昨日榜单。此前各期保留归档。
 
 ## 本地构建与预览
 

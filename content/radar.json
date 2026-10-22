@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-10-21",
+  "updated_on": "2026-10-22",
   "intro": "每日从研究目录、作者项目、论文、代码、模型卡、技术博客和社区原帖交叉发现大模型与具身的新进展及讨论问题，按当期证据轮换选题。持续覆盖国内外团队与小鹏 GroundingPI 等原始研究；主入口可达、内容已读和社区关注度分别核验。",
   "groups": [
     {
@@ -2419,7 +2419,7 @@
           "url": "https://robocoliseum.ai/",
           "role": "评测团队原始技术报告与榜单",
           "scope": "GPT、Claude、Gemini与专用策略；指令跟随、空间推理、操作、鲁棒性和实机案例",
-          "note": "2026-10-20四通用模型横评为当前事件；Agent2Act是系统接口，不能称裸模型控制电机。综合分由子步骤聚合，不是完整任务成功率；单case一次与不同reasoning档位限制排名解释。",
+          "note": "10月22日API对比：四通用模型分数/顺序与昨日相同，不重复新闻。新增ModelMaster_XR1仅平台自报智元，未见论文或模型资料，待核正式归属与发布。保留每case一次、reasoning档位和聚合分限制。",
           "aliases": [
             "RoboColiseum",
             "Agent2Act",
@@ -2435,8 +2435,8 @@
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-21",
-            "note": "已读用户指定公众号全文、官方技术报告静态正文与公开榜单API；未独立运行。"
+            "checked_on": "2026-10-22",
+            "note": "当日公开榜单API与昨日缓存对比；四通用模型未变，未独立运行。"
           },
           "channels": [
             {
@@ -2494,8 +2494,8 @@
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-21",
-            "note": "已读首页分数/费用/时间表、协议与全部运行记录入口，未独立运行。"
+            "checked_on": "2026-10-22",
+            "note": "已读首页、协议与all-runs正文，与昨日未见榜单分数变化，不当新发布。"
           },
           "channels": [
             {
@@ -2513,6 +2513,117 @@
               "status": "content_verified",
               "checked_on": "2026-10-21",
               "note": "公开记录入口与当前实机协议已核；不称其他团队已完整复现。"
+            }
+          ]
+        },
+        {
+          "id": "labrobotbench",
+          "name": "Gamow Labs · LabRobotBench",
+          "url": "https://gamowlabs.com/lab-robot-bench-v0-1",
+          "role": "原始跨模型具身评测",
+          "scope": "通用模型的湿实验机器人故障恢复、流程状态、时间约束和完成判断",
+          "note": "原文10月19日；10月21日HN讨论数据许可与免费代测。in-silico仿真镜像命令接口；mean score不是完整实机实验成功率。任务总数、seed、次数、推理档、成本和时延未披露。",
+          "aliases": [
+            "LabRobotBench",
+            "Gamow Labs",
+            "Ben Reilly",
+            "Jeff Hsu"
+          ],
+          "watch_terms": [
+            "wet lab agents",
+            "workflow recovery",
+            "deadline",
+            "failure analysis",
+            "dataset licensing"
+          ],
+          "verification": {
+            "status": "content_verified",
+            "checked_on": "2026-10-22",
+            "note": "已读公开完整正文和HN全部可见回复；未独立运行。"
+          },
+          "channels": [
+            {
+              "label": "LabRobotBench V0.1官方全文",
+              "url": "https://gamowlabs.com/lab-robot-bench-v0-1",
+              "kind": "原始协议与失败分析",
+              "status": "content_verified",
+              "checked_on": "2026-10-22",
+              "note": "已读三个案例和留出子集平均分；无论文、代码或全数据下载。"
+            },
+            {
+              "label": "HN数据访问讨论",
+              "url": "https://news.ycombinator.com/item?id=50174317",
+              "kind": "社区讨论",
+              "status": "content_verified",
+              "checked_on": "2026-10-22",
+              "note": "15分2评论；10月21日回复数据许可与免费代测，不是独立复现或多方热议。"
+            }
+          ]
+        },
+        {
+          "id": "aa-robotics",
+          "name": "Artificial Analysis · AA-Robotics",
+          "url": "https://artificialanalysis.ai/articles/aa-robotics",
+          "role": "原始跨模型具身评测",
+          "scope": "通用模型零样本实机操作、部分进度、延迟、成本与完成判断",
+          "note": "原10月14日v0.1，本轮无新版本证据。Hiwonder NexArm八桌面任务，0–100人工最终状态评分不是成功率；重复次数与方差不明。/robotics仅为空壳，须读原文。",
+          "aliases": [
+            "AA-Robotics",
+            "Artificial Analysis Robotics"
+          ],
+          "watch_terms": [
+            "zero-shot real-world robotics",
+            "frontier coding agents",
+            "cost latency",
+            "task completion"
+          ],
+          "verification": {
+            "status": "content_verified",
+            "checked_on": "2026-10-22",
+            "note": "已读完整原文与近期HN搜索；未找到最近新增独立讨论。"
+          },
+          "channels": [
+            {
+              "label": "AA-Robotics v0.1官方完整报告",
+              "url": "https://artificialanalysis.ai/articles/aa-robotics",
+              "kind": "实机协议与榜单",
+              "status": "content_verified",
+              "checked_on": "2026-10-22",
+              "note": "已读机器人、任务、相机、接口、推理档、进度分、成本时延与失败案例。"
+            }
+          ]
+        },
+        {
+          "id": "vals-robo-bench",
+          "name": "Vals AI · Robo-bench",
+          "url": "https://www.vals.ai/benchmarks/robo_bench",
+          "role": "原始跨模型具身评测",
+          "scope": "通用模型写控制代码；Panda机械臂与Unitree G1人形能力差异",
+          "note": "页面Updated10月13日，本轮无新版本证据。MuJoCo24任务、每模型单seed、三分钟wall-clock且思考时仿真不停；milestone均分不是完整成功率。各自vendor agent，作者提示复跑可波动约10分。",
+          "aliases": [
+            "Vals Robo-bench",
+            "Robo-bench"
+          ],
+          "watch_terms": [
+            "general intelligence robotics",
+            "MuJoCo",
+            "Panda",
+            "Unitree G1",
+            "wall clock budget"
+          ],
+          "verification": {
+            "status": "content_verified",
+            "checked_on": "2026-10-22",
+            "note": "已读完整协议与结果，未独立运行。"
+          },
+          "channels": [
+            {
+              "label": "Robo-bench官方协议与结果",
+              "url": "https://www.vals.ai/benchmarks/robo_bench",
+              "kind": "仿真协议与榜单",
+              "status": "content_verified",
+              "checked_on": "2026-10-22",
+              "note": "已读24任务、留出设置、接口、runtime、单seed与方差限制。"
             }
           ]
         }
@@ -2648,13 +2759,22 @@
           "url": null,
           "role": "公众号热点发现",
           "scope": "具身智能、VLA、机器人学习、世界模型、论文解读与产业进展",
-          "note": "用户指定的重点公众号；官方公开入口尚未独立核验。使用公开可检索文章回查论文、作者项目或官方发布，无法访问时说明覆盖缺口。",
+          "note": "用户重点公众号；10月20日LingBot外部采用专题已通过36氪明确转载全文读取，并参与本期世界动作模型选题。技术数值逐篇回查；官方账号完整公开历史入口仍待核。",
           "verification": {
-            "status": "unverified",
-            "checked_on": "2026-10-14",
-            "http_status": null,
-            "note": "暂未核验官方公众号入口，不猜测公众号地址。"
-          }
+            "status": "content_verified",
+            "checked_on": "2026-10-22",
+            "note": "读到明确署名具身智能之心的36氪同源全文；非官方账号历史全量入口。"
+          },
+          "channels": [
+            {
+              "label": "具身智能之心10月20日LingBot专题（36氪同源转载）",
+              "url": "https://www.36kr.com/p/4034141517337734",
+              "kind": "公众号公开全文镜像",
+              "status": "content_verified",
+              "checked_on": "2026-10-22",
+              "note": "《这个中国具身模型，正成为海外研究物理世界的新起点》，10月20日20:09，明确转载自具身智能之心，只算同源传播。具体技术数值需回查论文；不是官方账号全量历史入口。"
+            }
+          ]
         },
         {
           "id": "human-five",
@@ -2670,8 +2790,8 @@
           "note": "用户指定的重点技术发现源。线索参与当期精选与讨论筛选，主题随实际研究和社区讨论轮换；不将单篇文章的模型或方法设为每日固定主题。公众号未贴出处时独立找官方材料，并记录实际可读范围。",
           "verification": {
             "status": "unverified",
-            "checked_on": "2026-10-16",
-            "note": "保留2026-10-14历史身份核验：human five／How-to-AI／gh_7f0ee33c662a；本轮2026-10-16访问指定文章触发微信验证码，未读取本轮全文，账号完整历史入口仍未核验。"
+            "checked_on": "2026-10-22",
+            "note": "历史已核账号身份和用户指定文章；本轮按账号名/微信号/gh标识检索仍未定位最新可读全文，不能认定无更新。"
           },
           "channels": [
             {
@@ -2679,8 +2799,8 @@
               "url": "https://mp.weixin.qq.com/s/c6jtVqfZ0bI3JtCtExzlhg",
               "kind": "公开微信文章 · 账号识别与话题发现",
               "status": "unreadable",
-              "checked_on": "2026-10-16",
-              "note": "2026-10-14历史已读记录核对账号与08:00发布时间；2026-10-16当前访问触发微信验证码，未读取本轮全文。保留Gemini 4与具身方向的历史发现线索；用户澄清它与RSI均为热点示例，后续按当期新技术与真实讨论证据轮换，具体结论另查官方资料，搜狗转载摘要不当本号原文。"
+              "checked_on": "2026-10-22",
+              "note": "保留10月14日已读全文和账号核验。本轮入口访问需微信验证；公开账号精确检索未获最新全文，当前覆盖有缺口，不重复旧专篇。"
             }
           ],
           "watch_terms": [

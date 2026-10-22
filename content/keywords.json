@@ -2,7 +2,7 @@
   "metadata": {
     "title": "研究方向与检索关键词",
     "status": "sample-research-map",
-    "updated": "2026-10-21",
+    "updated": "2026-10-22",
     "intro": "中英关键词连接具体研究问题，覆盖大模型与具身的多条路线，作为可扩展的检索地图。每日热点由近期新增研究和实际社区讨论重新筛选，主题随证据轮换；Gemini、RSI等是历史案例与候选方向，不是固定推荐或实时热度排名。",
     "verification": "来源通过HTTP读取，核验标题、日期及摘要或官方正文；部分本期论文还检查了方法、实验与局限段落，具体范围见来源说明。未执行全文精读归档或独立复现。",
     "dating_policy": "来源日期默认记录arXiv首版提交日期；官方文章单独注明发布日期。更新日期表示研究地图整理时间。"
@@ -99,7 +99,10 @@
         "跨模型具身横评",
         "任务进度与成功率",
         "机器人推理成本",
-        "动作反馈"
+        "动作反馈",
+        "触觉上下文筛选",
+        "实验流程恢复",
+        "任务阶段混淆"
       ],
       "keywords_en": [
         "foundation models for robotics",
@@ -116,9 +119,12 @@
         "Agent2Act",
         "robot benchmark harness",
         "task progress",
-        "latency-cost frontier"
+        "latency-cost frontier",
+        "tactile in-context learning",
+        "workflow recovery",
+        "stage confusion"
       ],
-      "explanation": "持续追踪通用模型怎样通过RGB/深度/触觉、状态、代码、工具和历史反馈参与机器人闭环，并与VLA/WAM比较。当前入口包括RoboColiseum跨模型仿真、Robocurve真实双臂进度与成本、PhysRSI固定权重改进和TacTalent触觉接口。以具体研究问题组织，保留原始日期与当次观察，不设品牌配额。",
+      "explanation": "持续追踪通用模型怎样通过RGB/深度/触觉、状态、代码、工具和历史反馈参与物理任务，并与VLA/WAM比较。当前新增LabRobotBench实验流程横评、GPT-GEAR直接闭环、Tactile-ETA触觉示范和S-Agent 2.0空间工具；RoboColiseum/Robocurve为已有协议对照。以新讨论与实证组织，保留原日期，无新变化不重复。",
       "researchers_do": [
         "把精确定位、空间理解等基础能力迁移到动作模型，固定下游模块比较迁移收益。",
         "结合机器人数据训练或后训练，研究导航、操作等任务是否可以共用模型与表示。",
@@ -171,6 +177,26 @@
           "published": "2026-10-11",
           "date_basis": "arXiv首版（UTC）",
           "verified": "已读方法、仿真结果、实机定性设置与局限；未复现"
+        },
+        {
+          "label": "LabRobotBench：通用模型已能指挥实验机器人，仍会把“动作做完”误当“实验有效”",
+          "url": "https://gamowlabs.com/lab-robot-bench-v0-1",
+          "published": "2026-10-19"
+        },
+        {
+          "label": "GPT-GEAR：通用模型接入机器人控制，实机小样本从10/25到20/25，示范与速度仍是关键",
+          "url": "https://arxiv.org/html/2610.28259",
+          "published": "2026-10-20"
+        },
+        {
+          "label": "Tactile-ETA：触觉要怎样放进大模型上下文，才会变成精细操作能力？",
+          "url": "https://arxiv.org/html/2610.27613",
+          "published": "2026-10-20"
+        },
+        {
+          "label": "S-Agent 2.0：通用编程Agent加空间工具，关键是让模型正确使用几何证据",
+          "url": "https://arxiv.org/abs/2610.28354",
+          "published": "2026-10-20"
         }
       ]
     },
