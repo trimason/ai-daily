@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-10-22",
+  "updated_on": "2026-10-23",
   "intro": "每日从研究目录、作者项目、论文、代码、模型卡、技术博客和社区原帖交叉发现大模型与具身的新进展及讨论问题，按当期证据轮换选题。持续覆盖国内外团队与小鹏 GroundingPI 等原始研究；主入口可达、内容已读和社区关注度分别核验。",
   "groups": [
     {
@@ -17,10 +17,9 @@
           "scope": "通用机器学习、基础模型、强化学习与评测",
           "note": "",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://neurips.cc/"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "实际读主页；最新10/22聚会博客非研究；未全读2026论文"
           }
         },
         {
@@ -31,10 +30,9 @@
           "scope": "学习算法、理论、模型训练与后训练",
           "note": "",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://icml.cc/"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "实际读主页；最新研究/奖项为7–8月；未全读论文"
           }
         },
         {
@@ -45,10 +43,9 @@
           "scope": "深度学习、表征学习、推理与生成模型",
           "note": "公开稿件与评审回查 OpenReview；是否录用以官方结果为准。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://iclr.cc/"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "当前2027，reviews11/5、decisions12/16均未来；未全读投稿/评审"
           }
         },
         {
@@ -59,11 +56,20 @@
           "scope": "语言模型训练、推理、架构、数据、对齐与评测",
           "note": "旧官网 colmweb.org 已公告迁移至 colm.cc。主会、workshop及其Oral分别标注；workshop录用不能写作主会录用。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://colm.cc/"
-          }
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "实际读主页及https://proceedings.colm.cc/paper_files/paper/2026 的856篇pre-proceedings列表；DOI待2027/1；非逐篇精读"
+          },
+          "channels": [
+            {
+              "label": "COLM 2026预论文集",
+              "url": "https://proceedings.colm.cc/paper_files/paper/2026",
+              "kind": "当届论文目录",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "实际解析856篇pre-proceedings；非逐篇精读，DOI预计2027年1月。"
+            }
+          ]
         },
         {
           "id": "cvpr",
@@ -73,10 +79,9 @@
           "scope": "计算机视觉、多模态、3D、视频和视觉具身",
           "note": "",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://cvpr.thecvf.com/"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "当前2027准备；2026档案是历史；未全读CVF论文"
           }
         },
         {
@@ -87,10 +92,9 @@
           "scope": "计算机视觉、多模态与场景理解",
           "note": "",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://iccv.thecvf.com/"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "当前2027香港10/3–7，无ICCV2026主会"
           }
         },
         {
@@ -101,10 +105,9 @@
           "scope": "视觉学习、3D、视频与生成方法",
           "note": "",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://eccv.ecva.net/"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "实际读主页，最新论文集/accepted事项9/9、8/17；未全读论文"
           }
         },
         {
@@ -115,10 +118,9 @@
           "scope": "语言模型、语言理解、生成、对齐与评测",
           "note": "此链接为 ACL 2026；新一届入口应从官方公告更新。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://2026.aclweb.org/"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "实际读主页及/program/，Main/Findings/Industry/Demos/CL/TACL/SRW分开；未全读论文"
           }
         },
         {
@@ -129,10 +131,9 @@
           "scope": "自然语言处理、语言模型、数据和应用评测",
           "note": "此链接为 EMNLP 2026；会议和 Findings 录用类型分别记录。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://2026.emnlp.org/"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "实际读主页及/program/；10/24–29将召开，10/25AI评审初报、10/27奖项尚未来，不能预先报告结论"
           }
         },
         {
@@ -141,12 +142,11 @@
           "url": "https://www.ieee-ras.org/conferences-workshops/fully-sponsored/icra",
           "role": "会议入口",
           "scope": "机器人感知、控制、操作、规划与具身系统",
-          "note": "IEEE RAS 官方会议入口；本次访问返回403，论文需通过会方或作者原始链接核验。",
+          "note": "直接403但搜索工具实际读RAS正文，当前2027/5/24–28，录用2027/1/31；不再写完全不可读",
           "verification": {
-            "status": "unreadable",
-            "checked_on": "2026-10-14",
-            "http_status": 403,
-            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "直接403但搜索工具实际读RAS正文，当前2027/5/24–28，录用2027/1/31；不再写完全不可读"
           }
         },
         {
@@ -155,13 +155,22 @@
           "url": "https://www.ieee-ras.org/conferences-workshops/financially-co-sponsored/iros",
           "role": "会议入口",
           "scope": "智能机器人与系统、导航、操作与实机实验",
-          "note": "IEEE RAS 官方会议入口；本次访问返回403。",
+          "note": "直接403但搜索工具实际读RAS正文，2026Pittsburgh入口；2026.ieee-iros.org主站仍403/restricted，不能声称程序全读",
           "verification": {
-            "status": "unreadable",
-            "checked_on": "2026-10-14",
-            "http_status": 403,
-            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
-          }
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "直接403但搜索工具实际读RAS正文，2026Pittsburgh入口；2026.ieee-iros.org主站仍403/restricted，不能声称程序全读"
+          },
+          "channels": [
+            {
+              "label": "IROS 2026会议站",
+              "url": "https://2026.ieee-iros.org/",
+              "kind": "当届会议入口",
+              "status": "unreadable",
+              "checked_on": "2026-10-23",
+              "note": "本轮直接403/搜索restricted，未读取完整程序；RAS官方会议介绍可通过搜索读取，二者分别标注。"
+            }
+          ]
         },
         {
           "id": "rss",
@@ -171,10 +180,9 @@
           "scope": "机器人科学、学习、操作、感知与规划",
           "note": "",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://roboticsconference.org/"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "实际读主页，当前2027，extended abstract12/4、decision2027/2/5；2026为档案"
           }
         },
         {
@@ -185,11 +193,20 @@
           "scope": "机器人学习、模仿学习、VLA、数据与泛化",
           "note": "",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://www.corl.org/"
-          }
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "实际读主页并解析/program/accepted-papers同页data-code嵌入列表，687篇/21oral/72spotlight，687poster含oral/spotlight，非总数相加"
+          },
+          "channels": [
+            {
+              "label": "CoRL 2026录用与展示类型",
+              "url": "https://www.corl.org/program/accepted-papers",
+              "kind": "当届论文目录",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "读取同页data-code嵌入HTML，687篇，21 oral、72 spotlight为其中展示类型，不再与687 posters相加。未逐篇精读。"
+            }
+          ]
         },
         {
           "id": "aaai",
@@ -197,12 +214,11 @@
           "url": "https://aaai.org/conference/aaai/",
           "role": "会议入口",
           "scope": "综合人工智能、规划、知识、推理与应用",
-          "note": "本次访问返回403；只在能回查当届论文与作者材料时收录具体成果。",
+          "note": "直接403但搜索工具实际读正文；future2027/2/16–23 Montreal，2026proceedings为历史；不再写完全不可读",
           "verification": {
-            "status": "unreadable",
-            "checked_on": "2026-10-14",
-            "http_status": 403,
-            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "直接403但搜索工具实际读正文；future2027/2/16–23 Montreal，2026proceedings为历史；不再写完全不可读"
           }
         }
       ]
@@ -338,10 +354,27 @@
           "note": "本次HTTP返回403，需在可读取的官方论文或技术报告中核验具体内容。",
           "verification": {
             "status": "unreadable",
-            "checked_on": "2026-10-14",
-            "http_status": 403,
-            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
-          }
+            "checked_on": "2026-10-23",
+            "note": "HTTP403，本渠道正文未读；另读官方news/rss.xml发现列表，不声称逐篇研究均已核验。"
+          },
+          "channels": [
+            {
+              "url": "https://openai.com/research/",
+              "status": "unreadable",
+              "checked_on": "2026-10-23",
+              "note": "HTTP403，本渠道正文未读；另读官方news/rss.xml发现列表，不声称逐篇研究均已核验。",
+              "label": "OpenAI Research · 实际读取入口",
+              "kind": "具体渠道核验"
+            },
+            {
+              "url": "https://openai.com/news/rss.xml",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读RSS最新项目标题/日期/摘要；最新列10月22日Decisions API等，未逐篇核正文。",
+              "kind": "官方新闻RSS发现入口",
+              "label": "OpenAI News RSS"
+            }
+          ]
         },
         {
           "id": "anthropic",
@@ -351,11 +384,20 @@
           "scope": "模型行为、对齐、可解释性、Agent与安全",
           "note": "",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://www.anthropic.com/research"
-          }
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "已读研究索引和10月22日形式验证完整正文，并核公开证明与语义范围。"
+          },
+          "channels": [
+            {
+              "url": "https://www.anthropic.com/research",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读研究索引和10月22日形式验证完整正文，并核公开证明与语义范围。",
+              "label": "Anthropic Research · 实际读取入口",
+              "kind": "具体渠道核验"
+            }
+          ]
         },
         {
           "id": "deepmind",
@@ -366,9 +408,8 @@
           "note": "跟踪基础模型、世界模型与机器人研究；与其他团队按当期新增内容和讨论证据共同筛选，不因品牌或模型版本固定进入首页。通用模型、具身推理模型与VLA动作策略分别核验；官方自报与独立实测分开记录。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "note": "已读博客索引与下列具体材料；不是所有链接的全量覆盖。"
+            "checked_on": "2026-10-23",
+            "note": "已读博客索引，含Argon和EmbeddingGemma2等；本轮仅索引，不更新旧专题正文的核验日期。"
           },
           "aliases": [
             "Google DeepMind",
@@ -394,8 +435,8 @@
               "url": "https://deepmind.google/blog/",
               "kind": "官方研究发现目录",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "已读索引，确认Gemini 4 Argon总发布与机器人专篇入口。"
+              "checked_on": "2026-10-23",
+              "note": "已读博客索引，含Argon和EmbeddingGemma2等；本轮仅索引，不更新旧专题正文的核验日期。"
             },
             {
               "label": "Gemini 4 Argon官方总发布",
@@ -471,7 +512,17 @@
             "checked_on": "2026-10-14",
             "http_status": 200,
             "resolved_url": "https://www.nvidia.com/en-us/research/"
-          }
+          },
+          "channels": [
+            {
+              "url": "https://research.nvidia.com/labs/srl/projects/astranomy/",
+              "status": "content_verified",
+              "note": "10/14完整报告实际读取；120任务×5次；Figure2成本每成功episode，TLDR写per episode不够精确。",
+              "checked_on": "2026-10-23",
+              "label": "NVIDIA Research · 实际读取材料",
+              "kind": "具体材料与读取范围"
+            }
+          ]
         },
         {
           "id": "microsoft",
@@ -523,7 +574,33 @@
             "checked_on": "2026-10-14",
             "http_status": 200,
             "resolved_url": "https://bair.berkeley.edu/blog/"
-          }
+          },
+          "channels": [
+            {
+              "label": "AW-0 作者项目",
+              "url": "https://agentic-wam.github.io/",
+              "kind": "Berkeley/NVIDIA/UPenn作者项目",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "项目正文已读；论文首版10-21UTC。代码/视频/动作联合生成，实机71.1为rubric得分。"
+            },
+            {
+              "label": "AW-0 公开实现",
+              "url": "https://github.com/ZhuoyangLiu2005/agentic-wam",
+              "kind": "作者代码",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "完整README与公开实现树可读，未运行训练或复现；默认代码是条件化计划，不直接执行。"
+            },
+            {
+              "label": "AW-0 预训练权重卡",
+              "url": "https://huggingface.co/miniFranka/agentic-wam-pretrain-yamego3k-soup-e1",
+              "kind": "作者模型卡",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "卡片公开、具体预训练checkpoint入口可读；未下载权重，不能把公开资源称独立复现。"
+            }
+          ]
         },
         {
           "id": "csail",
@@ -608,6 +685,52 @@
             "http_status": 200,
             "resolved_url": "https://www.pi.website/blog"
           }
+        },
+        {
+          "id": "physical-world-michigan",
+          "name": "University of Michigan · PhysiCalWorld作者项目",
+          "url": "https://physical-world.github.io/",
+          "role": "世界模型物理校准原始研究",
+          "scope": "测试场景交互、隐含物理、上下文校准与模型规划；项目不是整个密歇根大学研究目录",
+          "verification": {
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "论文机构、项目、代码、检查点与数据卡均实际读取；仅作者仿真实验，未独立复现。"
+          },
+          "channels": [
+            {
+              "label": "PhysiCalWorld 项目",
+              "url": "https://physical-world.github.io/",
+              "kind": "作者项目",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "正文完整读取；论文首版10-21UTC。全部为仿真，不将阻尼OOD预测写跨本体泛化。"
+            },
+            {
+              "label": "PhysiCalWorld 代码",
+              "url": "https://github.com/physical-world/physical-world-release",
+              "kind": "作者公开实现",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "完整README与训练/评测说明可读，未运行。"
+            },
+            {
+              "label": "PhysiCalWorld 检查点",
+              "url": "https://huggingface.co/physical-world/physical-world-checkpoints-release",
+              "kind": "模型卡",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "四环境/方法目录说明与配置文件入口明确；未下载权重。"
+            },
+            {
+              "label": "PhysiCalWorld 仿真数据",
+              "url": "https://huggingface.co/datasets/physical-world/physical-world-dataset-release",
+              "kind": "数据卡",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "卡片含135训练/15留出物理配置、四环境episode数与分析子集，38.6GB；HF预览器报错不等于数据卡/文件不可读，未下载全量。"
+            }
+          ]
         }
       ]
     },
@@ -625,10 +748,8 @@
           "note": "研究目录、API新闻/模型日志、官方模型卡和代码并行检查；API新闻是模型新版本的一手渠道，不能因主站目录较旧而只作次要线索。具身产业动向另查官方与媒体原报道，未获确认则明示。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-15",
-            "http_status": 200,
-            "resolved_url": "https://www.deepseek.com/news/",
-            "note": "已读取研究与动态目录；本次未找到对应具身论文或模型官宣，不表示不存在未公开研究。"
+            "checked_on": "2026-10-23",
+            "note": "已读研究与动态索引，最新动态9月10日、研究索引6月24日；另查API/代码/模型卡，不能从主站旧目录推断停更。"
           },
           "aliases": [
             "DeepSeek",
@@ -651,24 +772,24 @@
               "url": "https://www.deepseek.com/news/",
               "kind": "官方研究索引",
               "status": "content_verified",
-              "checked_on": "2026-10-15",
-              "note": "已读论文与模型动态列表。"
+              "checked_on": "2026-10-23",
+              "note": "已读研究与动态索引，最新动态9月10日、研究索引6月24日；另查API/代码/模型卡，不能从主站旧目录推断停更。"
             },
             {
               "label": "官方 GitHub 组织",
               "url": "https://github.com/deepseek-ai",
               "kind": "代码与论文发现",
               "status": "content_verified",
-              "checked_on": "2026-10-15",
-              "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
+              "checked_on": "2026-10-23",
+              "note": "通过GitHub API读最近推送15个仓库名称/描述/分支；另实际读DeepInfer README。pushed_at不作成果发布日期。"
             },
             {
               "label": "API / 模型更新日志",
               "url": "https://api-docs.deepseek.com/zh-cn/updates/",
               "kind": "模型版本与API原始公告",
               "status": "content_verified",
-              "checked_on": "2026-10-18",
-              "note": "已读10月17日1017版本公告及Search/Fetch指南；主站news目录未同步列出本条，采集必须同时检查本渠道。"
+              "checked_on": "2026-10-23",
+              "note": "已重读更新日志，最新模型事件10月17日1017与Search/Fetch；本期不重复当新发布。"
             },
             {
               "label": "官方知乎",
@@ -701,6 +822,22 @@
               "status": "content_verified",
               "checked_on": "2026-10-20",
               "note": "10-19 Release 0.2.0及README已读；协议转换、提示渲染与流式解析工程，不等于新模型或具身模型发布。"
+            },
+            {
+              "url": "https://github.com/deepseek-ai/DeepInfer",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读DeepInfer官方README正文，未把文件维护日期或目录活跃度当成果新发。",
+              "kind": "官方代码与研究说明",
+              "label": "DeepInfer代码与研究说明"
+            },
+            {
+              "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读官方模型卡全文；规格与基准为作者报告，未独立部署或复现。",
+              "kind": "官方模型卡",
+              "label": "已读官方模型卡"
             }
           ],
           "evidence": [
@@ -720,10 +857,9 @@
           "scope": "基础模型、推理与Agent、多模态、开源模型、训练与推理工程",
           "note": "研究目录与QwenLM仓库并查；Qwen-RobotManip/Nav/World为既有具身线索，保留原日期。RobotManip明确无权重发布计划，不能称开放权重VLA。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://qwen.ai/research"
+            "status": "unreadable",
+            "checked_on": "2026-10-23",
+            "note": "HTTP200但仅取得4字符SPA标题，未读到研究目录正文；继续用官方代码与模型卡发现。"
           },
           "aliases": [
             "Qwen",
@@ -747,17 +883,17 @@
               "label": "研究 / 官方动态",
               "url": "https://qwenlm.github.io/blog/",
               "kind": "官方研究入口",
-              "status": "reachable",
-              "checked_on": "2026-10-14",
-              "note": "逐篇读取正文、日期与作者材料；目录可达不代表已核验全部研究。"
+              "status": "unreadable",
+              "checked_on": "2026-10-23",
+              "note": "实际旧博客页指向新站，不能视作当前研究目录全量已读。"
             },
             {
               "label": "官方 GitHub 组织",
               "url": "https://github.com/QwenLM",
               "kind": "代码与论文发现",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
+              "checked_on": "2026-10-23",
+              "note": "通过GitHub API读最近推送15个仓库名称/描述/分支；另实际读Qwen-MM-Plugins README。pushed_at不作成果发布日期。"
             },
             {
               "label": "Qwen-RobotManip 官方研究仓库",
@@ -788,8 +924,32 @@
               "url": "https://qwen.ai/research",
               "kind": "官方研究索引",
               "status": "unreadable",
-              "checked_on": "2026-10-20",
-              "note": "本轮HTTP取得动态空壳；旧博客提示迁移。不能以HTTP200证明已读取当前成果，已补查官方组织和RobotManip README。"
+              "checked_on": "2026-10-23",
+              "note": "HTTP200但仅取得4字符SPA标题，未读到研究目录正文；继续用官方代码与模型卡发现。"
+            },
+            {
+              "url": "https://github.com/QwenLM/Qwen-MM-Plugins",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读Qwen-MM-Plugins官方README正文，未把文件维护日期或目录活跃度当成果新发。",
+              "kind": "官方代码与研究说明",
+              "label": "Qwen-MM-Plugins代码与研究说明"
+            },
+            {
+              "url": "https://huggingface.co/Qwen/Qwen-Image-2.1-Turbo",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读官方模型卡全文；规格与基准为作者报告，未独立部署或复现。",
+              "kind": "官方模型卡",
+              "label": "已读官方模型卡"
+            },
+            {
+              "url": "https://github.com/QwenLM/Qwen-MM-Plugins/commit/ec425ccf05af1a5e0369ba8577e93b8e44420352",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已核10月22日12:31:47UTC提交Omni Deep Research；为多模态研究Skill/MCP工程更新，提交说明真实凭据网关/Qoder验收未验证，不能称新基础模型或机器人实测。",
+              "kind": "具体代码更新",
+              "label": "Omni Deep Research代码提交"
             }
           ],
           "evidence": [
@@ -809,10 +969,9 @@
           "scope": "语言模型、推理、Agent、多模态生成、语音及机器人相关公开研究",
           "note": "以Seed官方研究页面和论文为主，不把豆包产品更新直接视为模型研究成果；官方组织 https://github.com/ByteDance-Seed。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://seed.bytedance.com/zh/research"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "已读静态目录；精选论文最新列9月28日Periodic Weak Spots，博客最新8月5日SeedRealtime；目录非全部研究覆盖。"
           },
           "aliases": [
             "Seed",
@@ -834,17 +993,33 @@
               "label": "研究 / 官方动态",
               "url": "https://seed.bytedance.com/zh/research",
               "kind": "官方研究入口",
-              "status": "reachable",
-              "checked_on": "2026-10-14",
-              "note": "逐篇读取正文、日期与作者材料；目录可达不代表已核验全部研究。"
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读静态目录；精选论文最新列9月28日Periodic Weak Spots，博客最新8月5日SeedRealtime；目录非全部研究覆盖。"
             },
             {
               "label": "官方 GitHub 组织",
               "url": "https://github.com/ByteDance-Seed",
               "kind": "代码与论文发现",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
+              "checked_on": "2026-10-23",
+              "note": "通过GitHub API读最近推送15个仓库名称/描述/分支；另实际读VeOmni README。pushed_at不作成果发布日期。"
+            },
+            {
+              "url": "https://github.com/ByteDance-Seed/VeOmni",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读VeOmni官方README正文，未把文件维护日期或目录活跃度当成果新发。",
+              "kind": "官方代码与研究说明",
+              "label": "VeOmni代码与研究说明"
+            },
+            {
+              "url": "https://huggingface.co/ByteDance-Seed/Cola-DLM",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读官方模型卡全文；规格与基准为作者报告，未独立部署或复现。",
+              "kind": "官方模型卡",
+              "label": "已读官方模型卡"
             }
           ]
         },
@@ -856,10 +1031,9 @@
           "scope": "语言与多模态模型、推理、Agent、开源模型和技术报告",
           "note": "官方研究目录；官方组织 https://github.com/zai-org 可交叉回查论文、模型卡和代码。具体研究文章需逐篇核验，目录可访问不表示每条内容已核验。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://www.zhipuai.cn/zh/research"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "已读研究列表，最新列8月26日GLM-5.3-Flash；另核官方GLM-5代码README和GLM-5.3-Flash模型卡，未据其他横评的GLM5.5名字推定已官宣。"
           },
           "aliases": [
             "GLM",
@@ -881,17 +1055,33 @@
               "label": "研究 / 官方动态",
               "url": "https://www.zhipuai.cn/zh/research",
               "kind": "官方研究入口",
-              "status": "reachable",
-              "checked_on": "2026-10-14",
-              "note": "逐篇读取正文、日期与作者材料；目录可达不代表已核验全部研究。"
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读研究列表，最新列8月26日GLM-5.3-Flash；另核官方GLM-5代码README和GLM-5.3-Flash模型卡，未据其他横评的GLM5.5名字推定已官宣。"
             },
             {
               "label": "官方 GitHub 组织",
               "url": "https://github.com/zai-org",
               "kind": "代码与论文发现",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
+              "checked_on": "2026-10-23",
+              "note": "通过GitHub API读最近推送15个仓库名称/描述/分支；另实际读GLM-5 README。pushed_at不作成果发布日期。"
+            },
+            {
+              "url": "https://github.com/zai-org/GLM-5",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读GLM-5官方README正文，未把文件维护日期或目录活跃度当成果新发。",
+              "kind": "官方代码与研究说明",
+              "label": "GLM-5代码与研究说明"
+            },
+            {
+              "url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读官方模型卡全文；规格与基准为作者报告，未独立部署或复现。",
+              "kind": "官方模型卡",
+              "label": "已读官方模型卡"
             }
           ]
         },
@@ -903,10 +1093,9 @@
           "scope": "基础模型、推理、Agent、长上下文、多模态与开源研究",
           "note": "官网与官方组织 https://github.com/MoonshotAI 双向链接，可回查技术报告、代码与模型卡；网页发布、论文首版及模型修订日期分别记录。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://www.moonshot.ai/"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "已读官网及真实博客入口；另核Kimi K3卡和MoonEP README。"
           },
           "aliases": [
             "Kimi",
@@ -928,25 +1117,41 @@
               "label": "研究 / 官方动态",
               "url": "https://www.moonshot.ai/",
               "kind": "官方研究入口",
-              "status": "reachable",
-              "checked_on": "2026-10-14",
-              "note": "逐篇读取正文、日期与作者材料；目录可达不代表已核验全部研究。"
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读官网及真实博客入口；另核Kimi K3卡和MoonEP README。"
             },
             {
               "label": "官方 GitHub 组织",
               "url": "https://github.com/MoonshotAI",
               "kind": "代码与论文发现",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
+              "checked_on": "2026-10-23",
+              "note": "通过GitHub API读最近推送15个仓库名称/描述/分支；另实际读MoonEP README。pushed_at不作成果发布日期。"
             },
             {
               "label": "Kimi官方研究博客（官网真实链接）",
               "url": "https://www.kimi.ai/blog/",
               "kind": "官方研究目录",
               "status": "content_verified",
-              "checked_on": "2026-10-19",
-              "note": "已读实际目录，Kimi K3显示7月16日；不把新抓取或vLLM优化文章当模型首发。"
+              "checked_on": "2026-10-23",
+              "note": "已读研究列表，最新列7月16日Kimi K3/PerceptionBench；未把代码维护当新模型发布。"
+            },
+            {
+              "url": "https://github.com/MoonshotAI/MoonEP",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读MoonEP官方README正文，未把文件维护日期或目录活跃度当成果新发。",
+              "kind": "官方代码与研究说明",
+              "label": "MoonEP代码与研究说明"
+            },
+            {
+              "url": "https://huggingface.co/moonshotai/Kimi-K3",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读官方模型卡全文；规格与基准为作者报告，未独立部署或复现。",
+              "kind": "官方模型卡",
+              "label": "已读官方模型卡"
             }
           ]
         },
@@ -958,10 +1163,9 @@
           "scope": "语言与多模态模型、模型训练、推理、Agent及开源训练工具",
           "note": "官方ERNIE Blog；官方代码仓库 https://github.com/PaddlePaddle/ERNIE 的GitHub API元数据指向本入口。文心产品发布与论文研究成果分别标注。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://ernie.baidu.com/"
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "已读ERNIE Blog目录，含ERNIE5.1等条目；本轮未逐篇重新核发布日期，不把目录抓取日期当新闻日期。"
           },
           "aliases": [
             "ERNIE",
@@ -983,17 +1187,17 @@
               "label": "研究 / 官方动态",
               "url": "https://ernie.baidu.com/",
               "kind": "官方研究入口",
-              "status": "reachable",
-              "checked_on": "2026-10-14",
-              "note": "逐篇读取正文、日期与作者材料；目录可达不代表已核验全部研究。"
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读ERNIE Blog目录，含ERNIE5.1等条目；本轮未逐篇重新核发布日期，不把目录抓取日期当新闻日期。"
             },
             {
-              "label": "官方代码仓库",
+              "label": "ERNIE代码与研究说明",
               "url": "https://github.com/PaddlePaddle/ERNIE",
-              "kind": "代码与论文发现",
+              "kind": "官方代码与研究说明",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
+              "checked_on": "2026-10-23",
+              "note": "已读ERNIE官方README正文，未把文件维护日期或目录活跃度当成果新发。"
             },
             {
               "label": "Paddle VHA 原论文与首版时间",
@@ -1026,6 +1230,14 @@
               "status": "content_verified",
               "checked_on": "2026-10-19",
               "note": "已读FlashMask-3原论文、表1与仓库README/首提交；论文10月13日、代码10月15日。当前仓库含-4，结果不可混用；会方已核NeurIPS2026 Poster。"
+            },
+            {
+              "url": "https://huggingface.co/baidu/Unlimited-OCR",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读官方模型卡全文；规格与基准为作者报告，未独立部署或复现。",
+              "kind": "官方模型卡",
+              "label": "已读官方模型卡"
             }
           ],
           "evidence": [
@@ -1045,10 +1257,9 @@
           "scope": "语言与多模态模型、图像视频生成、3D、世界模型及开源研究",
           "note": "官方发布入口；组织 https://github.com/Tencent-Hunyuan 的元数据指向 https://hy.tencent.com/（本次HTTP 200）。网页依赖JavaScript，获取具体文章时须核验正文、日期和论文。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://hunyuan.tencent.com/"
+            "status": "unreadable",
+            "checked_on": "2026-10-23",
+            "note": "HTTP200但仅4字符SPA标题，未读到动态正文；使用Hy-Memory/OmniCapBench官方README与模型卡补查。"
           },
           "aliases": [
             "Hunyuan",
@@ -1073,25 +1284,41 @@
               "label": "研究 / 官方动态",
               "url": "https://hunyuan.tencent.com/",
               "kind": "官方研究入口",
-              "status": "reachable",
-              "checked_on": "2026-10-14",
-              "note": "逐篇读取正文、日期与作者材料；目录可达不代表已核验全部研究。"
+              "status": "unreadable",
+              "checked_on": "2026-10-23",
+              "note": "HTTP200但仅4字符SPA标题，未读到动态正文；使用Hy-Memory/OmniCapBench官方README与模型卡补查。"
             },
             {
               "label": "官方 GitHub 组织",
               "url": "https://github.com/Tencent-Hunyuan",
               "kind": "代码与论文发现",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
+              "checked_on": "2026-10-23",
+              "note": "通过GitHub API读最近推送15个仓库名称/描述/分支；另实际读Hy-Memory README。pushed_at不作成果发布日期。"
             },
             {
-              "label": "Hy-Memory长期记忆框架、模型与版本",
+              "label": "Hy-Memory代码与研究说明",
               "url": "https://github.com/Tencent-Hunyuan/Hy-Memory",
-              "kind": "官方代码、报告与Release",
+              "kind": "官方代码与研究说明",
               "status": "content_verified",
-              "checked_on": "2026-10-18",
-              "note": "已读README、记忆写入报告与Release；报告/首Release北京10月16日，SDK更新10月17日，旧家族论文不计为同日首发。"
+              "checked_on": "2026-10-23",
+              "note": "已读Hy-Memory官方README正文，未把文件维护日期或目录活跃度当成果新发。"
+            },
+            {
+              "url": "https://huggingface.co/tencent/Hy-Memory-30B-A3B-GGUF",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读官方模型卡全文；规格与基准为作者报告，未独立部署或复现。",
+              "kind": "官方模型卡",
+              "label": "已读官方模型卡"
+            },
+            {
+              "url": "https://github.com/Tencent-Hunyuan/OmniCapBench",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读README与最近提交；10月22日为移除Logo等文档维护，原论文10月9日，不能包装成新评测发布。",
+              "kind": "官方评测代码",
+              "label": "OmniCapBench"
             }
           ]
         },
@@ -1103,10 +1330,9 @@
           "scope": "语言模型、推理与Agent、语音、视频和多模态生成、开源研究",
           "note": "官方News同时含研究、产品及合作公告，日报应分别标注；官方组织 https://github.com/MiniMax-AI。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://www.minimax.io/news"
+            "status": "unreadable",
+            "checked_on": "2026-10-23",
+            "note": "仅取得简短导航壳；改用官方/blog目录、M3.1-Flash具体博文、模型卡、提交与文件列表。"
           },
           "aliases": [
             "MiniMax"
@@ -1126,25 +1352,49 @@
               "label": "研究 / 官方动态",
               "url": "https://www.minimax.io/news",
               "kind": "官方研究入口",
-              "status": "reachable",
-              "checked_on": "2026-10-14",
-              "note": "逐篇读取正文、日期与作者材料；目录可达不代表已核验全部研究。"
+              "status": "unreadable",
+              "checked_on": "2026-10-23",
+              "note": "仅取得简短导航壳；改用官方/blog目录、M3.1-Flash具体博文、模型卡、提交与文件列表。"
             },
             {
               "label": "官方 GitHub 组织",
               "url": "https://github.com/MiniMax-AI",
               "kind": "代码与论文发现",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "已核组织元数据及归属；跟进仓库README News、论文和release，updated_at不能代替发布日期。"
+              "checked_on": "2026-10-23",
+              "note": "通过GitHub API读最近推送15个仓库名称/描述/分支；另实际读MSA README。pushed_at不作成果发布日期。"
             },
             {
               "label": "MiniMax M3.1 Flash 官方发布",
               "url": "https://www.minimax.io/blog/minimax-m31f",
               "kind": "模型发布与自报评测",
               "status": "content_verified",
-              "checked_on": "2026-10-20",
-              "note": "10-19官方发布正文已读；更激进稀疏化、Agent评测与成本为官方自报；API可用，权重计划稍后，未独立复现。"
+              "checked_on": "2026-10-23",
+              "note": "重读10月19日API发布作历史对照；10月23日首次权重提交已另行核验，更新“权重计划稍后”的旧状态。"
+            },
+            {
+              "url": "https://github.com/MiniMax-AI/MSA",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读MSA官方README正文，未把文件维护日期或目录活跃度当成果新发。",
+              "kind": "官方代码与研究说明",
+              "label": "MSA代码与研究说明"
+            },
+            {
+              "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读官方模型卡全文；规格与基准为作者报告，未独立部署或复现。",
+              "kind": "官方模型卡",
+              "label": "已读官方模型卡"
+            },
+            {
+              "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash/commit/9e7ebacac350497ad4a1272a2e817639bf11561c",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "官方首次提交10月23日00:59:04UTC，实际文件含48个safetensors分片、DSpark草稿头、配置与许可；未下载权重。",
+              "kind": "具体模型资产发布",
+              "label": "M3.1 Flash开放权重首次提交"
             }
           ]
         },
@@ -1156,10 +1406,9 @@
           "scope": "基础模型、推理、多模态、Agent、开源研究与具身相关模型",
           "note": "官网可读取，页面依赖JavaScript；官网公开静态资源含 https://github.com/stepfun-ai 的具体仓库链接，公开GitHub API亦核验该组织存在。具体论文、代码与模型卡须逐篇读取，保留实际发布日期。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://www.stepfun.com/"
+            "status": "unreadable",
+            "checked_on": "2026-10-23",
+            "note": "HTTP200但仅4字符SPA标题，未读到动态正文；已另读Step-5-Preview代码README与官方HF卡。"
           },
           "aliases": [
             "StepFun",
@@ -1180,17 +1429,17 @@
               "label": "研究 / 官方动态",
               "url": "https://www.stepfun.com/",
               "kind": "官方研究入口",
-              "status": "reachable",
-              "checked_on": "2026-10-14",
-              "note": "逐篇读取正文、日期与作者材料；目录可达不代表已核验全部研究。"
+              "status": "unreadable",
+              "checked_on": "2026-10-23",
+              "note": "HTTP200但仅4字符SPA标题，未读到动态正文；已另读Step-5-Preview代码README与官方HF卡。"
             },
             {
               "label": "官方 GitHub 组织",
               "url": "https://github.com/stepfun-ai",
               "kind": "代码与论文发现",
-              "status": "reachable",
-              "checked_on": "2026-10-14",
-              "note": "官网公开资源链接该组织，API确认组织存在；具体研究仍逐项核验。"
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "通过GitHub API读最近推送15个仓库名称/描述/分支；另实际读Step-5-Preview README。pushed_at不作成果发布日期。"
             },
             {
               "label": "Inside Step 5 Preview 官方技术博客",
@@ -1201,12 +1450,12 @@
               "note": "2026-10-16已读正文；博客发布10-15，模型仓库10-12创建，分别记录。涉及92层架构、稀疏GQA、数值稳定与长程RL；通用Agent模型，不能直接称为机器人控制或递归自我改进。"
             },
             {
-              "label": "Step 5 Preview 官方模型仓库",
+              "label": "Step-5-Preview代码与研究说明",
               "url": "https://github.com/stepfun-ai/Step-5-Preview",
-              "kind": "模型说明与部署入口",
+              "kind": "官方代码与研究说明",
               "status": "content_verified",
-              "checked_on": "2026-10-16",
-              "note": "2026-10-16已读README与提交记录；仓库10-12创建。官方参数与成绩未独立复现；仓库更新不代替模型首发日期。"
+              "checked_on": "2026-10-23",
+              "note": "已读Step-5-Preview官方README正文，未把文件维护日期或目录活跃度当成果新发。"
             },
             {
               "label": "Step 5 Preview 官方模型文档",
@@ -1215,6 +1464,14 @@
               "status": "content_verified",
               "checked_on": "2026-10-16",
               "note": "2026-10-16已读官方规格与调用说明；作为博客和README的交叉入口，不从通用Agent能力推断实机闭环。"
+            },
+            {
+              "url": "https://huggingface.co/stepfun-ai/Step-5-Preview",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "已读官方模型卡全文；规格与基准为作者报告，未独立部署或复现。",
+              "kind": "官方模型卡",
+              "label": "已读官方模型卡"
             }
           ],
           "evidence": [
@@ -1397,8 +1654,8 @@
           "note": "已读原论文相关章节、机构、项目发布日志和代码说明。企业新闻页并未覆盖这些作者项目；GroundingPI感知模型不等于可直接执行动作的策略。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-14",
-            "http_status": 200
+            "checked_on": "2026-10-23",
+            "note": "实际读取项目正文；与代码具体提交核对，10-14之后未建立新研究事件，不重复旧更新。"
           },
           "channels": [
             {
@@ -1406,8 +1663,8 @@
               "url": "https://groundingpi.github.io/",
               "kind": "作者项目",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "论文9月30日、权重10月1日、代码评测10月3日、项目页10月4日。"
+              "checked_on": "2026-10-23",
+              "note": "实际读取项目正文；与代码具体提交核对，10-14之后未建立新研究事件，不重复旧更新。"
             },
             {
               "label": "GroundingPI 代码与评测",
@@ -1421,17 +1678,17 @@
               "label": "GroundingPI 权重入口",
               "url": "https://huggingface.co/GroundingPI/GroundingPI",
               "kind": "模型卡",
-              "status": "unreadable",
-              "checked_on": "2026-10-14",
-              "note": "项目与仓库均指向此处；本次直连超时，未独立检查权重分片。"
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "今日模型卡完整可读，API模型文件列表可读；4B视觉grounding骨干，不是直接动作策略。没有把lastModified当新研究发布。"
             },
             {
               "label": "GroundAnything 项目",
               "url": "https://groundingpi.github.io/groundanything/",
               "kind": "作者项目",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "独立扩散grounding论文，不能当GroundingPI别名。"
+              "checked_on": "2026-10-23",
+              "note": "独立扩散grounding论文，项目全文可读；不是GroundingPI组织别名。"
             },
             {
               "label": "GroundAnything 代码",
@@ -1640,15 +1897,55 @@
               "status": "content_verified",
               "checked_on": "2026-10-18",
               "note": "已读10月17日G02/YAM更新diff与WorldOracle文档，video-only资源，未下载大权重或GPU复现。"
+            },
+            {
+              "label": "AgiBotWorld2026 数据卡与发布文件",
+              "url": "https://huggingface.co/datasets/agibot-world/AgiBotWorld2026",
+              "kind": "官方数据卡与文件",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "本轮完整读数据卡和PhysicalReasoning样本；CC-BY-NC-SA4.0。根卡仍为跨期总述；150h为预告口径，未核全量。"
+            },
+            {
+              "label": "PhysicalReasoning 数据目录",
+              "url": "https://huggingface.co/datasets/agibot-world/AgiBotWorld2026/tree/56dcbcde799030bbb1ee943af6987747a4be2bdc/PhysicalReasoning",
+              "kind": "10-22数据发布与实际文件核验",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "固定核验revision 56dcbcde；真实LeRobot Parquet/视频/meta路径已核，commit仍上传。只核样本不代表全量完成。"
+            },
+            {
+              "label": "PhysicalReasoning 遮挡取钥匙样本元数据",
+              "url": "https://huggingface.co/datasets/agibot-world/AgiBotWorld2026/blob/56dcbcde799030bbb1ee943af6987747a4be2bdc/PhysicalReasoning/opensourcev4-20261001/lerobot/task_100347/02/meta/info.json",
+              "kind": "真实样本meta",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "完整解析4.59MB：G2A/30Hz/170episodes/75,828帧，7视频流、分段指令、key_frame/take_over/affordance_annotations与成功字段；该动作子集未见独立QA字段。"
+            },
+            {
+              "label": "PhysicalReasoning 上传commit",
+              "url": "https://huggingface.co/api/datasets/agibot-world/AgiBotWorld2026/commits/main?limit=10",
+              "kind": "官方公开提交时间",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "本轮最新读到2026-10-23 01:01:28 UTC提交；说明持续更新，不能据此计算全量数据规模。"
+            },
+            {
+              "label": "AgiBotWorld 项目站",
+              "url": "https://agibot-world.com/",
+              "kind": "项目站SPA入口",
+              "status": "unreadable",
+              "checked_on": "2026-10-23",
+              "note": "HTTP200但提取文字只有AGIBOT WORLD，未读取有效新数据说明；改查官方HF实际文件。"
             }
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-14",
+            "checked_on": "2026-10-23",
             "http_status": 200,
-            "note": "官网 /research 的 title 为 AgiBot Research，页脚回链 agibot.com 并直接链接 GitHub AgibotTech/HF agibot-world。featured.js 将 GE-Act2.0链接至项目；arXiv作者含AgiBot Research Team。"
+            "note": "已读featured.js、官方代码组织、HF组织与AgiBotWorld2026实际PhysicalReasoning目录/固定版本样本；不将目录日期或全库体积当本次数据规模。"
           },
-          "note": "agibot-world.com无www可读，www子域DNS失败；别凭200认定已提取数据。",
+          "note": "10月23日研究索引、代码组织和HF均有实际读取。PhysicalReasoning新目录及真实LeRobot样本已完整核读，发布日10月22；HF上传仍持续。agibot-world.com本轮仅读到SPA标题，不能声称读到新发布正文。",
           "watch_terms": [
             "VLA",
             "world-action model",
@@ -1790,6 +2087,14 @@
               "label": "新闻索引",
               "checked_on": "2026-10-14",
               "status": "reachable"
+            },
+            {
+              "label": "A1Z G0.5部署适配",
+              "url": "https://github.com/userguide-galaxea/a1z-g05-deploy",
+              "kind": "具体部署代码与实际commit",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "官方CLI读取最新实际commit7ebe9ed，10-19适配G0.5的A1Z采集/训练/推理；无10-23新模型证据。user账户需用users API，不能用orgs 404判源失效。"
             }
           ],
           "verification": {
@@ -2055,6 +2360,22 @@
               "label": "项目入口",
               "checked_on": "2026-10-14",
               "status": "unverified"
+            },
+            {
+              "label": "10-22 GPT-6演示：澎湃记者现场报道",
+              "url": "https://k.sina.com.cn/article_5044281310_12ca99fde02002lfz6.html",
+              "kind": "具名媒体现场报道/官方账号同源全文",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "秦盛10-22现场报道，称展示GPT-6零训练绘画/规划导航。协议未公开，不当新模型/成功率；新浪是澎湃官方账号同源转载。"
+            },
+            {
+              "label": "10-22物理AI输入输出对齐观点",
+              "url": "https://api3.cls.cn/share/article/2511957?app=stib&os=ios&selected=&source=&sv=860",
+              "kind": "科创板日报具名现场观点",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "宋子乔具名报道，输入输出对齐/商业服务/自进化观点归属于王兴兴；不作为能力复现或已实现递归加速证据。"
             }
           ],
           "verification": {
@@ -2209,18 +2530,18 @@
             {
               "url": "https://www.limxdynamics.com/",
               "kind": "官网",
-              "note": "HTTP403 南墙WAF，正文无法读取",
+              "note": "今日官网44,846字符正文可读，已恢复，覆盖既有产品与研究入口；不再沿用历史403判断。",
               "label": "官网",
-              "checked_on": "2026-10-14",
-              "status": "unreadable"
+              "checked_on": "2026-10-23",
+              "status": "content_verified"
             },
             {
               "url": "https://github.com/limxdynamics",
-              "kind": "代码组织候选",
-              "note": "HTTP200，自署LimX Dynamics及回链官网，未从官网核到回链",
-              "label": "代码组织候选",
-              "checked_on": "2026-10-14",
-              "status": "unverified"
+              "kind": "官方代码账户",
+              "note": "账户为GitHub user，users API经官方CLI读取（orgs端点404）。具体研究仍按README与实际commit核验。",
+              "label": "代码组织与工具目录",
+              "checked_on": "2026-10-23",
+              "status": "content_verified"
             },
             {
               "url": "https://github.com/limxdynamics/tron1-rl-isaaclab",
@@ -2229,13 +2550,20 @@
               "label": "RL工具",
               "checked_on": "2026-10-14",
               "status": "unverified"
+            },
+            {
+              "label": "TRON2 Visual Grasp实际README",
+              "url": "https://github.com/limxdynamics/tron2_visual_grasp",
+              "kind": "10-22首次公开的工程示例",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "全文经官方API读取，实际初始commit10-22 04:04UTC；纯OpenCV网球检测，无神经网络，空抓也可报成功、无障碍检测。新代码资源非大模型突破，不强行入日报。"
             }
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "note": "已读GitHub组织自述和工具目录、回链LimX官网；官网本次403，双向归属核验尚有缺口。"
+            "checked_on": "2026-10-23",
+            "note": "账户为GitHub user，users API经官方CLI读取（orgs端点404）。具体研究仍按README与实际commit核验。"
           },
           "note": "代码组织自署可靠性强但双向官网链接本轮无法核验；以具体paper affiliation进一步核对，不把SDK活跃提交当研究发布。",
           "watch_terms": [
@@ -2330,7 +2658,7 @@
             "http_status": null,
             "note": "未找到可完成语义与机构核验的官方入口。tars.ai证书过期，tarsrobot.com超时；搜索结果跑偏，均不可作为已验证官方域名。"
           },
-          "note": "保持公司/关键词观察项，发现候选后先核论文机构/模型卡/官网身份。不能猜域名后以200归属；此轮没有可引用具体成果。",
+          "note": "10月23日补读arXiv关键词与tars-robotics目录。CT-VAM中的TARS只是中科大论文方法缩写，TARSphere也非公司，均已排除错误归属。tars-robotics账户可读但公司机构需进一步核验，不猜官网。",
           "watch_terms": [
             "VLA",
             "world-action model",
@@ -2419,7 +2747,7 @@
           "url": "https://robocoliseum.ai/",
           "role": "评测团队原始技术报告与榜单",
           "scope": "GPT、Claude、Gemini与专用策略；指令跟随、空间推理、操作、鲁棒性和实机案例",
-          "note": "10月22日API对比：四通用模型分数/顺序与昨日相同，不重复新闻。新增ModelMaster_XR1仅平台自报智元，未见论文或模型资料，待核正式归属与发布。保留每case一次、reasoning档位和聚合分限制。",
+          "note": "仅本轮公开榜API实际内容读取并对照昨日；四通用模型未变，Dream-1/ModelMaster新增或完成条目为平台自填，时间字段时区未单独确认，不写成正式模型发布。技术报告本轮SPA未读。",
           "aliases": [
             "RoboColiseum",
             "Agent2Act",
@@ -2435,17 +2763,17 @@
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-22",
-            "note": "当日公开榜单API与昨日缓存对比；四通用模型未变，未独立运行。"
+            "checked_on": "2026-10-23",
+            "note": "仅本轮公开榜API实际内容读取并对照昨日；四通用模型未变，Dream-1/ModelMaster新增或完成条目为平台自填，时间字段时区未单独确认，不写成正式模型发布。技术报告本轮SPA未读。"
           },
           "channels": [
             {
               "label": "Agent2Act官方技术报告",
               "url": "https://robocoliseum.ai/techreport/agent2act",
               "kind": "原始评测协议与实验",
-              "status": "content_verified",
-              "checked_on": "2026-10-21",
-              "note": "已读方法、四模型配置、分项成绩、消融、定性实机与失败边界；官方未给arXiv入口。"
+              "status": "unreadable",
+              "checked_on": "2026-10-23",
+              "note": "仅12字符SPA壳；不表示报告停更。"
             },
             {
               "label": "官方实时榜单",
@@ -2470,6 +2798,14 @@
               "status": "content_verified",
               "checked_on": "2026-10-21",
               "note": "内部浏览器已读全文，账号RoboColiseum，10月20日17:46发布；文章宣传性胜负表述按原报告协议重新解释。"
+            },
+            {
+              "url": "https://robocoliseum.ai/api/challenge/leaderboard/overall?page=1&per-page=100",
+              "status": "content_verified",
+              "note": "已读完整JSON并跨日比较，非独立复测。",
+              "checked_on": "2026-10-23",
+              "label": "RoboColiseum · Agent2Act跨模型具身评测 · 实际读取材料",
+              "kind": "具体材料与读取范围"
             }
           ]
         },
@@ -2479,7 +2815,7 @@
           "url": "https://robocurve.org/",
           "role": "独立机构原始评测与运行记录",
           "scope": "通用大模型、VLA、WAM的实机进度、成本、时间和失败分析",
-          "note": "10月21日核读动态榜单；任务进度不是完整成功率，不声称今日新发布。每配置120次；LLM40调用、VLA3600步上限。",
+          "note": "本轮读取榜和协议正文，与昨日数值未变；progress非完整SR，LLM40调用/VLA3600步。不要沿用旧note声称当日all-runs全部读取。",
           "aliases": [
             "Robocurve",
             "RoboDojo-RC",
@@ -2494,8 +2830,8 @@
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-22",
-            "note": "已读首页、协议与all-runs正文，与昨日未见榜单分数变化，不当新发布。"
+            "checked_on": "2026-10-23",
+            "note": "本轮读取榜和协议正文，与昨日数值未变；progress非完整SR，LLM40调用/VLA3600步。不要沿用旧note声称当日all-runs全部读取。"
           },
           "channels": [
             {
@@ -2522,7 +2858,7 @@
           "url": "https://gamowlabs.com/lab-robot-bench-v0-1",
           "role": "原始跨模型具身评测",
           "scope": "通用模型的湿实验机器人故障恢复、流程状态、时间约束和完成判断",
-          "note": "原文10月19日；10月21日HN讨论数据许可与免费代测。in-silico仿真镜像命令接口；mean score不是完整实机实验成功率。任务总数、seed、次数、推理档、成本和时延未披露。",
+          "note": "本轮重读公开文章，未核新事件，不重复昨日新闻；未重新声称HN当日全量新回复。",
           "aliases": [
             "LabRobotBench",
             "Gamow Labs",
@@ -2538,8 +2874,8 @@
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-22",
-            "note": "已读公开完整正文和HN全部可见回复；未独立运行。"
+            "checked_on": "2026-10-23",
+            "note": "本轮重读公开文章，未核新事件，不重复昨日新闻；未重新声称HN当日全量新回复。"
           },
           "channels": [
             {
@@ -2566,7 +2902,7 @@
           "url": "https://artificialanalysis.ai/articles/aa-robotics",
           "role": "原始跨模型具身评测",
           "scope": "通用模型零样本实机操作、部分进度、延迟、成本与完成判断",
-          "note": "原10月14日v0.1，本轮无新版本证据。Hiwonder NexArm八桌面任务，0–100人工最终状态评分不是成功率；重复次数与方差不明。/robotics仅为空壳，须读原文。",
+          "note": "已读10/14v0.1原文，未核新版本；0–100部分得分非SR，8NexArm任务。",
           "aliases": [
             "AA-Robotics",
             "Artificial Analysis Robotics"
@@ -2579,8 +2915,8 @@
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-22",
-            "note": "已读完整原文与近期HN搜索；未找到最近新增独立讨论。"
+            "checked_on": "2026-10-23",
+            "note": "已读10/14v0.1原文，未核新版本；0–100部分得分非SR，8NexArm任务。"
           },
           "channels": [
             {
@@ -2599,7 +2935,7 @@
           "url": "https://www.vals.ai/benchmarks/robo_bench",
           "role": "原始跨模型具身评测",
           "scope": "通用模型写控制代码；Panda机械臂与Unitree G1人形能力差异",
-          "note": "页面Updated10月13日，本轮无新版本证据。MuJoCo24任务、每模型单seed、三分钟wall-clock且思考时仿真不停；milestone均分不是完整成功率。各自vendor agent，作者提示复跑可波动约10分。",
+          "note": "正文Updated10/13，无新版本；24仿真任务、单seed、3分钟思考计时，非稳定通用能力排名。",
           "aliases": [
             "Vals Robo-bench",
             "Robo-bench"
@@ -2613,8 +2949,8 @@
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-22",
-            "note": "已读完整协议与结果，未独立运行。"
+            "checked_on": "2026-10-23",
+            "note": "正文Updated10/13，无新版本；24仿真任务、单seed、3分钟思考计时，非稳定通用能力排名。"
           },
           "channels": [
             {
@@ -2624,6 +2960,36 @@
               "status": "content_verified",
               "checked_on": "2026-10-22",
               "note": "已读24任务、留出设置、接口、runtime、单seed与方差限制。"
+            }
+          ]
+        },
+        {
+          "id": "utd-llm-libero",
+          "name": "UT Dallas IRVL · LLM-LIBERO",
+          "url": "https://irvlutd.github.io/LLM-LIBERO/",
+          "role": "跨模型机器人闭环评测作者项目",
+          "scope": "通用模型在LIBERO-10上的零样本视觉控制、推理预算、动作接口和失败审计；此为具体项目，不代表整个实验室的研究目录。",
+          "verification": {
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "实际读取作者项目、原论文全文和代码README；未运行独立复现。"
+          },
+          "channels": [
+            {
+              "label": "六模型横评v1全文",
+              "url": "https://arxiv.org/html/2610.30051v1",
+              "kind": "原始论文与评测协议",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "18配置、1800次仿真；预算、位移偏差、false-done、成本分母均核读。"
+            },
+            {
+              "label": "LLM-LIBERO代码",
+              "url": "https://github.com/IRVLUTD/LLM_LIBERO",
+              "kind": "作者公开实现",
+              "status": "content_verified",
+              "checked_on": "2026-10-23",
+              "note": "README与默认配置已读，未运行；可选few-shot故事板未用于报告，不能混入零样本结果。"
             }
           ]
         }
@@ -2761,9 +3127,9 @@
           "scope": "具身智能、VLA、机器人学习、世界模型、论文解读与产业进展",
           "note": "用户重点公众号；10月20日LingBot外部采用专题已通过36氪明确转载全文读取，并参与本期世界动作模型选题。技术数值逐篇回查；官方账号完整公开历史入口仍待核。",
           "verification": {
-            "status": "content_verified",
-            "checked_on": "2026-10-22",
-            "note": "读到明确署名具身智能之心的36氪同源全文；非官方账号历史全量入口。"
+            "status": "unverified",
+            "checked_on": "2026-10-23",
+            "note": "本轮精确公开检索没有新增可核全文；10/20的36氪署名转载是昨日已读取范围，保留其checked_on=10/22，不把今天检索写成全文重读。"
           },
           "channels": [
             {
@@ -2790,8 +3156,8 @@
           "note": "用户指定的重点技术发现源。线索参与当期精选与讨论筛选，主题随实际研究和社区讨论轮换；不将单篇文章的模型或方法设为每日固定主题。公众号未贴出处时独立找官方材料，并记录实际可读范围。",
           "verification": {
             "status": "unverified",
-            "checked_on": "2026-10-22",
-            "note": "历史已核账号身份和用户指定文章；本轮按账号名/微信号/gh标识检索仍未定位最新可读全文，不能认定无更新。"
+            "checked_on": "2026-10-23",
+            "note": "本轮精确账号检索未找到最新可核全文，非无更新；保留历史身份核验。"
           },
           "channels": [
             {
@@ -2799,8 +3165,8 @@
               "url": "https://mp.weixin.qq.com/s/c6jtVqfZ0bI3JtCtExzlhg",
               "kind": "公开微信文章 · 账号识别与话题发现",
               "status": "unreadable",
-              "checked_on": "2026-10-22",
-              "note": "保留10月14日已读全文和账号核验。本轮入口访问需微信验证；公开账号精确检索未获最新全文，当前覆盖有缺口，不重复旧专篇。"
+              "checked_on": "2026-10-23",
+              "note": "本轮返回微信验证页面，不能声称读到后续新文章。"
             }
           ],
           "watch_terms": [
@@ -2843,10 +3209,10 @@
           "scope": "论文解读、模型、研究机构与AI产业",
           "note": "网站入口已核验；同名公众号文章需保存可回查的具体文章链接。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://www.jiqizhixin.com/"
+            "status": "unreadable",
+            "checked_on": "2026-10-23",
+            "note": "HTTP200但实际仅130字符SPA空壳，未获得当前文章正文；不能保留reachable当内容核验。",
+            "http_status": 200
           }
         },
         {
@@ -2857,11 +3223,20 @@
           "scope": "模型发布、研究热点、产品与机器人",
           "note": "网站入口已核验；媒体报道与原始研究结论分开记录。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://www.qbitai.com/"
-          }
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "已读首页及10/22具体新文章；内容可读不代表技术主张已被客户确认。"
+          },
+          "channels": [
+            {
+              "url": "https://www.qbitai.com/2026/10/504800.html",
+              "status": "content_verified",
+              "note": "10/22 15:05:59梦瑶《谁在给OpenAI供应具身数据？》全文；OpenAI未公开供应商，Maxinsights为推断/自述，不选作确认技术新闻。",
+              "checked_on": "2026-10-23",
+              "label": "量子位 · 实际读取材料",
+              "kind": "具体材料与读取范围"
+            }
+          ]
         },
         {
           "id": "paperweekly",
@@ -2872,9 +3247,8 @@
           "note": "公众号可按名称订阅；本次未核验可访问的官方公开网页入口，不填未经确认的域名。",
           "verification": {
             "status": "unverified",
-            "checked_on": "2026-10-14",
-            "http_status": null,
-            "note": "已确认来源名称，尚未核验可公开访问的官方入口。"
+            "checked_on": "2026-10-23",
+            "note": "公开检索未获可确认的新官方全文；不推断无更新，不猜域名。"
           }
         },
         {
@@ -2885,11 +3259,28 @@
           "scope": "AI研究、学术会议、研究者访谈与产业",
           "note": "此链接是雷锋网人工智能频道，可作公开发现入口，并非保证含全部公众号内容。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-14",
-            "http_status": 200,
-            "resolved_url": "https://www.leiphone.com/category/ai"
-          }
+            "status": "content_verified",
+            "checked_on": "2026-10-23",
+            "note": "读取目录、10/22 BetaMem全文并追原论文24页；10/19贾萧松VLA/WAM访谈全文可作背景。"
+          },
+          "channels": [
+            {
+              "url": "https://www.leiphone.com/category/ai/jvyFCFgqJxJtOvjo.html",
+              "status": "content_verified",
+              "note": "10/22 10:19邓哲敏BetaMem解读；采用原论文实际模型/指标边界，不照抄SOTA/RSI宣传。",
+              "checked_on": "2026-10-23",
+              "label": "AI科技评论（雷锋网） · 实际读取材料",
+              "kind": "具体材料与读取范围"
+            },
+            {
+              "url": "https://www.leiphone.com/category/academic/omK9nE62h3kHaQg5.html",
+              "status": "content_verified",
+              "note": "10/19贾萧松访谈全文；讨论背景，不是今天新研究。",
+              "checked_on": "2026-10-23",
+              "label": "AI科技评论（雷锋网） · 实际读取材料",
+              "kind": "具体材料与读取范围"
+            }
+          ]
         },
         {
           "id": "xinzhiyuan",
@@ -2900,9 +3291,8 @@
           "note": "公众号可按名称订阅；本次未核验官方公开网页入口。文章须回查作者材料。",
           "verification": {
             "status": "unverified",
-            "checked_on": "2026-10-14",
-            "http_status": null,
-            "note": "已确认来源名称，尚未核验可公开访问的官方入口。"
+            "checked_on": "2026-10-23",
+            "note": "aiera.com.cn搜索声称官网但账号身份未完全核实，实际内容旧且SPA；不添加为已核官方URL，footer日期不代表新文章。"
           }
         },
         {

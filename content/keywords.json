@@ -2,7 +2,7 @@
   "metadata": {
     "title": "研究方向与检索关键词",
     "status": "sample-research-map",
-    "updated": "2026-10-22",
+    "updated": "2026-10-23",
     "intro": "中英关键词连接具体研究问题，覆盖大模型与具身的多条路线，作为可扩展的检索地图。每日热点由近期新增研究和实际社区讨论重新筛选，主题随证据轮换；Gemini、RSI等是历史案例与候选方向，不是固定推荐或实时热度排名。",
     "verification": "来源通过HTTP读取，核验标题、日期及摘要或官方正文；部分本期论文还检查了方法、实验与局限段落，具体范围见来源说明。未执行全文精读归档或独立复现。",
     "dating_policy": "来源日期默认记录arXiv首版提交日期；官方文章单独注明发布日期。更新日期表示研究地图整理时间。"
@@ -102,7 +102,10 @@
         "动作反馈",
         "触觉上下文筛选",
         "实验流程恢复",
-        "任务阶段混淆"
+        "任务阶段混淆",
+        "跨模型控制接口",
+        "误报完成",
+        "运行时机器人编程"
       ],
       "keywords_en": [
         "foundation models for robotics",
@@ -122,9 +125,12 @@
         "latency-cost frontier",
         "tactile in-context learning",
         "workflow recovery",
-        "stage confusion"
+        "stage confusion",
+        "cross-model control interface",
+        "false completion",
+        "runtime robot programming"
       ],
-      "explanation": "持续追踪通用模型怎样通过RGB/深度/触觉、状态、代码、工具和历史反馈参与物理任务，并与VLA/WAM比较。当前新增LabRobotBench实验流程横评、GPT-GEAR直接闭环、Tactile-ETA触觉示范和S-Agent 2.0空间工具；RoboColiseum/Robocurve为已有协议对照。以新讨论与实证组织，保留原日期，无新变化不重复。",
+      "explanation": "持续追踪通用模型怎样通过视觉、状态、代码、工具和历史反馈参与物理任务，并与VLA/WAM比较。本期新增六模型LIBERO-10同接口横评、MicroFactory运行时编程争论与宇树I/O对齐观点；现有RoboColiseum/Robocurve作协议对照，无新变化不重复排名。",
       "researchers_do": [
         "把精确定位、空间理解等基础能力迁移到动作模型，固定下游模块比较迁移收益。",
         "结合机器人数据训练或后训练，研究导航、操作等任务是否可以共用模型与表示。",
@@ -197,6 +203,16 @@
           "label": "S-Agent 2.0：通用编程Agent加空间工具，关键是让模型正确使用几何证据",
           "url": "https://arxiv.org/abs/2610.28354",
           "published": "2026-10-20"
+        },
+        {
+          "label": "LIBERO-10六模型横评与失败分析",
+          "url": "https://arxiv.org/html/2610.30051v1",
+          "published": "2026-10-21"
+        },
+        {
+          "label": "MicroFactory原线程，10月20–22日仍有独立评论",
+          "url": "https://www.reddit.com/r/robotics/comments/1x7omwo/we_completely_switched_to_frontier_llms_to/",
+          "published": "2026-10-16"
         }
       ]
     },
@@ -305,16 +321,22 @@
         "测试时计算",
         "推理预算",
         "可验证奖励强化学习",
-        "过程与结果验证"
+        "过程与结果验证",
+        "组相对优势",
+        "零外部数据合成",
+        "验证器范围"
       ],
       "keywords_en": [
         "test-time compute",
         "test-time scaling",
         "RLVR",
         "verifiable rewards",
-        "budget forcing"
+        "budget forcing",
+        "group-relative advantage",
+        "zero-external-data synthesis",
+        "verifier scope"
       ],
-      "explanation": "训练时教模型更好地推理，使用时让模型多想、反复检查或比较候选答案。数学和代码有相对清楚的对错标准，适合构造可自动检查的奖励。",
+      "explanation": "训练时用可靠奖励更新权重，使用时可增加搜索与验证计算。本期LongZero研究自合成长上下文训练题；GRPO技术点说明组相对优势，也检查合成矛盾、奖励漏洞与完整计算开销。",
       "researchers_do": [
         "用可验证的答案或程序执行结果提供强化学习奖励，减少对人工编写完整思维链的依赖。",
         "控制推理长度、候选数量和检查次数，研究多花多少计算能换来多少正确率。"
@@ -338,6 +360,11 @@
           "published": "2025-01-31",
           "date_basis": "论文首版提交日期",
           "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "LongZero：自合成长文任务与GRPO",
+          "url": "https://arxiv.org/html/2610.30132v1",
+          "published": "2026-10-21"
         }
       ]
     },
@@ -412,7 +439,9 @@
         "图记忆",
         "上下文压缩",
         "记忆写入",
-        "归因强化学习"
+        "归因强化学习",
+        "证据关联记忆",
+        "记忆有效区间"
       ],
       "keywords_en": [
         "long-term memory",
@@ -421,9 +450,11 @@
         "context management",
         "retrieval",
         "memory writing",
-        "attributed reinforcement learning"
+        "attributed reinforcement learning",
+        "evidence-linked memory",
+        "valid-time memory"
       ],
-      "explanation": "把对话和任务经历中有用的信息保存下来，在未来任务中按需找回。关键不只是“记得多”，还包括记得准、及时更新，以及控制检索和输入成本。",
+      "explanation": "把经历中有用的信息保留下来，同时控制来源、有效期、修订和检索成本。本期BetaMem区分观察时间与状态有效区间，局部规则修复与权重训练分开；QA、仿真互动和实机结果不能混用。",
       "researchers_do": [
         "比较完整历史、检索增强和结构化记忆，研究什么时候提取、合并或更新事实。",
         "测跨会话问答、时间关系和多跳检索，同时记录延迟与token成本。"
@@ -447,6 +478,11 @@
           "published": "2026-10-16",
           "date_basis": "首版UTC10月15日16:46／北京时间10月16日00:46；10月18日补收",
           "verified": "已读原报告方法、固定20%评测矩阵、统计显著性限制，以及官方框架/Release；未独立运行。"
+        },
+        {
+          "label": "BetaMem：来源、时间和局部规则修复",
+          "url": "https://arxiv.org/abs/2610.26554",
+          "published": "2026-10-19"
         }
       ]
     },
@@ -677,7 +713,9 @@
         "行动条件预测",
         "模型预测控制",
         "测试时环境适应",
-        "环境潜变量"
+        "环境潜变量",
+        "Agent式世界动作模型",
+        "上下文物理校准"
       ],
       "keywords_en": [
         "world models",
@@ -686,9 +724,11 @@
         "action-conditioned models",
         "model-based planning",
         "test-time environment adaptation",
-        "environment latent"
+        "environment latent",
+        "agentic world action model",
+        "in-context physics calibration"
       ],
-      "explanation": "学习“世界接下来会怎样变”，再借助这个预测选择动作。预测可以发生在特征空间，不一定生成一段可观看的视频。",
+      "explanation": "学习动作如何改变未来，再以预测指导控制。本期AW-0将技能代码、视频与动作联合生成，PhysiCalWorld用额外试探交互校准隐藏物理；分别检查语义组合、动力学证据与真实动作成功。",
       "researchers_do": [
         "先从大量视频学习物体与运动规律，再用较少的机器人交互数据学习动作的影响。",
         "用预测模型比较候选行动，研究它能否支持新的环境和目标。"
@@ -726,6 +766,16 @@
           "published": "2026-10-16",
           "date_basis": "首版UTC10月15日17:59／北京时间10月16日01:59；10月18日补收",
           "verified": "已读方法、真实四任务表2与交互预算；模拟/真实汇总分开，未独立复现。"
+        },
+        {
+          "label": "AW-0：代码/视频/动作联合生成",
+          "url": "https://arxiv.org/html/2610.30136v1",
+          "published": "2026-10-21"
+        },
+        {
+          "label": "PhysiCalWorld：单token物理描述与仿真规划",
+          "url": "https://arxiv.org/html/2610.30125v1",
+          "published": "2026-10-21"
         }
       ]
     },
@@ -738,16 +788,20 @@
         "跨本体学习",
         "遥操作示范",
         "合成轨迹",
-        "数据标准化"
+        "数据标准化",
+        "条件分支数据",
+        "阶段标注与人工接管"
       ],
       "keywords_en": [
         "robot datasets",
         "cross-embodiment learning",
         "teleoperation",
         "synthetic trajectories",
-        "data standardization"
+        "data standardization",
+        "conditional reasoning data",
+        "stage annotation and takeover"
       ],
-      "explanation": "机器人学习受数据数量、质量和采集成本限制。研究正在把不同机器人上的经验整理到一起，并用仿真扩大任务和示范的覆盖范围。",
+      "explanation": "机器人学习受数据数量、质量和采集成本限制。本期智元PhysicalReasoning把条件分支、阶段指令与真实动作轨迹连接起来；已读公开样本不等于已核全部宣传规模或训练收益。",
       "researchers_do": [
         "统一不同机器人数据格式，测一个机器人上的经验能否帮助另一个机器人。",
         "用仿真场景、人工示范和自动轨迹生成补充真实采集数据。"
@@ -778,6 +832,11 @@
           "published": "2026-10-10",
           "date_basis": "v0.9.0代码发布",
           "verified": "已读README开放范围，未运行"
+        },
+        {
+          "label": "智元AgiBotWorld2026 PhysicalReasoning公开数据",
+          "url": "https://huggingface.co/datasets/agibot-world/AgiBotWorld2026",
+          "published": "2026-10-22"
         }
       ]
     },

@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年10月22日日报：围绕通用大模型进入物理任务，跟进LabRobotBench实验流程横评与数据访问讨论、GPT-GEAR示范控制、Tactile-ETA触觉上下文、S-Agent 2.0空间工具，以及DirectWAM/TaskWAM的控制效率和任务阶段。补充AgenticRoboRL规划器后训练、Lafa连续流语言模型与AKV缓存工程；每日技术点讲流匹配。保留原成果/当前讨论日期和实证边界，不重复没有变化的昨日榜单。此前各期保留归档。
+当前首页为2026年10月23日日报：以通用模型向具身任务渗透为主线，跟进LIBERO-10六模型同接口横评、MicroFactory运行时控制代码争论、宇树I/O对齐现场信号，以及AW-0、PhysiCalWorld、BetaMem的新研究。国内核到智元PhysicalReasoning真实公开样本与MiniMax M3.1 Flash首个权重提交；补充Anthropic形式验证与具体社区异议。每日技术点讲GRPO与RLVR。原成果、当前讨论/开放日期及实证边界分别保留；此前各期保留归档。
 
 ## 本地构建与预览
 

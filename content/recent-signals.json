@@ -1,140 +1,149 @@
 {
-  "title": "当前研究动向：通用模型的物理任务接口、流程恢复与世界动作模型",
-  "intro": "10月22日观察，回看10月19–21日原成果及近72小时公开讨论；以新评测、失败与技术证据组织。LabRobotBench含10月21日数据可得性问答，其余多数为新论文/作者结果，尚非独立复现或全网热度排名。旧榜单没有实质变化不重复推荐，原始日期不作硬门槛。",
-  "window_start": "2026-10-19",
-  "window_end": "2026-10-22",
+  "title": "近期研究动向与真实讨论",
+  "intro": "本次观察重点为10月20–23日的新讨论、横评与开放事件。每条published保留原成果日期，source_label说明当前讨论/更新与本次核验时间；旧成果仅在有新讨论理由时进入，不将原日期改写成今日发布。研究信号、企业自述、独立评论和独立复现分别说明。",
+  "window_start": "2026-10-20",
+  "window_end": "2026-10-23",
   "signals": [
     {
-      "id": "labrobotbench-workflow-recovery",
-      "title": "LabRobotBench：通用模型已能指挥实验机器人，仍会把“动作做完”误当“实验有效”",
-      "published": "2026-10-19",
-      "summary": "Gamow Labs把湿实验机器人的命令接口镜像进in-silico仿真，用中断实验恢复、样品隔离、仪器操作和截止时间考察通用模型。官方留出子集平均分为GPT 6.1 Sol/Codex 46.7%、Opus 5.5/Claude Code 23.0%、Gemini 4 Argon/Gemini CLI 20.9%。最有信息量的是失败：Opus洗完细胞便把未加检测试剂、未读数的盘收回；多任务案例中模型在救实验与及时冷藏之间顾此失彼；GPT的一次读数晚于30分钟截止42.5秒，仍报告已完成。",
+      "id": "libero-frontier-six-model-interface-gap",
+      "title": "六款通用模型在LIBERO-10同接口横评：多想一些通常有用，但44%与43%不能定输赢",
+      "published": "2026-10-21",
+      "summary": "研究将GPT-6 Astra、GPT-6.1 Sol、GPT-6 Luna、Opus 5、Opus 5.5、Gemini 4 Argon接入相同的LIBERO-10视觉与末端位姿工具。每配置10任务×10初态共100次，18配置合计1800次；Astra-high成功44/100，Argon-high43/100，Sol-high与Opus5.5-high各33/100。Astra从low到high为28→38→44，Argon34→38→43，而Opus5为10→12→6：测试时多算并不保证动作能力单调提升。",
       "keywords": [
         "新横评",
-        "实验流程恢复",
-        "少量社区讨论"
-      ],
-      "url": "https://gamowlabs.com/lab-robot-bench-v0-1",
-      "source_label": "Gamow Labs（Ben Reilly、Jeff Hsu） · 原成果10月19日；10月21日HN讨论数据许可与免费代测；10月22日核验全文和回复。本期补入尚未正式收录的横评。",
-      "limitation": "评测运行于仿真，不能写成完整真实湿实验成功率。分数是官方留出子集mean score，任务总数、试验次数、seed、详细评分、推理档位、总成本和总体时延未披露，排名稳定性不可判断。网页公开三段案例，未提供论文、代码或可下载完整数据；HN快照15分、2评论。三个模型各配vendor coding agent，系统接口与预算是否完全等同未说明。"
-    },
-    {
-      "id": "gpt-gear-direct-control-icl-boundaries",
-      "title": "GPT-GEAR：通用模型接入机器人控制，实机小样本从10/25到20/25，示范与速度仍是关键",
-      "published": "2026-10-20",
-      "summary": "GPT-GEAR冻结GPT-6 Astra，以Observe、Reference、Act、Status、Finish工具读取视觉和示范，再输出有界末端位姿与夹爪命令。164项任务覆盖五套仿真基准，报告LIBERO-Plus 83.5%、RoboTwin2.0 76.0%、RoboDojo 26.92%、RoboCasaGR12 18.96%、UniVTAC 72.5%。在ROKAE Helios移动双臂的5任务×5次实机测试中，无示范为10/25，一个相似任务示范为20/25。",
-      "keywords": [
-        "通用模型进入具身",
-        "直接闭环控制",
+        "通用模型直接控制",
+        "仿真",
         "预印本"
       ],
-      "url": "https://arxiv.org/html/2610.28259",
-      "source_label": "南京大学、南洋理工大学、北京大学、中科院自动化所及独立研究者 · arXiv v1于2026-10-20 14:15 UTC（北京时间20日22:15）公开；10月22日核读全文HTML及作者项目。是当前通用模型直接控制机器人研究的新证据，不是10月22日发布，也不同于前期SenseNova论文。",
-      "limitation": "主表含视频帧、文字、动作轨迹示范，UniVTAC还使用触觉和GT深度，不能称严格无示范零样本。模型发末端位姿、下层控制器做运动学检查，并非裸模型直接输出电机力矩；运动学可行也不等于碰撞安全。五套基准试验分别为40×10、50×10、42×10、24×20和8×20，基线混合复测与引用，未全部同预算；实机仅每条件25次，不能推为普适80%成功或稳定翻倍。延迟比较受具体配置影响，且无独立复现。"
+      "url": "https://arxiv.org/html/2610.30051v1",
+      "source_label": "UT Dallas Intelligent Robotics and Vision Lab（May Espinola、Qifan Zhang、Yu Xiang） · arXiv v1于10月21日17:11 UTC公开（北京时间22日01:11）；10月23日核读全文、项目和代码README。当前关注点是六模型×三推理档位的1800次零样本控制及失败审计。",
+      "limitation": "全部是MuJoCo/Franka Panda仿真，20Hz OSC由适配器将目标位姿线性插值；不是电机力矩控制，也没有独立运动规划器。100次/配置仅10任务各10初态，44与43只差一试，无置信区间，不能宣称稳定胜出。每episode80模型调用、900控制步及美元上限；provider错误与输出限制算失败，Argon-high有41次触限，Astra-high3次，因此分数也依赖系统与预算。只保留最近两观察的图像，hindsight日志不反馈后续试验；仓库可选few-shot故事板未用于本报告。成本为作者按价格和缓存估算，未独立运行。"
     },
     {
-      "id": "tactile-eta-context-representation",
-      "title": "Tactile-ETA：触觉要怎样放进大模型上下文，才会变成精细操作能力？",
-      "published": "2026-10-20",
-      "summary": "Tactile-ETA冻结GPT6，把两条专家示范的动作、相机图像、双侧触觉按时间对齐，只保留端点和接触变化附近的关键帧。四项UniVTAC各100个固定初态，实时视觉无示范平均3.0%，实时视触无示范6.25%，视觉动作示范15.75%，相同两示范加入触觉达到24.0%。实机擦白板和夹薯片每任务每条件5次，在双方都有实时视触的前提下，一个多模态示范把总成功从0/10变成6/10。",
+      "id": "microfactory-slow-llm-fast-controller-debate",
+      "title": "慢大模型写快控制代码：MicroFactory引出“这是学习还是运行时编程”的具体争论",
+      "published": "2026-10-16",
+      "summary": "MicroFactory称在客户部署中以Opus/Astra负责高层推理，由模型写出快速执行的视觉代码，形成慢推理层与快执行层。r/robotics线程获得331票快照，多位独立评论者追问：场景已经标定和结构化时，相对行为树到底多了什么；3×/5×加速视频是否掩盖真实延迟；运行时改代码后，原有回归测试如何继续保证行为；没有更新权重的代码适配应否叫持续学习。",
       "keywords": [
-        "通用模型进入具身",
-        "触觉上下文",
-        "国内研究",
+        "社区争论",
+        "通用模型进入实机",
+        "企业部署自述"
+      ],
+      "url": "https://www.reddit.com/r/robotics/comments/1x7omwo/we_completely_switched_to_frontier_llms_to/",
+      "source_label": "MicroFactory / Igor Kulakov（@ihorbeaver）；r/robotics独立评论者 · 部署主张来自10月15日22:50 UTC作者帖（北京时间16日06:50）、16日Reddit转帖；10月20–22日仍有少量核验、成本与泛化评论，10月23日读取原线程。不把旧演示写成今天新部署。",
+      "limitation": "客户部署、可靠性与持续学习均为企业/作者自述；未见可核对的任务总数、成功率、干预次数、端到端延迟、运行成本或公开代码，本轮未验证实际客户。评论是讨论证据，不是独立实验。Astranomy是10月14日作者报告，仅作相关技术背景，不是对MicroFactory的复现；其$36.40持久Agent与$1.96直接策略是每成功episode的平均成本，不能写成每次尝试。VLA基线训练、接口也不完全一致，不能推通用模型全面替代VLA。"
+    },
+    {
+      "id": "aw0-agentic-world-action-code-video-action",
+      "title": "AW-0：把编码 Agent 的技能知识编进世界动作模型，代码、未来画面与动作一起生成",
+      "published": "2026-10-21",
+      "summary": "AW-0以代码专家、视频专家和动作专家组成 mixture-of-transformers，联合去噪生成技能程序、未来视频和机器人动作。Gemini 3.1 Pro、Claude Opus 4.8用于离线整理50项可复用技能并标注示范，再以约1,919小时机器人数据和994小时人类视频预训练。默认模式的代码是条件和可读计划，不直接执行；另一混合模式才在代码原语和动作块之间选择。8项真实任务覆盖YAM双夹爪与Tianji–Sharpa双灵巧手，每项每方法3个训练种子×16次评估，平均任务 rubric 得分71.1%，DreamZero为46.0%；这是分项评分，不是完整任务成功率。",
+      "keywords": [
+        "新研究",
+        "代码/视频/动作联合生成",
+        "作者实机自测"
+      ],
+      "url": "https://arxiv.org/html/2610.30136v1",
+      "source_label": "UC Berkeley、NVIDIA、University of Pennsylvania · 论文首版10月21日17:59:56 UTC（北京时间10月22日）；10月23日核读全文、项目、代码与模型卡",
+      "limitation": "RoboTwin 2.0为50任务×每设置50次：默认AW-0的clean/random成功率80.8%/20.6%，π0.5为54.9%/27.7%，说明视觉随机化并未全面胜出。混合模式为63.1%/29.2%，且使用另采的Code-as-Policies示范，不能看作只切换推理模式的公平消融。RTX 5090联合去噪端到端推理0.23秒，AR版本0.55秒；这不是机器人全流程延迟。实机每任务仍用100条任务示范微调；没有交互中在线学习，也不等于递归自我改进。代码语法正确仍可能选错参数或预测错误物理结果。"
+    },
+    {
+      "id": "betamem-source-linked-changing-world-memory",
+      "title": "BetaMem：记忆要保存来源与有效时间，看到过的位置不能直接当成现在的位置",
+      "published": "2026-10-19",
+      "summary": "BetaMem把工作、空间、实体、情景、经验与程序六类记忆接到原始证据，并区分观察时间、状态有效区间和修订时间，避免环境变化后仍把历史状态当现在。记忆生成用Qwen3.5-9B，检索后回答用Qwen3.7-Plus；作者报告M3-Bench-robot48.08%，OpenEQA EM-EQA72.6% LLM-Match，EgoLifeQA A1-JAKE子集62.4%。在EMem-Bench仿真中，Qwen3-VL-8B结合检索指导的平均任务成功38.4%、错误复发24.9%。",
+      "keywords": [
+        "国内新研究",
+        "具身长记忆",
+        "中文渠道线索",
         "预印本"
       ],
-      "url": "https://arxiv.org/html/2610.27613",
-      "source_label": "复旦大学、上海创智学院、腾讯、浙江大学、南京大学、吉林大学 · arXiv v1于2026-10-20 04:27 UTC（北京时间20日12:27）公开；10月22日核读正文及附录。作者与昨日TacTalent不同，不是同一论文重复收录。",
-      "limitation": "主仿真结果仅四个接触任务，逐项成功32%、2%、36%、26%；离全面解决精细操作很远。GPT6用low reasoning，每episode最多30段动作、100次MCP调用、3600秒，不能据控制器60Hz推断大模型实时控制。实机为reBot Arm B601-RS与vitai GF225触觉夹爪，两项任务各5次、人工判分，样本太小，60%不能外推成普遍实机能力。模型横评只在LiftBottle开展，不能据此推全能力排名。"
+      "url": "https://arxiv.org/pdf/2610.26554",
+      "source_label": "Beta Infinity（贝塔无限）、北京大学、香港科技大学（广州）、北京航空航天大学 · arXiv v1于10月19日15:13 UTC公开（北京时间19日23:13）；AI科技评论10月22日10:19新文章引出具身长记忆讨论；10月23日核读24页PDF。不是10月23日新发布。",
+      "limitation": "并非全系统9B：QA使用Qwen3.7-Plus，互动另用Qwen3-VL-8B-Instruct。四项QA指标和子集不同，LoCoMo92.08%为非对抗四类、EgoLife仅500题A1-JAKE；对照部分引用不同模型/协议，不能泛称全部具身SOTA。EMem-Bench2554 episodes、8-action仿真预算，分四类等权平均；比较测的是记忆检索+规划/动作生成组合，非实机闭环成功率。20个内部视频片段的写入契约通过率50.9→86.2%，范围较小。RSI部分明确是局部记忆规则更新、基础模型和控制器固定；未发现跨轮继承及独立留出验证的实证增益表，不能称已证实递归自我加速。未验证公开代码/权重。"
     },
     {
-      "id": "s-agent2-general-coding-spatial-evidence",
-      "title": "S-Agent 2.0：通用编程Agent加空间工具，关键是让模型正确使用几何证据",
-      "published": "2026-10-20",
-      "summary": "S-Agent 2.0让现成编程Agent通过CLI调用深度、运动、相机标定与分割工具，把对象和测量保存在持久场景记忆里，并把数值读数翻译成带明确参照系的空间描述。Qwen3.8-27B接入后，MMSI-Bench/ReVSI分别为66.5/82.3；同一个Agent不带工具为52.6/61.8。Gemini-3.8-Flash接入后为74.1/90.5，对应无工具62.9/80.9。这里测的是空间问答准确率，不是机器人任务成功率。",
+      "id": "agibot-world-physical-reasoning-release",
+      "title": "智元开源 Physical Reasoning 数据：让同一目标在不同状态下走不同动作分支",
+      "published": "2026-10-22",
+      "summary": "AGIBOT WORLD 2026第四期把采集重点从操作本身转向决策：相同目标在数量、遮挡、占用和任务进度不同时，需要不同执行分支。发布说明列出九类推理能力，并称同时提供高层问答、阶段结构、Dense Prompt与真机轨迹。实际官方HF已出现PhysicalReasoning目录；本轮完整解析一个“遮挡物后取钥匙”子集的meta：G2A、30Hz、170条episode、75,828帧、7路视频，包含分段指令、关键帧、人工接管、可供性标注，以及成功/终止字段。样本第一步先推开遮挡盒，再取钥匙放入包内。",
       "keywords": [
-        "新研究",
-        "通用Agent进入空间推理",
-        "工具与记忆",
-        "作者评测"
+        "国内数据发布",
+        "决策分支与真机轨迹",
+        "实际文件已核"
       ],
-      "url": "https://arxiv.org/abs/2610.28354",
-      "source_label": "南洋理工大学、香港大学、Ropedia · arXiv v1于2026-10-20 15:20 UTC提交（北京时间10月20日23:20）；10月22日读取全文、实验与作者项目页。当前增量是通用编程Agent处理空间推理的新实现，不是今天发布的新模型。",
-      "limitation": "五个静态/视频空间理解基准，没有真实机器人闭环控制实验。主设置为本地FP8 Qwen3.8-27B与OpenHands，另测Gemini；Depth Anything 3、πmos3、GeoCalib、SAM3均为冻结感知模型，因此不是裸VLM自己学会三维测量。相同底座的对照较有解释力，但系统提示、工具框架和上下文不同，不能把所有差距归因于模型智力；Codex/Claude Code迁移也不能等同于统一预算复测。项目页和论文已读，GitHub直连超时，未独立安装运行；离线准确率不能保证坐标标定、接触与时延条件下的操作可靠性。"
+      "url": "https://huggingface.co/datasets/agibot-world/AgiBotWorld2026",
+      "source_label": "智元 AgiBot / AgiBot World · 10月22日公开发布；10月23日核对官方HF实际目录、固定revision样本及持续上传记录",
+      "limitation": "150小时是发布预告规模口径，采集时HF仍有上传提交，未清点全量文件、完整时长或跑通训练。高层问答/九类能力来自发布说明，所核单个动作子集并未看到独立QA字段；元数据存在不等于所有标注正确。数据发布没有提供跨模型统一横评、独立OOD成功率或端到端收益，不能写成已实现通用Physical Agent。仓库总规模覆盖历期，不是本次新增规模；许可证CC-BY-NC-SA 4.0含非商用限制。10月27日PhysicalRSI和29日基座模型仍是未来预告。"
     },
     {
-      "id": "directwam-action-sufficient-one-step-control",
-      "title": "DirectWAM：未来画面要对动作有用，把世界动作模型从5秒压到180毫秒",
-      "published": "2026-10-20",
-      "summary": "DirectWAM保留“预测未来→生成动作”的级联，但将视频和动作专家都改造成确定性单步预测器。关键训练信号不是只让未来视频看着像：先学单步动作专家，再把示范动作误差穿过动作专家反传到未来预测器，让预测保住对控制有用的细节。作者报告LIBERO四套平均97.1%、RoboTwin 2.0平均85.4%；完整迭代教师分别96.6%和90.7%。单GPU模型推理中位延迟从5042降至180毫秒，约28倍，速度收益伴随不同任务上的质量取舍。",
-      "keywords": [
-        "新研究",
-        "世界动作模型",
-        "单步蒸馏",
-        "仿真与实机"
-      ],
-      "url": "https://arxiv.org/abs/2610.28122",
-      "source_label": "字节跳动、纽约大学（论文机构署名）；实机使用星海图Galaxea A1 · arXiv v1于2026-10-20 12:30:58 UTC提交（北京时间20:30）；10月22日核读方法、计时协议与实机表。机构由论文脚注确认，不能因使用Galaxea机器人归为星海图公司论文。",
-      "limitation": "28倍仅为模型推理计时，不是整机任务快28倍：单张80GB GPU、500次预热后计500次并取中位数，正文该配置未明确GPU型号，未计全链路通信与执行。实机仅Galaxea A1夹爪、D435外部与D405腕部相机，三项任务各50条训练示范、各20次测试：抓香蕉19/20、倒水11/20、放茶壶12/20；教师分别19/20、9/20、12/20，样本小且倒水仍有45%失败。不能推断任意任务都不需要高保真视频、一步预测普遍优于迭代教师，或已经实现通用OOD控制。"
-    },
-    {
-      "id": "taskwam-stage-confusion-progress-conditioned-world-action",
-      "title": "TaskWAM：机器人预测的下一步看着合理，也可能已经走错任务阶段",
-      "published": "2026-10-20",
-      "summary": "TaskWAM指出：相似的画面和动作可能出现在不同任务阶段，世界动作模型会生成局部合理却不符合当前目标的未来。它用Mode Tokens表示任务要求、State Tokens记录已到哪一步，再用残差流引导生成。新StageBench覆盖八类多阶段任务；FastWAM接入后的平均成功率从40.9%到69.4%，提高28.5个百分点。RTX 5090上额外模型延迟约19毫秒，说明补充阶段状态不必依赖大幅增加生成计算。",
-      "keywords": [
-        "新研究",
-        "世界动作模型",
-        "长程任务阶段",
-        "多本体实机"
-      ],
-      "url": "https://arxiv.org/abs/2610.28431",
-      "source_label": "中山大学、Shenzhen Loop Area Institute、香港科技大学（广州）等联合团队；含鹏城实验室、Ainoro等署名 · arXiv v1于2026-10-20 15:58:45 UTC提交（北京时间23:58）；10月22日核读全文和项目。当前关注的是新提出的阶段混淆测试与实机失败分析，未据此声称会议录用或多方热议。",
-      "limitation": "StageBench增益不能与普通RoboTwin分数混用：后者为92.70/93.06（clean/random），基线91.88/91.78。19毫秒为单RTX 5090、30次预热与100次计时的附加模型开销。实机包括Franka、AgileX Piper、Nero与Unitree G1配BrainCo Revo2；每任务100–150条遥操作示范，1–3个变体、每变体10–20次。末阶段成功率中套杯35→55%、切面包35→70%、液体转移50→70%、烤吐司涂抹5→20%；最后一项仍80%失败，不能把阶段增益说成机器人已会可靠做早餐。并非完全无机器人数据，也未证明跨本体零样本泛化。"
-    },
-    {
-      "id": "agenticroborl-train-open-planner",
-      "title": "AgenticRoboRL：把代码Agent的后训练搬到机器人，直接训练Qwen规划器权重",
+      "id": "physicalworld-in-context-hidden-physics-calibration",
+      "title": "PhysiCalWorld：先试探一下物体，再用一个物理 token 校准世界模型",
       "published": "2026-10-21",
-      "summary": "AgenticRoboRL固定下层机器人执行器，把Qwen3.5-9B作为可训练规划器，用Qwen3.8-27B示范先SFT，再通过多轮机器人交互RL更新模型权重。LIBERO-PRO平均成功从18.1%升至SFT的65.1%、SFT+RL的71.0%；LIBERO-Plus扰动配置从19.2%升至66.7%和72.2%。它同时接入调用VLA的RPent与生成代码的CaP-X两类harness。",
-      "keywords": [
-        "开源规划器后训练",
-        "Agent与VLA协作",
-        "预印本"
-      ],
-      "url": "https://arxiv.org/html/2610.28589",
-      "source_label": "中佛罗里达大学、南加州大学、密歇根州立大学 · arXiv v1于2026-10-20 17:41 UTC（北京时间21日01:41）公开；10月22日核读全文与训练附录。",
-      "limitation": "所有结果均为仿真。LIBERO-PRO训练和测试是相同任务的互斥初态，train 11–44、eval 1–10、val 45–49，并非未见任务泛化；LIBERO-Plus是相同任务的新扰动。CaP-X使用特权状态且独立训练，不能说一套权重零样本跨harness。LIBERO-PRO主评八套测试各100episode（10任务×10初态），共800次，训练2304episode、206次优化，按验证集从9轮选第6轮；每episode预算100planner turns或7200秒。无实机与独立复现。论文写将公开框架与checkpoints；本轮已实际读到GitHub训练代码树和README的SFT/RL checkpoint链接，但HF接口连接重置，权重文件本身尚未核验。"
-    },
-    {
-      "id": "lafa-continuous-flow-language-self-speculative",
-      "title": "Lafa把流匹配扩展到8B语言模型：先并行生成一块草稿，再用同一模型验证",
-      "published": "2026-10-21",
-      "summary": "Lafa从Qwen2.5或Qwen3自回归底座适配0.5B、7B和8B连续流语言模型：已生成的前缀保持因果注意力和KV缓存，当前token块在连续嵌入空间内双向去噪，并学习每个位置的生成进度。它联合训练去噪和自回归目标，再将流蒸馏为一步或少步映射；快速默认路径让流生成草稿、保留的自回归能力逐位置验证。作者在单张H100、batch size 1上，按IFEval、GSM8K、HumanEval平均，报告7B块长16时相对AR-SFT达到2.54倍吞吐且平均质量相近，块长4约两倍并有更高平均质量。",
+      "summary": "物体外观相同，质心、摩擦或阻尼不同，动作结果可能完全不同。PhysiCalWorld先在测试场景取得短交互片段，将其压成一个物理描述token，条件化DINO-WM或LeWM的未来预测与规划；训练不依赖物理参数标签，推理时不更新权重。4种仿真环境各训练135种物理配置，以15种留出配置、每种5条轨迹评估预测；每种环境另评75个开环规划任务。Push-T与Reacher主表采用25个控制步，BeerPong与FetchSlide采用一次性动作。DINO-WM加校准后，Push-T/Reacher/BeerPong/FetchSlide成功率从53.3/52.0/44.0/26.7%变为62.7/61.3/80.0/56.0%。",
       "keywords": [
         "新研究",
-        "连续流语言模型",
-        "并行生成",
-        "作者结果"
+        "上下文物理校准",
+        "仿真规划"
       ],
-      "url": "https://arxiv.org/abs/2610.28559",
-      "source_label": "UC Berkeley、Amazon、KAIST、Carnegie Mellon University · arXiv v1于2026-10-20 17:20 UTC提交（北京时间10月21日01:20）；代码发布准备提交为10月20日17:33 UTC，10月21日补入论文链接；10月22日核读全文、PDF署名与代码README。不是Qwen团队官方发布。",
-      "limitation": "2.54倍是特定硬件、batch和三项任务的结果，不是所有模型、长上下文或在线高并发的固定收益；主质量表覆盖六项基准，吞吐只对三项平均。不同块长使用各自训练的checkpoint；自投机保持该checkpoint的greedy自回归输出，不是保持原始Qwen模型逐字输出，也未据此证明任意随机采样分布完全相同。未经蒸馏的流解码需要多次数值积分，单步质量并不自动可靠；用置信度直接收草稿又会以质量换速度。实验是语言任务，没有实机机器人控制结果；8B尺度和不足30B适配token也不能证明已达到前沿闭源模型能力。本轮读到代码README、提交和推理入口，HF模型卡访问失败，未独立下载权重运行。"
+      "url": "https://arxiv.org/html/2610.30125v1",
+      "source_label": "University of Michigan · 论文首版10月21日17:57:59 UTC（北京时间10月22日）；10月23日核读全文、代码、模型和数据卡",
+      "limitation": "全部实验为仿真，没有真实机器人。校准需要额外测试场景交互，不能称零交互泛化。并非所有比较最优：BeerPong中直接拼接上下文的DINO-WM达82.7%，高于该法80.0%；用带物理真值监督的参数估计在部分任务更好。所谓分布外外推主要测试Reacher第一关节阻尼超出训练区间的开放环预测，不证明新任务、跨本体或广泛现实OOD能力。"
     },
     {
-      "id": "akv-cache-engineering-agent-drop-repos",
-      "title": "Cache Engineering：Agent压缩上下文时，直接改KV缓存能否比改文本更省？",
+      "id": "unitree-gpt6-io-alignment-demonstration",
+      "title": "宇树展示 GPT-6 绘画与导航，王兴兴把关键问题指向模型与机器人的输入输出对齐",
+      "published": "2026-10-22",
+      "summary": "澎湃新闻的现场报道明确记录王兴兴展示使用GPT-6的机器人视频，称机器人在零训练情况下完成绘画、规划导航。科创板日报独立报道其判断：迈过具身ChatGPT时刻的核心挑战是AI模型输入输出与真实机器人的对齐，商业服务可能比家庭和工业更快落地。这为通用模型进入机器人提供国内企业公开讨论信号，但不是新模型发布或系统评测。",
+      "keywords": [
+        "国内现场演示与观点",
+        "协议未公开"
+      ],
+      "url": "https://k.sina.com.cn/article_5044281310_12ca99fde02002lfz6.html",
+      "source_label": "宇树 Unitree；澎湃新闻记者秦盛、科创板日报编辑宋子乔现场/采访报道 · 10月22日世界物理AI大会现场演示与发言；10月23日核读具名报道",
+      "limitation": "“零训练”为现场演示报道口径，未公开模型完整版本、机器人型号、动作接口、预定义技能、提示与示范、尝试次数、人工介入、成功率、成本及延迟；本轮未独立观看或运行完整试验。没有证据支持通用模型替代低层策略或实现自我进化。年限预测和发展判断归属于演讲者观点。"
+    },
+    {
+      "id": "longzero-self-synthesized-context-grpo",
+      "title": "LongZero：不找更强教师，先造证据和答案，再扩成长文训练自己",
       "published": "2026-10-21",
-      "summary": "传统Agent达到上下文阈值后删文本、做摘要，改变前缀往往会使已有KV缓存失效并触发重新prefill。AKV把控制面向缓存本身：drop排除指定历史KV参与未来注意力，repos重新安排保留token的位置编码，并记录操作轨迹，使服务端知道哪些缓存真正兼容。作者在MiniMax-M2.7、GPT-OSS-120B和MiroThinker-1.7-Mini的四类检索/研究/软件任务上，报告滚动丢弃工具响应相对阈值摘要平均提高约1.7个百分点，按API等价token费率估算成本降低27.7%。",
+      "summary": "LongZero让同一个模型先编写虚构世界中的问题、答案和多跳证据，再把证据分散扩写成带相似干扰项的长文档；混合多轮精确检索任务，用GRPO更新权重。每个底座使用2,304条推理题与1,152条检索对话。五项长上下文基准的非加权平均分，Qwen3-4B-Thinking-2507从54.68到57.42，Qwen3-8B从44.63到45.66；这是混合F1与准确率的作者汇总分，不能解释成统一成功率。",
       "keywords": [
         "新研究",
-        "Agent上下文",
-        "KV缓存管理",
-        "作者实验"
+        "合成长上下文",
+        "GRPO"
       ],
-      "url": "https://arxiv.org/abs/2610.28577",
-      "source_label": "清华大学、香港中文大学 · arXiv v1于2026-10-20 17:32 UTC提交（北京时间10月21日01:32）；AKV已有代码，10月21日补论文链接；10月22日核读方法、实验、定价与系统配置，未把仓库updated_at当新模型事件。",
-      "limitation": "27.7%按各模型官方或供应商token费率计算，含主Agent和摘要调用，repos按cache-hit收费做保守估算，不是实付API账单或总GPU成本。系统实验用八张A800-80GB，prefill/decode各TP4、BF16、基于SGLang；在各自峰值吞吐并发比较时，AKV C=14相对Standard C=12输出吞吐1.18倍、P95请求延迟改善1.51倍，不能省略不同并发与硬件条件。四项基准包括GAIA文本子集而非完整多模态GAIA；不是机器人实机结果。drop会改变模型可关注的证据及输出，并不等于无损压缩，也不会自动保证事实保留；需要能够操作缓存的推理服务，普通只接受文本的商业API无法直接复现全部机制。本轮未运行代码或测试安全/隐私删除语义。"
+      "url": "https://arxiv.org/html/2610.30132v1",
+      "source_label": "清华大学（Zhennan Wan、Jianfei Chen；BNRist、THBI及清华—博世联合机器学习中心） · arXiv v1于10月21日17:59 UTC提交（北京时间10月22日01:59）；10月23日核读方法、主表、算力与附录中的错误合成样本。当前为新预印本，未确认会议录用或独立复现。",
+      "limitation": "“零外部数据”指本次合成与RL流程，不是底座从未预训练，也不是零计算。RL在8张A800-80GB上分别约213/230 GPU小时，另有合成筛选和评测开销；五基准均值为两次采样评测，未给跨训练seed置信区间。8B在LongBench v2从32.11降到32.01，AA-LCR仅3分且200次中120次未产出最终答案。附录明确有互相矛盾的证据仍通过难度筛选，奖励会惩罚上下文支持的另一答案。论文把“训练后再生题并继续循环”列为未来工作，本次不能称多轮递归加速；模型评判的AA-LCR也不等于全规则验证。"
+    },
+    {
+      "id": "minimax-m31-flash-open-weights-20261023",
+      "title": "MiniMax M3.1 Flash 权重与 DSpark 草稿头公开：10 月 19 日 API 发布后的新事件",
+      "published": "2026-10-23",
+      "summary": "官方 MiniMaxAI/MiniMax-M3.1-Flash 仓库现有 48 个 safetensors 权重分片、配置、tokenizer 与 DSpark 草稿模型头。模型卡说明为 428B 总参数、23B 激活参数的原生多模态 MoE，支持文本/图像/视频输入、文本输出和 1M 上下文；稀疏注意力覆盖全部注意力层，DSpark 替换此前的 EAGLE 风格 MTP 草稿方案。这次价值是从 API 可用推进到可自行检查权重、复现实验和部署。",
+      "keywords": [
+        "新模型资产",
+        "开放权重",
+        "部署与复现入口"
+      ],
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash",
+      "source_label": "MiniMax · API 原发布 2026-10-19，本站已报道；本次新事件是官方 HF 仓库首次提交 2026-10-23 00:59:04 UTC（北京时间 08:59:04），实际读取到 48 个权重分片及 DSpark 文件。",
+      "limitation": "本次只核验文件列表、首个公开提交、模型卡、配置和许可，未下载大权重或实测。模型卡的 OSWorld、DeepSWE 等分数沿用作者评测，不能把权重开放当成新增成绩。采用 MiniMax 社区许可，商业使用有归属/通知等条件，特定年收入门槛需另行授权；“开放权重”不等于无条件的 OSI 开源。推荐部署涉及 SGLang/vLLM 等具体配方，部分框架集成仍在进行，1M 上下文不代表所有硬件都能经济运行。"
+    },
+    {
+      "id": "anthropic-theorem-formal-verification-20261022",
+      "title": "从“多测一些输入”到机器核验的证明：Claude 验证 123 个开源库，讨论焦点转向保证的边界",
+      "published": "2026-10-22",
+      "summary": "团队报告：Claude 先修复发现的问题，再为 123 个 OSS-Fuzz 库的 239 个入口生成约 1.8 亿行 Rocq 证明，针对编译后的 RISC-V 二进制，证明在其形式化模型和条件下，对不超过 64 MB 的输入不触发指定崩溃/内存安全性质。公开证明仓库实际包含其中 25 个库、60 个入口的子集，采用 Rocq 9.2.0；不是全部 239 项都已公开。",
+      "keywords": [
+        "新研究",
+        "形式验证",
+        "作者结果与公开争论"
+      ],
+      "url": "https://www.anthropic.com/research/formal-verification",
+      "source_label": "Anthropic Frontier Red Team · Theorem · 原始研究发布 2026-10-22；公开讨论自 10-22 22:54 UTC 起，10-23 上午仍在进行；今天关注的是可核验保障、可信基础与证明成本之间的争论。",
+      "limitation": "证明只覆盖明确写出的性质和前提，包含单线程、静态 RISC-V 程序、固定内存预算及所建模的 Linux 行为；并非所有平台、所有程序行为或完整安全性。可信基础仍包括 Rocq 内核、定理陈述和操作系统/指令语义，语义仓库明确说明是尽力建模而非完整模型。作者在 36 个小验证任务中报告 Opus 5.5 达到一半任务时比 Opus 5 少约 40% token；共享证明工作区少约 17% token，这些是特定实验，不能泛化为所有验证成本。本文读取官方完整文章、公开仓库 README、语义范围说明和 HN 讨论，未独立重跑证明。"
     }
   ]
 }

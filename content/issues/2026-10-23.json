@@ -1,0 +1,511 @@
+{
+  "date": "2026-10-23",
+  "status": "daily",
+  "title": "通用模型怎样接管机器人：同接口横评、快控制代码、世界模型与可信记忆",
+  "intro": "今天追踪四个正在出现的新问题：通用大模型直接控制机器人，推理预算与执行接口怎样影响结果；慢推理能否通过快速控制代码落地；世界动作模型如何联合计划、物理证据和记忆；公开数据、模型权重与可验证训练怎样支撑后续研究。新增同协议横评和具体社区争论，国内部分核到智元真实数据文件、BetaMem记忆研究与宇树现场讨论。每条保留原成果、当前讨论/更新日期和今天关注的原因。",
+  "coverage": "北京时间2026-10-23采集。重点回查近24–72小时的研究、数据/权重开放、横评和原帖，同时沿近期活跃争论追溯原始成果；不以论文首发7日为硬门槛。MicroFactory原演示10月15日，入选理由是10月20–22日仍在继续的独立评论；它不等于部署已被独立验证。新论文核读实验与限制，未独立运行。国内九大模型团队、十三家具身公司及XPENG多渠道检查另有采集记录，未获得新相关研究的公司不凑数；顶会检查按具体论文集/评审入口记录，不把预印本写成录用。公众号公开检索与中文研究解读参与实际选题，BetaMem由AI科技评论新文章引出；human five与部分公众号后续全文覆盖仍有缺口，不声称全量读取。RoboColiseum四款通用模型数值未变；Dream-1新提交行无独立协议证据，仅保留跟踪，不再重复静态榜首。 MiniMax权重以10月23日08:59首个公开提交为本次新事件，区别于已报道的10月19日API发布；Anthropic形式验证既核官方全文，也核公开证明子集和具体异议。全部报道保留厂商自报/作者实验/独立评论的差别。",
+  "highlights": [
+    {
+      "title": "同接口横评：从“谁第一”转向执行误差、误报完成与成本",
+      "text": "LIBERO-10六模型×三档位共1800次，44与43只差一次；287次未成功却报告done。MicroFactory与宇树讨论让模型管哪一层。",
+      "story_id": "libero-frontier-six-model-interface-gap"
+    },
+    {
+      "title": "代码、物理与记忆，怎样进入真正的动作闭环？",
+      "text": "AW-0把技能代码编入世界动作模型；PhysiCalWorld用短交互校准隐藏物理；BetaMem让记忆带来源与有效时间。",
+      "story_id": "aw0-agentic-world-action-code-video-action"
+    },
+    {
+      "title": "国内新证据：智元条件分支数据，和MiniMax实际权重开放",
+      "text": "智元公开样本已能核读阶段与人工接管字段；MiniMax将此前API发布推进到可下载权重。发布规模和实测能力分别判断。",
+      "story_id": "agibot-world-physical-reasoning-release"
+    },
+    {
+      "title": "可验证的训练与可靠的验证器，要一起看",
+      "text": "LongZero用自己生成的长文题做GRPO，却仍有错误题通过筛选；形式验证研究继续追问“证明了什么、依赖哪些前提”。",
+      "story_id": "longzero-self-synthesized-context-grpo"
+    }
+  ],
+  "reading": [
+    {
+      "title": "六通用模型在LIBERO-10的完整协议、成本与失败表",
+      "url": "https://arxiv.org/html/2610.30051v1",
+      "reason": "先看100次/配置、终止规则、实际位移与误报完成，再比较44%和43%。"
+    },
+    {
+      "title": "MicroFactory原线程：从演示走向回归验证与可靠性争论",
+      "url": "https://www.reddit.com/r/robotics/comments/1x7omwo/we_completely_switched_to_frontier_llms_to/",
+      "reason": "读10月20–22日回复，分辨企业自述、独立评论和可重复实测。"
+    },
+    {
+      "title": "AW-0：代码、视频和动作联合生成",
+      "url": "https://arxiv.org/html/2610.30136v1",
+      "reason": "对照真实任务rubric、随机化退化，以及混合模式额外示范带来的比较边界。"
+    },
+    {
+      "title": "BetaMem：记忆的来源、有效时间与局部规则修复",
+      "url": "https://arxiv.org/pdf/2610.26554",
+      "reason": "不只看记忆QA，继续检查仿真互动、不同底座组合和RSI部分是否有独立实证。"
+    },
+    {
+      "title": "LongZero：先造证据，再生成训练长文",
+      "url": "https://arxiv.org/html/2610.30132v1",
+      "reason": "结合GRPO技术点，核对难度筛选、训练成本，以及附录中的矛盾证据漏检。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "Cross-model Embodied Evaluation / 跨模型具身横评",
+      "explanation": "同任务与接口下仍要核预算、推理档位、终止规则和方差；榜首一试差距不能当稳定能力差距。"
+    },
+    {
+      "term": "Runtime Robot Programming / 运行时机器人编程",
+      "explanation": "让慢推理生成可快速执行的控制代码；当前争论是验证、回归测试、泛化和它是否应被叫作学习。"
+    },
+    {
+      "term": "Agentic World Action Model / Agent式世界动作模型",
+      "explanation": "AW-0让代码计划、未来视频与动作共同生成；默认代码是条件，混合模式才直接执行程序。"
+    },
+    {
+      "term": "In-context Physics Calibration / 上下文物理校准",
+      "explanation": "从短交互提取隐藏动力学证据，不更新权重也能改进预测，但需要额外测试场景交互。"
+    },
+    {
+      "term": "Evidence-grounded Temporal Memory / 有来源和时效的记忆",
+      "explanation": "BetaMem区分观察时间与状态有效区间，过期记忆能导致机器人重复错误。"
+    },
+    {
+      "term": "Conditional Physical Reasoning Data / 条件分支物理推理数据",
+      "explanation": "智元新数据把同目标、不同遮挡/数量/占用下的决策分支与阶段动作连接起来。"
+    },
+    {
+      "term": "GRPO & RLVR / 组相对策略优化与可核验奖励强化学习",
+      "explanation": "RLVR描述奖励来源，GRPO描述怎样利用同题多条尝试的相对奖励更新权重；二者不是同义词。"
+    },
+    {
+      "term": "Verifier Scope / 验证器的证明范围",
+      "explanation": "合成题答案匹配与形式化证明都有前提；验证通过的范围、未覆盖行为与独立复核要同时交代。"
+    }
+  ],
+  "featured_ids": [
+    "libero-frontier-six-model-interface-gap",
+    "microfactory-slow-llm-fast-controller-debate",
+    "aw0-agentic-world-action-code-video-action",
+    "betamem-source-linked-changing-world-memory",
+    "agibot-world-physical-reasoning-release",
+    "longzero-self-synthesized-context-grpo"
+  ],
+  "stories": [
+    {
+      "id": "libero-frontier-six-model-interface-gap",
+      "category": "embodied",
+      "tag": "新横评 · 通用模型直接控制 · 仿真 · 预印本",
+      "title": "六款通用模型在LIBERO-10同接口横评：多想一些通常有用，但44%与43%不能定输赢",
+      "organization": "UT Dallas Intelligent Robotics and Vision Lab（May Espinola、Qifan Zhang、Yu Xiang）",
+      "published": "2026-10-21",
+      "date_label": "arXiv v1于10月21日17:11 UTC公开（北京时间22日01:11）；10月23日核读全文、项目和代码README。当前关注点是六模型×三推理档位的1800次零样本控制及失败审计。",
+      "summary": "研究将GPT-6 Astra、GPT-6.1 Sol、GPT-6 Luna、Opus 5、Opus 5.5、Gemini 4 Argon接入相同的LIBERO-10视觉与末端位姿工具。每配置10任务×10初态共100次，18配置合计1800次；Astra-high成功44/100，Argon-high43/100，Sol-high与Opus5.5-high各33/100。Astra从low到high为28→38→44，Argon34→38→43，而Opus5为10→12→6：测试时多算并不保证动作能力单调提升。",
+      "why": "这正面检验通用大模型向具身任务渗透：没有VLA微调、任务示范或预设技能库，模型凭两相机图像和机器人状态反复发送末端目标。比名次更有价值的是失败：1400次失败中287次模型宣称done但任务未完成；作者测得末端实际位移平均仅为命令的64–72%，表明模型对动作接口和实际执行的理解仍是瓶颈。高档平均每尝试成本约Astra$7.09、Argon$7.84、Sol$1.64、Opus5.5$1.80，研究比较也需看成本和失败类型。本轮核实的是作者新横评，尚未找到独立复现，不称社区共识。",
+      "limitation": "全部是MuJoCo/Franka Panda仿真，20Hz OSC由适配器将目标位姿线性插值；不是电机力矩控制，也没有独立运动规划器。100次/配置仅10任务各10初态，44与43只差一试，无置信区间，不能宣称稳定胜出。每episode80模型调用、900控制步及美元上限；provider错误与输出限制算失败，Argon-high有41次触限，Astra-high3次，因此分数也依赖系统与预算。只保留最近两观察的图像，hindsight日志不反馈后续试验；仓库可选few-shot故事板未用于本报告。成本为作者按价格和缓存估算，未独立运行。",
+      "sources": [
+        {
+          "label": "原论文v1：同接口协议、18配置、成本及失败分析（全文核读）",
+          "url": "https://arxiv.org/html/2610.30051v1"
+        },
+        {
+          "label": "作者项目",
+          "url": "https://irvlutd.github.io/LLM-LIBERO/"
+        },
+        {
+          "label": "代码与复现README：固定初态、工具、可选示范范围",
+          "url": "https://github.com/IRVLUTD/LLM_LIBERO"
+        }
+      ]
+    },
+    {
+      "id": "microfactory-slow-llm-fast-controller-debate",
+      "category": "embodied",
+      "tag": "社区争论 · 通用模型进入实机 · 企业部署自述",
+      "title": "慢大模型写快控制代码：MicroFactory引出“这是学习还是运行时编程”的具体争论",
+      "organization": "MicroFactory / Igor Kulakov（@ihorbeaver）；r/robotics独立评论者",
+      "published": "2026-10-16",
+      "date_label": "部署主张来自10月15日22:50 UTC作者帖（北京时间16日06:50）、16日Reddit转帖；10月20–22日仍有少量核验、成本与泛化评论，10月23日读取原线程。不把旧演示写成今天新部署。",
+      "summary": "MicroFactory称在客户部署中以Opus/Astra负责高层推理，由模型写出快速执行的视觉代码，形成慢推理层与快执行层。r/robotics线程获得331票快照，多位独立评论者追问：场景已经标定和结构化时，相对行为树到底多了什么；3×/5×加速视频是否掩盖真实延迟；运行时改代码后，原有回归测试如何继续保证行为；没有更新权重的代码适配应否叫持续学习。",
+      "why": "这是用户关心的通用模型进入机器人后的真实架构讨论：能力可以来自模型动态生成并复用的控制代码，而不必每个控制周期都推理。支持者看重可检查、可修改的快速代码；反对者要求跨场景证据、可维护性和确定性验证。10月20日回复继续讨论把确定性检查放在代码与电机之间，21日讨论成本和开源模型，22日仍有质疑。对研究的启发是把权重学习、代码更新、记忆更新分开测，并报告生成、验证和执行三段时间。同期NVIDIA Astranomy可作技术背景：120项仿真×5次中持久Agent成功74.8%，直接策略66.3%，代价明显不同。",
+      "limitation": "客户部署、可靠性与持续学习均为企业/作者自述；未见可核对的任务总数、成功率、干预次数、端到端延迟、运行成本或公开代码，本轮未验证实际客户。评论是讨论证据，不是独立实验。Astranomy是10月14日作者报告，仅作相关技术背景，不是对MicroFactory的复现；其$36.40持久Agent与$1.96直接策略是每成功episode的平均成本，不能写成每次尝试。VLA基线训练、接口也不完全一致，不能推通用模型全面替代VLA。",
+      "sources": [
+        {
+          "label": "Reddit原线程：原始企业主张、独立评论和10月20–22日回复",
+          "url": "https://www.reddit.com/r/robotics/comments/1x7omwo/we_completely_switched_to_frontier_llms_to/"
+        },
+        {
+          "label": "相关技术背景：NVIDIA Astranomy完整报告（10月14日）",
+          "url": "https://research.nvidia.com/labs/srl/projects/astranomy/"
+        },
+        {
+          "label": "Astranomy研究博客：直接策略与持久Agent",
+          "url": "https://research.nvidia.com/labs/srl/post/astranomy/"
+        },
+        {
+          "label": "作者原帖入口（直读受限；身份、文字与时间经公开镜像检索核对）",
+          "url": "https://x.com/ihorbeaver/status/2110866012333838675"
+        }
+      ]
+    },
+    {
+      "id": "aw0-agentic-world-action-code-video-action",
+      "category": "embodied",
+      "tag": "新研究 · 代码/视频/动作联合生成 · 作者实机自测",
+      "title": "AW-0：把编码 Agent 的技能知识编进世界动作模型，代码、未来画面与动作一起生成",
+      "organization": "UC Berkeley、NVIDIA、University of Pennsylvania",
+      "published": "2026-10-21",
+      "date_label": "论文首版10月21日17:59:56 UTC（北京时间10月22日）；10月23日核读全文、项目、代码与模型卡",
+      "summary": "AW-0以代码专家、视频专家和动作专家组成 mixture-of-transformers，联合去噪生成技能程序、未来视频和机器人动作。Gemini 3.1 Pro、Claude Opus 4.8用于离线整理50项可复用技能并标注示范，再以约1,919小时机器人数据和994小时人类视频预训练。默认模式的代码是条件和可读计划，不直接执行；另一混合模式才在代码原语和动作块之间选择。8项真实任务覆盖YAM双夹爪与Tianji–Sharpa双灵巧手，每项每方法3个训练种子×16次评估，平均任务 rubric 得分71.1%，DreamZero为46.0%；这是分项评分，不是完整任务成功率。",
+      "why": "它把通用编码模型进入机器人这条线推进到训练表示：不只在外部调用技能，而是让技能程序成为联合学习的中间层。新意在于可组合的语义计划与连续动作/物理未来一起学习；值得观察这种表示能否比纯动作学习更好处理语义、顺序和精细操作。作者公开实现和预训练权重，但当前是新研究信号，尚未找到独立复现或多方讨论证据。",
+      "limitation": "RoboTwin 2.0为50任务×每设置50次：默认AW-0的clean/random成功率80.8%/20.6%，π0.5为54.9%/27.7%，说明视觉随机化并未全面胜出。混合模式为63.1%/29.2%，且使用另采的Code-as-Policies示范，不能看作只切换推理模式的公平消融。RTX 5090联合去噪端到端推理0.23秒，AR版本0.55秒；这不是机器人全流程延迟。实机每任务仍用100条任务示范微调；没有交互中在线学习，也不等于递归自我改进。代码语法正确仍可能选错参数或预测错误物理结果。",
+      "sources": [
+        {
+          "label": "AW-0论文全文与全部实验（arXiv首版）",
+          "url": "https://arxiv.org/html/2610.30136v1"
+        },
+        {
+          "label": "作者项目与真实机器人演示",
+          "url": "https://agentic-wam.github.io/"
+        },
+        {
+          "label": "公开实现",
+          "url": "https://github.com/ZhuoyangLiu2005/agentic-wam"
+        },
+        {
+          "label": "公开预训练模型卡",
+          "url": "https://huggingface.co/miniFranka/agentic-wam-pretrain-yamego3k-soup-e1"
+        }
+      ]
+    },
+    {
+      "id": "betamem-source-linked-changing-world-memory",
+      "category": "embodied",
+      "tag": "国内新研究 · 具身长记忆 · 中文渠道线索 · 预印本",
+      "title": "BetaMem：记忆要保存来源与有效时间，看到过的位置不能直接当成现在的位置",
+      "organization": "Beta Infinity（贝塔无限）、北京大学、香港科技大学（广州）、北京航空航天大学",
+      "published": "2026-10-19",
+      "date_label": "arXiv v1于10月19日15:13 UTC公开（北京时间19日23:13）；AI科技评论10月22日10:19新文章引出具身长记忆讨论；10月23日核读24页PDF。不是10月23日新发布。",
+      "summary": "BetaMem把工作、空间、实体、情景、经验与程序六类记忆接到原始证据，并区分观察时间、状态有效区间和修订时间，避免环境变化后仍把历史状态当现在。记忆生成用Qwen3.5-9B，检索后回答用Qwen3.7-Plus；作者报告M3-Bench-robot48.08%，OpenEQA EM-EQA72.6% LLM-Match，EgoLifeQA A1-JAKE子集62.4%。在EMem-Bench仿真中，Qwen3-VL-8B结合检索指导的平均任务成功38.4%、错误复发24.9%。",
+      "why": "当前具身记忆的关键不只是塞下更长上下文，而是能否解释“这条信息来自哪里、何时有效、被什么新观察替代”，并从失败里避免反复使用过期状态。移除来源证据的M3-Bench消融从48.08%降至38.61%，说明可回查证据有具体作用。AI科技评论把新论文与LT-Mem等路线联系起来，是当前中文讨论入口；本轮尚未验证独立复现或多方社区热度。论文还提出失败驱动的局部记忆规则修复，需与已经验证的权重自进化分开理解。",
+      "limitation": "并非全系统9B：QA使用Qwen3.7-Plus，互动另用Qwen3-VL-8B-Instruct。四项QA指标和子集不同，LoCoMo92.08%为非对抗四类、EgoLife仅500题A1-JAKE；对照部分引用不同模型/协议，不能泛称全部具身SOTA。EMem-Bench2554 episodes、8-action仿真预算，分四类等权平均；比较测的是记忆检索+规划/动作生成组合，非实机闭环成功率。20个内部视频片段的写入契约通过率50.9→86.2%，范围较小。RSI部分明确是局部记忆规则更新、基础模型和控制器固定；未发现跨轮继承及独立留出验证的实证增益表，不能称已证实递归自我加速。未验证公开代码/权重。",
+      "sources": [
+        {
+          "label": "原论文v1 PDF：24页，方法、协议、消融与限制（全文提取核读）",
+          "url": "https://arxiv.org/pdf/2610.26554"
+        },
+        {
+          "label": "arXiv版本与作者机构入口",
+          "url": "https://arxiv.org/abs/2610.26554"
+        },
+        {
+          "label": "AI科技评论10月22日原报道，邓哲敏：具身记忆赛道持续升温",
+          "url": "https://www.leiphone.com/category/ai/jvyFCFgqJxJtOvjo.html"
+        }
+      ]
+    },
+    {
+      "id": "agibot-world-physical-reasoning-release",
+      "category": "embodied",
+      "tag": "国内数据发布 · 决策分支与真机轨迹 · 实际文件已核",
+      "title": "智元开源 Physical Reasoning 数据：让同一目标在不同状态下走不同动作分支",
+      "organization": "智元 AgiBot / AgiBot World",
+      "published": "2026-10-22",
+      "date_label": "10月22日公开发布；10月23日核对官方HF实际目录、固定revision样本及持续上传记录",
+      "summary": "AGIBOT WORLD 2026第四期把采集重点从操作本身转向决策：相同目标在数量、遮挡、占用和任务进度不同时，需要不同执行分支。发布说明列出九类推理能力，并称同时提供高层问答、阶段结构、Dense Prompt与真机轨迹。实际官方HF已出现PhysicalReasoning目录；本轮完整解析一个“遮挡物后取钥匙”子集的meta：G2A、30Hz、170条episode、75,828帧、7路视频，包含分段指令、关键帧、人工接管、可供性标注，以及成功/终止字段。样本第一步先推开遮挡盒，再取钥匙放入包内。",
+      "why": "这与通用大模型向具身任务渗透直接相关：语言目标、环境条件、过程记忆与动作策略需要共享训练证据，不能只扩大抓取示范。国内线索这次已核到真实公开数据，而非仅看发布会口号。10月21日AI WAVE预告称首批约150小时；今天可关注的是公开数据怎样表达条件分支，以及能否形成留出场景下的决策评测。",
+      "limitation": "150小时是发布预告规模口径，采集时HF仍有上传提交，未清点全量文件、完整时长或跑通训练。高层问答/九类能力来自发布说明，所核单个动作子集并未看到独立QA字段；元数据存在不等于所有标注正确。数据发布没有提供跨模型统一横评、独立OOD成功率或端到端收益，不能写成已实现通用Physical Agent。仓库总规模覆盖历期，不是本次新增规模；许可证CC-BY-NC-SA 4.0含非商用限制。10月27日PhysicalRSI和29日基座模型仍是未来预告。",
+      "sources": [
+        {
+          "label": "官方AgiBotWorld2026数据卡与文件",
+          "url": "https://huggingface.co/datasets/agibot-world/AgiBotWorld2026"
+        },
+        {
+          "label": "PhysicalReasoning公开目录（固定核验版本）",
+          "url": "https://huggingface.co/datasets/agibot-world/AgiBotWorld2026/tree/56dcbcde799030bbb1ee943af6987747a4be2bdc/PhysicalReasoning"
+        },
+        {
+          "label": "实际遮挡取钥匙样本元数据（已完整解析）",
+          "url": "https://huggingface.co/datasets/agibot-world/AgiBotWorld2026/blob/56dcbcde799030bbb1ee943af6987747a4be2bdc/PhysicalReasoning/opensourcev4-20261001/lerobot/task_100347/02/meta/info.json"
+        },
+        {
+          "label": "10月22日发布说明（证券之星刊载）",
+          "url": "https://finance.stockstar.com/SS2026102200021018.shtml"
+        },
+        {
+          "label": "AI WAVE日程与首批约150小时预告",
+          "url": "https://www.leaderobot.com/news/10364"
+        }
+      ]
+    },
+    {
+      "id": "physicalworld-in-context-hidden-physics-calibration",
+      "category": "embodied",
+      "tag": "新研究 · 上下文物理校准 · 仿真规划",
+      "title": "PhysiCalWorld：先试探一下物体，再用一个物理 token 校准世界模型",
+      "organization": "University of Michigan",
+      "published": "2026-10-21",
+      "date_label": "论文首版10月21日17:57:59 UTC（北京时间10月22日）；10月23日核读全文、代码、模型和数据卡",
+      "summary": "物体外观相同，质心、摩擦或阻尼不同，动作结果可能完全不同。PhysiCalWorld先在测试场景取得短交互片段，将其压成一个物理描述token，条件化DINO-WM或LeWM的未来预测与规划；训练不依赖物理参数标签，推理时不更新权重。4种仿真环境各训练135种物理配置，以15种留出配置、每种5条轨迹评估预测；每种环境另评75个开环规划任务。Push-T与Reacher主表采用25个控制步，BeerPong与FetchSlide采用一次性动作。DINO-WM加校准后，Push-T/Reacher/BeerPong/FetchSlide成功率从53.3/52.0/44.0/26.7%变为62.7/61.3/80.0/56.0%。",
+      "why": "它追问当前世界模型的一条关键边界：与环境交互所得的新证据，应如何改变模型对同一动作的预测，而不只是多放历史帧。与直接控制横评一起看，可将语义推理、物理识别与动作执行拆开分析。作者代码、检查点和38.6GB仿真数据已公开可读；这是可复查的新方法，尚无独立实机或复现证据，不能称为公认热点。",
+      "limitation": "全部实验为仿真，没有真实机器人。校准需要额外测试场景交互，不能称零交互泛化。并非所有比较最优：BeerPong中直接拼接上下文的DINO-WM达82.7%，高于该法80.0%；用带物理真值监督的参数估计在部分任务更好。所谓分布外外推主要测试Reacher第一关节阻尼超出训练区间的开放环预测，不证明新任务、跨本体或广泛现实OOD能力。",
+      "sources": [
+        {
+          "label": "PhysiCalWorld论文全文（arXiv首版）",
+          "url": "https://arxiv.org/html/2610.30125v1"
+        },
+        {
+          "label": "作者项目",
+          "url": "https://physical-world.github.io/"
+        },
+        {
+          "label": "公开代码与复现实验说明",
+          "url": "https://github.com/physical-world/physical-world-release"
+        },
+        {
+          "label": "公开检查点",
+          "url": "https://huggingface.co/physical-world/physical-world-checkpoints-release"
+        },
+        {
+          "label": "公开仿真数据卡与训练/测试拆分",
+          "url": "https://huggingface.co/datasets/physical-world/physical-world-dataset-release"
+        }
+      ]
+    },
+    {
+      "id": "unitree-gpt6-io-alignment-demonstration",
+      "category": "embodied",
+      "tag": "国内现场演示与观点 · 协议未公开",
+      "title": "宇树展示 GPT-6 绘画与导航，王兴兴把关键问题指向模型与机器人的输入输出对齐",
+      "organization": "宇树 Unitree；澎湃新闻记者秦盛、科创板日报编辑宋子乔现场/采访报道",
+      "published": "2026-10-22",
+      "date_label": "10月22日世界物理AI大会现场演示与发言；10月23日核读具名报道",
+      "summary": "澎湃新闻的现场报道明确记录王兴兴展示使用GPT-6的机器人视频，称机器人在零训练情况下完成绘画、规划导航。科创板日报独立报道其判断：迈过具身ChatGPT时刻的核心挑战是AI模型输入输出与真实机器人的对齐，商业服务可能比家庭和工业更快落地。这为通用模型进入机器人提供国内企业公开讨论信号，但不是新模型发布或系统评测。",
+      "why": "应将这样的当前讨论与LIBERO等横评并读：模型能说出计划之后，真正困难仍在传感输入、动作接口、反馈频率和失败恢复。两位具名记者覆盖同一现场可证实发生过演讲，不能把它们当两次独立技术复现，也不能用观点预测替代机器人能力证据。",
+      "limitation": "“零训练”为现场演示报道口径，未公开模型完整版本、机器人型号、动作接口、预定义技能、提示与示范、尝试次数、人工介入、成功率、成本及延迟；本轮未独立观看或运行完整试验。没有证据支持通用模型替代低层策略或实现自我进化。年限预测和发展判断归属于演讲者观点。",
+      "sources": [
+        {
+          "label": "澎湃记者秦盛现场报道（澎湃官方新浪账号同源全文）",
+          "url": "https://k.sina.com.cn/article_5044281310_12ca99fde02002lfz6.html"
+        },
+        {
+          "label": "科创板日报宋子乔：输入输出对齐与物理AI观点",
+          "url": "https://api3.cls.cn/share/article/2511957?app=stib&os=ios&selected=&source=&sv=860"
+        }
+      ]
+    },
+    {
+      "id": "longzero-self-synthesized-context-grpo",
+      "category": "llm",
+      "tag": "新研究 · 合成长上下文 · GRPO",
+      "title": "LongZero：不找更强教师，先造证据和答案，再扩成长文训练自己",
+      "organization": "清华大学（Zhennan Wan、Jianfei Chen；BNRist、THBI及清华—博世联合机器学习中心）",
+      "published": "2026-10-21",
+      "date_label": "arXiv v1于10月21日17:59 UTC提交（北京时间10月22日01:59）；10月23日核读方法、主表、算力与附录中的错误合成样本。当前为新预印本，未确认会议录用或独立复现。",
+      "summary": "LongZero让同一个模型先编写虚构世界中的问题、答案和多跳证据，再把证据分散扩写成带相似干扰项的长文档；混合多轮精确检索任务，用GRPO更新权重。每个底座使用2,304条推理题与1,152条检索对话。五项长上下文基准的非加权平均分，Qwen3-4B-Thinking-2507从54.68到57.42，Qwen3-8B从44.63到45.66；这是混合F1与准确率的作者汇总分，不能解释成统一成功率。",
+      "why": "它回应了自我改进讨论中一个具体瓶颈：训练题从哪里来，怎样把难度调到模型“有时答对、有时答错”的可学习区间？新意是先写紧凑证据再扩文，降低长文直接编题的失配，不依赖更大教师。两种任务的2:1混合优于只练检索，但收益不是自动随数据长度或模型参数单调增加。今日技术点据此解释GRPO怎样利用同题多次回答的相对奖励。",
+      "limitation": "“零外部数据”指本次合成与RL流程，不是底座从未预训练，也不是零计算。RL在8张A800-80GB上分别约213/230 GPU小时，另有合成筛选和评测开销；五基准均值为两次采样评测，未给跨训练seed置信区间。8B在LongBench v2从32.11降到32.01，AA-LCR仅3分且200次中120次未产出最终答案。附录明确有互相矛盾的证据仍通过难度筛选，奖励会惩罚上下文支持的另一答案。论文把“训练后再生题并继续循环”列为未来工作，本次不能称多轮递归加速；模型评判的AA-LCR也不等于全规则验证。",
+      "sources": [
+        {
+          "label": "LongZero全文与表2、附录A/C",
+          "url": "https://arxiv.org/html/2610.30132v1"
+        },
+        {
+          "label": "作者代码与数据仓库",
+          "url": "https://github.com/zhennan1/LongZero"
+        }
+      ]
+    },
+    {
+      "id": "minimax-m31-flash-open-weights-20261023",
+      "category": "llm",
+      "tag": "新模型资产 · 开放权重 · 部署与复现入口",
+      "title": "MiniMax M3.1 Flash 权重与 DSpark 草稿头公开：10 月 19 日 API 发布后的新事件",
+      "organization": "MiniMax",
+      "published": "2026-10-23",
+      "date_label": "API 原发布 2026-10-19，本站已报道；本次新事件是官方 HF 仓库首次提交 2026-10-23 00:59:04 UTC（北京时间 08:59:04），实际读取到 48 个权重分片及 DSpark 文件。",
+      "summary": "官方 MiniMaxAI/MiniMax-M3.1-Flash 仓库现有 48 个 safetensors 权重分片、配置、tokenizer 与 DSpark 草稿模型头。模型卡说明为 428B 总参数、23B 激活参数的原生多模态 MoE，支持文本/图像/视频输入、文本输出和 1M 上下文；稀疏注意力覆盖全部注意力层，DSpark 替换此前的 EAGLE 风格 MTP 草稿方案。这次价值是从 API 可用推进到可自行检查权重、复现实验和部署。",
+      "why": "此前 API 版已经进入本刊，今天应追踪具体新产物而不重报同一发布。权重和草稿头公开使稀疏注意力、低精度与推测解码的实际收益有机会由外部验证；这些影响长上下文 Agent 的运行成本，但官方自报基准与硬件吞吐仍需要独立复测。本次没有找到足以支持“社区多方热议”的新独立横评，也不能据此声称已有机器人控制能力。",
+      "limitation": "本次只核验文件列表、首个公开提交、模型卡、配置和许可，未下载大权重或实测。模型卡的 OSWorld、DeepSWE 等分数沿用作者评测，不能把权重开放当成新增成绩。采用 MiniMax 社区许可，商业使用有归属/通知等条件，特定年收入门槛需另行授权；“开放权重”不等于无条件的 OSI 开源。推荐部署涉及 SGLang/vLLM 等具体配方，部分框架集成仍在进行，1M 上下文不代表所有硬件都能经济运行。",
+      "sources": [
+        {
+          "label": "MiniMax：模型卡与部署说明",
+          "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash"
+        },
+        {
+          "label": "官方首次提交：北京时间 2026-10-23 08:59:04",
+          "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash/commit/9e7ebacac350497ad4a1272a2e817639bf11561c"
+        },
+        {
+          "label": "实际权重文件与 DSpark 目录",
+          "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash/tree/main"
+        },
+        {
+          "label": "MiniMax 社区许可原文",
+          "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash/blob/main/LICENSE"
+        },
+        {
+          "label": "原 API 发布：2026-10-19，作为历史对照",
+          "url": "https://www.minimax.io/blog/minimax-m31f"
+        }
+      ]
+    },
+    {
+      "id": "anthropic-theorem-formal-verification-20261022",
+      "category": "llm",
+      "tag": "新研究 · 形式验证 · 作者结果与公开争论",
+      "title": "从“多测一些输入”到机器核验的证明：Claude 验证 123 个开源库，讨论焦点转向保证的边界",
+      "organization": "Anthropic Frontier Red Team · Theorem",
+      "published": "2026-10-22",
+      "date_label": "原始研究发布 2026-10-22；公开讨论自 10-22 22:54 UTC 起，10-23 上午仍在进行；今天关注的是可核验保障、可信基础与证明成本之间的争论。",
+      "summary": "团队报告：Claude 先修复发现的问题，再为 123 个 OSS-Fuzz 库的 239 个入口生成约 1.8 亿行 Rocq 证明，针对编译后的 RISC-V 二进制，证明在其形式化模型和条件下，对不超过 64 MB 的输入不触发指定崩溃/内存安全性质。公开证明仓库实际包含其中 25 个库、60 个入口的子集，采用 Rocq 9.2.0；不是全部 239 项都已公开。",
+      "why": "新意是把 LLM 的大量尝试接到可信证明检查器，结果不是由另一个模型凭印象打分。Hacker News 的具体争论一边强调“覆盖全部符合约束输入”与抽样测试不同，另一边追问证明的规格是否足够、RISC-V/Linux 模型是否贴近真实运行，以及海量低层证明能否用抽象进一步扩展。它与近期 Agent 的验证器、长期任务和计算投入主线直接相关；这是已出现独立公开讨论的研究，尚不能叫社区共识。",
+      "limitation": "证明只覆盖明确写出的性质和前提，包含单线程、静态 RISC-V 程序、固定内存预算及所建模的 Linux 行为；并非所有平台、所有程序行为或完整安全性。可信基础仍包括 Rocq 内核、定理陈述和操作系统/指令语义，语义仓库明确说明是尽力建模而非完整模型。作者在 36 个小验证任务中报告 Opus 5.5 达到一半任务时比 Opus 5 少约 40% token；共享证明工作区少约 17% token，这些是特定实验，不能泛化为所有验证成本。本文读取官方完整文章、公开仓库 README、语义范围说明和 HN 讨论，未独立重跑证明。",
+      "sources": [
+        {
+          "label": "Anthropic：完整研究与实验范围（2026-10-22）",
+          "url": "https://www.anthropic.com/research/formal-verification"
+        },
+        {
+          "label": "Theorem：公开证明子集，60 个入口 / 25 个库",
+          "url": "https://github.com/theorem-labs/oss-verify-proofs"
+        },
+        {
+          "label": "RISC-V / Linux 语义的范围与限制",
+          "url": "https://github.com/theorem-labs/rocq-linux-process-semantics/blob/main/SCOPE.md"
+        },
+        {
+          "label": "Hacker News：原始讨论与不同意见",
+          "url": "https://news.ycombinator.com/item?id=50202217"
+        },
+        {
+          "label": "具体争点：规格覆盖了什么（pinevale）",
+          "url": "https://news.ycombinator.com/item?id=50202940"
+        },
+        {
+          "label": "具体争点：低层证明规模与抽象（jaykru）",
+          "url": "https://news.ycombinator.com/item?id=50202573"
+        }
+      ]
+    }
+  ],
+  "technical_explainer": {
+    "id": "grpo-rlvr-group-relative-learning",
+    "title": "GRPO 与 RLVR：模型怎样把“这次做对了”变成下次更容易做对？",
+    "summary": "把奖励的来源、组内比较和权重更新分开看：RLVR 提供可核验的结果信号，GRPO 用同一道题的多条尝试估计相对优势。会生成很多答案，不等于已经学会；拿到高奖励，也不等于解决了所有真实任务。",
+    "reading_minutes": 7,
+    "why_now": "今天的LongZero把模型自己编写的长文推理题和检索对话混合，用GRPO更新权重；近期机器人研究也在探索奖励驱动的规划器后训练。理解这一机制，能分辨改提示词、推理时多试几次、写入外部记忆和训练权重各自改变了什么。本节用2024–2025年的原始方法解释仍在当下研究中使用的重要机制，基础资料并非今日新闻。",
+    "sections": [
+      {
+        "heading": "1．先分清两个名字：奖励怎么来，参数怎么学",
+        "paragraphs": [
+          "RLVR 是 Reinforcement Learning with Verifiable Rewards，即用可核验奖励进行强化学习。数学题可用标准答案或符号检查器判分，程序可运行测试，工具任务可检查最终文件或环境状态。关键是有一个相对明确、可以运行的判定程序，而不是让模型凭语气判断自己写得好不好。",
+          "GRPO 是 Group Relative Policy Optimization，组相对策略优化。它是一种把奖励变成训练信号的算法：对同一问题采样多条回答，用组内的相对高低决定哪些生成行为应变得更可能。GRPO 可以搭配可核验奖励，也可以搭配学习得到的奖励模型；二者不是同义词，也不是必须绑定。",
+          "“可核验”也有层次。通过现有单元测试只说明通过了这些测试；数学最终答案正确不保证推理过程每一步都正确。奖励程序能稳定打分，和奖励确实完整代表人类目标，是两个不同问题。"
+        ]
+      },
+      {
+        "heading": "2．一次训练回合在做什么",
+        "paragraphs": [
+          "先选一个训练问题，让当前采样策略生成一组回答或完整工具轨迹。把它们交给同一套评分规则，得到每条轨迹的奖励；再计算每条尝试比本组平均水平好多少。原始 GRPO 常用的直观形式是：优势 Aᵢ =（奖励 rᵢ − 组平均奖励）÷ 组内奖励标准差。实现还需处理标准差接近零的情况，部分后续方法也修改了归一化方式。",
+          "优势为正，训练就倾向提高这条轨迹中相应 token 的生成概率；优势为负，就倾向降低。真正改变未来行为的是随后对模型权重做的梯度更新。只在一次对话里重试、挑选最好的答案，属于推理时搜索；把经验写进 Skill 文档，属于上下文或外部记忆变化，都不能直接等同于这一步权重训练。",
+          "原始 GRPO 用组内奖励估计基线，省去了 PPO 常见的单独价值模型，也叫 critic。省下的是这部分模型的显存和计算；多条长轨迹的生成、工具执行和验证仍可能非常贵。比较训练效率时，要把这些费用算进去。"
+        ],
+        "bullets": [
+          "采样：同一道题生成 G 条尝试，保证比较的是同一个任务。",
+          "评分：记录评分规则、失败处理和超时规则，不能只说“用奖励训练”。",
+          "比较：计算组内相对优势，形成可用于更新的信号。",
+          "更新：用受约束的策略优化更新权重，再在独立留出任务上检验。"
+        ]
+      },
+      {
+        "heading": "3．为什么不能把一次高分轨迹无限放大",
+        "paragraphs": [
+          "原始 GRPO 借鉴 PPO 的裁剪目标，比较“新策略生成这个 token 的概率”与“采样时旧策略的概率”，对过大的有利概率比施加限制，减少复用同一批轨迹时更新过猛的问题。这不是保证所有参数变化都很小，也不是训练必然稳定的数学保证。",
+          "原始方案还用相对参考模型的 KL 惩罚，约束策略过度偏离参考分布。后续实现可能调整或去掉 KL；因此读到“采用 GRPO”时，还要查具体损失函数、采样策略、长度归一化和奖励规则。算法名字相同，不代表训练配方相同。",
+          "DAPO 的原始研究就指出，探索不足、全对或全错的样本组、长回答的损失聚合和截断惩罚都会影响训练。它引入动态采样、调整裁剪范围等机制，说明后训练成效不仅来自一个公式，也来自数据和优化细节。"
+        ]
+      },
+      {
+        "heading": "4．从数学到 Agent、再到机器人：什么变难了",
+        "paragraphs": [
+          "数学题的最终答案通常便宜且容易检查。Agent 的成功可能要运行代码、工具和环境；机器人还要面对感知误差、动作延迟、碰撞、硬件磨损和人工复位。给“抓到物体”奖励，也可能遗漏是否损伤物体、是否依赖训练布局、是否借助了评测时不该有的信息。",
+          "因此，仿真里的可核验终态并不自动等于真实闭环中的可靠成功。迁移到机器人时，要继续问奖励由什么传感器或标注判定、失败和安全约束如何处理、不同策略获得多少试验和人工帮助，以及留出对象、布局、任务组合、本体是否真正独立。",
+          "GRPO/RLVR 本身也不等于递归自我改进。模型在固定训练器和验证器下提升任务表现，只能说明完成了一次或多次后训练。若声称 RSI，还需说明改进机制本身是否被持续改进、跨轮次是否继承、验证器是否可靠，以及总算力和人工投入是否可比。"
+        ]
+      },
+      {
+        "heading": "5．最容易误读的地方",
+        "paragraphs": [
+          "最终奖励通常会影响整条生成序列，但这不表示每个 token 都被验证为正确。成功轨迹也可能含无效推理或多余工具调用；如果不另外约束成本，模型可能学到更长、更贵的解法。",
+          "全对的一组和全错的一组，组内都没有奖励差异，最简单的结果奖励优势就没有区分信号。全错不一定证明任务不可学，也可能是探索没碰到成功；全对也不证明题目没有价值，但继续反复采样往往不如找到更有区分度的训练题。",
+          "训练奖励持续上升，仍可能来自记住训练分布、迎合验证器或利用评分漏洞。最有说服力的是在独立任务、可靠评分和相当计算预算下，成功率提高，同时成本、失败模式和 OOD 表现也有交代。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "三个经常被混写的变化，分别改变了什么？",
+      "columns": [
+        "做法",
+        "改变的对象",
+        "读论文时优先检查"
+      ],
+      "rows": [
+        [
+          "推理时多采样、验证后挑选",
+          "本次计算与选择结果",
+          "采样条数、总 token、验证费用，以及是否只报 best-of-N"
+        ],
+        [
+          "生成或检索 Skill、记忆、工具说明",
+          "模型看到的外部上下文",
+          "是否冻结权重、文档额外 token、生成文档的教师与成本"
+        ],
+        [
+          "GRPO 等强化学习后训练",
+          "模型权重",
+          "奖励、采样与优化配方、留出评测、总训练和执行预算"
+        ]
+      ]
+    },
+    "example": {
+      "title": "教学算例：四次尝试怎样产生组内信号（假设数据，不是真实实验）",
+      "paragraphs": [
+        "假设同一道程序题采样 4 条解法，隐藏测试给出的二值奖励为 [1, 1, 0, 0]。为方便教学，使用总体标准差：均值为 0.5，标准差为 0.5，所以相对优势是 [+1, +1, −1, −1]。训练倾向增加前两类轨迹的概率，降低后两类轨迹的概率；实际更新仍受裁剪等优化机制影响。",
+        "如果 4 条都得 0 分，均值为 0，组内没有奖励差异；实际实现需避免除以零，这组也无法提供“哪条更好”的结果奖励信号。此时增加有意义的探索、调整题目难度或改进奖励信息，通常比把同一批失败轨迹反复训练更值得检查。",
+        "再假设第一条解法只通过了不完整测试，却包含一个边界条件错误。算法仍会把它当正例；GRPO 没有自动补全测试的能力。改进验证器、增加独立测试与检查奖励漏洞，是训练系统的一部分。"
+      ]
+    },
+    "checklist": [
+      "奖励检查的是最终答案、测试通过、环境终态，还是模型裁判偏好？判定程序和漏洞是否公开？",
+      "每题采样多少条、每条多少 token/工具步数？训练、数据生成和验证的总成本分别是多少？",
+      "采用原始 GRPO 还是变体？是否保留 KL、怎样归一化、怎样处理全同奖励与截断？",
+      "更新的是模型权重、外部 Skill/记忆，还是只增加了推理时搜索？",
+      "是否有独立留出任务、不同随机种子和 OOD 设置？机器人结果是仿真、离线回放还是真实闭环？",
+      "只报告训练奖励和 best-of-N，还是也报告固定预算下的单次成功、延迟和失败类型？"
+    ],
+    "takeaway": "RLVR 解决“用什么结果信号来教”，GRPO 解决“怎样利用同题多次尝试的相对好坏更新策略”。能力是否真正提高，要看可靠奖励、真实权重更新、完整计算预算和独立评测共同提供的证据。",
+    "sources": [
+      {
+        "label": "DeepSeekMath（首发 2024-02-05；原始 GRPO、组相对优势与结果/过程监督；本文读取 v3）",
+        "url": "https://arxiv.org/html/2402.03300v3"
+      },
+      {
+        "label": "DeepSeek-R1（首发 2025-01-22；规则奖励和大规模推理后训练的原始报告；本文读取 v1）",
+        "url": "https://arxiv.org/html/2501.12948v1"
+      },
+      {
+        "label": "DAPO（首发 2025-03-18；GRPO 实践中的探索、动态采样、长度与截断问题；本文读取 v1）",
+        "url": "https://arxiv.org/html/2503.14476v1"
+      },
+      {
+        "label": "LongZero（首发2026-10-21 UTC；当前长上下文自合成任务中使用GRPO的实例，方法与附录局限）",
+        "url": "https://arxiv.org/html/2610.30132v1"
+      }
+    ]
+  }
+}
