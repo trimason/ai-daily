@@ -1,0 +1,460 @@
+{
+  "date": "2026-10-26",
+  "status": "daily",
+  "title": "通用模型进入具身的下一关：记忆、失败恢复、控制预算与可复核评测",
+  "intro": "今天把焦点放在最近真实出现的四个问题：通用模型怎样把视频和物理仿真接到动作；机器人记忆是否记录了真实执行；VLA 能否在失败前预警并回退；跨模型横评怎样把动作 horizon、采样预算和成功判定说清。RynnUnify、LogLook、Backtrack、flow-matching VLA、TTT 负结果和 RoboJev 给出相互关联的新证据；Kimi K3.1 Pro 与 Hy-Nomas 展示通用模型和世界模型进入具身研发流程的不同路径。每条保留原成果日期、当前更新日期和实验边界。",
+  "coverage": "北京时间 2026-10-26 采集并重新执行。由于 10 月 24–25 日自动任务没有成功写入日报，今日合并回查 10 月 23–26 日的论文、代码/权重开放、模型版本、横评和社区讨论；原始事件日期保留，不把补跑日期冒充首发。重点覆盖通用大模型向具身任务渗透：RynnUnify、Kimi、Hy-Nomas、LogLook、Backtrack、flow-matching VLA、VLA 失败预警、TTT 与 RoboJev。Seed Recycler 是大模型架构新研究，作为计算路线补充，不宣称机器人能力。模型团队与 13 家国内具身公司按官方研究目录、作者项目、代码组织和模型/数据卡逐项检查；未发现窗口内新研究的公司不凑数，工程 SDK 更新不写成模型发布。RoboColiseum 10 月 26 日榜单快照未出现新的通用模型反转，故不重复 10 月 21 日横评。搜索连接器本轮不可用，Google/Bing 结果有限；human five 返回验证页，机器之心为 SPA 壳，具身智能之心、PaperWeekly、新智元没有读到可确认的最新全文，不能声称全网热榜或公众号全量覆盖。Hugging Face 主站间歇性拒绝，Hy-Nomas 模型卡和数据卡部分通过镜像读取，最终链接仍指向官方页面。",
+  "highlights": [
+    {
+      "title": "通用模型不只写计划：视频、物理仿真和动作开始接成闭环",
+      "text": "RynnUnify 用视频预测辅助机器人推理；Kimi 在 human-atlas 中修复动力学代码；Hy-Nomas 把机器人视频 LoRA 放进可交互世界模型。",
+      "story_id": "rynnunify-unified-embodied-brain"
+    },
+    {
+      "title": "具身记忆的标准正在改变：记录实际执行，并能发现自己会失败",
+      "text": "LogLook 保存动作日志，TTT 负结果显示 fast weights 不会自动变成有效记忆；失败预警与 Backtrack 则把风险接到回退恢复。",
+      "story_id": "loglook-execution-grounded-memory"
+    },
+    {
+      "title": "推理预算要写进机器人评测协议",
+      "text": "action horizon、flow sampling depth 和闭环频率共同决定结果；长 chunk+浅采样在部分 Franka 任务更好，在 moving-turntable 上会失败。",
+      "story_id": "flow-vla-horizon-sampling-coupling"
+    },
+    {
+      "title": "评测基础设施本身成为研究对象",
+      "text": "RoboJev 提供开放成功判定层，但与 frontier LLM 使用的帧数不同；跨模型综合分仍不能替代统一输入、失败类型和真实成功率。",
+      "story_id": "robojev-open-robot-success-judge"
+    }
+  ],
+  "reading": [
+    {
+      "title": "RynnUnify：统一具身大脑与 10 月 25 日代码事件",
+      "url": "https://github.com/alibaba-damo-academy/RynnUnify",
+      "reason": "先看 8B reasoner、8B video generator、BCPO 路由和真实/仿真结果分别是什么。"
+    },
+    {
+      "title": "LogLook：执行日志驱动的记忆",
+      "url": "https://arxiv.org/html/2610.32348v1",
+      "reason": "检查记忆输入、token 成本、direct control 对照和单一仿真 benchmark 限制。"
+    },
+    {
+      "title": "Backtrack 与 flow-matching VLA",
+      "url": "https://arxiv.org/html/2610.32941v1",
+      "reason": "对照失败回退机制与 action horizon/采样深度对真实 Franka 的影响。"
+    },
+    {
+      "title": "RoboJev：可下载的机器人成功判定器",
+      "url": "https://robo-jev.com/data",
+      "reason": "核对十帧与四帧协议差异，不把判定器分数直接当控制能力。"
+    },
+    {
+      "title": "Kimi K3.1 Pro 的物理仿真案例与独立讨论",
+      "url": "https://www.kimi.ai/blog/kimi-k3-1-pro",
+      "reason": "把厂商 human-atlas 案例、Artificial Analysis 榜单和 HN/Robocurve 评论分开阅读。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "统一具身大脑 / unified embodied brain",
+      "explanation": "将理解、视频预测、agentic reasoning 与动作放进同一系统；RynnUnify 的当前代码和权重事件提供具体案例。"
+    },
+    {
+      "term": "执行日志记忆 / execution-grounded memory",
+      "explanation": "记忆保存真实执行过的动作和状态，而不是只保存语言摘要；LogLook 用它减少 token 并支持规划。"
+    },
+    {
+      "term": "失败预警与回退 / failure prediction and backtracking",
+      "explanation": "先预测 VLA 是否会失败，再回退动作重试；Backtrack 与失败可解释性工作形成互补。"
+    },
+    {
+      "term": "动作 horizon / action horizon",
+      "explanation": "一次策略输出执行多少动作步；它和 flow-matching 采样深度、闭环频率共同改变具身结果。"
+    },
+    {
+      "term": "测试时训练与快速权重 / TTT and fast weights",
+      "explanation": "测试时更新短期参数以适应当前任务；本期真实三杯选择负结果提醒“有模块”不等于有效记忆。"
+    },
+    {
+      "term": "机器人成功判定器 / robot success judge",
+      "explanation": "用开放模型从轨迹和视频判断任务是否成功，为跨模型横评提供审计层，但输入协议必须公平。"
+    },
+    {
+      "term": "交互式世界模型 / interactive world model",
+      "explanation": "Hy-Nomas 将相机控制、空间记忆和机械臂视频 LoRA 用于生成世界仿真，尚无公开成功率。"
+    },
+    {
+      "term": "隐状态回收 / hidden-state recycling",
+      "explanation": "Seed Recycler 把上一步顶层隐状态反馈到下一步，探索低增量解码成本的连续推理路径。"
+    }
+  ],
+  "featured_ids": [
+    "rynnunify-unified-embodied-brain",
+    "loglook-execution-grounded-memory",
+    "backtrack-frozen-vla-recovery",
+    "flow-vla-horizon-sampling-coupling",
+    "robojev-open-robot-success-judge",
+    "kimi-k31-cross-benchmark-dissent"
+  ],
+  "stories": [
+    {
+      "id": "rynnunify-unified-embodied-brain",
+      "category": "embodied",
+      "tag": "统一具身大脑 · 视频规划 · 真实机器人 · 代码/权重开放",
+      "title": "RynnUnify：阿里把具身理解、视频预测和机器人动作接进同一个系统",
+      "organization": "阿里巴巴达摩院与湖畔实验室（DAMO Academy / Hupan Lab）",
+      "published": "2026-10-23",
+      "date_label": "论文 v1 于 10 月 23 日公开；10 月 25 日官方仓库新增 VisualPlan 与 BCPO agentic-RL 代码和资源链接，10 月 26 日通过 ModelScope 清单核到 Base、Agentic-Reasoner、WAM-RoboCasa 三套权重文件。",
+      "summary": "RynnUnify 是 16B 的 mixture-of-transformers：8B 自回归 reasoner 加 8B rectified-flow 视频 generator，把具身理解、视频预测、agentic reasoning 和 world-action 放进统一系统。BCPO 另训练一个 agent，在直接推理和视频辅助推理之间路由，视频生成器保持冻结。作者项目页报告 RoboCasa365 选定 20 个 composite tasks、200 个 episodes 成功率 51.5%（seen 52.0%、unseen 50.0%），Astribot S1 三个真实任务平均 46.7%。",
+      "why": "它代表通用多模态模型向具身任务渗透的一种新组合：模型不只输出文字计划，还把未来视频作为物理中间证据，再接动作头。10 月 25 日代码事件和公开权重让后续复核门槛降低，适合与直接控制、VLA 和世界动作模型比较。",
+      "limitation": "数值是作者报告，尚无独立复现；arXiv HTML 不完整，实验数字以项目页为准。ModelScope 清单确认 Base 与 Agentic-Reasoner 权重卡标注 Apache-2.0，而 WAM-RoboCasa 卡标注 license other / alibaba-damo-academy；不能把全家族写成统一许可证。权重文件存在也不证明 turnkey 真实机器人栈、训练数据和全部适配器已开放，当前代码树仍缺少完整部署推理路径；BCPO/VisualPlan 依赖兼容的 Cosmos/视频与 judge 服务。51.5% 是选定任务的仿真结果，46.7% 是三个 Astribot S1 任务平均，不能当通用跨本体成功率。",
+      "sources": [
+        {
+          "label": "论文摘要",
+          "url": "https://arxiv.org/abs/2610.32965"
+        },
+        {
+          "label": "官方代码与 README",
+          "url": "https://github.com/alibaba-damo-academy/RynnUnify"
+        },
+        {
+          "label": "官方项目与评测表",
+          "url": "https://alibaba-damo-academy.github.io/RynnUnify.github.io/"
+        },
+        {
+          "label": "10 月 25 日 VisualPlan/BCPO 提交",
+          "url": "https://github.com/alibaba-damo-academy/RynnUnify/commit/0e50fecd304a9d33888dbfc60487b046191b9d01"
+        },
+        {
+          "label": "ModelScope WAM-RoboCasa 权重清单",
+          "url": "https://modelscope.cn/models/DAMO_Academy/RynnUnify-WAM-RoboCasa"
+        }
+      ]
+    },
+    {
+      "id": "loglook-execution-grounded-memory",
+      "category": "embodied",
+      "tag": "执行日志记忆 · 具身 Agent · 仿真 · token 成本",
+      "title": "LogLook：机器人记忆开始记录“动作实际做了什么”，而不是只重写一段摘要",
+      "organization": "南京大学苏州校区与 Technical University of Munich",
+      "published": "2026-10-23",
+      "date_label": "arXiv v1 于 10 月 23 日 08:43 UTC；10 月 26 日全文 HTML 与实验附录核读。",
+      "summary": "LogLook 将执行日志、note history 和 expectation-gated frames 组合成具身记忆：日志记录动作、环境步数、夹爪开合与末端高度，只有规划器判断值得查看时才取图像。RoboMME 的 Franka Panda 仿真 16 个任务中，256 个 motion-planner episodes 的 execution-grounded memory 为 237/256（92.6%），note-only 为 234/256（91.4%）；前者约 40.5k tokens/episode，后者约 71.3k。全 benchmark 800 episodes 中 direct control 为 93.5%，execution-grounded planner 为 81.9%，不能把两种输入设置当成同一控制器排名。",
+      "why": "当通用模型进入机器人后，记忆的关键问题从“能不能总结历史”变成“历史动作是否真的执行、在哪一步偏离”。LogLook 把可观测的执行轨迹接回长期规划，并用期望门控减少图像 token，直接连接 BetaMem、KV cache 与测试时适应的讨论。",
+      "limitation": "只有一个仿真 benchmark，每 episode 只跑一次，没有真实机器人实验；GPT-6 Astra 是 proprietary API。论文指出 direct-control 对照使用 depth、camera calibration 和 completion criteria，与部分 planner 输入不完全相同；92.6% 是记忆检索/规划实验，不是实机成功率。",
+      "sources": [
+        {
+          "label": "论文 HTML（全文与附录）",
+          "url": "https://arxiv.org/html/2610.32348v1"
+        },
+        {
+          "label": "论文摘要",
+          "url": "https://arxiv.org/abs/2610.32348"
+        }
+      ]
+    },
+    {
+      "id": "backtrack-frozen-vla-recovery",
+      "category": "embodied",
+      "tag": "失败预测 · 冻结 VLA · 回退恢复 · 仿真",
+      "title": "Backtrack：VLA 失败时先回到几步之前，失败恢复可以先不改模型权重",
+      "organization": "Stanford University 与 ETH Zurich",
+      "published": "2026-10-23",
+      "date_label": "arXiv v1 于 10 月 23 日 17:35 UTC；10 月 26 日全文、代码依赖和统计设置核对。",
+      "summary": "Backtrack 给冻结的 VLA 加一个很小的 failure-prediction head，只用成功/失败 rollout 标签训练，不重新训练 VLA，也不需要人工 recovery demonstrations。预测当前 episode 可能失败后，系统退回一段动作，让原 VLA 重试。LIBERO-Long 上 SmolVLA、π0-FAST、π0.5 分别提升 7.40、7.08、1.60 个百分点；四个 LIBERO suites 的提升为 3.40、1.70、0.79 个百分点。每任务 50 episodes、五个 seed，并报告 95% CI。",
+      "why": "它把“通用模型会不会失败”的问题变成控制系统可用的预警和恢复接口：先监测失败风险，再复用已有策略，而不是每次失败都重新训练。相对单纯增加推理次数，这种轻量机制更接近实际部署中的安全预算。",
+      "limitation": "全部实验在 LIBERO 和 MetaWorld 仿真；回退不恢复完整环境状态，场景可能已改变，也无法处理需要新策略的失败。提升依赖冻结 VLA 的原有能力，不能推断真实机器人闭环收益或跨本体泛化。代码主要基于 LeRobot，尚无独立复现。",
+      "sources": [
+        {
+          "label": "论文 HTML",
+          "url": "https://arxiv.org/html/2610.32941v1"
+        },
+        {
+          "label": "论文摘要",
+          "url": "https://arxiv.org/abs/2610.32941"
+        },
+        {
+          "label": "LeRobot 代码基座",
+          "url": "https://github.com/huggingface/lerobot"
+        }
+      ]
+    },
+    {
+      "id": "flow-vla-horizon-sampling-coupling",
+      "category": "embodied",
+      "tag": "流匹配 VLA · action horizon · 采样预算 · 真实 Franka",
+      "title": "Flow-matching VLA 的隐藏旋钮：动作执行多长，决定采样步数该不该更深",
+      "organization": "中国科学院自动化所、UCAS 与 FiveAges",
+      "published": "2026-10-23",
+      "date_label": "arXiv v1 于 10 月 23 日 03:07 UTC；10 月 26 日全文与真实硬件实验段落核读。",
+      "summary": "研究系统分析 π0、π0.5、GR00T-N1.7 中 action-chunk 执行长度 s 与 flow-matching 数值采样深度 N 的耦合：短 horizon 往往需要更深采样，长 horizon 下浅采样反而能抑制动作分布发散和 open-loop drift。除 LIBERO、RoboTwin 2.0 外，还在 Franka Research 3 上做 5 个任务、每任务 50 个 SpaceMouse demonstrations，共 2,400 次硬件 rollouts、25 Hz Cartesian impedance。长 chunk+浅采样比深采样在真实任务分别提升 π0 10.0、π0.5 6.9、GR00T-N1.7 11.3 个百分点；π0 的 (s=50,N=2) 约把计算负担降至原来的 1/25。",
+      "why": "这直接回应用户关心的“同一个模型为什么在具身横评中表现不同”：模型调用次数之外，动作执行 horizon、采样深度和闭环频率共同决定结果。它提示跨模型榜单必须报告控制预算，而不能把更深采样自动当作更强推理。",
+      "limitation": "moving-turntable 等需要高频闭环的任务在长 open-loop chunk 下会灾难性失败；浅采样更好只在给定任务、模型和控制器设置下成立。真实实验是单一 Franka 本体、5 个任务和作者数据，不能直接外推到其他机器人或通用 VLA。",
+      "sources": [
+        {
+          "label": "论文 HTML",
+          "url": "https://arxiv.org/html/2610.32102v1"
+        },
+        {
+          "label": "论文摘要",
+          "url": "https://arxiv.org/abs/2610.32102"
+        }
+      ]
+    },
+    {
+      "id": "vla-failure-interpretability-warning",
+      "category": "embodied",
+      "tag": "VLA 失败预警 · 内部表征 · conformal prediction · Workshop",
+      "title": "VLA 能否提前知道自己会失败？新工作把内部表征接到机器人失败预警",
+      "organization": "University of Utah",
+      "published": "2026-10-23",
+      "date_label": "arXiv v1 于 10 月 23 日公开；论文注明为 CoRL 2026 Science of Physical AI Safety Workshop，非 archival 主会论文。",
+      "summary": "工作在 OpenVLA-7B 上分析内部 activation、sparse autoencoder features、outcome prediction 与 conformal prediction，目标是找出“失败已经不可恢复”的时刻和相关表征模式。模型在 LIBERO-10 上 500 rollouts、每任务 50 个 initial states，整体成功率 51.6%，留出 95 条做评估。",
+      "why": "失败预警连接了通用模型向具身渗透时最现实的边界：系统是否能在继续发出危险动作前暴露不确定性。它与 Backtrack 的恢复机制互补，也为跨模型横评增加“是否知道自己会失败”的维度。",
+      "limitation": "这是仿真和 workshop 论文，不是已完成的真实机器人安全验证；95 条评估 rollout 和 OpenVLA-7B/LIBERO-10 设置不能代表所有 VLA。内部 feature 与失败相关不等于因果解释，也未证明预警能稳定降低实机风险。",
+      "sources": [
+        {
+          "label": "论文 HTML",
+          "url": "https://arxiv.org/html/2610.32208v1"
+        },
+        {
+          "label": "CoRL 2026 Science of Physical AI Safety Workshop 说明（论文内）",
+          "url": "https://arxiv.org/html/2610.32208v1"
+        }
+      ]
+    },
+    {
+      "id": "ttt-vla-negative-memory-result",
+      "category": "embodied",
+      "tag": "测试时训练 · fast weights · 真实机器人负结果 · 记忆",
+      "title": "TTT 接入 VLA 后为什么仍不会记住示范？新报告给出一个重要的负结果",
+      "organization": "Standard Robots",
+      "published": "2026-10-23",
+      "date_label": "arXiv v1 于 10 月 23 日 02:55 UTC；10 月 26 日全文、视频任务设置与结果表核对。",
+      "summary": "报告把 Test-Time Training/fast weights 接入 InternVLA-A1 和 π0.5，试图让模型在测试时把人类示范写入快速参数，再影响后续动作。原始长视频 654 对、556,302 frames，短视频任务 273 对，单帧 cue 210 对。在真实三杯选择任务中，standard training 10,000 steps 成功率 25%，contrastive regularization 12.5%，两者都低于三选一随机基线 33.3%。",
+      "why": "它把“有 fast weights 就有记忆”的直觉拆开：测试时参数必须正确写入、保留并被读取，才会改变行为。负结果与 LogLook 的执行日志记忆、BetaMem 的有来源记忆形成对照，是当前具身记忆讨论中比单纯报一个新模块更重要的证据。",
+      "limitation": "真实实验集中在特定三杯选择任务，不能推广为 TTT 普遍无效；报告没有证明所有 fast-weight 配方都失败。数据规模、任务和训练配方有限，尚无跨本体或独立复现。",
+      "sources": [
+        {
+          "label": "论文 HTML",
+          "url": "https://arxiv.org/html/2610.32094v1"
+        },
+        {
+          "label": "论文摘要",
+          "url": "https://arxiv.org/abs/2610.32094"
+        }
+      ]
+    },
+    {
+      "id": "robojev-open-robot-success-judge",
+      "category": "embodied",
+      "tag": "开放成功判定器 · 评测基础设施 · 低成本 · 新发布",
+      "title": "RoboJev：把机器人“成功还是失败”做成可下载的低成本判定层",
+      "organization": "RoboJev 独立作者团队",
+      "published": "2026-10-23",
+      "date_label": "官网、数据页和权重 10 月 23 日发布；10 月 24–26 日仍可下载代码、CSV/JSONL、视频 overlay 与 LeRobot reward plugin。HN 三次发布只有 1–4 points、0 comments，属于新发布而非社区热议。",
+      "summary": "RoboJev 用 LoRA 微调的 JEV-27B-VL 判断“任务描述+轨迹采样帧”是否成功，并公开模型、标注数据和评测插件。SO-101 的 268 个 held-out runs 报告 balanced accuracy 95.2%、AUROC 0.9932；unseen-lab 的 459 runs 为 78.16%、0.8904；H100 中位回答约 0.257 秒，作者估算约 0.1919 美元/1000 answers。",
+      "why": "通用大模型进入机器人后，成功率本身也需要一个可复核的判定层。RoboJev 把逐次轨迹和不确定性报告做成可运行资产，可用于审计 RoboColiseum 一类横评的“完成”标签，但它评估结果，不控制机器人。",
+      "limitation": "作者自发布的 unsubmitted manuscript，无 arXiv/DOI，尚无独立复现；只有一个标注者核验 200 条社区片段，65 条模糊结果被排除。RoboJev 使用十帧前视角并可加入其他相机最终帧，而 frontier LLM 对照只有四帧前视角，不能直接排名；SO-101 上与 Astra 的差异置信区间包含 0。",
+      "sources": [
+        {
+          "label": "官网与方法说明",
+          "url": "https://robo-jev.com/"
+        },
+        {
+          "label": "数据与协议",
+          "url": "https://robo-jev.com/data"
+        },
+        {
+          "label": "权重",
+          "url": "https://huggingface.co/josefchen/RoboJev-27B"
+        },
+        {
+          "label": "评测数据",
+          "url": "https://huggingface.co/datasets/josefchen/RoboJev-evals"
+        }
+      ]
+    },
+    {
+      "id": "hunyuan-hy-nomas-robotics-world-model",
+      "category": "embodied",
+      "tag": "交互式世界模型 · 机器人 LoRA · 空间记忆 · 可运行资产",
+      "title": "混元 Hy-Nomas：把相机控制、持久空间记忆和机械臂视频 LoRA 合进交互式世界模型",
+      "organization": "腾讯混元 Hunyuan",
+      "published": "2026-10-21",
+      "date_label": "GitHub 仓库 10 月 21 日创建，10 月 23–24 日补齐 Diffusers/demo；模型元数据 10 月 21 日创建、10 月 25 日更新。",
+      "summary": "Hy-Nomas 是 segment-autoregressive diffusion world model：Qwen2.5-VL-7B text encoder、54-block dense MMDiT、camera cross-attention、跨片段 persistent KV cache，默认 8 步去噪、720×1280/24 FPS，并提供单 RTX 4090 配置。它发布基于 RealSource-World 真实机械臂视频的 dual_arm_robotics LoRA，用于增强生成世界的机器人仿真能力。Hy-Nomas-Bench 公开 280 个 evaluation-only cases，包括文本交互、相机导航、文本/相机交错和空间记忆，含 220 条参考相机轨迹。",
+      "why": "这条线把大模型进入具身研发的中间层讲清楚：世界生成、相机轨迹、跨片段空间一致性和机器人数据适配器被放进同一套代码与权重。它更像仿真/数据生成基础设施，而不是已经能控制机械臂的 VLA。",
+      "limitation": "README 明确 Robotics LoRA 增强的是生成世界的机器人仿真能力，不是机器人策略或真实控制。Bench 只公开 prompts、轨迹和 JSON，没有生成视频、评分，技术报告仍为 Coming Soon；HF 主站本轮间歇性拒绝，模型卡通过镜像读取，最终链接保留官方地址。",
+      "sources": [
+        {
+          "label": "官方代码与 README",
+          "url": "https://github.com/Tencent-Hunyuan/Hy-Nomas"
+        },
+        {
+          "label": "模型卡与权重",
+          "url": "https://huggingface.co/tencent/Hy-Nomas"
+        },
+        {
+          "label": "Hy-Nomas-Bench",
+          "url": "https://huggingface.co/datasets/tencent/Hy-Nomas-Bench"
+        },
+        {
+          "label": "项目页",
+          "url": "https://hy-nomas.hy.tencent.com/"
+        }
+      ]
+    },
+    {
+      "id": "kimi-k31-cross-benchmark-dissent",
+      "category": "llm",
+      "tag": "通用模型进入物理仿真 · Agent 编程 · 独立评测争议",
+      "title": "Kimi K3.1 Pro：通用模型开始进入物理仿真编程，但榜单与真实任务体验仍有分歧",
+      "organization": "月之暗面 Moonshot AI / Kimi",
+      "published": "2026-10-24",
+      "date_label": "官方博客 10 月 24 日发布；K3.1 Pro 与 Highspeed 已上线产品/API，完整权重计划 11 月 4 日。10 月 26 日回看 HN 与 Artificial Analysis 讨论。",
+      "summary": "Kimi 称 K3.1 Pro 是 K3 的 post-trained 版本，3T 级、1M context，并在数百下游域做联合 RL。与具身主线直接相关的 human-atlas 案例中，模型搭建人体动力学模拟器和训练/评测管线；167 missions、420 次独立评审后，模型通过开环动力学探测发现并修正肩部肌肉力臂计算中的 36 处错误，重新训练 controller 后模拟人连续交替步行 11.2 秒。",
+      "why": "这是通用模型向具身研发流程渗透的具体例子：模型编写物理仿真、发现动力学错误、再训练控制器。与此同时，Artificial Analysis 的 HN 讨论约 120 points/41 comments，质疑单 benchmark、Pareto 图和 log-scale cost；Robocurve 相关评论提到机器人 API 体验，但没有受控复测，正好提醒我们把厂商案例、榜单和真实机器人证据分开。",
+      "limitation": "human-atlas 是内部人体动力学模拟器，不是真实机器人、电机闭环或跨本体 OOD；167 missions/420 reviews 没有公开轨迹或独立复现，11.2 秒不是机器人成功率。HN 评论是经验和观点，不是 Kimi 机器人复测；完整权重尚未发布，Terminal-Bench 等分数使用不同 harness，不能直接宣称通用模型稳定胜出。",
+      "sources": [
+        {
+          "label": "Kimi K3.1 Pro 官方技术博客",
+          "url": "https://www.kimi.ai/blog/kimi-k3-1-pro"
+        },
+        {
+          "label": "human-atlas 开源人体模型",
+          "url": "https://github.com/ashemag/human-atlas"
+        },
+        {
+          "label": "Artificial Analysis HN 讨论",
+          "url": "https://news.ycombinator.com/item?id=50213337"
+        },
+        {
+          "label": "Robocurve 相关讨论",
+          "url": "https://news.ycombinator.com/item?id=50224171"
+        }
+      ]
+    },
+    {
+      "id": "seed-recycler-hidden-state-latent-reasoning",
+      "category": "llm",
+      "tag": "新架构 · 隐状态回收 · 推理效率 · 官方研究",
+      "title": "Seed Recycler：把上一步隐状态回收到下一步，探索低增量成本的连续推理",
+      "organization": "字节跳动 Seed",
+      "published": "2026-10-25",
+      "date_label": "Seed 官方论文页和 PDF 标注 10 月 25 日；页面写 arXiv 但没有可确认的 arXiv ID，不能据此猜测论文编号。",
+      "summary": "Recycler 在标准 token embedding 外，用 RMSNorm+linear adapter 将上一个 token 的 top-layer hidden state 反馈给下一步，连续路径与离散 token 路径并行。作者称解码时近似不增加每 token 成本和 KV footprint；训练并不免费，k=2 约为标准训练成本 2 倍，部分 k=3 方案额外约 3.3%。作者报告 model α 14 项任务平均从 42.97 提升到 46.21；model β 同规模 Recycler 平均 64.76，接近 2.4× baseline 的 66.43。",
+      "why": "连续隐状态回收是推理架构的新路线，可能影响长程 Agent 和未来具身规划模型的计算路径；它也提醒我们，“cost-free”只针对近似不变的解码/KV，不是训练免费。本轮核到官方新论文，但没有独立复现或广泛社区讨论。",
+      "limitation": "所有结果为作者报告，未独立复现；model β 的比较窗口和预算并非严格等价。没有具身实验，不能把语言模型架构收益写成机器人能力。官方页面和 PDF 是主证据，不能因为页面写 arXiv 就补写未知 ID。",
+      "sources": [
+        {
+          "label": "Seed 官方论文页",
+          "url": "https://seed.bytedance.com/zh/public_papers/recycler-cost-free-latent-reasoning-via-hidden-state-recycling"
+        },
+        {
+          "label": "Recycler 官方 PDF",
+          "url": "https://lf3-static.bytednsdoc.com/obj/eden-cn/hyvsmeh7uhobf/recycler_arxiv%20(2).pdf"
+        }
+      ]
+    }
+  ],
+  "technical_explainer": {
+    "id": "ttt-fast-weights-test-time-memory",
+    "title": "Test-Time Training（TTT）与 Fast Weights：模型怎样在测试时写入并读取短期记忆？",
+    "summary": "TTT 用一组在测试时更新的快速参数保存当前轨迹信息；慢权重决定怎样写、怎样读，fast weights 决定这一轮记住了什么。它不同于只保存 token 的 KV cache、写文本的外部记忆或长期训练权重。",
+    "reading_minutes": 7,
+    "why_now": "本期 TTT-in-VLA 的真实三杯选择实验出现低于随机基线的负结果，LogLook 又用执行日志解决记忆来源问题。理解 TTT 能分辨“增加上下文”“写外部记录”“测试时更新参数”到底改变了哪一层；基础 TTT 论文早于本期，本文说明其当前用途而不是把机制当作今日新发现。",
+    "sections": [
+      {
+        "heading": "1．先区分四种记忆",
+        "paragraphs": [
+          "KV cache 保存已经计算过的 token 表示，通常不更新模型参数；它让下一步注意历史更快，但不会自己学会新规则。外部记忆把轨迹写成文本、结构化状态或向量，之后通过检索交给模型。TTT fast weights 则在测试时对一组快速参数做更新，历史信息以参数状态存在。长期训练权重需要更大规模的训练和优化，通常不会因一次机器人 episode 改变。",
+          "这四者可以组合：模型用 KV cache 读当前窗口，用日志库保存跨 episode 事实，再用 fast weights 适应本次任务。但论文若只说“有 memory”，必须查写入对象、更新频率、持久范围和读取路径。"
+        ]
+      },
+      {
+        "heading": "2．Fast weights 的直觉工作过程",
+        "paragraphs": [
+          "设慢权重 θ 定义一个小型学习规则，快速权重 W_t 保存时间 t 以前的轨迹。每接收一个观察 x_t，模型先用 θ 计算一个自监督损失或预测误差，再用几步梯度更新 W_t，得到 W_{t+1}；控制头读取 θ 与 W_{t+1} 的组合来预测下一动作。慢权重像“如何记笔记的习惯”，fast weights 像“这次任务已经记下的内容”。",
+          "测试时更新必须受到步数、学习率、重置时机和稳定性约束。若每个 episode 都重置，记忆只跨当前 episode；若跨 episode 保留，还要证明它没有把旧场景的错误规则带到新场景。"
+        ]
+      },
+      {
+        "heading": "3．为什么有 Fast Weights 仍可能不会记住",
+        "paragraphs": [
+          "写入目标可能和任务目标错位：自监督预测变好，不代表模型会按人类示范改变杯子选择。快速参数容量、更新步数或学习率可能不足，也可能被后续视觉变化覆盖。读取路径同样关键：控制器若没有使用 W_t，训练再久也不会体现出记忆。",
+          "本期 TTT-in-VLA 报告的三杯选择结果是 standard training 10,000 steps 25%，contrastive regularization 12.5%，都低于三选一随机基线 33.3%。这不是 TTT 所有实现都无效的证明，却是“模块接入≠有效记忆”的直接提醒。"
+        ]
+      },
+      {
+        "heading": "4．和具身日志记忆、KV cache 放在一起看",
+        "paragraphs": [
+          "LogLook 保存动作实际执行、环境步数、夹爪状态和末端高度，并按需要取图像；它的证据可追溯，代价是检索和上下文设计。BetaMem 让记忆带来源、观察时间和有效区间，适合环境变化。TTT 更像把短期适应压进参数状态，读取快但可解释性和失效诊断更难。",
+          "机器人论文要把记忆收益拆成模型、规划器、执行器和控制频率的贡献，区分仿真、离线回放和真实闭环，并报告重置、人工接管和总更新计算。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "四种常被混写的“记忆”机制",
+      "columns": [
+        "机制",
+        "写入对象",
+        "读论文时检查"
+      ],
+      "rows": [
+        [
+          "KV cache",
+          "历史 token 表示",
+          "是否跨窗口/episode；显存和上下文长度"
+        ],
+        [
+          "外部日志/向量记忆",
+          "文本、结构化状态或向量",
+          "来源、时间有效性、检索 token 与错误污染"
+        ],
+        [
+          "TTT fast weights",
+          "测试时快速参数",
+          "更新损失、步数、学习率、重置和读取路径"
+        ],
+        [
+          "长期训练权重",
+          "模型的慢参数",
+          "训练数据、总算力、是否真的改变了基础策略"
+        ]
+      ]
+    },
+    "example": {
+      "title": "教学算例：一次示范怎样写入 fast weights（假设，不是真实实验）",
+      "paragraphs": [
+        "假设机器人看到示范“拿左杯”，TTT 在两个更新步中让 fast weights 更好预测示范后的视觉变化。若第三步控制头读取 W_t 后把左杯概率从 1/3 提到 0.6，说明这次状态影响了输出；若只改善了下一帧预测但动作仍为 1/3，说明写入目标和控制目标没有对齐。",
+        "如果换到新布局后仍保留 W_t，模型可能把旧杯子位置当成当前事实。测试时适应需要重置或显式时间标签；单次成功也不能证明跨任务记忆。"
+      ]
+    },
+    "checklist": [
+      "更新的是 KV、外部记录、fast weights 还是长期权重？每个 episode 何时重置？",
+      "测试时更新用什么损失，更新了几步，额外 token/梯度/延迟是多少？",
+      "写入后的状态是否真的进入动作头或规划器？有没有不使用记忆的对照？",
+      "记忆是否跨新物体、新布局、新任务组合或本体？旧状态污染怎样检测？",
+      "结果是仿真、离线开环还是真实闭环？是否报告人工接管、试验次数、成功率和随机基线？"
+    ],
+    "takeaway": "TTT 的核心不是“模型拥有一个记忆模块”，而是测试时快速参数是否被可靠写入、在正确时机被读取，并在独立任务上改善行为。比较时要把 KV cache、外部日志、fast weights 和长期权重的对象、成本与持久范围分开。",
+    "sources": [
+      {
+        "label": "TTT：Learning to (Learn at Test Time)，2024-07-07",
+        "url": "https://arxiv.org/abs/2407.04620"
+      },
+      {
+        "label": "TTT in VLA，本期负结果，2026-10-23",
+        "url": "https://arxiv.org/html/2610.32094v1"
+      },
+      {
+        "label": "BetaMem：带来源和有效时间的具身记忆，2026-10-19",
+        "url": "https://arxiv.org/abs/2610.26554"
+      },
+      {
+        "label": "LoRA（作为参数高效更新对照），2021-06-17",
+        "url": "https://arxiv.org/abs/2106.09685"
+      }
+    ]
+  }
+}

@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年10月23日日报：以通用模型向具身任务渗透为主线，跟进LIBERO-10六模型同接口横评、MicroFactory运行时控制代码争论、宇树I/O对齐现场信号，以及AW-0、PhysiCalWorld、BetaMem的新研究。国内核到智元PhysicalReasoning真实公开样本与MiniMax M3.1 Flash首个权重提交；补充Anthropic形式验证与具体社区异议。每日技术点讲GRPO与RLVR。原成果、当前讨论/开放日期及实证边界分别保留；此前各期保留归档。
+当前首页为2026年10月26日日报：继续追踪通用模型进入具身的真实热点，重点是RynnUnify统一具身大脑、LogLook执行日志记忆、Backtrack失败回退、动作 horizon 与流匹配采样耦合、TTT负结果及RoboJev成功判定层。补充腾讯混元Hy-Nomas交互式世界模型与机械臂LoRA、Kimi K3.1 Pro进入人体动力学仿真、Seed Recycler隐状态回收。每条分别保留原成果日期、当前讨论/开放日期、模型/代码/数据证据和实验边界；没有新研究的团队不凑数。每日技术点讲TTT与Fast Weights，区分KV cache、外部日志、测试时快速参数和长期训练权重。
 
 ## 本地构建与预览
 

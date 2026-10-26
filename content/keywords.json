@@ -2,9 +2,9 @@
   "metadata": {
     "title": "研究方向与检索关键词",
     "status": "sample-research-map",
-    "updated": "2026-10-23",
-    "intro": "中英关键词连接具体研究问题，覆盖大模型与具身的多条路线，作为可扩展的检索地图。每日热点由近期新增研究和实际社区讨论重新筛选，主题随证据轮换；Gemini、RSI等是历史案例与候选方向，不是固定推荐或实时热度排名。",
-    "verification": "来源通过HTTP读取，核验标题、日期及摘要或官方正文；部分本期论文还检查了方法、实验与局限段落，具体范围见来源说明。未执行全文精读归档或独立复现。",
+    "updated": "2026-10-26",
+    "intro": "中英关键词连接具体研究问题，覆盖大模型与具身的多条路线。10月26日更新加入执行日志记忆、失败预测与回退、动作 horizon、机器人成功判定器、交互式世界模型和隐状态回收；主题随近期证据轮换，不是实时热度排名。",
+    "verification": "来源通过具体官方页面、论文、代码/模型卡或数据卡核验；镜像读取与访问限制在对应条目中保留。每日热点由近期研究、实测和社区证据重新筛选，未独立复现的结果不写成共识。",
     "dating_policy": "来源日期默认记录arXiv首版提交日期；官方文章单独注明发布日期。更新日期表示研究地图整理时间。"
   },
   "directions": [
@@ -16,15 +16,19 @@
         "隐空间推理",
         "模式切换",
         "工具调用",
-        "推理成本"
+        "推理成本",
+        "隐状态回收",
+        "连续反馈"
       ],
       "keywords_en": [
         "latent reasoning",
         "hybrid reasoning",
         "tool calling",
-        "end-to-end inference cost"
+        "end-to-end inference cost",
+        "hidden-state recycling",
+        "continuous feedback"
       ],
-      "explanation": "推理过程可以在连续隐藏状态中展开，到工具边界再输出文本。HybridAgent提供具体训练和切换机制；减少可见token不自动等同减少全部计算或可忠实读取思维。",
+      "explanation": "推理过程可以在连续隐藏状态中展开，到工具边界再输出文本。HybridAgent提供模式切换，Recycler把前一token的顶层隐状态连续反馈到下一步；可见token减少和解码近似同成本都不等于训练或prefill免费。",
       "researchers_do": [
         "训练隐藏状态到输入embedding的连接，以及latent/text模式切换。",
         "把模型性能、文字token、模型计算、工具延迟与本地运行兼容性分开比较。"
@@ -44,6 +48,12 @@
           "label": "10月19日北京时间HN讨论；个人反馈不当受控复现",
           "url": "https://news.ycombinator.com/item?id=50145337",
           "published": "2026-10-19"
+        },
+        {
+          "label": "Seed Recycler：把上一步隐状态回收到下一步，探索低增量成本的连续推理",
+          "url": "https://seed.bytedance.com/zh/public_papers/recycler-cost-free-latent-reasoning-via-hidden-state-recycling",
+          "published": "2026-10-25",
+          "verified": "10月26日本期采集来源；作者结果与独立讨论范围随日报说明，未独立复现。"
         }
       ]
     },
@@ -105,7 +115,9 @@
         "任务阶段混淆",
         "跨模型控制接口",
         "误报完成",
-        "运行时机器人编程"
+        "运行时机器人编程",
+        "统一具身大脑",
+        "物理仿真编程"
       ],
       "keywords_en": [
         "foundation models for robotics",
@@ -128,9 +140,11 @@
         "stage confusion",
         "cross-model control interface",
         "false completion",
-        "runtime robot programming"
+        "runtime robot programming",
+        "unified embodied brain",
+        "physics simulation coding"
       ],
-      "explanation": "持续追踪通用模型怎样通过视觉、状态、代码、工具和历史反馈参与物理任务，并与VLA/WAM比较。本期新增六模型LIBERO-10同接口横评、MicroFactory运行时编程争论与宇树I/O对齐观点；现有RoboColiseum/Robocurve作协议对照，无新变化不重复排名。",
+      "explanation": "持续追踪通用模型怎样通过视觉、状态、代码、工具和历史反馈参与物理任务，并与VLA/WAM比较。10月26日以RynnUnify的视频预测辅助动作和Kimi K3.1 Pro的物理仿真编程为新案例；RoboColiseum/Robocurve保留作协议对照，无新变化不重复排名。",
       "researchers_do": [
         "把精确定位、空间理解等基础能力迁移到动作模型，固定下游模块比较迁移收益。",
         "结合机器人数据训练或后训练，研究导航、操作等任务是否可以共用模型与表示。",
@@ -213,6 +227,18 @@
           "label": "MicroFactory原线程，10月20–22日仍有独立评论",
           "url": "https://www.reddit.com/r/robotics/comments/1x7omwo/we_completely_switched_to_frontier_llms_to/",
           "published": "2026-10-16"
+        },
+        {
+          "label": "RynnUnify：阿里把具身理解、视频预测和机器人动作接进同一个系统",
+          "url": "https://arxiv.org/abs/2610.32965",
+          "published": "2026-10-23",
+          "verified": "10月26日本期采集来源；作者结果与独立讨论范围随日报说明，未独立复现。"
+        },
+        {
+          "label": "Kimi K3.1 Pro：通用模型开始进入物理仿真编程，但榜单与真实任务体验仍有分歧",
+          "url": "https://www.kimi.ai/blog/kimi-k3-1-pro",
+          "published": "2026-10-24",
+          "verified": "10月26日本期采集来源；作者结果与独立讨论范围随日报说明，未独立复现。"
         }
       ]
     },
@@ -224,29 +250,49 @@
         "部署数据闭环",
         "失败数据",
         "质量条件",
-        "策略迭代"
+        "策略迭代",
+        "执行日志",
+        "失败预测",
+        "回退恢复"
       ],
       "keywords_en": [
         "deployment rollouts",
         "failure data",
         "quality conditioning",
-        "closed-loop policy improvement"
+        "closed-loop policy improvement",
+        "execution logs",
+        "failure prediction",
+        "backtracking"
       ],
-      "explanation": "实机运行会积累成功、次优与失败经验。研究如何让模型学习环境变化，又避免把失败动作当成功示范。",
+      "explanation": "实机运行会积累成功、次优与失败经验。LogLook把真实执行动作写进可追溯日志，Backtrack在失败预警后回退重试；研究要区分轨迹质量、预测风险与真正权重更新。",
       "researchers_do": [
         "用视频预测保留失败经验的信息，降低或屏蔽失败动作模仿。",
-        "按轮次采集、训练与评测，分析初始能力和轨迹质量对下一轮收益的影响。"
+        "按轮次采集、训练与评测，分析初始能力和轨迹质量对下一轮收益的影响。",
+        "记录动作实际执行结果、失败预警和回退次数，比较是否降低重复失败。"
       ],
       "evidence_to_check": [
         "成功率变化对应几轮、多少数据和什么预算；各本体是否分别训练。",
         "检查失败标签与质量估计，避免只挑成功案例。",
-        "区分单任务后训练、多任务评测与跨本体通用策略。"
+        "区分单任务后训练、多任务评测与跨本体通用策略。",
+        "失败预测是否提前于失败发生；回退是否计入总时间、动作次数和成功率。"
       ],
       "sources": [
         {
           "label": "LoopWAM原论文",
           "url": "https://arxiv.org/abs/2610.18873",
           "published": "2026-10-13"
+        },
+        {
+          "label": "LogLook执行日志记忆（本期）",
+          "url": "https://arxiv.org/html/2610.32348v1",
+          "published": "2026-10-23",
+          "verified": "本期核验来源；未独立复现"
+        },
+        {
+          "label": "Backtrack：VLA 失败时先回到几步之前，失败恢复可以先不改模型权重",
+          "url": "https://arxiv.org/html/2610.32941v1",
+          "published": "2026-10-23",
+          "verified": "10月26日本期采集来源；作者结果与独立讨论范围随日报说明，未独立复现。"
         }
       ]
     },
@@ -324,7 +370,10 @@
         "过程与结果验证",
         "组相对优势",
         "零外部数据合成",
-        "验证器范围"
+        "验证器范围",
+        "隐状态回收",
+        "连续推理",
+        "解码反馈"
       ],
       "keywords_en": [
         "test-time compute",
@@ -334,17 +383,22 @@
         "budget forcing",
         "group-relative advantage",
         "zero-external-data synthesis",
-        "verifier scope"
+        "verifier scope",
+        "hidden-state recycling",
+        "continuous reasoning",
+        "recurrent decoding"
       ],
-      "explanation": "训练时用可靠奖励更新权重，使用时可增加搜索与验证计算。本期LongZero研究自合成长上下文训练题；GRPO技术点说明组相对优势，也检查合成矛盾、奖励漏洞与完整计算开销。",
+      "explanation": "训练时用可靠奖励更新权重，使用时可增加搜索、验证或连续隐状态计算。本期Seed Recycler把上一步顶层隐状态反馈给下一步；标题中的低增量解码成本不等于训练免费。",
       "researchers_do": [
         "用可验证的答案或程序执行结果提供强化学习奖励，减少对人工编写完整思维链的依赖。",
-        "控制推理长度、候选数量和检查次数，研究多花多少计算能换来多少正确率。"
+        "控制推理长度、候选数量和检查次数，研究多花多少计算能换来多少正确率。",
+        "比较连续隐状态反馈、token级解码和外部搜索在相同质量、延迟与训练预算下的收益。"
       ],
       "evidence_to_check": [
         "要同时报告准确率、输出长度、延迟和费用；多想是否优于同样预算下的其他方法。",
         "数学/竞赛代码上的提升能否转移到缺乏自动验证器的开放任务。",
-        "核查测试数据污染、验证器漏洞和只优化奖励却未解决任务的情况。"
+        "核查测试数据污染、验证器漏洞和只优化奖励却未解决任务的情况。",
+        "区分解码成本、prefill成本和训练成本；检查递归深度外推与长输出稳定性。"
       ],
       "sources": [
         {
@@ -365,6 +419,12 @@
           "label": "LongZero：自合成长文任务与GRPO",
           "url": "https://arxiv.org/html/2610.30132v1",
           "published": "2026-10-21"
+        },
+        {
+          "label": "Seed Recycler隐状态回收（10月25日）",
+          "url": "https://seed.bytedance.com/zh/public_papers/recycler-cost-free-latent-reasoning-via-hidden-state-recycling",
+          "published": "2026-10-25",
+          "verified": "本期核验来源；未独立复现"
         }
       ]
     },
@@ -377,7 +437,10 @@
         "工具调用",
         "电脑操作",
         "长程任务",
-        "重复试验可靠性"
+        "重复试验可靠性",
+        "机器人成功判定器",
+        "轨迹判定",
+        "动作 horizon"
       ],
       "keywords_en": [
         "coding agents",
@@ -385,17 +448,22 @@
         "computer use",
         "long-horizon tasks",
         "agent evaluations",
-        "pass^k"
+        "pass^k",
+        "robot success judge",
+        "trajectory judging",
+        "action horizon"
       ],
-      "explanation": "模型从回答问题转向调用工具、修改代码和完成多步任务。研究关注它能否持续、稳定地做对，以及遇到权限边界和模糊目标时会怎样行动。",
+      "explanation": "模型从回答问题转向调用工具、修改代码和完成多步任务；机器人横评还需要独立的成功判定层。研究关注它能否持续、稳定地做对，以及输入帧数、动作 horizon、评委和重试预算是否公平。",
       "researchers_do": [
         "把真实GitHub问题、用户对话与业务工具交互变成可以执行和检查结果的任务。",
-        "除了单次成功率，还测重复运行的一致性、遵循规则和非预期行动。"
+        "除了单次成功率，还测重复运行的一致性、遵循规则和非预期行动。",
+        "把任务完成、轨迹质量和失败原因分别交给可检查的判定器，报告输入帧、评委和重试协议。"
       ],
       "evidence_to_check": [
         "比较时记录模型版本、工具、运行框架、权限、重试次数、推理预算和单任务成本。",
         "明确是在真实环境还是受控模拟环境中测试；结果是否可以独立复跑。",
-        "同时看任务完成率与违反规则的比例，避免把越界行为计为单纯的能力提升。"
+        "同时看任务完成率与违反规则的比例，避免把越界行为计为单纯的能力提升。",
+        "success judge是否与人工标签校准；不同模型是否获得相同观察帧、动作预算和判定条件。"
       ],
       "sources": [
         {
@@ -425,6 +493,12 @@
           "published": "2026-09-03",
           "date_basis": "原始来源日期；推荐整理于2026-10-14",
           "verified": "已核验官方条目/正文及所链接原始研究；未全文精读或独立复现"
+        },
+        {
+          "label": "RoboJev开放机器人成功判定器（本期）",
+          "url": "https://robo-jev.com/",
+          "published": "2026-10-23",
+          "verified": "本期核验来源；未独立复现"
         }
       ]
     },
@@ -441,7 +515,11 @@
         "记忆写入",
         "归因强化学习",
         "证据关联记忆",
-        "记忆有效区间"
+        "记忆有效区间",
+        "执行日志记忆",
+        "快速权重",
+        "测试时记忆",
+        "测试时训练"
       ],
       "keywords_en": [
         "long-term memory",
@@ -452,17 +530,24 @@
         "memory writing",
         "attributed reinforcement learning",
         "evidence-linked memory",
-        "valid-time memory"
+        "valid-time memory",
+        "execution-grounded memory",
+        "fast weights",
+        "test-time memory",
+        "Test-Time Training",
+        "TTT"
       ],
-      "explanation": "把经历中有用的信息保留下来，同时控制来源、有效期、修订和检索成本。本期BetaMem区分观察时间与状态有效区间，局部规则修复与权重训练分开；QA、仿真互动和实机结果不能混用。",
+      "explanation": "把经历中有用的信息保留下来，同时控制来源、有效期、修订和检索成本。执行日志让记忆绑定真实动作；TTT fast weights在测试时写入短期参数，但模块存在不等于行为真的使用了记忆。",
       "researchers_do": [
         "比较完整历史、检索增强和结构化记忆，研究什么时候提取、合并或更新事实。",
-        "测跨会话问答、时间关系和多跳检索，同时记录延迟与token成本。"
+        "测跨会话问答、时间关系和多跳检索，同时记录延迟与token成本。",
+        "比较KV、外部日志、fast weights与长期权重，记录写入对象、重置时机和读取路径。"
       ],
       "evidence_to_check": [
         "记忆过期、事实冲突和错误信息能否被纠正；是否支持删除。",
         "评测是否覆盖长期真实使用，还是只覆盖一个对话数据集。",
-        "自动评委的评分要与人工检查或明确答案对照；厂商自测需要独立验证。"
+        "自动评委的评分要与人工检查或明确答案对照；厂商自测需要独立验证。",
+        "测试时更新是否真的进入动作头；跨episode保留时旧场景信息会不会污染新任务。"
       ],
       "sources": [
         {
@@ -483,6 +568,18 @@
           "label": "BetaMem：来源、时间和局部规则修复",
           "url": "https://arxiv.org/abs/2610.26554",
           "published": "2026-10-19"
+        },
+        {
+          "label": "TTT-in-VLA负结果（本期）",
+          "url": "https://arxiv.org/html/2610.32094v1",
+          "published": "2026-10-23",
+          "verified": "本期核验来源；未独立复现"
+        },
+        {
+          "label": "LogLook：机器人记忆开始记录“动作实际做了什么”，而不是只重写一段摘要",
+          "url": "https://arxiv.org/html/2610.32348v1",
+          "published": "2026-10-23",
+          "verified": "10月26日本期采集来源；作者结果与独立讨论范围随日报说明，未独立复现。"
         }
       ]
     },
@@ -606,7 +703,10 @@
         "流匹配",
         "机器人基础模型",
         "长时序VLA",
-        "流式推理"
+        "流式推理",
+        "动作 horizon",
+        "采样深度",
+        "失败恢复"
       ],
       "keywords_en": [
         "vision-language-action",
@@ -615,18 +715,23 @@
         "flow matching",
         "robot foundation models",
         "long-horizon VLA",
-        "streaming inference"
+        "streaming inference",
+        "action horizon",
+        "sampling depth",
+        "failure recovery"
       ],
-      "explanation": "让模型根据看到的场景和语言指令生成机器人动作。动作通常是一段连续序列，需要兼顾语义理解与精确、平滑的控制。",
+      "explanation": "让模型根据场景和语言指令生成机器人动作。动作块长度、流匹配采样步数和闭环频率共同决定延迟与稳定性，失败预警/回退则决定长程任务能否继续。",
       "researchers_do": [
         "把预训练视觉语言模型与动作生成模块结合，用多机器人数据训练通用策略。",
-        "比较动作分块、生成式动作模型和流匹配等方法，改善精细操作与跨任务迁移。"
+        "比较动作分块、生成式动作模型和流匹配等方法，改善精细操作与跨任务迁移。",
+        "在同一模型和任务上扫描动作 horizon、采样深度与控制频率，报告质量、延迟和失败类型。"
       ],
       "evidence_to_check": [
         "区分零样本执行、少量微调和任务专门训练；是否真正换过机器人或环境。",
         "报告控制频率、动作延迟、成功率与失败例子，而不只展示精选视频。",
         "“通用”要由任务、场景、物体和机器人的覆盖范围支持。",
-        "机器人动作控制与智驾VLA涉及不同本体和动作空间，需检查评测任务、人工接管与公开数据，不能仅凭同名技术推断跨本体泛化。"
+        "机器人动作控制与智驾VLA涉及不同本体和动作空间，需检查评测任务、人工接管与公开数据，不能仅凭同名技术推断跨本体泛化。",
+        "一次输出执行多少动作步；采样深度是否与 horizon 绑在一起；重试和回退是否计入成本。"
       ],
       "sources": [
         {
@@ -656,6 +761,12 @@
           "published": "2026-09-28",
           "date_basis": "README模型/代码发布",
           "verified": "已读官方README，未运行"
+        },
+        {
+          "label": "Flow-matching VLA的horizon/采样耦合（本期）",
+          "url": "https://arxiv.org/html/2610.32102v1",
+          "published": "2026-10-23",
+          "verified": "本期核验来源；未独立复现"
         }
       ]
     },
@@ -667,23 +778,31 @@
         "具身思维链",
         "动作相关推理",
         "运行时核验",
-        "计划动作一致性"
+        "计划动作一致性",
+        "失败预测",
+        "回退恢复",
+        "执行前判定"
       ],
       "keywords_en": [
         "embodied reasoning",
         "action-predictive reasoning",
         "runtime verification",
-        "reasoning-action consistency"
+        "reasoning-action consistency",
+        "failure prediction",
+        "backtracking",
+        "pre-execution judging"
       ],
-      "explanation": "机器人能说出合理计划，不代表动作结果也符合计划。这一方向让推理与动作预测关联，并在执行前检查候选动作的效果。",
+      "explanation": "机器人能说出合理计划，不代表动作结果符合计划。失败预测、执行前核验与回退把内部信号接到真实行为，但要和成功判定器、控制器及额外延迟分开评估。",
       "researchers_do": [
         "筛选确实有助于预测专家动作的推理内容，再用这些轨迹继续训练。",
-        "对多个候选动作预测或模拟结果，挑选最符合文字计划的方案。"
+        "对多个候选动作预测或模拟结果，挑选最符合文字计划的方案。",
+        "把失败概率、候选动作后果和回退策略接入执行循环，比较只反思、不回退和完整恢复链。"
       ],
       "evidence_to_check": [
         "推理是否带来实际动作成功率改善；用无推理或同预算策略作对照。",
         "额外生成、仿真和核验的耗时能否满足控制需求。",
-        "区分仿真和真实机器人结果，检查仿真预测出错时如何处理。"
+        "区分仿真和真实机器人结果，检查仿真预测出错时如何处理。",
+        "预警是否真正领先于失败；回退后是否改善独立留出任务而不是只增加尝试次数。"
       ],
       "sources": [
         {
@@ -699,6 +818,12 @@
           "published": "2025-10-18",
           "date_basis": "论文首版提交日期",
           "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        },
+        {
+          "label": "VLA失败预警与可解释性（本期）",
+          "url": "https://arxiv.org/html/2610.32208v1",
+          "published": "2026-10-23",
+          "verified": "本期核验来源；未独立复现"
         }
       ]
     },
@@ -715,7 +840,10 @@
         "测试时环境适应",
         "环境潜变量",
         "Agent式世界动作模型",
-        "上下文物理校准"
+        "上下文物理校准",
+        "交互式世界模型",
+        "相机控制",
+        "机器人仿真生成"
       ],
       "keywords_en": [
         "world models",
@@ -726,17 +854,22 @@
         "test-time environment adaptation",
         "environment latent",
         "agentic world action model",
-        "in-context physics calibration"
+        "in-context physics calibration",
+        "interactive world model",
+        "camera control",
+        "robotics simulation generation"
       ],
-      "explanation": "学习动作如何改变未来，再以预测指导控制。本期AW-0将技能代码、视频与动作联合生成，PhysiCalWorld用额外试探交互校准隐藏物理；分别检查语义组合、动力学证据与真实动作成功。",
+      "explanation": "学习动作如何改变未来，再以预测指导控制或生成仿真数据。本期Hy-Nomas把相机轨迹、持久KV和机械臂视频LoRA接进交互式视频世界，但公开Bench暂无评分。",
       "researchers_do": [
         "先从大量视频学习物体与运动规律，再用较少的机器人交互数据学习动作的影响。",
-        "用预测模型比较候选行动，研究它能否支持新的环境和目标。"
+        "用预测模型比较候选行动，研究它能否支持新的环境和目标。",
+        "把世界生成的可控性、空间记忆与机器人数据适配器分开评测，避免用视频质量代替控制成功率。"
       ],
       "evidence_to_check": [
         "视频理解、未来预测与可用于控制的因果模型是不同能力，需分别评测。",
         "检查交互训练数据规模、硬件、环境和任务边界，不能把有限实验等同于通用物理理解。",
-        "预测误差会否在长程规划中累积；真实执行是否优于简单策略。"
+        "预测误差会否在长程规划中累积；真实执行是否优于简单策略。",
+        "公开权重是否真的包含机器人适配器；Bench是否有视频、评分与真实闭环，而不是只有输入轨迹。"
       ],
       "sources": [
         {
@@ -776,6 +909,12 @@
           "label": "PhysiCalWorld：单token物理描述与仿真规划",
           "url": "https://arxiv.org/html/2610.30125v1",
           "published": "2026-10-21"
+        },
+        {
+          "label": "Hy-Nomas交互式世界模型与Bench（本期）",
+          "url": "https://github.com/Tencent-Hunyuan/Hy-Nomas",
+          "published": "2026-10-21",
+          "verified": "本期核验来源；未独立复现"
         }
       ]
     },
