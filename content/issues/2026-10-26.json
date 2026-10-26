@@ -440,7 +440,7 @@
     "takeaway": "TTT 的核心不是“模型拥有一个记忆模块”，而是测试时快速参数是否被可靠写入、在正确时机被读取，并在独立任务上改善行为。比较时要把 KV cache、外部日志、fast weights 和长期权重的对象、成本与持久范围分开。",
     "sources": [
       {
-        "label": "TTT：Learning to (Learn at Test Time)，2024-07-07",
+      "label": "TTT：Learning to (Learn at Test Time): RNNs with Expressive Hidden States，2024-07-05",
         "url": "https://arxiv.org/abs/2407.04620"
       },
       {

@@ -16,7 +16,7 @@
       ],
       "url": "https://arxiv.org/abs/2610.32965",
       "source_label": "阿里巴巴达摩院与湖畔实验室（DAMO Academy / Hupan Lab） · 论文 v1 于 10 月 23 日公开；10 月 25 日官方仓库新增 VisualPlan 与 BCPO agentic-RL 代码和资源链接，10 月 26 日通过 ModelScope 清单核到 Base、Agentic-Reasoner、WAM-RoboCasa 三套权重文件。",
-      "limitation": "数值是作者报告，尚无独立复现；arXiv HTML 不完整，实验数字以项目页为准。ModelScope 只证明三套权重文件存在，不证明 turnkey 真实机器人栈、训练数据和全部适配器已开放；BCPO/VisualPlan 仍依赖兼容的 Cosmos/视频与 judge 服务。51.5% 是选定任务的仿真结果，46.7% 是三个 Astribot S1 任务平均，不能当通用跨本体成功率。"
+      "limitation": "数值是作者报告，尚无独立复现；arXiv HTML 不完整，实验数字以项目页为准。ModelScope 清单确认 Base 与 Agentic-Reasoner 权重卡标注 Apache-2.0，而 WAM-RoboCasa 卡标注 license other / alibaba-damo-academy；不能把全家族写成统一许可证。权重文件存在也不证明 turnkey 真实机器人栈、训练数据和全部适配器已开放，当前代码树仍缺少完整部署推理路径；BCPO/VisualPlan 依赖兼容的 Cosmos/视频与 judge 服务。51.5% 是选定任务的仿真结果，46.7% 是三个 Astribot S1 任务平均，不能当通用跨本体成功率。"
     },
     {
       "id": "loglook-execution-grounded-memory",
