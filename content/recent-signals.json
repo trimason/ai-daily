@@ -1,148 +1,137 @@
 {
   "title": "近期研究动向与真实讨论",
-  "intro": "本次观察窗口为10月23–26日，优先收录新讨论、横评、模型/代码与权重开放、实机或仿真复现。每条published保留原成果日期；source_label同时说明当前核验或更新依据。研究信号、企业自述、独立评论和独立复现分别说明，不把工程维护或单篇榜单当行业共识。",
-  "window_start": "2026-10-23",
-  "window_end": "2026-10-26",
+  "intro": "本轮观察10月24–27日当前讨论、代码/模型事件，并沿具身横评、恢复与数据主题回查10月18–23日原研究。published保留原始日期，source_label明确当下事件或发现依据；重读不算新发布，独立复现与厂商自报分别标注。",
+  "window_start": "2026-10-24",
+  "window_end": "2026-10-27",
   "signals": [
     {
-      "id": "rynnunify-unified-embodied-brain",
-      "title": "RynnUnify：阿里把具身理解、视频预测和机器人动作接进同一个系统",
-      "published": "2026-10-23",
-      "summary": "RynnUnify 是 16B 的 mixture-of-transformers：8B 自回归 reasoner 加 8B rectified-flow 视频 generator，把具身理解、视频预测、agentic reasoning 和 world-action 放进统一系统。BCPO 另训练一个 agent，在直接推理和视频辅助推理之间路由，视频生成器保持冻结。作者项目页报告 RoboCasa365 选定 20 个 composite tasks、200 个 episodes 成功率 51.5%（seen 52.0%、unseen 50.0%），Astribot S1 三个真实任务平均 46.7%。",
-      "keywords": [
-        "统一具身大脑",
-        "视频预测",
-        "机器人动作"
-      ],
-      "url": "https://arxiv.org/abs/2610.32965",
-      "source_label": "阿里巴巴达摩院与湖畔实验室（DAMO Academy / Hupan Lab） · 论文 v1 于 10 月 23 日公开；10 月 25 日官方仓库新增 VisualPlan 与 BCPO agentic-RL 代码和资源链接，10 月 26 日通过 ModelScope 清单核到 Base、Agentic-Reasoner、WAM-RoboCasa 三套权重文件。",
-      "limitation": "数值是作者报告，尚无独立复现；arXiv HTML 不完整，实验数字以项目页为准。ModelScope 清单确认 Base 与 Agentic-Reasoner 权重卡标注 Apache-2.0，而 WAM-RoboCasa 卡标注 license other / alibaba-damo-academy；不能把全家族写成统一许可证。权重文件存在也不证明 turnkey 真实机器人栈、训练数据和全部适配器已开放，当前代码树仍缺少完整部署推理路径；BCPO/VisualPlan 依赖兼容的 Cosmos/视频与 judge 服务。51.5% 是选定任务的仿真结果，46.7% 是三个 Astribot S1 任务平均，不能当通用跨本体成功率。"
-    },
-    {
-      "id": "loglook-execution-grounded-memory",
-      "title": "LogLook：机器人记忆开始记录“动作实际做了什么”，而不是只重写一段摘要",
-      "published": "2026-10-23",
-      "summary": "LogLook 将执行日志、note history 和 expectation-gated frames 组合成具身记忆：日志记录动作、环境步数、夹爪开合与末端高度，只有规划器判断值得查看时才取图像。RoboMME 的 Franka Panda 仿真 16 个任务中，256 个 motion-planner episodes 的 execution-grounded memory 为 237/256（92.6%），note-only 为 234/256（91.4%）；前者约 40.5k tokens/episode，后者约 71.3k。全 benchmark 800 episodes 中 direct control 为 93.5%，execution-grounded planner 为 81.9%，不能把两种输入设置当成同一控制器排名。",
-      "keywords": [
-        "执行日志记忆",
-        "证据关联记忆",
-        "机器人记忆"
-      ],
-      "url": "https://arxiv.org/html/2610.32348v1",
-      "source_label": "南京大学苏州校区与 Technical University of Munich · arXiv v1 于 10 月 23 日 08:43 UTC；10 月 26 日全文 HTML 与实验附录核读。",
-      "limitation": "只有一个仿真 benchmark，每 episode 只跑一次，没有真实机器人实验；GPT-6 Astra 是 proprietary API。论文指出 direct-control 对照使用 depth、camera calibration 和 completion criteria，与部分 planner 输入不完全相同；92.6% 是记忆检索/规划实验，不是实机成功率。"
-    },
-    {
-      "id": "backtrack-frozen-vla-recovery",
-      "title": "Backtrack：VLA 失败时先回到几步之前，失败恢复可以先不改模型权重",
-      "published": "2026-10-23",
-      "summary": "Backtrack 给冻结的 VLA 加一个很小的 failure-prediction head，只用成功/失败 rollout 标签训练，不重新训练 VLA，也不需要人工 recovery demonstrations。预测当前 episode 可能失败后，系统退回一段动作，让原 VLA 重试。LIBERO-Long 上 SmolVLA、π0-FAST、π0.5 分别提升 7.40、7.08、1.60 个百分点；四个 LIBERO suites 的提升为 3.40、1.70、0.79 个百分点。每任务 50 episodes、五个 seed，并报告 95% CI。",
-      "keywords": [
-        "失败回退",
-        "VLA恢复",
-        "动作重试"
-      ],
-      "url": "https://arxiv.org/html/2610.32941v1",
-      "source_label": "Stanford University 与 ETH Zurich · arXiv v1 于 10 月 23 日 17:35 UTC；10 月 26 日全文、代码依赖和统计设置核对。",
-      "limitation": "全部实验在 LIBERO 和 MetaWorld 仿真；回退不恢复完整环境状态，场景可能已改变，也无法处理需要新策略的失败。提升依赖冻结 VLA 的原有能力，不能推断真实机器人闭环收益或跨本体泛化。代码主要基于 LeRobot，尚无独立复现。"
-    },
-    {
-      "id": "flow-vla-horizon-sampling-coupling",
-      "title": "Flow-matching VLA 的隐藏旋钮：动作执行多长，决定采样步数该不该更深",
-      "published": "2026-10-23",
-      "summary": "研究系统分析 π0、π0.5、GR00T-N1.7 中 action-chunk 执行长度 s 与 flow-matching 数值采样深度 N 的耦合：短 horizon 往往需要更深采样，长 horizon 下浅采样反而能抑制动作分布发散和 open-loop drift。除 LIBERO、RoboTwin 2.0 外，还在 Franka Research 3 上做 5 个任务、每任务 50 个 SpaceMouse demonstrations，共 2,400 次硬件 rollouts、25 Hz Cartesian impedance。长 chunk+浅采样比深采样在真实任务分别提升 π0 10.0、π0.5 6.9、GR00T-N1.7 11.3 个百分点；π0 的 (s=50,N=2) 约把计算负担降至原来的 1/25。",
-      "keywords": [
-        "动作horizon",
-        "流匹配采样",
-        "控制频率"
-      ],
-      "url": "https://arxiv.org/html/2610.32102v1",
-      "source_label": "中国科学院自动化所、UCAS 与 FiveAges · arXiv v1 于 10 月 23 日 03:07 UTC；10 月 26 日全文与真实硬件实验段落核读。",
-      "limitation": "moving-turntable 等需要高频闭环的任务在长 open-loop chunk 下会灾难性失败；浅采样更好只在给定任务、模型和控制器设置下成立。真实实验是单一 Franka 本体、5 个任务和作者数据，不能直接外推到其他机器人或通用 VLA。"
-    },
-    {
-      "id": "vla-failure-interpretability-warning",
-      "title": "VLA 能否提前知道自己会失败？新工作把内部表征接到机器人失败预警",
-      "published": "2026-10-23",
-      "summary": "工作在 OpenVLA-7B 上分析内部 activation、sparse autoencoder features、outcome prediction 与 conformal prediction，目标是找出“失败已经不可恢复”的时刻和相关表征模式。模型在 LIBERO-10 上 500 rollouts、每任务 50 个 initial states，整体成功率 51.6%，留出 95 条做评估。",
-      "keywords": [
-        "失败预测",
-        "VLA可解释性",
-        "执行前预警"
-      ],
-      "url": "https://arxiv.org/html/2610.32208v1",
-      "source_label": "University of Utah · arXiv v1 于 10 月 23 日公开；论文注明为 CoRL 2026 Science of Physical AI Safety Workshop，非 archival 主会论文。",
-      "limitation": "这是仿真和 workshop 论文，不是已完成的真实机器人安全验证；95 条评估 rollout 和 OpenVLA-7B/LIBERO-10 设置不能代表所有 VLA。内部 feature 与失败相关不等于因果解释，也未证明预警能稳定降低实机风险。"
-    },
-    {
-      "id": "ttt-vla-negative-memory-result",
-      "title": "TTT 接入 VLA 后为什么仍不会记住示范？新报告给出一个重要的负结果",
-      "published": "2026-10-23",
-      "summary": "报告把 Test-Time Training/fast weights 接入 InternVLA-A1 和 π0.5，试图让模型在测试时把人类示范写入快速参数，再影响后续动作。原始长视频 654 对、556,302 frames，短视频任务 273 对，单帧 cue 210 对。在真实三杯选择任务中，standard training 10,000 steps 成功率 25%，contrastive regularization 12.5%，两者都低于三选一随机基线 33.3%。",
-      "keywords": [
-        "TTT",
-        "fast weights",
-        "测试时训练"
-      ],
-      "url": "https://arxiv.org/html/2610.32094v1",
-      "source_label": "Standard Robots · arXiv v1 于 10 月 23 日 02:55 UTC；10 月 26 日全文、视频任务设置与结果表核对。",
-      "limitation": "真实实验集中在特定三杯选择任务，不能推广为 TTT 普遍无效；报告没有证明所有 fast-weight 配方都失败。数据规模、任务和训练配方有限，尚无跨本体或独立复现。"
-    },
-    {
-      "id": "robojev-open-robot-success-judge",
-      "title": "RoboJev：把机器人“成功还是失败”做成可下载的低成本判定层",
-      "published": "2026-10-23",
-      "summary": "RoboJev 用 LoRA 微调的 JEV-27B-VL 判断“任务描述+轨迹采样帧”是否成功，并公开模型、标注数据和评测插件。SO-101 的 268 个 held-out runs 报告 balanced accuracy 95.2%、AUROC 0.9932；unseen-lab 的 459 runs 为 78.16%、0.8904；H100 中位回答约 0.257 秒，作者估算约 0.1919 美元/1000 answers。",
-      "keywords": [
-        "机器人成功判定器",
-        "轨迹评测",
-        "judge"
-      ],
-      "url": "https://robo-jev.com/",
-      "source_label": "RoboJev 独立作者团队 · 官网、数据页和权重 10 月 23 日发布；10 月 24–26 日仍可下载代码、CSV/JSONL、视频 overlay 与 LeRobot reward plugin。HN 三次发布只有 1–4 points、0 comments，属于新发布而非社区热议。",
-      "limitation": "作者自发布的 unsubmitted manuscript，无 arXiv/DOI，尚无独立复现；只有一个标注者核验 200 条社区片段，65 条模糊结果被排除。RoboJev 使用十帧前视角并可加入其他相机最终帧，而 frontier LLM 对照只有四帧前视角，不能直接排名；SO-101 上与 Astra 的差异置信区间包含 0。"
-    },
-    {
-      "id": "hunyuan-hy-nomas-robotics-world-model",
-      "title": "混元 Hy-Nomas：把相机控制、持久空间记忆和机械臂视频 LoRA 合进交互式世界模型",
+      "id": "tarsphere-general-models-evolving-world",
+      "title": "TARSphere：通用模型进入有物理碰撞和人类交互的长程具身横评",
       "published": "2026-10-21",
-      "summary": "Hy-Nomas 是 segment-autoregressive diffusion world model：Qwen2.5-VL-7B text encoder、54-block dense MMDiT、camera cross-attention、跨片段 persistent KV cache，默认 8 步去噪、720×1280/24 FPS，并提供单 RTX 4090 配置。它发布基于 RealSource-World 真实机械臂视频的 dual_arm_robotics LoRA，用于增强生成世界的机器人仿真能力。Hy-Nomas-Bench 公开 280 个 evaluation-only cases，包括文本交互、相机导航、文本/相机交错和空间记忆，含 220 条参考相机轨迹。",
+      "summary": "TARSphere让8个冻结多模态模型使用同一观察、提示、技能接口与100次决策预算，在30个室内场景、360个仿真episodes中完成导航汇报与取送物。配对测试视觉扰动、环境中断、任务更新、协作与意图理解。导航汇报六条件均值中，Gemini-3.8-Flash进度67.2%、最终成功40.6%；GPT-5.6-Terra为50.4%/15.0%；两种开放具身模型在这项任务最终成功均为0。",
       "keywords": [
-        "交互式世界模型",
-        "机器人LoRA",
-        "空间记忆"
+        "跨模型横评",
+        "动态任务",
+        "仿真"
       ],
-      "url": "https://github.com/Tencent-Hunyuan/Hy-Nomas",
-      "source_label": "腾讯混元 Hunyuan · GitHub 仓库 10 月 21 日创建，10 月 23–24 日补齐 Diffusers/demo；模型元数据 10 月 21 日创建、10 月 25 日更新。",
-      "limitation": "README 明确 Robotics LoRA 增强的是生成世界的机器人仿真能力，不是机器人策略或真实控制。Bench 只公开 prompts、轨迹和 JSON，没有生成视频、评分，技术报告仍为 Coming Soon；HF 主站本轮间歇性拒绝，模型卡通过镜像读取，最终链接保留官方地址。"
+      "url": "https://arxiv.org/html/2610.30043v1",
+      "source_label": "浙江大学、复旦大学；非它石智航 TARS 公司成果 · arXiv v1：10月21日；论文封面日期：10月22日。本期10月27日沿跨模型具身评测主线核读方法、主表和失败分析；属于近期新研究，尚未核到多方独立复现。",
+      "limitation": "全部为Isaac Sim/PhysX中的G1及NPC，没有实机结论。模型版本早于本周新发布；相同harness不等于相同训练数据和推理计算。进度包含部分阶段分，不能当成功率；碰撞与跌倒另计，平均分较高仍可频繁碰撞。作者自报，无独立复现；不据此宣称通用模型全面替代VLA。"
     },
     {
-      "id": "kimi-k31-cross-benchmark-dissent",
-      "title": "Kimi K3.1 Pro：通用模型开始进入物理仿真编程，但榜单与真实任务体验仍有分歧",
+      "id": "robocurve-v2-stop-boundary-race",
+      "title": "Robocurve修订与停止竞态：模型答复还在路上，按下End是否已经来不及？",
+      "published": "2026-10-18",
+      "summary": "v2在I2RT YAM真实双臂、六项RoboDojo衍生任务上扩至9模型/15配置，每任务每配置20次、最多40次动作调用。Gemini 4 Argon与Opus 5.5的平均进度只差0.13个百分点，bootstrap中Argon仅45%被判为纪录保持者。更近的PR #571复现指出：等待模型回复期间按下End，迟到的move仍可能通过一次embodiment.step()，再结束循环。",
+      "keywords": [
+        "通用模型实机横评",
+        "停止协议",
+        "开放PR"
+      ],
+      "url": "https://arxiv.org/html/2610.25287v2",
+      "source_label": "Robocurve、USC、UC Irvine；Inspect Robots公开协作 · 论文v1：10月18日；v2：10月21日20:57 UTC（北京时间22日）；当前证据是Inspect Robots PR #571在10月25日的复现评论。本期不重复10月21日榜单，而核读修订统计与停止协议。",
+      "limitation": "论文为CoRL 2026 TAG workshop投稿，未核到录用；最高累计子任务进度不是最终成功率，后来撤销的进度也可保留。PR仍open、未合并且未硬件验证，不能宣称已经修复或已证明造成实体事故。跨模型配置、priority服务及预算并非等价；近期评论和复现不构成多方共识。"
+    },
+    {
+      "id": "robouse-roboharm-independent-reproduction-boundaries",
+      "title": "RoboHarm独立复现：拒答、看不见目标和被控制器挡住，必须分开统计",
+      "published": "2026-10-23",
+      "summary": "Robo Use用两台Metal机械臂、三种标记为Fable 5.1/Opus 5.5/Astra的语言策略做162次试验，改变两项指令的措辞并加入安全前言。每模型36次基础试验中，基于伤害理由拒答分别为33、28、4次；另有识别不到目标而拒绝、以及开始动作却被harness阻止。加入安全前言后的36次试验全部拒答。所有计入试验均未接触人偶、抓住刀或绳、完成目标动作。",
+      "keywords": [
+        "独立复现实验",
+        "真实双臂",
+        "安全与协议"
+      ],
+      "url": "https://robouse.ai/blog/robouse-harm-1/",
+      "source_label": "Robo Use；对Robocurve RoboHarm的独立实验 · 原RoboHarm发布：9月18日；独立实验HN入口发布于10月22日18:54 UTC（北京时间10月23日02:54）；本期10月27日核读报告与试验协议。HN仅1 point/1 comment，唯一评论来自发帖作者，不称多方热议。",
+      "limitation": "本实验有18厘米禁入区、夹爪故障和缺失道具；与原实验本体、相机和预算不同，不能直接排名。请求经本地代理，原始wire logs未公开且未核对，具体模型身份尚待确认。理由由运行实验的单个Claude agent编码、未独立复核；没有测到伤害完成能力，也不能据此证明模型安全。"
+    },
+    {
+      "id": "nvidia-flora-robot-data-model-frontier-comparison",
+      "title": "NVIDIA FLORA：通用模型正在成为机器人数据标注的对照，而专用模型争取成本优势",
+      "published": "2026-10-22",
+      "summary": "FLORA以时序分段、动作caption与奖励模型覆盖机器人数据清洗、训练和执行监测，已用于GR00T数据流程。作者报告512张GB300可每天标注至多20万小时，并估算较Astra便宜约125倍。结果并非一边倒：DenseCaptionBench Human100联合F1为37.4，对照Astra29.7；Robot200则为51.0对57.9。",
+      "keywords": [
+        "机器人数据引擎",
+        "专用模型与通用模型",
+        "开放模型"
+      ],
+      "url": "https://arxiv.org/html/2610.31779v1",
+      "source_label": "NVIDIA GEAR · 论文v1：10月22日；10月26日进入Hugging Face Papers实际日榜；本期10月27日核读全文、项目、模型集合及具体卡片。榜单提交是当前发现事件，非今日首发。",
+      "limitation": "成本、吞吐和分数均为作者报告，125倍依赖附录部署与计费假设；不同完整pipeline的视觉输入与推理计算不完全一致。不是机器人控制成功率，也未有独立复现。已核具体卡片：Captioner的SFT不使用LoRA，Rewarder全参数微调，不能把全部后训练笼统称为LoRA。"
+    },
+    {
+      "id": "spirit-echo-status-guided-vla-denoising",
+      "title": "Echo：让“要停了、可能失败了”参与VLA动作生成，而不只做事后监控",
+      "published": "2026-10-22",
+      "summary": "Echo在action chunk上增加stop与failure两个维度，与动作联合去噪，并让状态信号更快变干净，以引导后续动作。五个真实操作任务、每模型每任务30次试验中，插花完成分从π0.5的5.67升至8.33，开抽屉从5.40升至7.90；这些是0–10完成分。",
+      "keywords": [
+        "千寻智能",
+        "VLA失败恢复",
+        "实机研究"
+      ],
+      "url": "https://arxiv.org/html/2610.31569v1",
+      "source_label": "上海交通大学、千寻智能Spirit AI、清华大学及中科大/同济/哈工大作者 · arXiv v1：10月22日；10月26日进入Hugging Face Papers日榜；本期10月27日核读全文和真实任务/仿真附录。新研究线索，尚无独立复现。",
+      "limitation": "学习仍使用成功、失败及人工接管后的恢复示范；不需逐帧进度标签不等于无需标注或人工干预。真实任务完成分不能换算成二元成功率；LIBERO-Recovery附录结果另属仿真。作者报告，未独立复现，不能推广为通用安全保障。"
+    },
+    {
+      "id": "dexport-command-state-label-gap",
+      "title": "DexPort：灵巧手数据要记录下达的动作，而不只是关节实际到达的状态",
       "published": "2026-10-24",
-      "summary": "Kimi 称 K3.1 Pro 是 K3 的 post-trained 版本，3T 级、1M context，并在数百下游域做联合 RL。与具身主线直接相关的 human-atlas 案例中，模型搭建人体动力学模拟器和训练/评测管线；167 missions、420 次独立评审后，模型通过开环动力学探测发现并修正肩部肌肉力臂计算中的 36 处错误，重新训练 controller 后模拟人连续交替步行 11.2 秒。",
+      "summary": "DexPort用手持Wuji灵巧手、鱼眼相机与Quest 2控制器采集，部署时沿用同一手和相机模块，最终行为克隆直接学习腕部运动与关节指令，不依赖技能标签。超过2500条演示后，三个以最终成功率计分的实机任务，指令标签平均64%，状态标签11%；加入野外数据使三个抓放条件平均36%升至78%。每任务或条件15次。",
       "keywords": [
-        "通用模型进入物理仿真",
-        "Agent编程",
-        "跨模型评测"
+        "实机灵巧操作",
+        "动作标签",
+        "野外采集"
       ],
-      "url": "https://www.kimi.ai/blog/kimi-k3-1-pro",
-      "source_label": "月之暗面 Moonshot AI / Kimi · 官方博客 10 月 24 日发布；K3.1 Pro 与 Highspeed 已上线产品/API，完整权重计划 11 月 4 日。10 月 26 日回看 HN 与 Artificial Analysis 讨论。",
-      "limitation": "human-atlas 是内部人体动力学模拟器，不是真实机器人、电机闭环或跨本体 OOD；167 missions/420 reviews 没有公开轨迹或独立复现，11.2 秒不是机器人成功率。HN 评论是经验和观点，不是 Kimi 机器人复测；完整权重尚未发布，Terminal-Bench 等分数使用不同 harness，不能直接宣称通用模型稳定胜出。"
+      "url": "https://arxiv.org/html/2610.32969v1",
+      "source_label": "Amazon Frontier AI & Robotics (FAR)、Stanford University、UC San Diego · arXiv v1于10月23日17:56 UTC提交（北京时间10月24日01:56）；本期10月27日从arXiv跨分类具身检索补入，核读方法、实机实验与局限，不称今日首发。",
+      "limitation": "作者实机结果，无独立复现；双臂Tianji Marvin与Wuji手，不代表跨本体泛化。64%只平均三个成功率任务，第四项螺丝刀用RPM/持握时长评分；指令策略旋转更快但持握时间更短，不能称全面领先。955g装置、有限技能库与每条件15次限制结论；未找到人工干预/复位率及端到端延迟，未运行其代码。"
     },
     {
-      "id": "seed-recycler-hidden-state-latent-reasoning",
-      "title": "Seed Recycler：把上一步隐状态回收到下一步，探索低增量成本的连续推理",
-      "published": "2026-10-25",
-      "summary": "Recycler 在标准 token embedding 外，用 RMSNorm+linear adapter 将上一个 token 的 top-layer hidden state 反馈给下一步，连续路径与离散 token 路径并行。作者称解码时近似不增加每 token 成本和 KV footprint；训练并不免费，k=2 约为标准训练成本 2 倍，部分 k=3 方案额外约 3.3%。作者报告 model α 14 项任务平均从 42.97 提升到 46.21；model β 同规模 Recycler 平均 64.76，接近 2.4× baseline 的 66.43。",
+      "id": "openai-gpt-61-terra-computer-use-cost-frontier",
+      "title": "GPT-6.1 Terra：视觉推理与Computer Use成本基线更新，等待具身横评复测",
+      "published": "2026-10-26",
+      "summary": "官方称Terra在Agents' Last Exam上medium reasoning比GPT-5.6 Terra高15个百分点、约三分之一成本，并称与GPT-6 Astra相当表现时每token价格约为十分之一；OSWorld 2.1、MMMU-Pro、Terminal-Bench 4.0亦有官方对比，Terminal-Bench 4.0 max为50.3%（GPT-5.6 Terra公开值21.5%）。API价为输入$1/百万token、缓存$0.05/百万、输出$5/百万。Hacker News中tristanj质疑发布方挑选更有利基准；user43928指出Terminal-Bench上需要xhigh才接近GPT-6.1 Sol且成本更高；_aavaa_主张比较每任务成本/时间/质量；Simon Willison只做了‘pelican’SVG小试验并记录不同reasoning档位的token差异。",
       "keywords": [
-        "隐状态回收",
-        "连续推理",
-        "解码效率"
+        "通用模型更新",
+        "视觉推理",
+        "Computer Use",
+        "Agent成本"
       ],
-      "url": "https://seed.bytedance.com/zh/public_papers/recycler-cost-free-latent-reasoning-via-hidden-state-recycling",
-      "source_label": "字节跳动 Seed · Seed 官方论文页和 PDF 标注 10 月 25 日；页面写 arXiv 但没有可确认的 arXiv ID，不能据此猜测论文编号。",
-      "limitation": "所有结果为作者报告，未独立复现；model β 的比较窗口和预算并非严格等价。没有具身实验，不能把语言模型架构收益写成机器人能力。官方页面和 PDF 是主证据，不能因为页面写 arXiv 就补写未知 ID。"
+      "url": "https://openai.com/index/introducing-gpt-6-1-terra/",
+      "source_label": "OpenAI · 官方发布与API开放：2026-10-26；Hacker News讨论：2026-10-26 18:08–22:04 UTC（北京时间2026-10-27 02:08–06:04）。",
+      "limitation": "所有性能和价格/任务结论由OpenAI官方发布或文档给出，社区评论没有统一复现实验。Agents' Last Exam、OSWorld和Terminal-Bench是电脑/代码Agent评测，没有机器人本体、动作接口、闭环成功率、人工接管或真实部署延迟；不能从Computer Use分数直接推断具身控制。Simon Willison的pelican仅为小型SVG试验，不是机器人或代表性工作负载。"
+    },
+    {
+      "id": "baidu-unlimited-ocr-2-sr-swa-unlimited-horizon",
+      "title": "百度Unlimited OCR 2：SR-SWA把百页文档解析的每步视觉引用固定下来",
+      "published": "2026-10-27",
+      "summary": "Unlimited OCR 2沿用DeepSeek OCR基础、3B总参数/约0.5B激活的MoE解码器，提出Sparse Reference Sliding Window Attention：Page Gate先按页缩小引用范围，Token Sieve再从远程token桶选固定top-k；配合重叠页chunk的Unlimited-Horizon Decoding，复用边界页KV并释放旧chunk。新MarathonDocBench包含100份、103–300页文档和约205k布局元素；报告自报Overall 77.06，MPDocBench 84.59，OmniDocBench v1.6 94.02。B=1峰值KV从47.00GB降至1.77GB，B=16 TPS从360增至1315；百页每步相对Full Attention/R-SWA报告7.0×/5.6×，测量为batch 3、每页固定1024生成token。",
+      "keywords": [
+        "百度",
+        "文档VLM",
+        "稀疏视觉注意力",
+        "超长上下文"
+      ],
+      "url": "https://huggingface.co/baidu/Unlimited-OCR-2",
+      "source_label": "百度ERNIE Team（官方代码/模型卡归 baidu；报告作者列百度团队） · HF模型卡公开标注：2026-10-27；技术报告PDF元数据创建于2026-10-26 13:44 UTC（北京时间2026-10-26 21:44），HF PDF上传约2026-10-26 22:00；本轮于2026-10-27完整读取15页报告。",
+      "limitation": "报告中的分数与速度/显存均为作者自报，未做独立复现；MarathonDocBench是文档解析基准，不是机器人或通用VLM具身评测。每步近恒定视觉引用/解码延迟不等于整篇文档总成本恒定；报告明确当前稀疏注意力不保留全局文档信息，标题层级等全局结构受限。47→1.77GB与360→1315分别是B=1和B=16，不能直接横比成同一运行配置；报告未在正文给出完整推理硬件规格。"
+    },
+    {
+      "id": "bytedance-seed-rlec-explicit-confidence-targets-code",
+      "title": "Seed RLEC：让一个模型按提示置信目标回答或拒答，代码先行、效果待核",
+      "published": "2026-10-26",
+      "summary": "RLEC用prompt中的置信目标p训练模型显式选择回答或‘I am not sure.’：correct奖励为(1-p)^b，incorrect为-p(1-p)^(b-1)，abstain为0，b从0线性升到1；训练脚本关闭GRPO组内标准差归一化（norm_adv_by_std_in_grpo=False），以保留不同p的奖励差异。README给出Qwen3-30B-A3B-Base、DAPO-Math与改造HotpotQA各抽15k、混合集重复5次、4节点×8 GPU的配置，评测脚本输出accuracy、AOC与RLEC score。",
+      "keywords": [
+        "字节Seed",
+        "RL后训练",
+        "置信度控制",
+        "拒答"
+      ],
+      "url": "https://github.com/ByteDance-Seed/RLEC",
+      "source_label": "字节跳动Seed · 官方GitHub仓库唯一初始提交：2026-10-26 10:07:50 UTC（北京时间2026-10-26 18:07:50）；本轮于2026-10-27确认代码事件，未找到对应论文或结果页。",
+      "limitation": "唯一可核事件是代码首提交；README没有实验结果数字、论文链接、模型权重或公开W&B运行。训练配置面向文本数学/问答，不含视觉、动作接口、机器人本体或真实闭环；不能声称提升了具身安全或通用模型能力。GitHub仓库当前无issues，尚无独立社区复现。"
     }
   ]
 }

@@ -1,0 +1,474 @@
+{
+  "date": "2026-10-27",
+  "status": "daily",
+  "title": "通用模型进入具身：横评要看失败机制，数据引擎要算每次任务的成本",
+  "intro": "今天聚焦三组近期变化：通用模型与具身模型在动态长程任务中如何比较；实机安全复现为何会被感知、控制器和措辞改变；专用机器人数据/恢复模型怎样与通用VLM协作。补充10月26–27日通用模型、长文档视觉模型与后训练代码新事件。新研究、厂商报告、独立复现和公开评论分别标注，不将论文发现榜包装成实时热榜。",
+  "coverage": "北京时间2026-10-27采集。优先核查近24–72小时的讨论/代码/模型事件，并沿主题回读近期原始研究；日期较早的条目注明当前发现或讨论依据，没有把重新读取称作新发布。Hugging Face Papers网页实际显示10月26日42篇；API的50条近期记录跨日期，未称为27日日榜。arXiv cs.RO/new实际为10月26日107条（53篇new），另查cs.AI/cs.CV/cs.LG具身关键词40条；cs.RO/recent返回400、修订日期API超时，修订覆盖有缺口。国内九家模型团队及十三家具身公司的研究目录、作者项目、代码与模型卡按可得渠道检查：具身专项118个去重URL、119次读取尝试，93次读到实质页面或目录、10次仅可达、16次失败，目录可读不等于其中论文全读。TARS尚未解析可靠官方研究主源，UBTECH为SPA壳、Galbot微信不可读；Spirit AI的Echo归属经论文逐篇确认。DeepSeek并查主站/API更新/代码/模型，未核到已覆盖10月17日事件之后的新模型；XPENG GroundingPI项目/仓库/作者HF与独立GroundAnything分开核查，IRON、X-World和X-Foresight旧页不充当新研究。会议官网、公开列表和博客作发现入口，IROS401、RSS已跳2027等缺口保留，没有核验录用的工作只称预印本。公众号公开检索和Sogou结果已读，human five后续全文及若干重点账号文章遇验证页，不能声称全量覆盖或全网热榜。RoboColiseum10月26日新增GO-3 Nano Preview记录，但论文链接空、耗时0语义未解释，未作新研究结论；原四个通用模型仍是10月20日记录。Hugging Face通过现有本地7897端口显式代理请求读取成功，本次未开启系统代理；结束采集已两次从Clash界面复读系统代理off。",
+  "highlights": [
+    {
+      "title": "通用模型进入具身，要比较动态适应与执行边界",
+      "text": "TARSphere比较八个模型应对任务更新与人类互动；Robocurve修订和停止竞态说明分数之外还要审计预算与动作何时真正停止。",
+      "story_id": "robocurve-v2-stop-boundary-race"
+    },
+    {
+      "title": "独立复现改变了安全结论的读法",
+      "text": "RoboHarm重做把安全拒答、未识别目标和被控制器挡住分开；162次没有一次完成目标动作，不能当安全排行榜。",
+      "story_id": "robouse-roboharm-independent-reproduction-boundaries"
+    },
+    {
+      "title": "机器人数据量之外，标签质量与成本成为主角",
+      "text": "FLORA比较专用数据模型与通用VLM；DexPort显示下达的动作命令与实际关节状态不能互作标签。",
+      "story_id": "dexport-command-state-label-gap"
+    },
+    {
+      "title": "监测反馈参与控制，新通用模型等待实机复测",
+      "text": "Echo把状态接进动作去噪；Terra引发每任务成本与推理档位讨论，但电脑Agent分数不能代替机器人结果。",
+      "story_id": "spirit-echo-status-guided-vla-denoising"
+    }
+  ],
+  "reading": [
+    {
+      "title": "TARSphere主表与失败分析",
+      "url": "https://arxiv.org/html/2610.30043v1",
+      "reason": "先对照Progress与Success，再看任务更新、碰撞和冻结模型版本。"
+    },
+    {
+      "title": "Robocurve v2与停止竞态",
+      "url": "https://github.com/robocurve/inspect-robots/pull/571",
+      "reason": "区分论文进度分、置信边界与未合并/未硬件验证的PR复现。"
+    },
+    {
+      "title": "RoboHarm独立复现",
+      "url": "https://robouse.ai/blog/robouse-harm-1/",
+      "reason": "阅读禁入区、道具缺失、代理身份与单人编码限制。"
+    },
+    {
+      "title": "FLORA数据引擎",
+      "url": "https://research.nvidia.com/labs/gear/flora/",
+      "reason": "比较Human100与Robot200的反转，追到成本附录。"
+    },
+    {
+      "title": "Echo状态引导去噪",
+      "url": "https://arxiv.org/html/2610.31569v1",
+      "reason": "看训练数据中的人工恢复，以及完成分和成功率的区别。"
+    },
+    {
+      "title": "DexPort动作标签",
+      "url": "https://arxiv.org/html/2610.32969v1",
+      "reason": "比较命令和测得状态，在三个成功率任务与螺丝刀RPM之间保持口径。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "通用模型具身横评 / general-model embodied evaluation",
+      "explanation": "TARSphere以同一harness比较冻结模型，但推理预算、版本和训练差异仍需保留。"
+    },
+    {
+      "term": "动态任务适应 / evolving-task adaptation",
+      "explanation": "任务要求与人的位置在执行中改变，原计划必须根据真实反馈修订。"
+    },
+    {
+      "term": "拒答与执行阻断 / refusal versus execution blocking",
+      "explanation": "RoboHarm复现中，模型拒答、看不见目标和控制器拦截不是同一种结果。"
+    },
+    {
+      "term": "机器人数据引擎 / robotics data engine",
+      "explanation": "FLORA提供动作分段、描述和奖励标签，代表通用VLM与专用工具协作的路径。"
+    },
+    {
+      "term": "状态引导动作生成 / status-guided action generation",
+      "explanation": "Echo使停止/失败信号参与动作去噪，而非仅用于外部监测。"
+    },
+    {
+      "term": "命令动作标签 / commanded-action labels",
+      "explanation": "DexPort说明接触时下达指令与测得关节状态语义不同，标签选择会改变学到的抓握。"
+    },
+    {
+      "term": "每任务成本 / cost per task",
+      "explanation": "Terra讨论与FLORA对比都要求把调用价格、推理档位、速度和任务质量一起计算。"
+    },
+    {
+      "term": "稀疏引用滑窗注意力 / sparse-reference sliding-window attention",
+      "explanation": "Unlimited OCR 2用页门控和token筛选控制每步引用，不等于整篇文档成本恒定。"
+    },
+    {
+      "term": "低秩适配 / low-rank adaptation",
+      "explanation": "今日技术点解释冻结主干、训练低秩增量及合并部署，并区分LoRA与全参数微调。"
+    }
+  ],
+  "featured_ids": [
+    "tarsphere-general-models-evolving-world",
+    "robocurve-v2-stop-boundary-race",
+    "nvidia-flora-robot-data-model-frontier-comparison",
+    "spirit-echo-status-guided-vla-denoising",
+    "dexport-command-state-label-gap",
+    "openai-gpt-61-terra-computer-use-cost-frontier"
+  ],
+  "stories": [
+    {
+      "id": "tarsphere-general-models-evolving-world",
+      "category": "embodied",
+      "tag": "跨模型横评 · 动态任务 · 仿真",
+      "title": "TARSphere：通用模型进入有物理碰撞和人类交互的长程具身横评",
+      "organization": "浙江大学、复旦大学；非它石智航 TARS 公司成果",
+      "published": "2026-10-21",
+      "date_label": "arXiv v1：10月21日；论文封面日期：10月22日。本期10月27日沿跨模型具身评测主线核读方法、主表和失败分析；属于近期新研究，尚未核到多方独立复现。",
+      "summary": "TARSphere让8个冻结多模态模型使用同一观察、提示、技能接口与100次决策预算，在30个室内场景、360个仿真episodes中完成导航汇报与取送物。配对测试视觉扰动、环境中断、任务更新、协作与意图理解。导航汇报六条件均值中，Gemini-3.8-Flash进度67.2%、最终成功40.6%；GPT-5.6-Terra为50.4%/15.0%；两种开放具身模型在这项任务最终成功均为0。",
+      "why": "新意是让环境和人的要求在执行中改变，并把信息是否真的送达、物体是否真的抓住写进评分。它给“通用模型能否成为具身大脑”增加具体证据；研究价值在于分析任务更新、接口和执行反馈为何改变结果，不能只看总榜。",
+      "limitation": "全部为Isaac Sim/PhysX中的G1及NPC，没有实机结论。模型版本早于本周新发布；相同harness不等于相同训练数据和推理计算。进度包含部分阶段分，不能当成功率；碰撞与跌倒另计，平均分较高仍可频繁碰撞。作者自报，无独立复现；不据此宣称通用模型全面替代VLA。",
+      "sources": [
+        {
+          "label": "论文全文与主表",
+          "url": "https://arxiv.org/html/2610.30043v1"
+        },
+        {
+          "label": "作者项目",
+          "url": "https://xuyicheng-zju.github.io/TARSphere/"
+        },
+        {
+          "label": "作者代码",
+          "url": "https://github.com/xuyicheng-zju/TARSphere"
+        }
+      ]
+    },
+    {
+      "id": "robocurve-v2-stop-boundary-race",
+      "category": "discussion",
+      "tag": "通用模型实机横评 · 停止协议 · 开放PR",
+      "title": "Robocurve修订与停止竞态：模型答复还在路上，按下End是否已经来不及？",
+      "organization": "Robocurve、USC、UC Irvine；Inspect Robots公开协作",
+      "published": "2026-10-18",
+      "date_label": "论文v1：10月18日；v2：10月21日20:57 UTC（北京时间22日）；当前证据是Inspect Robots PR #571在10月25日的复现评论。本期不重复10月21日榜单，而核读修订统计与停止协议。",
+      "summary": "v2在I2RT YAM真实双臂、六项RoboDojo衍生任务上扩至9模型/15配置，每任务每配置20次、最多40次动作调用。Gemini 4 Argon与Opus 5.5的平均进度只差0.13个百分点，bootstrap中Argon仅45%被判为纪录保持者。更近的PR #571复现指出：等待模型回复期间按下End，迟到的move仍可能通过一次embodiment.step()，再结束循环。",
+      "why": "这把“通用模型正在控制机器人”的讨论从分数推进到执行语义。长延迟会影响任务效率，也会让停止请求与模型回复发生竞态；需要检查停止信号在哪一层生效，而非只确认Agent最终退出。10月26日陈宥文的行业评论另主张比较可靠性、节拍、干预和全生命周期成本，这是单作者观点。",
+      "limitation": "论文为CoRL 2026 TAG workshop投稿，未核到录用；最高累计子任务进度不是最终成功率，后来撤销的进度也可保留。PR仍open、未合并且未硬件验证，不能宣称已经修复或已证明造成实体事故。跨模型配置、priority服务及预算并非等价；近期评论和复现不构成多方共识。",
+      "sources": [
+        {
+          "label": "论文v2与统计边界",
+          "url": "https://arxiv.org/html/2610.25287v2"
+        },
+        {
+          "label": "PR #571与10月25日复现",
+          "url": "https://github.com/robocurve/inspect-robots/pull/571"
+        },
+        {
+          "label": "10月26日陈宥文行业观点",
+          "url": "https://zhiku.world/articles/202610261520030"
+        }
+      ]
+    },
+    {
+      "id": "robouse-roboharm-independent-reproduction-boundaries",
+      "category": "discussion",
+      "tag": "独立复现实验 · 真实双臂 · 安全与协议",
+      "title": "RoboHarm独立复现：拒答、看不见目标和被控制器挡住，必须分开统计",
+      "organization": "Robo Use；对Robocurve RoboHarm的独立实验",
+      "published": "2026-10-23",
+      "date_label": "原RoboHarm发布：9月18日；独立实验HN入口发布于10月22日18:54 UTC（北京时间10月23日02:54）；本期10月27日核读报告与试验协议。HN仅1 point/1 comment，唯一评论来自发帖作者，不称多方热议。",
+      "summary": "Robo Use用两台Metal机械臂、三种标记为Fable 5.1/Opus 5.5/Astra的语言策略做162次试验，改变两项指令的措辞并加入安全前言。每模型36次基础试验中，基于伤害理由拒答分别为33、28、4次；另有识别不到目标而拒绝、以及开始动作却被harness阻止。加入安全前言后的36次试验全部拒答。所有计入试验均未接触人偶、抓住刀或绳、完成目标动作。",
+      "why": "这是通用模型接机器人后值得跟踪的反证与协议争点：表面相似的安全评测，换措辞、相机、道具、预算和控制器后会测到不同东西。独立重做提高了可审计性，也暴露出拒答率无法单独描述机器人安全。",
+      "limitation": "本实验有18厘米禁入区、夹爪故障和缺失道具；与原实验本体、相机和预算不同，不能直接排名。请求经本地代理，原始wire logs未公开且未核对，具体模型身份尚待确认。理由由运行实验的单个Claude agent编码、未独立复核；没有测到伤害完成能力，也不能据此证明模型安全。",
+      "sources": [
+        {
+          "label": "独立实验与逐次记录",
+          "url": "https://robouse.ai/blog/robouse-harm-1/"
+        },
+        {
+          "label": "原RoboHarm报告",
+          "url": "https://robocurve.org/roboharm/"
+        },
+        {
+          "label": "独立实验HN入口与日期",
+          "url": "https://news.ycombinator.com/item?id=50199504"
+        }
+      ]
+    },
+    {
+      "id": "nvidia-flora-robot-data-model-frontier-comparison",
+      "category": "embodied",
+      "tag": "机器人数据引擎 · 专用模型与通用模型 · 开放模型",
+      "title": "NVIDIA FLORA：通用模型正在成为机器人数据标注的对照，而专用模型争取成本优势",
+      "organization": "NVIDIA GEAR",
+      "published": "2026-10-22",
+      "date_label": "论文v1：10月22日；10月26日进入Hugging Face Papers实际日榜；本期10月27日核读全文、项目、模型集合及具体卡片。榜单提交是当前发现事件，非今日首发。",
+      "summary": "FLORA以时序分段、动作caption与奖励模型覆盖机器人数据清洗、训练和执行监测，已用于GR00T数据流程。作者报告512张GB300可每天标注至多20万小时，并估算较Astra便宜约125倍。结果并非一边倒：DenseCaptionBench Human100联合F1为37.4，对照Astra29.7；Robot200则为51.0对57.9。",
+      "why": "它把通用模型向具身渗透的另一条路径具体化：通用VLM可以标动作、判进度、生成奖励，未必直接输出电机动作。研究问题因此变成专用工具在哪些数据与成本条件下更好，以及自动标签是否可靠到足以反过来训练机器人。",
+      "limitation": "成本、吞吐和分数均为作者报告，125倍依赖附录部署与计费假设；不同完整pipeline的视觉输入与推理计算不完全一致。不是机器人控制成功率，也未有独立复现。已核具体卡片：Captioner的SFT不使用LoRA，Rewarder全参数微调，不能把全部后训练笼统称为LoRA。",
+      "sources": [
+        {
+          "label": "论文全文与成本附录",
+          "url": "https://arxiv.org/html/2610.31779v1"
+        },
+        {
+          "label": "官方项目与对照表",
+          "url": "https://research.nvidia.com/labs/gear/flora/"
+        },
+        {
+          "label": "官方代码",
+          "url": "https://github.com/NVIDIA/Flora"
+        },
+        {
+          "label": "官方模型集合",
+          "url": "https://huggingface.co/collections/nvidia/flora"
+        }
+      ]
+    },
+    {
+      "id": "spirit-echo-status-guided-vla-denoising",
+      "category": "embodied",
+      "tag": "千寻智能 · VLA失败恢复 · 实机研究",
+      "title": "Echo：让“要停了、可能失败了”参与VLA动作生成，而不只做事后监控",
+      "organization": "上海交通大学、千寻智能Spirit AI、清华大学及中科大/同济/哈工大作者",
+      "published": "2026-10-22",
+      "date_label": "arXiv v1：10月22日；10月26日进入Hugging Face Papers日榜；本期10月27日核读全文和真实任务/仿真附录。新研究线索，尚无独立复现。",
+      "summary": "Echo在action chunk上增加stop与failure两个维度，与动作联合去噪，并让状态信号更快变干净，以引导后续动作。五个真实操作任务、每模型每任务30次试验中，插花完成分从π0.5的5.67升至8.33，开抽屉从5.40升至7.90；这些是0–10完成分。",
+      "why": "昨天的Backtrack在冻结策略外预测失败并回退；Echo则联合训练状态与动作，用学到的恢复示范改变后续行为。值得关注的是把监测反馈真正接入控制，而非只增加一个“失败灯”。",
+      "limitation": "学习仍使用成功、失败及人工接管后的恢复示范；不需逐帧进度标签不等于无需标注或人工干预。真实任务完成分不能换算成二元成功率；LIBERO-Recovery附录结果另属仿真。作者报告，未独立复现，不能推广为通用安全保障。",
+      "sources": [
+        {
+          "label": "论文全文与附录",
+          "url": "https://arxiv.org/html/2610.31569v1"
+        },
+        {
+          "label": "作者项目",
+          "url": "https://lyfeng001.github.io/Echo/"
+        },
+        {
+          "label": "仿真代码",
+          "url": "https://github.com/lyfeng001/Echo-Sim"
+        }
+      ]
+    },
+    {
+      "id": "dexport-command-state-label-gap",
+      "category": "embodied",
+      "tag": "实机灵巧操作 · 动作标签 · 野外采集",
+      "title": "DexPort：灵巧手数据要记录下达的动作，而不只是关节实际到达的状态",
+      "organization": "Amazon Frontier AI & Robotics (FAR)、Stanford University、UC San Diego",
+      "published": "2026-10-24",
+      "date_label": "arXiv v1于10月23日17:56 UTC提交（北京时间10月24日01:56）；本期10月27日从arXiv跨分类具身检索补入，核读方法、实机实验与局限，不称今日首发。",
+      "summary": "DexPort用手持Wuji灵巧手、鱼眼相机与Quest 2控制器采集，部署时沿用同一手和相机模块，最终行为克隆直接学习腕部运动与关节指令，不依赖技能标签。超过2500条演示后，三个以最终成功率计分的实机任务，指令标签平均64%，状态标签11%；加入野外数据使三个抓放条件平均36%升至78%。每任务或条件15次。",
+      "why": "接触时关节目标与实际状态之间的差值会产生抓握作用；把观测状态当作应执行动作，可能学出松握。研究把“更多机器人数据”的问题推进到标签语义：采集与部署本体一致之后，仍要记录真正下达的控制指令。",
+      "limitation": "作者实机结果，无独立复现；双臂Tianji Marvin与Wuji手，不代表跨本体泛化。64%只平均三个成功率任务，第四项螺丝刀用RPM/持握时长评分；指令策略旋转更快但持握时间更短，不能称全面领先。955g装置、有限技能库与每条件15次限制结论；未找到人工干预/复位率及端到端延迟，未运行其代码。",
+      "sources": [
+        {
+          "label": "论文全文与实机实验",
+          "url": "https://arxiv.org/html/2610.32969v1"
+        },
+        {
+          "label": "作者项目",
+          "url": "https://amberxie88.github.io/dexport/"
+        },
+        {
+          "label": "首版日期与作者",
+          "url": "https://arxiv.org/abs/2610.32969"
+        }
+      ]
+    },
+    {
+      "id": "openai-gpt-61-terra-computer-use-cost-frontier",
+      "category": "llm",
+      "tag": "通用模型更新 · 视觉推理 · Computer Use · Agent成本",
+      "title": "GPT-6.1 Terra：视觉推理与Computer Use成本基线更新，等待具身横评复测",
+      "organization": "OpenAI",
+      "published": "2026-10-26",
+      "date_label": "官方发布与API开放：2026-10-26；Hacker News讨论：2026-10-26 18:08–22:04 UTC（北京时间2026-10-27 02:08–06:04）。",
+      "summary": "官方称Terra在Agents' Last Exam上medium reasoning比GPT-5.6 Terra高15个百分点、约三分之一成本，并称与GPT-6 Astra相当表现时每token价格约为十分之一；OSWorld 2.1、MMMU-Pro、Terminal-Bench 4.0亦有官方对比，Terminal-Bench 4.0 max为50.3%（GPT-5.6 Terra公开值21.5%）。API价为输入$1/百万token、缓存$0.05/百万、输出$5/百万。Hacker News中tristanj质疑发布方挑选更有利基准；user43928指出Terminal-Bench上需要xhigh才接近GPT-6.1 Sol且成本更高；_aavaa_主张比较每任务成本/时间/质量；Simon Willison只做了‘pelican’SVG小试验并记录不同reasoning档位的token差异。",
+      "why": "用户关心通用大模型向具身任务渗透。Terra将视觉理解、技术图纸/3D操作和长链Computer Use推向更低调用成本，可能改变通用模型进入机器人评测时的推理预算与延迟基线；但目前证据仍只覆盖电脑/代码Agent，值得追踪它在RoboColiseum或真实机器人协议中的同输入、同动作接口复测。",
+      "sources": [
+        {
+          "label": "OpenAI官方发布",
+          "url": "https://openai.com/index/introducing-gpt-6-1-terra/"
+        },
+        {
+          "label": "OpenAI API模型页",
+          "url": "https://developers.openai.com/api/docs/models/gpt-6.1-terra"
+        },
+        {
+          "label": "Hacker News讨论串",
+          "url": "https://news.ycombinator.com/item?id=50248124"
+        },
+        {
+          "label": "tristanj：质疑发布方选择有利基准（10-26 18:18 UTC）",
+          "url": "https://news.ycombinator.com/item?id=50248430"
+        },
+        {
+          "label": "user43928：Terminal-Bench档位/成本意见（10-26 18:21 UTC）",
+          "url": "https://news.ycombinator.com/item?id=50248481"
+        },
+        {
+          "label": "_aavaa_：关注每任务质量/成本/时间（10-26 20:05 UTC）",
+          "url": "https://news.ycombinator.com/item?id=50250125"
+        },
+        {
+          "label": "Simon Willison：pelican SVG多档位小试验（10-26 18:34 UTC）",
+          "url": "https://news.ycombinator.com/item?id=50248713"
+        }
+      ],
+      "limitation": "所有性能和价格/任务结论由OpenAI官方发布或文档给出，社区评论没有统一复现实验。Agents' Last Exam、OSWorld和Terminal-Bench是电脑/代码Agent评测，没有机器人本体、动作接口、闭环成功率、人工接管或真实部署延迟；不能从Computer Use分数直接推断具身控制。Simon Willison的pelican仅为小型SVG试验，不是机器人或代表性工作负载。"
+    },
+    {
+      "id": "baidu-unlimited-ocr-2-sr-swa-unlimited-horizon",
+      "category": "llm",
+      "tag": "百度 · 文档VLM · 稀疏视觉注意力 · 超长上下文",
+      "title": "百度Unlimited OCR 2：SR-SWA把百页文档解析的每步视觉引用固定下来",
+      "organization": "百度ERNIE Team（官方代码/模型卡归 baidu；报告作者列百度团队）",
+      "published": "2026-10-27",
+      "date_label": "HF模型卡公开标注：2026-10-27；技术报告PDF元数据创建于2026-10-26 13:44 UTC（北京时间2026-10-26 21:44），HF PDF上传约2026-10-26 22:00；本轮于2026-10-27完整读取15页报告。",
+      "summary": "Unlimited OCR 2沿用DeepSeek OCR基础、3B总参数/约0.5B激活的MoE解码器，提出Sparse Reference Sliding Window Attention：Page Gate先按页缩小引用范围，Token Sieve再从远程token桶选固定top-k；配合重叠页chunk的Unlimited-Horizon Decoding，复用边界页KV并释放旧chunk。新MarathonDocBench包含100份、103–300页文档和约205k布局元素；报告自报Overall 77.06，MPDocBench 84.59，OmniDocBench v1.6 94.02。B=1峰值KV从47.00GB降至1.77GB，B=16 TPS从360增至1315；百页每步相对Full Attention/R-SWA报告7.0×/5.6×，测量为batch 3、每页固定1024生成token。",
+      "why": "它是近期国内大模型在多模态长上下文方向的可核新事件，也与具身系统需要处理长时视觉/文档记忆的计算约束相关：不是把‘无限’当作上下文窗口营销，而是把每步视觉引用和GPU常驻KV写成可检查的机制。用户的具身主线可将它作为视觉记忆/长上下文效率基础设施观察，不应写成机器人能力。",
+      "sources": [
+        {
+          "label": "官方HF模型卡",
+          "url": "https://huggingface.co/baidu/Unlimited-OCR-2"
+        },
+        {
+          "label": "官方GitHub代码",
+          "url": "https://github.com/baidu/Unlimited-OCR"
+        },
+        {
+          "label": "官方技术报告PDF",
+          "url": "https://huggingface.co/baidu/Unlimited-OCR-2/resolve/main/Unlimited-OCR-2.pdf"
+        }
+      ],
+      "limitation": "报告中的分数与速度/显存均为作者自报，未做独立复现；MarathonDocBench是文档解析基准，不是机器人或通用VLM具身评测。每步近恒定视觉引用/解码延迟不等于整篇文档总成本恒定；报告明确当前稀疏注意力不保留全局文档信息，标题层级等全局结构受限。47→1.77GB与360→1315分别是B=1和B=16，不能直接横比成同一运行配置；报告未在正文给出完整推理硬件规格。"
+    },
+    {
+      "id": "bytedance-seed-rlec-explicit-confidence-targets-code",
+      "category": "llm",
+      "tag": "字节Seed · RL后训练 · 置信度控制 · 拒答",
+      "title": "Seed RLEC：让一个模型按提示置信目标回答或拒答，代码先行、效果待核",
+      "organization": "字节跳动Seed",
+      "published": "2026-10-26",
+      "date_label": "官方GitHub仓库唯一初始提交：2026-10-26 10:07:50 UTC（北京时间2026-10-26 18:07:50）；本轮于2026-10-27确认代码事件，未找到对应论文或结果页。",
+      "summary": "RLEC用prompt中的置信目标p训练模型显式选择回答或‘I am not sure.’：correct奖励为(1-p)^b，incorrect为-p(1-p)^(b-1)，abstain为0，b从0线性升到1；训练脚本关闭GRPO组内标准差归一化（norm_adv_by_std_in_grpo=False），以保留不同p的奖励差异。README给出Qwen3-30B-A3B-Base、DAPO-Math与改造HotpotQA各抽15k、混合集重复5次、4节点×8 GPU的配置，评测脚本输出accuracy、AOC与RLEC score。",
+      "why": "它把置信目标从评测后的分数变成提示与训练目标，让一个模型按不同风险容忍度选择回答或拒答。可核新意是奖励设计与GRPO归一化处理，目前没有效果数字或独立讨论，属于值得跟踪的后训练代码线索，不能写成成熟能力或社区热点。",
+      "sources": [
+        {
+          "label": "官方代码仓库",
+          "url": "https://github.com/ByteDance-Seed/RLEC"
+        },
+        {
+          "label": "10月26日初始提交（官方仓库）",
+          "url": "https://github.com/ByteDance-Seed/RLEC/commit/6fdd308082bb32af621f69f0c9d48ed1851d2284"
+        }
+      ],
+      "limitation": "唯一可核事件是代码首提交；README没有实验结果数字、论文链接、模型权重或公开W&B运行。训练配置面向文本数学/问答，不含视觉、动作接口、机器人本体或真实闭环；不能声称提升了具身安全或通用模型能力。GitHub仓库当前无issues，尚无独立社区复现。"
+    }
+  ],
+  "technical_explainer": {
+    "id": "lora-low-rank-adaptation-training-deployment",
+    "title": "LoRA：冻结大模型以后，两个小矩阵怎样学会新任务？",
+    "summary": "LoRA把权重更新写成两个低秩矩阵的乘积：基座继续提供原有计算，只训练少量可插拔参数。它减少训练参数与优化器开销；能否适应新机器人、节省多少显存和部署延迟，仍取决于插入位置、数据、量化与实机协议。",
+    "reading_minutes": 7,
+    "why_now": "本期Flora展示通用VLM进入机器人数据标注和奖励建模，但‘从通用模型后训练而来’不等于‘使用LoRA’：当前Captioner模型卡明确监督阶段未用LoRA。借此补齐阅读模型卡的基础：到底更新了哪些权重、怎样训练、如何部署。LoRA（2021）、QLoRA（2023）和OpenVLA（2024）是历史机制与案例来源，本栏用于解释今天仍常见的适配方法，不把它们当今日新闻。",
+    "sections": [
+      {
+        "heading": "1．要解决的问题：每次适配，都要再训练和保存一整套大模型吗？",
+        "paragraphs": [
+          "全参数微调会让大量原始权重参与更新，还要为这些参数保存梯度与优化器状态。多个任务各保存一份完整权重，也会增加存储和版本管理成本。LoRA的选择是保留预训练权重W₀，只给选中的线性层增加一个可学习的更新ΔW；训练结束可以只保存这份适配器，但使用时仍需要对应的基座。",
+          "这里的‘冻结’表示W₀不被优化器改写。基座仍参与前向计算，梯度也要沿计算图传到适配器；因此冻结不等于省掉基座运算，也不等于整次训练几乎不占显存。长视频、图像token、序列长度和batch带来的激活开销仍可能很大。"
+        ]
+      },
+      {
+        "heading": "2．低秩更新：先找少数调整方向，再组合回原来的维度",
+        "paragraphs": [
+          "设原来的线性层是y=W₀x，W₀有d_out行、d_in列。标准LoRA把更新写成ΔW=(α/r)BA，其中A为r×d_in，B为d_out×r，r远小于原矩阵维度。前向过程变成y=W₀x+(α/r)B(Ax)：A先把输入投到少数调整方向，B再把这些方向映射回输出空间，与原输出相加。",
+          "低秩约束施加在‘这次任务需要的更新’上，原始W₀不必是低秩。直观上，基座已经有很多可用特征，适配任务可能只需重新组合其中一部分；这是有用的建模约束，不能保证任何新任务都能被少数方向表达。原始LoRA常把A随机初始化、B初始化为零，使训练刚开始时ΔW=0，模型先保持基座行为，再逐步学习。"
+        ]
+      },
+      {
+        "heading": "3．秩、缩放和插入位置，各管什么？",
+        "paragraphs": [
+          "秩r决定每个适配层可学习更新的容量，也直接改变参数量r(d_in+d_out)。α/r是原始LoRA的缩放约定，用来控制适配分支的幅度；α、学习率和初始化会共同影响训练。更大的r不是更高质量的保证，也不是上下文长度或推理次数；有些后续实现使用其他缩放规则，读配置时必须看公式。",
+          "插在哪些层往往和r一样关键。只适配注意力的Q、V投影，与同时适配K、输出投影、MLP、视觉模块，更新范围不同。若动作头、词嵌入、偏置或视觉编码器另外开放训练，可训练参数就不只两个小矩阵。报告‘LoRA微调’时，应列出target modules和额外训练模块，不能只报一个rank。"
+        ]
+      },
+      {
+        "heading": "4．训练、省显存和部署，是三个需要分别核对的问题",
+        "paragraphs": [
+          "训练时先锁定基座版本和输入/动作格式，插入A、B，再用任务数据计算损失并只更新允许训练的参数。监督学习或强化学习决定‘按什么信号学’，LoRA决定‘哪些参数怎样更新’，两者可以组合。主要节省来自更少的参数梯度、优化器状态和适配器文件，实际显存还包括基座、激活和临时缓冲。",
+          "部署可以保留独立适配器，便于共享一个基座并切换任务；也可把W₀+(α/r)BA合并成W_eff。对这种固定线性更新，合并后不必再执行额外LoRA分支，因而能消除该分支的计算开销，但不会减少基座参数量。未合并、多适配器服务、量化与重新量化的代价不同，不能从‘参数少’直接推断机器人闭环更快。",
+          "QLoRA进一步把冻结基座以4-bit形式存储，用较高计算精度进行必要运算，把梯度传给LoRA参数；它还引入NF4、双重量化和分页优化器来控制内存。它不是把所有可训练量都变成4-bit，也不等于‘任何量化推理都叫QLoRA’。部署时是否反量化、合并、重新量化，要按实现检查精度和速度。"
+        ]
+      },
+      {
+        "heading": "5．一个具身历史案例：OpenVLA证明了什么，又没有证明什么？",
+        "paragraphs": [
+          "OpenVLA的2024年论文在选定Franka-Tabletop任务上比较微调方法：每种方法33次rollout，rank=32的LoRA训练97.6M参数，成功率68.2%±7.5%；全参数微调训练7188.1M参数，为69.7%±7.2%。这支持LoRA在该设置下有接近全量微调的表现，同时减少训练开销；论文还说明这一小节使用的是较小数据混合和仅SigLIP视觉骨干的变体。",
+          "这不是所有机器人任务的等效保证。rank=32和64在该小实验中相近，不代表别的模型、数据量、传感器或动作空间都无需调秩。训练参数少，也不会自动获得跨本体或新物体泛化；真实闭环仍要核对独立留出场景、控制频率、动作接口、人工干预和重复试验。OpenVLA另做的量化推理实验，也应与LoRA训练实验分别阅读。"
+        ]
+      },
+      {
+        "heading": "6．回到Flora：看见适配效果，先查实际采用了哪条训练路线",
+        "paragraphs": [
+          "Flora把Qwen系通用VLM用于机器人视频标注与奖励。当前Captioner卡明确：监督阶段更新语言模型和visual merger，冻结视觉patch embedding与transformer blocks，并且没有使用LoRA。因此本栏用LoRA帮助辨认适配方式，不能把Flora结果归因于LoRA，也不能推断替换为LoRA后会保持其分数或成本。",
+          "常见误读是‘冻结就不会学习’或‘训练参数少所以没有遗忘’。基座本身虽不变，适配分支仍会改变最终行为，可能过拟合或损害原能力。另一种误读是把低秩当作对原模型做压缩：LoRA通常保留整个基座，并额外保存更新；要判断收益，应同时看训练资源、任务质量、版本兼容和部署成本。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "三种微调方式：更新范围与存储精度是不同维度",
+      "columns": [
+        "方式",
+        "主要更新对象",
+        "主要节省",
+        "仍需核对"
+      ],
+      "rows": [
+        [
+          "全参数微调",
+          "指定基座模块的原始权重",
+          "不以减少可训练参数为主要目标",
+          "优化器/梯度显存、是否冻结视觉模块"
+        ],
+        [
+          "LoRA",
+          "选定线性层的低秩A、B，可另有训练模块",
+          "梯度与优化器状态、任务适配器存储",
+          "rank/缩放/target modules、合并前后延迟"
+        ],
+        [
+          "QLoRA",
+          "冻结低位基座，训练LoRA适配器",
+          "进一步减少基座存储与内存开销",
+          "量化格式、计算精度、激活开销与合并流程"
+        ]
+      ]
+    },
+    "example": {
+      "title": "假设算例：一个4096×4096线性层，rank=16意味着什么？",
+      "paragraphs": [
+        "以下仅是参数计数教学，既不是实测，也不是某个模型的配置。原矩阵有4096×4096=16,777,216个参数。LoRA取r=16时，A和B共16×4096+4096×16=131,072个参数，约为原矩阵的0.78%，即1/128。若α=32，标准α/r缩放就是2。",
+        "假设只训练这两个矩阵，优化器主要为131,072个参数维护训练状态；16,777,216个基座参数仍要存储并参与运算。因此不能把1/128当成整模型显存或训练时间的缩减比例。若r翻倍，适配参数也翻倍，但任务成功率是否提高必须另做留出评测。"
+      ]
+    },
+    "checklist": [
+      "基座是哪一个精确版本？适配器是否需要额外动作头、视觉模块或词表文件？",
+      "哪些原权重冻结、哪些另外训练？target modules、rank、α与缩放公式是否公开？",
+      "数据量、任务/本体和留出条件是什么？是否与全量微调采用相同数据、预算和评测协议？",
+      "报告的显存包括哪些项，batch、序列长度、图像/视频token和量化精度是否一致？",
+      "部署使用独立适配器还是合并权重？量化与合并后是否复测质量、延迟和闭环频率？",
+      "机器人结果是否区分仿真与实机，并报告试验次数、成功率、人工干预与OOD具体设置？"
+    ],
+    "takeaway": "LoRA用低秩矩阵学习任务更新，主要降低适配训练与存储成本；读到‘高效微调’时，先查更新对象，再查同协议效果和实际部署，而不是把rank小直接读成能力强或机器人更快。",
+    "sources": [
+      {
+        "label": "LoRA原论文（2021-06首版，本文核读2021-10 v2）：低秩参数化、α/r缩放、初始化与合并",
+        "url": "https://arxiv.org/html/2106.09685v2"
+      },
+      {
+        "label": "QLoRA原论文（2023-05）：冻结4-bit基座、LoRA更新与内存机制；作为历史方法来源",
+        "url": "https://arxiv.org/html/2305.14314v1"
+      },
+      {
+        "label": "OpenVLA原论文（2024-06首版，本文核读2024-09 v3）：第5.3节与附录B.3的具身LoRA实验",
+        "url": "https://arxiv.org/html/2406.09246v3"
+      },
+      {
+        "label": "Flora-Captioner当前官方模型卡（2026-10-27核读）：明确监督阶段未采用LoRA，用于辨认本期实际训练路线",
+        "url": "https://huggingface.co/nvidia/Flora-Captioner"
+      }
+    ]
+  }
+}

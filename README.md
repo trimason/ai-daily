@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年10月26日日报：继续追踪通用模型进入具身的真实热点，重点是RynnUnify统一具身大脑、LogLook执行日志记忆、Backtrack失败回退、动作 horizon 与流匹配采样耦合、TTT负结果及RoboJev成功判定层。补充腾讯混元Hy-Nomas交互式世界模型与机械臂LoRA、Kimi K3.1 Pro进入人体动力学仿真、Seed Recycler隐状态回收。每条分别保留原成果日期、当前讨论/开放日期、模型/代码/数据证据和实验边界；没有新研究的团队不凑数。每日技术点讲TTT与Fast Weights，区分KV cache、外部日志、测试时快速参数和长期训练权重。
+当前首页为2026年10月27日日报：沿“通用模型向具身渗透”主线追踪TARSphere动态长程横评、Robocurve修订与停止竞态、RoboHarm独立复现，补充NVIDIA FLORA机器人数据引擎、千寻Echo状态引导动作、DexPort命令标签，以及GPT-6.1 Terra、百度Unlimited OCR 2与Seed RLEC的新事件。保留原始日期、当前讨论或发现依据、仿真/实机和作者自报/独立复现边界。Hugging Face Papers网页及API本轮经显式代理读取成功，实际榜单为10月26日；arXiv cs.RO与跨分类具身检索独立完成，修订列表与公众号全文缺口另记。每日技术点讲LoRA/QLoRA的低秩更新、训练与部署，明确Flora Captioner未采用LoRA，避免混淆后训练路线。
 
 ## 本地构建与预览
 
