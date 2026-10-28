@@ -5,6 +5,21 @@
   "window_end": "2026-10-28",
   "signals": [
     {
+      "id": "robodojo-agent-architecture-followup-20261028",
+      "title": "RoboDojo仿真前排Agent系统：从排名继续追到底座、工具与控制链路",
+      "published": "2026-10-27",
+      "summary": "10月27日GO-3 Nano Preview入榜；10月28日按用户问题核当前Sim Agent前五，补拆PyRUA-Lean执行程序、HexaShell工具改进、EmbodiedEvo经验冻结，以及WorldScape-R²SI的Agent/WAM接管与外层双更新。后续三期连续解释观测、动作、反馈、记忆与预算。",
+      "keywords": [
+        "具身Agent构型",
+        "编程式机器人使用",
+        "系统与底座区分",
+        "仿真分轨"
+      ],
+      "url": "https://robodojo-benchmark.com/leaderboard#agent",
+      "source_label": "RoboDojo官方榜/协议；四套系统原论文/报告与代码，R²SI模型卡 · 10月28日补查，五者入榜分别10月27/24/20/17/14日，不称全部今日首发。",
+      "limitation": "五者均Sim，正式w/o Agent主表不对Agent排名，Score不是SR。PyRUA官方summary单seed；HexaShell完整harness未公开；EmbodiedEvo论文与榜结果不同；R²SI精确榜工件/预算待核；GO-3 Nano专属架构未取得。排名不能单独归因Agent优于VLA，也未做独立复现。"
+    },
+    {
       "id": "ebench-astra-direct-control-policy-harness",
       "title": "EBench：Astra直接控制能做到哪里，调用VLA/WAM又会丢掉什么？",
       "published": "2026-10-26",

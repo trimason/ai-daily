@@ -115,7 +115,14 @@ def technical_preview(issue):
     return f'<section class="technical-preview"><div><p class="eyebrow">DAILY MECHANISM · {lesson["reading_minutes"]} 分钟</p><h2>每日技术点：{esc(lesson["title"])}</h2><p class="technical-preview-summary">{esc(lesson["summary"])}</p></div><a class="quiet-link" href="{href(issue_path(issue))}#technical-explainer">读懂机制 →</a></section>'
 
 
-def technical_explainer(lesson):
+def research_preview(issue):
+    supplement = issue.get('research_supplement')
+    if not supplement:
+        return ''
+    return f'<section class="technical-preview"><div><p class="eyebrow">RESEARCH SUPPLEMENT · 全文约 {supplement["reading_minutes"]} 分钟</p><h2>专题追踪：{esc(supplement["title"])}</h2><p class="technical-preview-summary">{esc(supplement["summary"])}</p></div><a class="quiet-link" href="{href(issue_path(issue))}#research-supplement">阅读专题 →</a></section>'
+
+
+def technical_explainer(lesson, *, section_id='technical-explainer', section_title='每日技术点'):
     section_html = []
     for section in lesson['sections']:
         paragraphs = ''.join(f'<p>{esc(text)}</p>' for text in section['paragraphs'])
@@ -134,7 +141,12 @@ def technical_explainer(lesson):
         example_html = f'<div class="lesson-example"><h4>{esc(example["title"])}</h4>{paragraphs}</div>'
     checklist = ''.join(f'<li>{esc(text)}</li>' for text in lesson['checklist'])
     sources = ''.join(f'<a href="{url(source["url"])}" target="_blank" rel="noopener noreferrer">{esc(source["label"])} ↗</a>' for source in lesson['sources'])
-    return f'<section class="article-section technical-explainer" id="technical-explainer"><div class="article-section-title"><h2>每日技术点</h2><span>{lesson["reading_minutes"]} 分钟理解</span></div><article class="technical-lesson" data-explainer-id="{esc(lesson["id"])}"><h3>{esc(lesson["title"])}</h3><p class="lesson-summary">{esc(lesson["summary"])}</p><div class="lesson-why"><h4>为什么今天讲这个</h4><p>{esc(lesson["why_now"])}</p></div>{"".join(section_html)}{comparison_html}{example_html}<div class="lesson-section"><h4>读论文时检查这些</h4><ul class="lesson-checklist">{checklist}</ul></div><p class="lesson-takeaway"><strong>带走一句话：</strong>{esc(lesson["takeaway"])}</p><div class="source-links"><span>来源与证据</span>{sources}</div></article></section>'
+    is_supplement = section_id == 'research-supplement'
+    why_heading = '为什么今天补充' if is_supplement else '为什么今天讲这个'
+    checklist_heading = '核验时检查这些' if is_supplement else '读论文时检查这些'
+    reading_label = '全文约' if is_supplement else ''
+    reading_suffix = '分钟' if is_supplement else '分钟理解'
+    return f'<section class="article-section technical-explainer" id="{esc(section_id)}"><div class="article-section-title"><h2>{esc(section_title)}</h2><span>{reading_label}{lesson["reading_minutes"]} {reading_suffix}</span></div><article class="technical-lesson" data-explainer-id="{esc(lesson["id"])}"><h3>{esc(lesson["title"])}</h3><p class="lesson-summary">{esc(lesson["summary"])}</p><div class="lesson-why"><h4>{why_heading}</h4><p>{esc(lesson["why_now"])}</p></div>{"".join(section_html)}{comparison_html}{example_html}<div class="lesson-section"><h4>{checklist_heading}</h4><ul class="lesson-checklist">{checklist}</ul></div><p class="lesson-takeaway"><strong>带走一句话：</strong>{esc(lesson["takeaway"])}</p><div class="source-links"><span>来源与证据</span>{sources}</div></article></section>'
 
 
 def home(issues, keywords, recent):
@@ -162,6 +174,7 @@ def home(issues, keywords, recent):
     </section>
     <div class="coverage-note"><span aria-hidden="true">◌</span><p>{esc(latest.get('coverage', '以公开来源为依据，记录研究进展与社区讨论。'))}</p></div>
     <section class="highlights"><div class="section-heading"><div><p class="eyebrow">THE SHORTLIST</p><h2>本期速读</h2></div><span class="section-hint">先看重点，再读原文</span></div><div class="highlight-grid">{cards}</div></section>
+    {research_preview(latest)}
     {technical_preview(latest)}
     <div class="content-columns"><section><div class="section-heading"><div><p class="eyebrow">RESEARCH & IDEAS</p><h2>研究与观点</h2></div><a class="quiet-link" href="{href('topics/')}">按主题检索 →</a></div><div class="teaser-list">{''.join(teaser(s, latest) for s in picks)}</div></section><aside class="sidebar">{reading_panel}<section class="side-panel"><p class="eyebrow">HOW TO READ</p><h2>每条都能追溯</h2><ul class="method-list"><li><span>01</span>新成果与新贡献</li><li><span>02</span>为什么值得关注</li><li><span>03</span>实验局限与原始来源</li></ul><a class="quiet-link" href="{href('about/')}">了解筛选方法 →</a></section><section class="subscribe-panel"><span class="eyebrow">STAY CURIOUS</span><h2>把更新放进阅读器</h2><p>通过 RSS 订阅，保留自己的阅读节奏。</p><a href="{href('feed.xml')}">RSS 订阅 ↗</a></section></aside></div>
     {recent_panel}
@@ -179,6 +192,9 @@ def article(story):
 def daily(issue, issues):
     toc = []
     sections = []
+    if issue.get('research_supplement'):
+        toc.append('<a href="#research-supplement">专题追踪<span>↗</span></a>')
+        sections.append(technical_explainer(issue['research_supplement'], section_id='research-supplement', section_title='专题追踪 · 当日补充研究'))
     for key, name in CATEGORIES.items():
         stories = [s for s in issue['stories'] if s['category'] == key]
         if not stories:
@@ -202,11 +218,14 @@ def markdown_text(value):
     return re.sub(r'([\\`*_{}\[\]#|])', r'\\\1', html.escape(str(value), quote=False))
 
 
-def technical_markdown(lesson):
+def technical_markdown(lesson, *, section_title='每日技术点'):
     def paragraphs(items):
         return [line for text in items for line in [markdown_text(text), '']]
 
-    lines = [f'## 每日技术点：{markdown_text(lesson["title"])}', '', f'阅读时间：{lesson["reading_minutes"]} 分钟', '', markdown_text(lesson['summary']), '', '**为什么今天讲这个**', '', markdown_text(lesson['why_now']), '']
+    is_supplement = section_title != '每日技术点'
+    why_heading = '为什么今天补充' if is_supplement else '为什么今天讲这个'
+    checklist_heading = '核验时检查这些' if is_supplement else '读论文时检查这些'
+    lines = [f'## {markdown_text(section_title)}：{markdown_text(lesson["title"])}', '', f'阅读时间：{lesson["reading_minutes"]} 分钟', '', markdown_text(lesson['summary']), '', f'**{why_heading}**', '', markdown_text(lesson['why_now']), '']
     for section in lesson['sections']:
         lines += [f'### {markdown_text(section["heading"])}', '']
         lines += paragraphs(section['paragraphs'])
@@ -221,7 +240,7 @@ def technical_markdown(lesson):
     if lesson.get('example'):
         lines += [f'### {markdown_text(lesson["example"]["title"])}', '']
         lines += paragraphs(lesson['example']['paragraphs'])
-    lines += ['### 读论文时检查这些', ''] + [f'- {markdown_text(text)}' for text in lesson['checklist']]
+    lines += [f'### {checklist_heading}', ''] + [f'- {markdown_text(text)}' for text in lesson['checklist']]
     lines += ['', '**带走一句话**', '', markdown_text(lesson['takeaway']), '', '**来源与证据**', '']
     lines += [f'- [{markdown_text(source["label"])}](<{source["url"]}>)' for source in lesson['sources']]
     return lines + ['']
@@ -230,6 +249,8 @@ def technical_markdown(lesson):
 def markdown(issue):
     edition = {'sample': ' · 样刊', 'curated': ' · 精选'}.get(issue.get('status'), '')
     lines = [f'# {issue["title"]}', '', f'日期：{issue["date"]}' + edition, '', issue['coverage'], '', issue['intro'], '']
+    if issue.get('research_supplement'):
+        lines += technical_markdown(issue['research_supplement'], section_title='专题追踪 · 当日补充研究')
     for key, name in CATEGORIES.items():
         stories = [s for s in issue['stories'] if s['category'] == key]
         if not stories:
@@ -356,7 +377,7 @@ def validate(issue, path):
         for key in ['id', 'category', 'title', 'organization', 'summary', 'why', 'limitation', 'sources']:
             if not story.get(key):
                 raise ValueError(f"Missing story {key} in {path.name}")
-        if not re.fullmatch(r'[a-z0-9-]+', story['id']) or story['id'] in ids or story['id'] == 'technical-explainer':
+        if not re.fullmatch(r'[a-z0-9-]+', story['id']) or story['id'] in ids or story['id'] in ('technical-explainer', 'research-supplement'):
             raise ValueError(f"Invalid or repeated story ID in {path.name}")
         ids.add(story['id'])
         if story['category'] not in CATEGORIES:
@@ -379,6 +400,8 @@ def validate(issue, path):
             raise ValueError(f"Invalid highlight story ID in {path.name}")
     if 'technical_explainer' in issue:
         validate_technical_explainer(issue['technical_explainer'], path.name)
+    if 'research_supplement' in issue:
+        validate_technical_explainer(issue['research_supplement'], f"{path.name} research_supplement")
 
 
 def validate_technical_explainer(lesson, filename):

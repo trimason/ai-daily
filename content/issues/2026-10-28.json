@@ -2,8 +2,8 @@
   "date": "2026-10-28",
   "status": "daily",
   "title": "通用模型进入具身：协作边界、仿真迁移与“做成”之外的可靠性",
-  "intro": "今天聚焦三组新证据与争点：通用模型直接控制还是调用专用VLA/WAM；仿真后训练能否迁移真实机器人；Agent完成任务之外，执行框架和训练轨迹是否可靠。重点核读EBench、ZAP、PhysLadder，补充Genie 4预览、Hy-Nomas新报告与社区接入、RynnVLA-Latent，以及Hugging Face Papers上的轨迹研究。新研究、官方预览和小范围独立评论分别标注，保留首发日期与当前关注依据。",
-  "coverage": "北京时间2026-10-28采集，优先观察10月24–28日讨论、模型/代码事件和Hugging Face Papers实际网页与公开API；网页日榜dateString为2026-10-27，共59条，API返回记录跨多个日期，不能称10月28日日榜。核读EBench、ZAP、PhysLadder、RynnVLA-Latent全文和项目/代码；Trial by Trace读取方法、统计与评分边界，Trajectory2Gym读取方法及实验。独立检查arXiv cs.RO API最新100条（包括交叉分类）与跨分类关键词检索；cs.RO/new出现不完整响应、cs.RO/recent参数返回400、跨分类API被远端关闭，因此不能声称覆盖所有当日修订。Google DeepMind Genie 4公告已读，Hy-Nomas读取README/模型卡/280案例数据卡和更新提交，未核读技术报告正文；国内九家大模型团队和十三家具身公司按研究目录、作者/项目、代码组织及模型/数据卡实际补查，GitHub最新10项、HF最新5项只是局部目录，不能视为全库；SPA、失败渠道与补查记录在采集审计中保留。DeepSeek主站/API/代码/模型卡并查；Seed Recycler（10月25日官方论文）已作为已刊旧事件复核，按URL和题名去重后不重复推荐；XPENG GroundingPI、作者HF和独立GroundAnything分开核查，未重报10月14日事件。RoboColiseum API核到GO-3仍为10月26日旧提交，新增OpenWAM-Alpha缺少论文与协议，未用不完整榜单信息凑新闻。LessWrong正文通过公开GraphQL读取，27票/6评论，HN转发2票/0评论，属于小范围讨论；human five和具身智能之心后续检索遇验证页，不能声称全量覆盖。Hugging Face请求使用现有127.0.0.1:7897单次显式代理，未开启系统代理；采集结束复核macOS HTTP/HTTPS/SOCKS/PAC均为0/off（2026-10-28 00:16 UTC）。 14个会议的当届论文/评审入口另行检查：读取NeurIPS、ICML、ICLR、COLM、CVPR、ECCV、ACL、EMNLP、RSS与CoRL目录，ICCV核对2025档案及2027入口（2026无主会）；部分大目录有传输截断。ICRA、IROS及ICLR 2027 OpenReview受限；AAAI OJS仅抽样两页卷入口和Vol.40 No.1一卷，未读全量评审和目录不冒称全量；本期预印本未确认会议录用。",
+  "intro": "本期新增用户指定专题：具身Agent为何进入RoboDojo仿真榜前列，对照PyRUA-Lean、HexaShell、EmbodiedEvo和WorldScape-R²SI的底座、程序/工具、经验、动作模型和反馈链路。今天聚焦三组新证据与争点：通用模型直接控制还是调用专用VLA/WAM；仿真后训练能否迁移真实机器人；Agent完成任务之外，执行框架和训练轨迹是否可靠。重点核读EBench、ZAP、PhysLadder，补充Genie 4预览、Hy-Nomas新报告与社区接入、RynnVLA-Latent，以及Hugging Face Papers上的轨迹研究。新研究、官方预览和小范围独立评论分别标注，保留首发日期与当前关注依据。",
+  "coverage": "北京时间2026-10-28采集，优先观察10月24–28日讨论、模型/代码事件和Hugging Face Papers实际网页与公开API；网页日榜dateString为2026-10-27，共59条，API返回记录跨多个日期，不能称10月28日日榜。核读EBench、ZAP、PhysLadder、RynnVLA-Latent全文和项目/代码；Trial by Trace读取方法、统计与评分边界，Trajectory2Gym读取方法及实验。独立检查arXiv cs.RO API最新100条（包括交叉分类）与跨分类关键词检索；cs.RO/new出现不完整响应、cs.RO/recent参数返回400、跨分类API被远端关闭，因此不能声称覆盖所有当日修订。Google DeepMind Genie 4公告已读，Hy-Nomas读取README/模型卡/280案例数据卡和更新提交，未核读技术报告正文；国内九家大模型团队和十三家具身公司按研究目录、作者/项目、代码组织及模型/数据卡实际补查，GitHub最新10项、HF最新5项只是局部目录，不能视为全库；SPA、失败渠道与补查记录在采集审计中保留。DeepSeek主站/API/代码/模型卡并查；Seed Recycler（10月25日官方论文）已作为已刊旧事件复核，按URL和题名去重后不重复推荐；XPENG GroundingPI、作者HF和独立GroundAnything分开核查，未重报10月14日事件。RoboColiseum API核到GO-3仍为10月26日旧提交，新增OpenWAM-Alpha缺少论文与协议，未用不完整榜单信息凑新闻。LessWrong正文通过公开GraphQL读取，27票/6评论，HN转发2票/0评论，属于小范围讨论；human five和具身智能之心后续检索遇验证页，不能声称全量覆盖。Hugging Face请求使用现有127.0.0.1:7897单次显式代理，未开启系统代理；采集结束复核macOS HTTP/HTTPS/SOCKS/PAC均为0/off（2026-10-28 00:16 UTC）。 14个会议的当届论文/评审入口另行检查：读取NeurIPS、ICML、ICLR、COLM、CVPR、ECCV、ACL、EMNLP、RSS与CoRL目录，ICCV核对2025档案及2027入口（2026无主会）；部分大目录有传输截断。ICRA、IROS及ICLR 2027 OpenReview受限；AAAI OJS仅抽样两页卷入口和Vol.40 No.1一卷，未读全量评审和目录不冒称全量；本期预印本未确认会议录用。 10月28日按用户问题追加RoboDojo具身Agent架构专题：实读当前仿真/实机分轨、前五榜单与10月26日协议，核读PyRUA-Lean、HexaShell、EmbodiedEvo论文/README及部分配置与实现；补读WorldScape-R²SI专属报告、代码和模型卡，GO-3 Nano Preview精确架构仍待核。专题为当日补充研究，保留原始成果/入榜日期；阅读公开实现不等于复现，也未证实每份当前代码就是精确榜工件。",
   "highlights": [
     {
       "title": "通用模型和策略的互补已经能被逐任务测出来",
@@ -99,6 +99,10 @@
     {
       "term": "偏好优化 / direct preference optimization",
       "explanation": "每日技术点解释DPO如何用chosen/rejected对直接更新模型，并强调偏好胜率不能替代闭环成功率。"
+    },
+    {
+      "term": "编程式机器人使用 / programmatic robot use",
+      "explanation": "专题用PyRUA-Lean和HexaShell解释模型如何经Python或CLI、感知几何、IK和反馈闭环控制机器人，区分轮内状态、工具积累与权重训练。"
     }
   ],
   "featured_ids": [
@@ -462,6 +466,222 @@
       {
         "label": "Shao et al., DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models (2024), arXiv:2402.03300（GRPO原始对照；历史基础资料）",
         "url": "https://arxiv.org/abs/2402.03300"
+      }
+    ]
+  },
+  "research_supplement": {
+    "id": "robodojo-embodied-agent-architectures-1",
+    "title": "具身 Agent 为何进入榜单前列：RoboDojo 前五的系统构型",
+    "summary": "10月28日按用户问题补充研究：RoboDojo 仿真总览前五均标为 Agent，正式表格另分 Agent 赛道。本篇对照 PyRUA-Lean 的 Python 执行闭环、HexaShell 的工具改进、EmbodiedEvo 的 Skills/Lessons，以及 WorldScape-R²SI 的 Agent/WAM 协作；GO-3 Nano Preview 的专属架构仍有缺口。榜名代表底座、感知、程序、控制与反馈组成的系统。",
+    "reading_minutes": 16,
+    "why_now": "这是用户指定的连续专题第1篇，回答“最近 Agent 为什么占据前排、前几名到底怎么搭起来”。本轮榜单核验为北京时间2026-10-28 11:39–11:49；入榜事件分别发生在10月14–27日，不把补充阅读日期冒充成果首发。PyRUA-Lean 首版10月1日、v2为10月13日；HexaShell 本轮读取v2（10月20日）。过去新闻未解释清楚的架构在这里补齐，后续三期继续查接口、层级控制与经验积累。",
+    "sections": [
+      {
+        "heading": "1. 先核实“霸榜”发生在哪个榜上",
+        "paragraphs": [
+          "RoboDojo 当前有独立的仿真与实机标签页。仿真页顶部把63个系统画在同一张山峰图中，按 Average Score 排序，前五确实全部带 Agent 标签；正式主表标题是 w/o Agent，Agent 行淡化且不参与该表名次，另有独立 RoboDojo Sim Agent Leaderboard。下方对照表采用后者前五，也对应顶部混合可视化前五。",
+          "Score 衡量包含部分完成进度的分数，SR 衡量二元完整任务完成；Average 按五个能力维度等权汇总，Generalization 内再合并标准与随机布局。因此 GO-3 的61.90不是61.90%成功率，它的 Average SR 是56.42%。五个 Agent 当前列在仿真轨，公开 rollout manifest 中机器人为 ARX X5；这不能证明它们也占据实机前五。",
+          "新闻给出的入榜日期依次为 GO-3 10月27日、PyRUA 10月24日、HexaShell 10月20日、WorldScape 10月17日、EmbodiedEvo 10月14日。统一的 Updated 2026.10.26 与图上的当日日期都不能代替逐条事件日期。排名与标签已核实，至于哪种组件造成领先，需要另外的架构披露和匹配消融。"
+        ]
+      },
+      {
+        "heading": "2. 具身 Agent 的构型：每一层究竟做什么",
+        "paragraphs": [
+          "先看编程式 Agent 的常见构型：任务指令、相机图像与机器人自身状态 → 多模态模型理解目标并选择下一步 → 运行时执行工具或 Python 程序 → 感知与几何工具估计目标位置 → 运动规划/逆运动学把末端目标变成关节动作 → 环境返回新图像、到达误差或夹爪状态 → 程序局部重试或模型重规划。具体系统可以省略或替换某层；语言模型通常不直接承担每个控制周期的力矩调节。",
+          "关键区别是“下一步动作由谁决定、决定多大一段”。VLA 常把视觉、语言和状态映射为动作或动作块；编程式 Agent 可以先生成循环、条件和工具组合，在一次模型调用里完成多次检查与动作，再只返回必要的反馈。Agent 也可以把 VLA/WAM 当执行工具，两者可以协作；但前五中的 Agent 标签并不能告诉我们每套系统是否用了这条路线。",
+          "这里的记忆也有不同含义：一轮内 Python 变量保留物体位置和执行进度，是程序状态；跨轮保存可执行工具和笔记，是系统工件积累；更新模型参数则是训练。三者都可能帮助任务，却不能互相替代，更不能看到“Evo”“R²SI”名称就认定进行了递归改权重。"
+        ]
+      },
+      {
+        "heading": "3. PyRUA-Lean：让机器人变成 Python 对象",
+        "paragraphs": [
+          "底座与运行时：论文4.2节和附录H写明 RoboDojo 配置使用 GPT-6 Astra、high 推理档位、自写的最小 Agent 循环和 OpenAI-compatible endpoint；这一组不是 Codex CLI 实验。模型权重不更新，不读动作示范，没有 VLA。仓库其他基准使用 Codex CLI，另有 Qwen3.5-4B 经 GRPO 训练的 Coder；它们都不能被拿来替换榜上这套配置。底座API没有披露日期锁定的服务快照。",
+          "观测与感知：使用头部和两只腕部的三路 RGB、双臂关节/末端/夹爪状态和指令。SAM3 提供物体掩膜，自建 locate 等几何工具结合已知工作站标定恢复空间位置；腕部视角不够时先移动相机再测。RoboDojo RGB配置不读取深度图或模拟器中的物体真值。标定和本体几何属于工程前提，不等于模型凭单幅图自动获得厘米级3D。",
+          "动作链：Astra 生成 python(code)，在一轮内保留变量的 namespace 中组合 locate、move_to、set_gripper、读取状态和按需图像。没有直接的 pick/place/grasp 高层原语；抓取要由程序组成“定位、移到上方、下降、闭爪、读取夹爪停住与宽度结果”等步骤。move_to 背后的逆运动学与直线或关节空间路径把末端目标转换成关节动作，交给 RoboDojo 客户端执行。",
+          "反馈与预算：程序只把显式打印的结果和请求的图像送回模型，可在本地循环和重试；Python状态只在当前 episode 内持久，没有跨 episode 记忆。运行时不向 Agent 提供在线成功/进度标志，模型需从图像和本体反馈判断是否结束。论文RGB设置上限100次执行代码单元的模型调用、每次8192输出token、90分钟墙钟时间，另受任务自己的动作步数限制；这不是100个物理控制步，也不是90分钟实际平均耗时。",
+          "公开结果要分版本：实时官方榜为 Score 55.26／SR 50.35%；作者论文中的自测是58.20／51.62%，不是同一批运行。公开的官方summary文件写 seed3，是单seed结果，表中±0.00不证明零方差；10月26日新协议要求三seed，也不能反过来补足旧运行。另三类基准700个任务实例上的63.1%→71.7%成功率、65%输入token下降属于匹配工具接口实验；不能写成 RoboDojo 的同预算消融。"
+        ]
+      },
+      {
+        "heading": "4. HexaShell：执行 Agent 与工具改进 Agent 分开",
+        "paragraphs": [
+          "底座与输入：acting Agent 和 optimizer Agent 都使用 Codex＋GPT-6 Astra。执行者读取任务指令、recipe/工具笔记（34个非Open任务有单任务笔记，8个Open任务无单任务笔记）、三路 RGB及相机标定、双臂自身状态，并通过一个 robo 命令行发出测量和移动命令；模型权重固定。像素到空间的关键是几何工具：两个标定视角三角定位，或图像射线与测得平面求交。缺视角时移动腕部相机主动观察，观察动作也消耗任务动作预算。",
+          "执行闭环：模型调用 robo → 工具估计目标与组织动作 → harness执行运动 → 返回到达位姿/误差、plan_ok、碰撞或不可达原因及剩余预算 → 模型继续或修正。它不是让大模型每帧生成电机力矩。基础手册规定每轮60个命令，另有按任务限制的仿真时间；思考时仿真暂停，不能把仿真完成时间当真实墙钟延迟。",
+          "开发闭环：acting Agent 在开发布局上尝试，失败后 optimizer 读取轨迹和图像，写或修复 Python 工具、接口和笔记，再试同类布局；积累的主要对象是代码和工具。官方评测使用冻结后的系统，在隐藏seed上每基础任务50次（Generalization标准/随机各25次），不是一边拿官方测试分数一边持续改系统。",
+          "工具本身是重要的构型差别：34个非Open任务各自加载工具，137个启用工具提供270条命令；8个Open任务共享一套16命令的配置。因而不能只说“同一Astra加一页提示词”。开发也并非从零、无人工：附录D披露继承早期深度工具，25个任务给过成功判据笔记，9个任务起点含同事所写RGB工具；RGB最终工件审计又把部分固定物体几何替换为现场测量。最终RGB评测与这些开发阶段必须分开报告。",
+          "开放程度：仓库公开冻结工具、接口、部分helper和结果，明确不含完整server、executors、Agent container、evolution loop以及optimizer开发笔记/测试。可检查工具如何工作，但不能据此声称拿仓库就能完整复现。官方榜为53.18／46.85%，记忆维度SR为81.0%、精度为32.0%；能力差异支持继续分析语义/记忆与接触操作的边界，不能单凭总分归因某一个模块。"
+        ]
+      },
+      {
+        "heading": "5. EmbodiedEvo：把试错经验留成 Skills 与 Lessons",
+        "paragraphs": [
+          "论文完整评测使用 GPT-6 Astra／xhigh，不更新模型权重，也没有学习式低层动作策略。Agent 在持续的 Python／仿真会话里查看图像与机器人状态，编辑控制代码、执行并查看反馈。L1只有读取指令、观察、step(action)和reset四个基础接口；reset仅供开发期Playground，正式Test不能重置。L2则用函数、变量、循环和条件组合基础接口，底层原生控制器处理IK与插值。",
+          "这套接口与前两者不同：论文明确提供RGB、关节状态、末端位姿与夹爪命令状态，不向Agent提供物体真值、深度或相机标定。模型要通过观察和交互形成可操作坐标及程序。Playground每任务一个场景，允许反复尝试，把可执行程序写入skills/，把适用前提、失败和恢复经验写入lessons/；Test选择新场景前冻结这两个目录，每个场景启动全新的Agent、工作区和模拟器。Test内可修代码，不能跨测试场景继续学习。",
+          "每条Playground链和Test episode最多100次被接受的代码执行，另保留原任务动作预算。论文全量自测为单seed、每任务50场景，共2100个任务场景，Score44.48／SR37.82%；当前榜单45.08／38.95%是另一组记录，未取得逐运行对应关系，不能把差异直接写成修订带来的提升。论文的配对消融在每任务5场景开发集上，固定Astra/xhigh与输入，显示经验继承的贡献；这些结果比跨系统名次更接近机制证据。",
+          "完整评测有task wiki，代码默认基线和增强配置都读取RoboProbe公开recipe，可配置关闭，需随结果报告。源码可读，并给出固定Codex CLI容器和模型配置，但README明确尚未选定项目整体许可证，不应称为已获得自由使用许可的完整开源发行；集群运行、私有部署和结果档案也不在源码分发范围。Evo在这里主要指程序与经验积累，不能写成模型权重递归自我训练。"
+        ]
+      },
+      {
+        "heading": "6. WorldScape-R²SI：Agent 可以调用WAM，也可以接管",
+        "paragraphs": [
+          "这是前五里已经取得专属资料的Agent＋WAM路线。团队10月17日宣布入榜，本轮读取的技术报告日期为10月24日，报告46.58／39.35%与当前榜一致；它不是2月通用世界生成模型的通稿。当前公开配置指定内层gpt-6-astra／high，输入指令、多视角RGB、本体状态和episode历史，由Memory组织上下文，按共享Skills决定调用原生操控工具或WorldScape Policy（WSP）动作模型。底座API服务快照未锁定披露，当前代码也还不能逐文件等同于10月17日精确榜工件。",
+          "控制链里有34个通用Skills、4个工具和2个基础原语，各任务共享。WAM收到原始环境指令、RGB和本体状态，输出短动作块；执行器按机器人运动学执行、记录实际动作和新观测，Agent再检查进展。公开实现允许在已确认执行的动作边界接管，丢弃未执行的剩余动作；完整块执行后保留rolling状态，换策略时清空旧上下文。这说明Agent不必替代动作模型，而能决定何时委托它、何时切回工具。",
+          "模型卡提供WorldScape Policy 2在RoboDojo后训练的Flash和Memory检查点：Flash为单chunk上下文，Memory容量最多24 chunks；当前Agent部署文档写每块24动作、观测间隔3、8段历史，不可把模型最大容量与本次滚动配置混为一谈。两者面向ARX X5绝对关节动作，属于已训练的动作模型；与PyRUA和EmbodiedEvo没有学习式低层策略是不同前提。",
+          "外层Recursion Agent读取开发执行记录，诊断失败，改写Skill／Memory／工具调用程序（ΔH），也能选取观测动作数据启动反应式模型训练（Δθ）；通过独立验证批次比较候选与当前版本，再自动启用通过标准的版本用于后续episode。报告说正式榜评测冻结harness、Skills、模型权重及配置。当前代码默认迭代主要改Skill/Memory，模型训练须另配数据与预算；不能把“代码支持训练”写成每次循环必然更新权重。",
+          "报告与代码让这套双层构型可查，仍不足以证明递归加速：总开发交互量、各轮增益、匹配计算/人工预算、精确榜工件和独立复现还需补核。报告中的“另批validation”是开发候选验收，不能自动称未见任务OOD证明；非Open官方布局被用于当前代码的采集与验证，训练数据另配，须继续检查最终隐藏布局边界。公开权重/源码不代表我们实际运行或复现了系统。"
+        ]
+      },
+      {
+        "heading": "7. GO-3 Nano Preview：领先已核，专属构型仍待披露",
+        "paragraphs": [
+          "智元GO-3 Nano Preview在榜单标为Agent＋WAM，10月27日进入仿真轨，Score61.90／SR56.42%。本轮沿榜单详情、AgibotTech仓库、Genie Sim和AGIBOT WORLD实际内容继续补查，仍未取得能精确对应Nano版本的底座、WAM身份、连接协议、训练/探索成本和完整源码。部分HF读取失败也单独记入采集缺口，不能把未读模型卡当作已核。",
+          "rollout manifest可确认ARX X5、joint action及go3-preview元数据，54个task/variant cells和324个展示clips不能当完整实验分母。Genie Sim是平台，平台支持的LLM技能不等于Nano控制架构；GO-1、其他平台GO-3也没有与该提交匹配的证据。因此这里保留“底座／WAM连接待核”，后续优先追专属报告，不能凭Agent＋WAM标签画出特定内部数据流。"
+        ]
+      },
+      {
+        "heading": "8. 为什么它们可能更强，哪些原因已有证据",
+        "paragraphs": [
+          "已读实现给出具体机制：程序能保存中间状态，循环、检查和重试不用每一步重新请求大模型；几何与运动工具把“抓红杯子”的语义目标接到可执行坐标；执行反馈可触发纠错，开发失败还可以沉淀成工具。PyRUA在其他基准的匹配接口实验支持接口设计有贡献；HexaShell显示几何与工具的作用；EmbodiedEvo用匹配场景消融检查经验继承。这些是有出处的局部证据。",
+          "把同一底座的裸控制条目与强化过的Agent系统并列，能发现系统设计空间，但分数差同时混合了动作接口、工具能力、提示/recipe、开发交互、模型调用和计算预算。没有匹配这些条件的消融，不能把GO-3或整个前五的领先因果归为“Agent架构本身”，也不能推出VLA已经过时。Agent工具里可能仍然包含VLA或WAM；在低延迟、力反馈、细接触和真实稳定部署上，还需各自的实测证据。",
+          "当前RoboDojo协议允许单一固定系统内部理解指令、分解子目标与闭环重规划，禁止按任务挑选不同检查点、把各任务已知最强策略拼成一个条目。协议还要求公开精确工件和隐藏布局核验；这是规则文本，不能代替对每个历史Preview条目的逐项工件核验。公平问题要具体检查预算和信息来源，不能在没有证据时指称数据泄漏或违规。"
+        ]
+      },
+      {
+        "heading": "9. 后续三期怎样把这条线讲深",
+        "paragraphs": [
+          "下一期优先拆“观测如何变成动作”：相机内外参、物体掩膜、坐标系、逆运动学与真实反馈怎样接起来，并核查新公开的前列系统配置。再一期追高层规划与VLA/WAM/控制器的交接：什么时候调用、停止、重规划，怎样衡量恢复和延迟。第三期追经验留在哪里：轮内变量、跨轮工具/记忆、模型权重与轨迹训练分别改变什么，以及如何在留出任务验证。",
+          "这三期在正常热点发现之外连续补课，每期重读榜单，只深入1–2个有公开证据的系统；保持原始日期、当前更新和已讲主题去重。未公开的构型持续标缺口，出现新论文或工件再补，不为凑系列重复旧排名。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "北京时间2026-10-28核验：RoboDojo-Sim Agent榜前五；Score／SR按五维等权汇总",
+      "columns": [
+        "Agent榜名次／系统",
+        "提交团队与类别",
+        "Average Score／SR",
+        "已核底座与主要构型",
+        "本轮公开度与限制"
+      ],
+      "rows": [
+        [
+          "1 · GO-3 Nano Preview",
+          "AGIBOT · Agent＋WAM",
+          "61.90／56.42%",
+          "榜单标签已核；精确底座、WAM和连接方式待核",
+          "10月27日入榜；榜单/rollouts不能代替专属技术报告"
+        ],
+        [
+          "2 · PyRUA-Lean",
+          "PKU DAGroup · Agent",
+          "55.26／50.35%",
+          "GPT-6 Astra high → Python → SAM3/几何 → IK/关节动作；无VLA",
+          "论文、代码、配置和官方单seed summary可读；不同于Qwen Coder实验"
+        ],
+        [
+          "3 · HexaShell-Preview",
+          "HexaFuture · Agent",
+          "53.18／46.85%",
+          "Codex＋GPT-6 Astra actor/optimizer；RGB几何、robo工具；开发后冻结",
+          "冻结工具可读；完整harness/evolution loop未公开；有任务工具和开发辅助"
+        ],
+        [
+          "4 · WorldScape-R²SI",
+          "Manifold AI · Agent＋WAM",
+          "46.58／39.35%",
+          "公开配置Astra high＋共享Skills/工具＋WSP Flash/Memory；外层可改harness/训练动作模型",
+          "10月24日报告与当前榜分数吻合；源码/模型卡可读，精确榜工件及总预算待核"
+        ],
+        [
+          "5 · EmbodiedEvo",
+          "Einsia.AI · Agent",
+          "45.08／38.95%",
+          "Astra/xhigh → Python基础接口；Playground积累Skills/Lessons → 冻结Test；不改权重",
+          "论文、项目和源码可读；论文自测37.82%与当前榜不同；整体许可证未选定"
+        ]
+      ]
+    },
+    "example": {
+      "title": "教学假设：夹空一次，闭环怎样接住失败",
+      "paragraphs": [
+        "假设任务是把红色积木放入碗。模型先写程序定位积木和碗，移动腕部相机补一个视角，再求抓取位姿；控制器解IK并执行。闭爪后，程序发现夹爪宽度不符合预期，先停止搬运、重新观察并调整位置；第二次检查通过才移动到碗上方释放。变量可以留住碗的位置，下一轮只把失败测量和必要图像送回模型。",
+        "这个例子是机制教学，不是榜上任何系统的实测轨迹。反馈可能有噪声，夹爪宽度不等于牢固抓握；实机还要检查力/触觉、碰撞、停止条件和人工介入。若高层调用慢，低层也须在等待期间保持稳定，不能把程序里的if/while当作已经解决真实控制。"
+      ]
+    },
+    "checklist": [
+      "榜是Sim还是RealWorld、Agent还是w/o Agent、按Score还是SR排序？事件日期和当前快照分别是什么？",
+      "榜名对应哪个底座API版本/检查点、推理档位、执行runtime？有没有用另一个训练或深度实验替换榜配置？",
+      "视觉、深度、相机标定、本体状态、任务recipe和成功信号各来自哪里？几何工具与模型分别做什么？",
+      "输出是Python/CLI、技能调用、末端航点还是关节动作？谁做IK和低层稳定控制，失败后谁能中断？",
+      "轮内变量、跨轮代码/记忆和权重更新是否分清？测试时冻结什么，开发布局/交互和人工辅助是多少？",
+      "模型调用、token、物理步数、墙钟/仿真时间、重试和成本是否匹配？单seed不能报成重复稳定性。",
+      "论文、代码、配置、权重和运行记录是否是同一个评测版本？缺模块时明确缺口，规则要求不等于工件已逐项验证。"
+    ],
+    "takeaway": "这轮前排体现的是通用模型经程序、工具与反馈成为机器人控制系统；有的积累代码/经验，有的还与动作模型协作。接口、更新对象、预算与冻结边界，比Agent标签更能解释排行榜。",
+    "sources": [
+      {
+        "label": "RoboDojo实时榜单：分轨、Score/SR、入榜新闻（2026-10-28实际读取）",
+        "url": "https://robodojo-benchmark.com/leaderboard#agent"
+      },
+      {
+        "label": "RoboDojo基准论文：仿真/实机、五维汇总与部分进度（历史基础资料）",
+        "url": "https://arxiv.org/abs/2607.04434"
+      },
+      {
+        "label": "RoboDojo评测完整性协议（2026-10-26）：固定系统、禁止按任务切检查点",
+        "url": "https://robodojo-benchmark.com/leaderboard/protocol"
+      },
+      {
+        "label": "PyRUA-Lean v2（2026-10-13）：第4节与附录H，RoboDojo专属构型/预算",
+        "url": "https://arxiv.org/html/2610.01939v2"
+      },
+      {
+        "label": "PyRUA-Lean官方代码与README：不同基准、机器人和Coder实验分开",
+        "url": "https://github.com/DAGroup-PKU/PyRUA-Lean/tree/fdf6e870654254e2c0c891ee407313fa48bdd0f9"
+      },
+      {
+        "label": "PyRUA-Lean官方评测summary：seed3、Score55.26／SR50.35，单seed边界",
+        "url": "https://github.com/DAGroup-PKU/PyRUA-Lean/blob/fdf6e870654254e2c0c891ee407313fa48bdd0f9/integrations/xpolicylab/evaluation/robodojo_summary_official.md"
+      },
+      {
+        "label": "HexaShell v2（2026-10-20）：actor/optimizer、RGB几何与附录D开发谱系",
+        "url": "https://arxiv.org/html/2610.23479v2"
+      },
+      {
+        "label": "HexaShell官方代码：冻结工具、任务recipe与未公开harness的范围",
+        "url": "https://github.com/HexaFuture/HexaShell/tree/d1a2a24dc4c528a652b359fd689398530ef941d8"
+      },
+      {
+        "label": "EmbodiedEvo v2（2026-10-14）：原生接口、Playground/Test、Astra/xhigh与匹配消融",
+        "url": "https://arxiv.org/html/2610.18867v2"
+      },
+      {
+        "label": "EmbodiedEvo作者项目：Skills/Lessons与冻结转移",
+        "url": "https://lab.einsia.ai/embodiedevo/"
+      },
+      {
+        "label": "EmbodiedEvo源码与许可边界：README、协议和运行配置",
+        "url": "https://github.com/Einsia/EmbodiedEvo"
+      },
+      {
+        "label": "R²SI技术报告（2026-10-24）：内层执行、外层harness/动作模型双更新路径",
+        "url": "https://r2si.worldscape.io/report.pdf"
+      },
+      {
+        "label": "R²SI官方项目：10月17日入榜快照、VLM与WAM协作的作者说明",
+        "url": "https://r2si.worldscape.io/"
+      },
+      {
+        "label": "R²SI官方代码：共享Skill、Agent接管动作块、版本与可选模型训练",
+        "url": "https://github.com/manifoldai-research/R2SI/tree/3edfe6afa69978d9d50e59e91e115143a8b486a9"
+      },
+      {
+        "label": "WorldScape-R2SI模型卡：Flash／Memory、ARX X5绝对关节控制与后训练",
+        "url": "https://huggingface.co/manifoldai-research/WorldScape-R2SI"
+      },
+      {
+        "label": "RoboDojo官方基准代码：eval-only，policy server由XPolicyLab管理",
+        "url": "https://github.com/robodojo-benchmark/RoboDojo"
       }
     ]
   }

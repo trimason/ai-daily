@@ -2785,6 +2785,138 @@
       "description": "追踪通用大模型、VLA和世界动作模型的共同测试；仿真与实机、任务进度与完整成功率分别解释，不跨协议拼成统一排名。",
       "sources": [
         {
+          "id": "robodojo-benchmark",
+          "name": "RoboDojo · 仿真/实机分轨与Agent系统构型",
+          "url": "https://robodojo-benchmark.com/",
+          "role": "原始基准、榜单、协议与逐系统架构追踪",
+          "scope": "Agent、Agent+VLA/WAM与专用策略；底座、感知、代码/工具、控制、反馈、开发/测试预算",
+          "note": "用户2026-10-28要求本期及后续三期追踪具身Agent构型。Sim顶部混合可视化前五为Agent；正式main w/o Agent另排，Agent独立榜。Score与SR、Sim与RealWorld分开。真实域名robodojo-benchmark.com，不是robodojo.ai、Robocurve或RoboColiseum。",
+          "aliases": [
+            "RoboDojo",
+            "RoboDojo-Sim",
+            "RoboDojo-RealWorld",
+            "GO-3 Nano Preview",
+            "PyRUA-Lean",
+            "HexaShell",
+            "WorldScape-R²SI",
+            "EmbodiedEvo"
+          ],
+          "watch_terms": [
+            "agent architecture",
+            "robot use agent",
+            "Python robot control",
+            "tool evolution",
+            "actor optimizer",
+            "agent WAM",
+            "perception IK",
+            "frozen artifacts",
+            "budget matched evaluation"
+          ],
+          "verification": {
+            "status": "content_verified",
+            "checked_on": "2026-10-28",
+            "note": "已读实际榜单、JS数据、rollout manifest、协议和基准论文；四系统取得专属论文/报告/代码及R²SI模型卡，GO-3 Nano精确架构未取得，精确榜工件与当前公开版本仍须匹配。"
+          },
+          "channels": [
+            {
+              "label": "官方Sim Agent分轨榜、新闻与实时快照",
+              "url": "https://robodojo-benchmark.com/leaderboard#agent",
+              "kind": "榜单/评测",
+              "status": "content_verified",
+              "checked_on": "2026-10-28",
+              "note": "已核前五、类型/机构、Score/SR和分轨；统一Updated日期不能代替逐条入榜日期。"
+            },
+            {
+              "label": "官方完整性与防刷榜协议",
+              "url": "https://robodojo-benchmark.com/leaderboard/protocol",
+              "kind": "评测协议",
+              "status": "content_verified",
+              "checked_on": "2026-10-28",
+              "note": "10月26日规则：固定system、允许planner、禁止按任务切checkpoint，三seed/隐藏布局/工件要求；不能据规则替历史条目补齐工件。"
+            },
+            {
+              "label": "官方基准代码",
+              "url": "https://github.com/robodojo-benchmark/RoboDojo",
+              "kind": "基准代码",
+              "status": "content_verified",
+              "checked_on": "2026-10-28",
+              "note": "README明确eval-only；policy部署在XPolicyLab。未运行机器人实验。"
+            },
+            {
+              "label": "PyRUA-Lean作者代码与配置",
+              "url": "https://github.com/DAGroup-PKU/PyRUA-Lean",
+              "kind": "Agent代码/配置",
+              "status": "content_verified",
+              "checked_on": "2026-10-28",
+              "note": "已读README、论文4.2/附录H、部署/部分感知运动代码及官方单seed summary；Astra无VLA榜配置与GRPO Qwen Coder实验分开。"
+            },
+            {
+              "label": "PyRUA-Lean原论文",
+              "url": "https://arxiv.org/abs/2610.01939",
+              "kind": "原论文",
+              "status": "content_verified",
+              "checked_on": "2026-10-28",
+              "note": "v2（10月13日）含RoboDojo与Coder；作者自测51.62%与官方榜50.35%分开。"
+            },
+            {
+              "label": "HexaShell冻结工具与接口",
+              "url": "https://github.com/HexaFuture/HexaShell",
+              "kind": "Agent工具代码",
+              "status": "content_verified",
+              "checked_on": "2026-10-28",
+              "note": "actor/optimizer均Codex+Astra；已读冻结工具公开范围，完整harness和改进loop不含在仓库，不能称全系统可复现。"
+            },
+            {
+              "label": "HexaShell原论文及开发边界",
+              "url": "https://arxiv.org/abs/2610.23479",
+              "kind": "原论文",
+              "status": "content_verified",
+              "checked_on": "2026-10-28",
+              "note": "v2（10月20日）含RGB几何、工具冻结、任务特定工具和附录D开发辅助；不写成零人工从零改进。"
+            },
+            {
+              "label": "EmbodiedEvo原论文",
+              "url": "https://arxiv.org/abs/2610.18867",
+              "kind": "原论文",
+              "status": "content_verified",
+              "checked_on": "2026-10-28",
+              "note": "v2（10月14日）Astra/xhigh，Skills/Lessons冻结；论文44.48/37.82与当前榜45.08/38.95不同。"
+            },
+            {
+              "label": "EmbodiedEvo源码与许可边界",
+              "url": "https://github.com/Einsia/EmbodiedEvo",
+              "kind": "Agent代码/配置",
+              "status": "content_verified",
+              "checked_on": "2026-10-28",
+              "note": "已读README与协议说明；Test新Agent不可跨场景学习；默认公开recipe需报告；整体许可证未选定。"
+            },
+            {
+              "label": "R²SI专属技术报告",
+              "url": "https://r2si.worldscape.io/report.pdf",
+              "kind": "原技术报告",
+              "status": "content_verified",
+              "checked_on": "2026-10-28",
+              "note": "报告日期10月24日，46.58/39.35与当前榜一致，内层工具/WAM执行、外层harness及可选动作模型训练；不以名称证明递归加速。"
+            },
+            {
+              "label": "R²SI执行、外层迭代与模型训练代码",
+              "url": "https://github.com/manifoldai-research/R2SI",
+              "kind": "Agent/WAM代码",
+              "status": "content_verified",
+              "checked_on": "2026-10-28",
+              "note": "已读架构、内层README和配置：Astra high、共享34Skills、Flash/Memory接管边界；当前代码与精确榜工件对应仍待核。"
+            },
+            {
+              "label": "WorldScape-R2SI精确模型卡",
+              "url": "https://huggingface.co/manifoldai-research/WorldScape-R2SI",
+              "kind": "模型卡",
+              "status": "content_verified",
+              "checked_on": "2026-10-28",
+              "note": "经请求级代理读取卡片与模型目录：WSP2后训练、Flash单chunk/Memory最多24chunks、ARX X5 joint；未下载权重。"
+            }
+          ]
+        },
+        {
           "id": "robocoliseum",
           "name": "RoboColiseum · Agent2Act跨模型具身评测",
           "url": "https://robocoliseum.ai/",
