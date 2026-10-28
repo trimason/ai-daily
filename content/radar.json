@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-10-23",
+  "updated_on": "2026-10-28",
   "intro": "每日从研究目录、作者项目、论文、代码、模型卡、技术博客和社区原帖交叉发现大模型与具身的新进展及讨论问题，按当期证据轮换选题。持续覆盖国内外团队与小鹏 GroundingPI 等原始研究；主入口可达、内容已读和社区关注度分别核验。",
   "groups": [
     {
@@ -237,9 +237,10 @@
           "note": "入口示例为 cs.AI；按分类并结合作者、机构及关键词检索，保存首版与修订日期。",
           "verification": {
             "status": "reachable",
-            "checked_on": "2026-10-14",
+            "checked_on": "2026-10-28",
             "http_status": 200,
-            "resolved_url": "https://arxiv.org/list/cs.AI/recent"
+            "resolved_url": "https://arxiv.org/list/cs.AI/recent",
+            "note": "本轮独立检查cs.RO与跨分类具身关键词；cs.RO/new响应不完整、recent参数400、跨分类API远端关闭，具体命中论文逐篇回查，不能声称全量覆盖。"
           },
           "channels": [
             {
@@ -288,12 +289,13 @@
           "url": "https://huggingface.co/papers",
           "role": "社区论文发现与讨论",
           "scope": "Daily Papers 日榜、近期论文记录与具体条目的社区讨论",
-          "note": "2026-10-27 经本机已有 Clash 代理读取网页与公开 API 成功。页面实际显示10月26日日榜，默认API返回50条近期记录，Daily提交日期跨10月23日与26日；条目数不能当作当日日榜总数。点赞仅作为发现线索，原始技术结论与热议判断仍需分别核验。",
+          "note": "2026-10-28经现有127.0.0.1:7897单次显式请求代理读取网页和公开API成功；网页dateString为2026-10-27、显示59条，API记录跨日期，不能称10月28日日榜。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-27",
+            "checked_on": "2026-10-28",
             "http_status": 200,
-            "resolved_url": "https://huggingface.co/papers"
+            "resolved_url": "https://huggingface.co/papers",
+            "note": "网页和API正文实际读取；日榜日期为2026-10-27，API结果跨日期，点赞/评论仅作发现信号。系统代理未开启，采集后scutil HTTP/HTTPS/SOCKS/PAC均为0。"
           },
           "channels": [
             {
@@ -301,16 +303,16 @@
               "url": "https://huggingface.co/papers",
               "kind": "论文榜单发现",
               "status": "content_verified",
-              "checked_on": "2026-10-27",
-              "note": "已读实际日榜列表，当前显示2026-10-26；网页与API独立核验。"
+              "checked_on": "2026-10-28",
+              "note": "本轮实际读取；网页显示2026-10-27，API返回多日期记录，不能冒充当日榜。"
             },
             {
               "label": "Daily Papers 公开 JSON",
               "url": "https://huggingface.co/api/daily_papers",
               "kind": "近期论文元数据",
               "status": "content_verified",
-              "checked_on": "2026-10-27",
-              "note": "实际解析50条记录，保存论文ID、原始日期、Daily提交日期、点赞与评论计数；默认返回跨日期，不能直接视作指定日期日榜。"
+              "checked_on": "2026-10-28",
+              "note": "本轮实际读取；网页显示2026-10-27，API返回多日期记录，不能冒充当日榜。"
             }
           ],
           "watch_terms": [

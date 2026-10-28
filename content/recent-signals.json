@@ -1,9 +1,138 @@
 {
   "title": "近期研究动向与真实讨论",
-  "intro": "本轮观察10月24–27日当前讨论、代码/模型事件，并沿具身横评、恢复与数据主题回查10月18–23日原研究。published保留原始日期，source_label明确当下事件或发现依据；重读不算新发布，独立复现与厂商自报分别标注。",
+  "intro": "本轮观察10月24–28日当前讨论、模型/代码事件、Hugging Face Papers与arXiv具身研究，并沿通用模型—专用策略协作、仿真迁移和Agent可靠性回查原文。published保留原始日期，source_label明确当下事件或发现依据；重读不算新发布，独立评论与作者自报分别标注。",
   "window_start": "2026-10-24",
-  "window_end": "2026-10-27",
+  "window_end": "2026-10-28",
   "signals": [
+    {
+      "id": "ebench-astra-direct-control-policy-harness",
+      "title": "EBench：Astra直接控制能做到哪里，调用VLA/WAM又会丢掉什么？",
+      "published": "2026-10-26",
+      "summary": "EBench在26个任务、510个仿真episodes上，用同一RGB+本体状态协议比较GPT-6 Astra直接输出航点，以及让它调用π0.5或InternW0-Δ执行。Astra直接控制的任务等权成功率为46.7%，调用两种策略后为53.0%和56.0%；直接控制在短时任务较强，长程、桌面和高精度接触任务分别降到27.3%、20.0%和11.3%。",
+      "keywords": [
+        "通用模型具身横评",
+        "VLA/WAM协作",
+        "仿真诊断"
+      ],
+      "url": "https://arxiv.org/html/2610.35832v1",
+      "source_label": "上海人工智能实验室、上海交通大学、复旦大学、浙江大学 · arXiv v1：2026-10-26 17:51 UTC（北京时间27日01:51）；本期28日完整核读论文和项目页。作者报告，尚无独立复现。",
+      "limitation": "全部为仿真，不能推出实机闭环结论。每个任务有从一条训练示范提取的关键帧和文字说明，属于单次上下文示范，不是无示范零样本；token、工具调用和推理时间未设上限。阶段完成分0.654不能当成功率，策略训练使用6600条域内示范，模型与策略的训练数据和计算也不匹配。"
+    },
+    {
+      "id": "zap-sim-trained-vlm-real-harness",
+      "title": "ZAP：只在仿真教27B VLM运动，30次实机试验追平Astra",
+      "published": "2026-10-26",
+      "summary": "ZAP用模型自成功轨迹做SFT，再在40项仿真任务上做GRPO，没有使用真实机器人训练轨迹。真实双臂YAM上10个任务、每模型30次，ZAP与同一harness的Astra都为29/30（96.7%），原始Qwen为16.7%；作者估计ZAP平均任务时间146±83秒、成本0.29美元，Astra为397±159秒、4.87美元。相同Astra换到Robocurve接口只有11/30（36.7%）。",
+      "keywords": [
+        "通用VLM后训练",
+        "仿真到实机",
+        "接口与成本"
+      ],
+      "url": "https://arxiv.org/html/2610.35817v1",
+      "source_label": "Luma AI；基座为Qwen3.6-27B · arXiv v1：2026-10-26 17:44 UTC（北京时间27日01:44）；本期核读训练、实机主表和harness。结果为作者自报，尚无独立复现。",
+      "limitation": "96.7%是30次实机试验的作者结果，并不等于普遍机器人成功率；SAM3.1分割、标定深度生成的3D质心/主轴和控制器反馈均在harness中，不能归因于纯VLM。Franka的55.9%来自仿真RoboLab-120；新试管、空中交接、画图和棋局是展示，不并入96.7%。成本只按单B300估算，未含训练和设备，接口尚未第三方复现。"
+    },
+    {
+      "id": "physladder-astra-contact-sim-real",
+      "title": "PhysLadder：Astra能抓放，却难把连续接触的局部进展累积成成功",
+      "published": "2026-10-25",
+      "summary": "PhysLadder把16项家庭操作按几何对齐L1、持续接触力调节L2、接触重构加力调节L3分级；ARX R5双臂实机与匹配Isaac Sim各测每任务3次。Astra实机L1/L2/L3成功率为80.0%/47.6%/0%，仿真为66.7%/47.6%/0%。拧瓶盖、螺母和扫散落积木中，模型能造成局部运动，却难以保持抓握、传递力矩并衔接下一次接触。",
+      "keywords": [
+        "通用模型实机",
+        "接触与力调节",
+        "Sim–Real边界"
+      ],
+      "url": "https://arxiv.org/html/2610.34527v1",
+      "source_label": "Tuojing Intelligence、香港大学、中科院及多所高校/研究机构 · arXiv v1：2026-10-25 19:41 UTC（北京时间26日03:41）；本期核读匹配实机/仿真协议和失败分析。作者报告，尚无独立复现。",
+      "limitation": "每任务仅3次，实机结果按视频人工判断；没有直接力传感，夹爪控制是开度而非力指令。实机不设预定任务时间或调用上限，仿真默认150调用/5小时，不能说计算预算匹配。没有跨模型横评，不能据此断言所有通用大模型都无法接触操作。"
+    },
+    {
+      "id": "google-genie4-world-simulation-robot-agent",
+      "title": "Genie 4：实时世界生成开始和Gemini推理、机器人仿真接成一条链",
+      "published": "2026-10-27",
+      "summary": "官方把Genie 4描述为原生多模态实时世界模型，可生成视觉、环境声音和可交互对话，并允许自然语言改变天气、相机、人物和物体。公告展示Gemini 3.8 Flash持续观察Genie场景、拆分目标、检查步骤和重规划，也展示Gemini 4 Argon与Genie 4共同模拟Apptronik Apollo人形机器人下棋；机器人和Agent训练环境被列为用途。",
+      "keywords": [
+        "Google DeepMind",
+        "世界模型",
+        "Gemini协同",
+        "机器人仿真"
+      ],
+      "url": "https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/",
+      "source_label": "Google DeepMind · Google DeepMind官方公告：2026-10-27；本期28日完整核读公告。当前是可信测试者研究预览，没有公开权重或实机量化评测。",
+      "limitation": "目前没有公开权重、可运行机器人训练管线或量化成功率，Apptronik是官方演示，不是独立实机评测。公告承认短会话仍会出现细节、物体持久性和复杂物理交互漂移，空间精度和长时一致性仍在研究。"
+    },
+    {
+      "id": "tencent-hynomas-interactive-world-bench-update",
+      "title": "Hy-Nomas：世界模型的新报告与社区接入，让多轮交互和空间记忆更易实测",
+      "published": "2026-10-21",
+      "summary": "Hy-Nomas以多轮文本提示或相机轨迹控制连续视频片段，并复用持久KV cache保存历史。官方代码/权重10月21日公开；10月26日更新技术报告，随后补充SGLang、ComfyUI、WanGP、Reactor和Google TPU社区集成入口。Hy-Nomas-Bench公开280个仅测试案例、220条参考相机轨迹，覆盖多轮文本、镜头导航、交错控制及空间记忆，研究者可自行生成视频并检查回访一致性。",
+      "keywords": [
+        "腾讯混元",
+        "世界模型",
+        "多轮交互",
+        "Hy-Nomas-Bench"
+      ],
+      "url": "https://github.com/Tencent-Hunyuan/Hy-Nomas",
+      "source_label": "腾讯混元 · 官方 GitHub 首次代码/权重公开：2026年10月21日；10月26日更新技术报告并记录 SGLang/ComfyUI/Reactor 等社区集成，10月27日 README 再补 Google TPU 社区演示说明。本期按10月28日实际读取正文，未把仓库更新时间当论文首发。",
+      "limitation": "本文本轮读的是官方README、模型卡、数据卡和更新提交，未核读技术报告正文、未运行社区集成。280个案例只含结构化提示/交互/参考相机轨迹，不附视频、回访帧或分数，需要自行推理评估；当前是视频世界生成，没有机器人本体、动作闭环成功率或实机证据。TPU速度是社区贡献者自报、非统一独立基准；也不能由镜头导航推断真实机器人动力学精度。"
+    },
+    {
+      "id": "rynnvla-latent-3d-grounded-actions",
+      "title": "RynnVLA-Latent：用3D潜在动作把无机器人控制标签的视频接进VLA预训练",
+      "published": "2026-10-25",
+      "summary": "RynnLAM从人类、机器人和仿真视频的帧间变化学习608维、3D-grounded latent actions，以残差未来特征、相机补偿3D flow和相机运动解耦减少“看起来在动但不可控”的变化。约30.1K小时视频生成745.52M潜在动作描述；4B策略先预测潜在动作块，第二阶段才做本体动作对齐。作者报告LIBERO 98.8%、LIBERO-Plus 84.7%、VLABench五轨平均51.9%、RoboTwin 2.0双臂平均约88.6%；真实闭环表中两个平台共六项任务、每项35次试验，六项成功率为85.71%、42.86%、82.86%、40.00%、57.14%、54.29%，均为作者自报。",
+      "keywords": [
+        "阿里达摩院",
+        "VLA预训练",
+        "潜在动作",
+        "跨本体数据"
+      ],
+      "url": "https://arxiv.org/html/2610.34356v1",
+      "source_label": "香港中文大学、香港具身智能实验室、PUMC、阿里巴巴达摩院与湖畔实验室 · arXiv v1：2026-10-25；10月27日提交Hugging Face Papers，10月28日核读全文、代码与权重入口。所有结果为作者报告。",
+      "limitation": "Stage-1 checkpoint不是闭环策略，必须完成Stage-2本体对齐；代码不含权重，运行环境也未随仓库完整分发。附录列3850条实机演示，不能写成无实机数据或零样本跨本体。六项实机任务分别在Marvin-WUJI双臂灵巧手和Astribot-S1双臂平行夹爪上，每项35次；需结合本体和对照表阅读，不能概括为跨本体泛化已解决。所有数字尚无独立复现，3D表征也不等于已识别真实动力学。 未量化报告实机推理延迟和人工干预率。"
+    },
+    {
+      "id": "lesswrong-frontier-model-robot-control-discussion-20261026",
+      "title": "通用模型直接控制机器人，还是调用专用VLA做“运动皮层”？一组近期评论的具体争点",
+      "published": "2026-10-26",
+      "summary": "作者整理7–10月真实双臂I2RT YAM评测：9个多模态模型、15种配置、6个RoboDojo衍生任务，每个模型/配置/任务20次、最多40次动作调用，报告任务分数约53.9天翻倍，但终局完成远少于阶段进度。评论提出专用VLA可用更低延迟完成细动作，让通用模型负责规划；另一条追问触觉、握持力度、非均匀物体抓点和长尾控制。",
+      "keywords": [
+        "作者讨论",
+        "通用规划与低延迟VLA",
+        "触觉长尾"
+      ],
+      "url": "https://www.lesswrong.com/posts/ndS9Xn8Qx5PppHJ3Q/the-ability-of-frontier-models-to-control-robots-is-rapidly",
+      "source_label": "LessWrong作者 chrisleet；评论者2001zhaozhao、Thanh Do；原帖链接Robocurve报告 · 原研究：Robocurve arXiv v1 10月18日、v2 10月21日UTC；当前事件：chrisleet作者帖10月26日16:26 UTC（北京时间27日00:26），评论至10月27日21:31 UTC（北京时间28日05:31）。本轮完整读到正文和6评论，27票/6评论；HN转发2票/0评论，仅属小范围讨论。",
+      "limitation": "这是作者报告与少量独立评论，不是社区共识或独立复现实验；底层论文采用最高累计子任务进度和模型评审，不总是终端成功率，模型服务/推理配置也不等价。评论属于观点，不能当作触觉或架构效果的实证。"
+    },
+    {
+      "id": "trial-by-trace-agent-success-harness-reliability",
+      "title": "Trial by Trace：任务做成了，也可能掩盖Agent框架丢信息、错传结果或违反流程",
+      "published": "2026-10-23",
+      "summary": "TraceTrial-Bench把Agent任务结果与harness的信息、执行和生命周期责任分开评分。作者在95个机制任务、4种原生harness和9组模型中保留每格一次选定执行，共3420次。其中1065次〔(1351−286)/3420＝31.1%〕任务标准全部通过，但Harness至少一项标准未通过；分母是全部选定运行，不能读成31.1%的成功任务或真实缺陷率。HF用户MLSystemsRI主张结果之外也要检查过程，zsicheng回复应让框架责任及其证据可检查。",
+      "keywords": [
+        "Agent评测",
+        "Harness可靠性",
+        "HF论文讨论"
+      ],
+      "url": "https://arxiv.org/html/2610.32285v1",
+      "source_label": "TraceLite AI；论文机构列中国科学院自动化研究所、中关村学院、中国科学院信息工程研究所、清华大学、北京理工大学 · arXiv v1：2026-10-23；Hengjie Zhu于10月27日提交Hugging Face Papers，本轮快照233赞/4评论。MLSystemsRI在10月27日17:20 UTC（北京时间28日01:20）评论，zsicheng于17:29回复，未独立确认回复者作者身份。封面10月14日不是公开首发日期。",
+      "limitation": "实验是Docker、文件和工具流程，不是机器人成功率；3420格各保留一次选定执行，含恢复替换，不能估计重复稳定性。某标准未通过可能是证据不足，不能直接当作框架缺陷或因果传播；HF目前只核到一名用户评论及回复，不能称多方热议。"
+    },
+    {
+      "id": "trajectory2gym-decision-grounded-tool-trajectories",
+      "title": "Trajectory2Gym：成功轨迹不一定是好监督，关键是每一步是否被可见证据支撑",
+      "published": "2026-10-24",
+      "summary": "Trajectory2Gym把工具轨迹监督拆成组合覆盖和决策可见性：它在原生环境中针对缺少多步依赖、恢复和澄清的路径合成交互，再只保留由Agent可见历史、真实执行和工作流顺序共同证明的动作目标。五个Qwen3规模上，作者报告Tau1、Tau2和BFCL均有提升，三基准等权均值增加16.9–29.8个百分点。",
+      "keywords": [
+        "工具使用数据",
+        "轨迹监督",
+        "HF日榜发现"
+      ],
+      "url": "https://arxiv.org/html/2610.33568v1",
+      "source_label": "论文作者Yihao Hu、Zhihao Wen、Yitong Lin等；Hugging Face提交组织为ant-international，不能仅据此确认全部作者机构 · arXiv v1：2026-10-24；Hugging Face Papers 10月27日提交，快照331赞/2评论。本期核读论文的方法与实验；项目/代码入口来自作者链接，未运行。点赞是发现信号，不等于独立热议。",
+      "limitation": "实验是文本工具使用，不是机器人控制；所有数字为作者报告，未独立复现。站内点赞/评论不能证明社区共识；其数据构造、teacher执行和可见历史投影仍需按论文和附录核对，不能外推为VLA数据路线已验证。"
+    },
     {
       "id": "tarsphere-general-models-evolving-world",
       "title": "TARSphere：通用模型进入有物理碰撞和人类交互的长程具身横评",

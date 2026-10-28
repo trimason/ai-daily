@@ -1,0 +1,468 @@
+{
+  "date": "2026-10-28",
+  "status": "daily",
+  "title": "通用模型进入具身：协作边界、仿真迁移与“做成”之外的可靠性",
+  "intro": "今天聚焦三组新证据与争点：通用模型直接控制还是调用专用VLA/WAM；仿真后训练能否迁移真实机器人；Agent完成任务之外，执行框架和训练轨迹是否可靠。重点核读EBench、ZAP、PhysLadder，补充Genie 4预览、Hy-Nomas新报告与社区接入、RynnVLA-Latent，以及Hugging Face Papers上的轨迹研究。新研究、官方预览和小范围独立评论分别标注，保留首发日期与当前关注依据。",
+  "coverage": "北京时间2026-10-28采集，优先观察10月24–28日讨论、模型/代码事件和Hugging Face Papers实际网页与公开API；网页日榜dateString为2026-10-27，共59条，API返回记录跨多个日期，不能称10月28日日榜。核读EBench、ZAP、PhysLadder、RynnVLA-Latent全文和项目/代码；Trial by Trace读取方法、统计与评分边界，Trajectory2Gym读取方法及实验。独立检查arXiv cs.RO API最新100条（包括交叉分类）与跨分类关键词检索；cs.RO/new出现不完整响应、cs.RO/recent参数返回400、跨分类API被远端关闭，因此不能声称覆盖所有当日修订。Google DeepMind Genie 4公告已读，Hy-Nomas读取README/模型卡/280案例数据卡和更新提交，未核读技术报告正文；国内九家大模型团队和十三家具身公司按研究目录、作者/项目、代码组织及模型/数据卡实际补查，GitHub最新10项、HF最新5项只是局部目录，不能视为全库；SPA、失败渠道与补查记录在采集审计中保留。DeepSeek主站/API/代码/模型卡并查；Seed Recycler（10月25日官方论文）已作为已刊旧事件复核，按URL和题名去重后不重复推荐；XPENG GroundingPI、作者HF和独立GroundAnything分开核查，未重报10月14日事件。RoboColiseum API核到GO-3仍为10月26日旧提交，新增OpenWAM-Alpha缺少论文与协议，未用不完整榜单信息凑新闻。LessWrong正文通过公开GraphQL读取，27票/6评论，HN转发2票/0评论，属于小范围讨论；human five和具身智能之心后续检索遇验证页，不能声称全量覆盖。Hugging Face请求使用现有127.0.0.1:7897单次显式代理，未开启系统代理；采集结束复核macOS HTTP/HTTPS/SOCKS/PAC均为0/off（2026-10-28 00:16 UTC）。 14个会议的当届论文/评审入口另行检查：读取NeurIPS、ICML、ICLR、COLM、CVPR、ECCV、ACL、EMNLP、RSS与CoRL目录，ICCV核对2025档案及2027入口（2026无主会）；部分大目录有传输截断。ICRA、IROS及ICLR 2027 OpenReview受限；AAAI OJS仅抽样两页卷入口和Vol.40 No.1一卷，未读全量评审和目录不冒称全量；本期预印本未确认会议录用。",
+  "highlights": [
+    {
+      "title": "通用模型和策略的互补已经能被逐任务测出来",
+      "text": "EBench显示Astra直接控制与调用π0.5/InternW0-Δ的差异，失败来自调用、子目标和抓握交接；LessWrong评论进一步讨论低延迟VLA和触觉长尾。",
+      "story_id": "ebench-astra-direct-control-policy-harness"
+    },
+    {
+      "title": "仿真后训练进入实机，接口仍决定结果",
+      "text": "ZAP用40项仿真任务教Qwen3.6-27B运动，在YAM 30次试验中与同harness Astra均29/30；换Robocurve接口的Astra降至11/30。",
+      "story_id": "zap-sim-trained-vlm-real-harness"
+    },
+    {
+      "title": "接触操作是通用模型的细粒度边界",
+      "text": "PhysLadder的L1/L2/L3实机成功率从80.0%降到47.6%再到0%，提醒读者把局部动作、力调节和完整任务分开。",
+      "story_id": "physladder-astra-contact-sim-real"
+    },
+    {
+      "title": "Agent与具身评测都需要审计过程",
+      "text": "Trial by Trace把任务结果与执行框架责任分开；Trajectory2Gym进一步追问成功轨迹中的每一步，是否能从Agent当时看见的信息学出来。",
+      "story_id": "trial-by-trace-agent-success-harness-reliability"
+    },
+    {
+      "title": "世界模型的预览与公开实践同时推进",
+      "text": "Genie 4展示Gemini引导的实时模拟；Hy-Nomas更新报告和社区接入，并公开280个测试案例。两者的交互视频证据都不能直接换算成机器人成功率。",
+      "story_id": "tencent-hynomas-interactive-world-bench-update"
+    }
+  ],
+  "reading": [
+    {
+      "title": "EBench：直接控制与策略调用主表",
+      "url": "https://arxiv.org/html/2610.35832v1",
+      "reason": "先看同一观测协议下的成功率，再看调用策略、子目标传递和抓握交接失败。"
+    },
+    {
+      "title": "ZAP：仿真训练到YAM实机",
+      "url": "https://arxiv.org/html/2610.35817v1",
+      "reason": "核对30次试验分母、harness感知/深度输入、Astra换接口结果和成本估算。"
+    },
+    {
+      "title": "PhysLadder：接触层级",
+      "url": "https://arxiv.org/html/2610.34527v1",
+      "reason": "分开L1/L2/L3、仿真/实机、调用预算和3次小样本。"
+    },
+    {
+      "title": "RynnVLA-Latent：潜在动作与本体对齐",
+      "url": "https://arxiv.org/html/2610.34356v1",
+      "reason": "区分Stage-1表征与Stage-2闭环策略，核实六项实机任务每任务35次试验。"
+    },
+    {
+      "title": "Trial by Trace：harness可靠性",
+      "url": "https://huggingface.co/papers/2610.32285",
+      "reason": "看31.1%的分子和两层评分，避免把任务成功率当过程可靠性。"
+    },
+    {
+      "title": "Genie 4官方公告",
+      "url": "https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/",
+      "reason": "区分可信测试者预览、官方机器人演示和可量化实机训练证据。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "通用模型—专用策略协作 / general model–policy composition",
+      "explanation": "EBench把视觉规划与VLA/WAM动作执行放进同一harness，失败发生在调用、子目标和状态交接。"
+    },
+    {
+      "term": "仿真到实机迁移 / sim-to-real transfer",
+      "explanation": "ZAP在仿真SFT/GRPO后测试YAM，结果同时受模型、几何感知和控制器接口影响。"
+    },
+    {
+      "term": "接触丰富操作 / contact-rich manipulation",
+      "explanation": "PhysLadder按几何、持续接触和接触重构分层，L3仍是Astra实机瓶颈。"
+    },
+    {
+      "term": "轨迹可见性 / decision grounding",
+      "explanation": "Trajectory2Gym只把由Agent可见历史支撑的动作纳入监督，提醒成功轨迹可能包含不可学习的隐藏信息。"
+    },
+    {
+      "term": "Harness可靠性 / harness reliability",
+      "explanation": "Trial by Trace把上下文、工具、执行、生命周期和验证责任与任务结果分开核对。"
+    },
+    {
+      "term": "3D潜在动作 / 3D-grounded latent action",
+      "explanation": "RynnVLA-Latent用跨视频的控制相关视觉变化作为共同预训练接口，再做本体动作对齐。"
+    },
+    {
+      "term": "实时世界模拟 / real-time world simulation",
+      "explanation": "Genie 4展示Gemini观察—规划—验证；Hy-Nomas开放多轮文本/镜头测试，二者均需进一步核验机器人可用的动力学。"
+    },
+    {
+      "term": "具身横评口径 / embodied benchmark protocol",
+      "explanation": "榜单综合分必须和本体、接口、试验数、成本、延迟及实机/仿真边界一起读。"
+    },
+    {
+      "term": "偏好优化 / direct preference optimization",
+      "explanation": "每日技术点解释DPO如何用chosen/rejected对直接更新模型，并强调偏好胜率不能替代闭环成功率。"
+    }
+  ],
+  "featured_ids": [
+    "ebench-astra-direct-control-policy-harness",
+    "zap-sim-trained-vlm-real-harness",
+    "physladder-astra-contact-sim-real",
+    "google-genie4-world-simulation-robot-agent",
+    "trial-by-trace-agent-success-harness-reliability",
+    "tencent-hynomas-interactive-world-bench-update"
+  ],
+  "stories": [
+    {
+      "id": "ebench-astra-direct-control-policy-harness",
+      "category": "embodied",
+      "tag": "通用模型具身横评 · VLA/WAM协作 · 仿真诊断",
+      "title": "EBench：Astra直接控制能做到哪里，调用VLA/WAM又会丢掉什么？",
+      "organization": "上海人工智能实验室、上海交通大学、复旦大学、浙江大学",
+      "published": "2026-10-26",
+      "date_label": "arXiv v1：2026-10-26 17:51 UTC（北京时间27日01:51）；本期28日完整核读论文和项目页。作者报告，尚无独立复现。",
+      "summary": "EBench在26个任务、510个仿真episodes上，用同一RGB+本体状态协议比较GPT-6 Astra直接输出航点，以及让它调用π0.5或InternW0-Δ执行。Astra直接控制的任务等权成功率为46.7%，调用两种策略后为53.0%和56.0%；直接控制在短时任务较强，长程、桌面和高精度接触任务分别降到27.3%、20.0%和11.3%。",
+      "why": "这正面回答“通用大模型怎样渗透具身”的核心争点：通用模型的视觉理解、规划和恢复能力能否与专用动作策略组成系统。论文把新增失败定位到策略调用不合理、固定任务说明无法传递子目标，以及策略交回控制后抓握没有保持，研究重点从单一排行榜转向接口和交接机制。",
+      "limitation": "全部为仿真，不能推出实机闭环结论。每个任务有从一条训练示范提取的关键帧和文字说明，属于单次上下文示范，不是无示范零样本；token、工具调用和推理时间未设上限。阶段完成分0.654不能当成功率，策略训练使用6600条域内示范，模型与策略的训练数据和计算也不匹配。",
+      "sources": [
+        {
+          "label": "论文全文：主表、调用策略和失败分析",
+          "url": "https://arxiv.org/html/2610.35832v1"
+        },
+        {
+          "label": "作者项目与轨迹案例",
+          "url": "https://internrobotics.github.io/EBench-Astra-Tech-Report/"
+        }
+      ]
+    },
+    {
+      "id": "zap-sim-trained-vlm-real-harness",
+      "category": "embodied",
+      "tag": "通用VLM后训练 · 仿真到实机 · 接口与成本",
+      "title": "ZAP：只在仿真教27B VLM运动，30次实机试验追平Astra",
+      "organization": "Luma AI；基座为Qwen3.6-27B",
+      "published": "2026-10-26",
+      "date_label": "arXiv v1：2026-10-26 17:44 UTC（北京时间27日01:44）；本期核读训练、实机主表和harness。结果为作者自报，尚无独立复现。",
+      "summary": "ZAP用模型自成功轨迹做SFT，再在40项仿真任务上做GRPO，没有使用真实机器人训练轨迹。真实双臂YAM上10个任务、每模型30次，ZAP与同一harness的Astra都为29/30（96.7%），原始Qwen为16.7%；作者估计ZAP平均任务时间146±83秒、成本0.29美元，Astra为397±159秒、4.87美元。相同Astra换到Robocurve接口只有11/30（36.7%）。",
+      "why": "它把“开源小一些的模型能否进入真实闭环”变成了可检查的工程实验：语义理解来自预训练，运动从仿真后训练获得，再迁移到新任务和本体。更关键的是同一个Astra换harness就改变结果，说明感知、3D几何读数、控制器反馈和动作协议是能力的一部分，不能只比较参数量。",
+      "limitation": "96.7%是30次实机试验的作者结果，并不等于普遍机器人成功率；SAM3.1分割、标定深度生成的3D质心/主轴和控制器反馈均在harness中，不能归因于纯VLM。Franka的55.9%来自仿真RoboLab-120；新试管、空中交接、画图和棋局是展示，不并入96.7%。成本只按单B300估算，未含训练和设备，接口尚未第三方复现。",
+      "sources": [
+        {
+          "label": "论文全文：训练、实机表3与harness",
+          "url": "https://arxiv.org/html/2610.35817v1"
+        },
+        {
+          "label": "arXiv首版日期",
+          "url": "https://arxiv.org/abs/2610.35817"
+        }
+      ]
+    },
+    {
+      "id": "physladder-astra-contact-sim-real",
+      "category": "embodied",
+      "tag": "通用模型实机 · 接触与力调节 · Sim–Real边界",
+      "title": "PhysLadder：Astra能抓放，却难把连续接触的局部进展累积成成功",
+      "organization": "Tuojing Intelligence、香港大学、中科院及多所高校/研究机构",
+      "published": "2026-10-25",
+      "date_label": "arXiv v1：2026-10-25 19:41 UTC（北京时间26日03:41）；本期核读匹配实机/仿真协议和失败分析。作者报告，尚无独立复现。",
+      "summary": "PhysLadder把16项家庭操作按几何对齐L1、持续接触力调节L2、接触重构加力调节L3分级；ARX R5双臂实机与匹配Isaac Sim各测每任务3次。Astra实机L1/L2/L3成功率为80.0%/47.6%/0%，仿真为66.7%/47.6%/0%。拧瓶盖、螺母和扫散落积木中，模型能造成局部运动，却难以保持抓握、传递力矩并衔接下一次接触。",
+      "why": "横评真正有价值的地方是把“会控制机器人”拆成不同物理交互层级。它将失败从视觉/语言理解推进到接触状态、力调节和连续操作，给通用模型与专用策略如何分工提供了更具体的缺口。",
+      "limitation": "每任务仅3次，实机结果按视频人工判断；没有直接力传感，夹爪控制是开度而非力指令。实机不设预定任务时间或调用上限，仿真默认150调用/5小时，不能说计算预算匹配。没有跨模型横评，不能据此断言所有通用大模型都无法接触操作。",
+      "sources": [
+        {
+          "label": "论文全文：硬件、接口、主表和预算",
+          "url": "https://arxiv.org/html/2610.34527v1"
+        },
+        {
+          "label": "作者项目与实机案例",
+          "url": "https://physladder-benchmark.github.io/PhysLadder/"
+        },
+        {
+          "label": "作者代码",
+          "url": "https://github.com/PhysLadder-Benchmark/PhysLadder"
+        }
+      ]
+    },
+    {
+      "id": "google-genie4-world-simulation-robot-agent",
+      "category": "embodied",
+      "tag": "Google DeepMind · 世界模型 · Gemini协同 · 机器人仿真",
+      "title": "Genie 4：实时世界生成开始和Gemini推理、机器人仿真接成一条链",
+      "organization": "Google DeepMind",
+      "published": "2026-10-27",
+      "date_label": "Google DeepMind官方公告：2026-10-27；本期28日完整核读公告。当前是可信测试者研究预览，没有公开权重或实机量化评测。",
+      "summary": "官方把Genie 4描述为原生多模态实时世界模型，可生成视觉、环境声音和可交互对话，并允许自然语言改变天气、相机、人物和物体。公告展示Gemini 3.8 Flash持续观察Genie场景、拆分目标、检查步骤和重规划，也展示Gemini 4 Argon与Genie 4共同模拟Apptronik Apollo人形机器人下棋；机器人和Agent训练环境被列为用途。",
+      "why": "这把通用模型进入具身从单次视觉决策扩展到“世界生成—观察—规划—验证”的闭环假设：Gemini负责结构化计划与检查，Genie负责可交互场景。真正值得追踪的是生成世界是否具有控制有用且可验证的动力学，而不是画面是否逼真。",
+      "limitation": "目前没有公开权重、可运行机器人训练管线或量化成功率，Apptronik是官方演示，不是独立实机评测。公告承认短会话仍会出现细节、物体持久性和复杂物理交互漂移，空间精度和长时一致性仍在研究。",
+      "sources": [
+        {
+          "label": "Google DeepMind官方公告",
+          "url": "https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/"
+        },
+        {
+          "label": "Google DeepMind官方博客索引",
+          "url": "https://deepmind.google/blog/"
+        }
+      ]
+    },
+    {
+      "id": "tencent-hynomas-interactive-world-bench-update",
+      "category": "embodied",
+      "tag": "腾讯混元 · 世界模型 · 多轮交互 · Hy-Nomas-Bench",
+      "title": "Hy-Nomas：世界模型的新报告与社区接入，让多轮交互和空间记忆更易实测",
+      "organization": "腾讯混元",
+      "published": "2026-10-21",
+      "date_label": "官方 GitHub 首次代码/权重公开：2026年10月21日；10月26日更新技术报告并记录 SGLang/ComfyUI/Reactor 等社区集成，10月27日 README 再补 Google TPU 社区演示说明。本期按10月28日实际读取正文，未把仓库更新时间当论文首发。",
+      "summary": "Hy-Nomas以多轮文本提示或相机轨迹控制连续视频片段，并复用持久KV cache保存历史。官方代码/权重10月21日公开；10月26日更新技术报告，随后补充SGLang、ComfyUI、WanGP、Reactor和Google TPU社区集成入口。Hy-Nomas-Bench公开280个仅测试案例、220条参考相机轨迹，覆盖多轮文本、镜头导航、交错控制及空间记忆，研究者可自行生成视频并检查回访一致性。",
+      "why": "Genie 4提供官方预览，Hy-Nomas则给出了公开代码/模型卡、结构化测试集以及多个社区运行入口，反映近期可交互世界模型的具体实践动向。这里的新事件是10月26–27日技术报告和社区接入；没有比对报告前后方法差异，不能宣称某种新架构是在这次更新才提出。对具身研究有用的问题是空间记忆、控制接口和动力学能否被验证，视觉真实感本身不能回答。",
+      "limitation": "本文本轮读的是官方README、模型卡、数据卡和更新提交，未核读技术报告正文、未运行社区集成。280个案例只含结构化提示/交互/参考相机轨迹，不附视频、回访帧或分数，需要自行推理评估；当前是视频世界生成，没有机器人本体、动作闭环成功率或实机证据。TPU速度是社区贡献者自报、非统一独立基准；也不能由镜头导航推断真实机器人动力学精度。",
+      "sources": [
+        {
+          "label": "腾讯混元官方 GitHub README（首次公开、10月26日更新和模型说明）",
+          "url": "https://github.com/Tencent-Hunyuan/Hy-Nomas"
+        },
+        {
+          "label": "官方 Hugging Face 模型卡（交互机制与技术限制）",
+          "url": "https://huggingface.co/tencent/Hy-Nomas"
+        },
+        {
+          "label": "Hy-Nomas-Bench 数据集 README（280案例、220轨迹和测试边界）",
+          "url": "https://huggingface.co/datasets/tencent/Hy-Nomas-Bench"
+        },
+        {
+          "label": "10月26日技术报告更新提交（commit bb53b54）",
+          "url": "https://github.com/Tencent-Hunyuan/Hy-Nomas/commit/bb53b54dcfdb6c69201fb6be731f23d65c84ae8b"
+        },
+        {
+          "label": "10月27日 Google TPU 社区集成文档提交（commit b6287c8）",
+          "url": "https://github.com/Tencent-Hunyuan/Hy-Nomas/commit/b6287c849a8a742d95405aa22b8cbe17c03d341f"
+        }
+      ]
+    },
+    {
+      "id": "rynnvla-latent-3d-grounded-actions",
+      "category": "embodied",
+      "tag": "阿里达摩院 · VLA预训练 · 潜在动作 · 跨本体数据",
+      "title": "RynnVLA-Latent：用3D潜在动作把无机器人控制标签的视频接进VLA预训练",
+      "organization": "香港中文大学、香港具身智能实验室、PUMC、阿里巴巴达摩院与湖畔实验室",
+      "published": "2026-10-25",
+      "date_label": "arXiv v1：2026-10-25；10月27日提交Hugging Face Papers，10月28日核读全文、代码与权重入口。所有结果为作者报告。",
+      "summary": "RynnLAM从人类、机器人和仿真视频的帧间变化学习608维、3D-grounded latent actions，以残差未来特征、相机补偿3D flow和相机运动解耦减少“看起来在动但不可控”的变化。约30.1K小时视频生成745.52M潜在动作描述；4B策略先预测潜在动作块，第二阶段才做本体动作对齐。作者报告LIBERO 98.8%、LIBERO-Plus 84.7%、VLABench五轨平均51.9%、RoboTwin 2.0双臂平均约88.6%；真实闭环表中两个平台共六项任务、每项35次试验，六项成功率为85.71%、42.86%、82.86%、40.00%、57.14%、54.29%，均为作者自报。",
+      "why": "它回应了机器人数据瓶颈：通用视频没有原生关节命令，且不同本体控制空间不兼容。潜在动作提供共同监督接口，先学控制相关的视觉变化，再适配具体动作空间；这与“直接记录命令还是实际状态”的标签路线形成互补。",
+      "limitation": "Stage-1 checkpoint不是闭环策略，必须完成Stage-2本体对齐；代码不含权重，运行环境也未随仓库完整分发。附录列3850条实机演示，不能写成无实机数据或零样本跨本体。六项实机任务分别在Marvin-WUJI双臂灵巧手和Astribot-S1双臂平行夹爪上，每项35次；需结合本体和对照表阅读，不能概括为跨本体泛化已解决。所有数字尚无独立复现，3D表征也不等于已识别真实动力学。 未量化报告实机推理延迟和人工干预率。",
+      "sources": [
+        {
+          "label": "arXiv全文：方法、仿真和实机实验",
+          "url": "https://arxiv.org/html/2610.34356v1"
+        },
+        {
+          "label": "官方GitHub代码与权重说明",
+          "url": "https://github.com/alibaba-damo-academy/RynnVLA-Latent"
+        },
+        {
+          "label": "作者项目页",
+          "url": "https://alibaba-damo-academy.github.io/RynnVLA-Latent.github.io/"
+        },
+        {
+          "label": "Hugging Face模型集合",
+          "url": "https://huggingface.co/collections/Alibaba-DAMO-Academy/rynnvla-latent"
+        }
+      ]
+    },
+    {
+      "id": "lesswrong-frontier-model-robot-control-discussion-20261026",
+      "category": "discussion",
+      "tag": "作者讨论 · 通用规划与低延迟VLA · 触觉长尾",
+      "title": "通用模型直接控制机器人，还是调用专用VLA做“运动皮层”？一组近期评论的具体争点",
+      "organization": "LessWrong作者 chrisleet；评论者2001zhaozhao、Thanh Do；原帖链接Robocurve报告",
+      "published": "2026-10-26",
+      "date_label": "原研究：Robocurve arXiv v1 10月18日、v2 10月21日UTC；当前事件：chrisleet作者帖10月26日16:26 UTC（北京时间27日00:26），评论至10月27日21:31 UTC（北京时间28日05:31）。本轮完整读到正文和6评论，27票/6评论；HN转发2票/0评论，仅属小范围讨论。",
+      "summary": "作者整理7–10月真实双臂I2RT YAM评测：9个多模态模型、15种配置、6个RoboDojo衍生任务，每个模型/配置/任务20次、最多40次动作调用，报告任务分数约53.9天翻倍，但终局完成远少于阶段进度。评论提出专用VLA可用更低延迟完成细动作，让通用模型负责规划；另一条追问触觉、握持力度、非均匀物体抓点和长尾控制。",
+      "why": "这不是新的排行榜，而是把EBench和ZAP中“模型—harness—策略”边界变成可讨论的系统设计问题。近期具体评论让研究者看到：低延迟动作层、语义子目标、接触反馈和任务级推理可能需要协作，而不是用一个综合分宣称通用模型已经替代VLA。",
+      "limitation": "这是作者报告与少量独立评论，不是社区共识或独立复现实验；底层论文采用最高累计子任务进度和模型评审，不总是终端成功率，模型服务/推理配置也不等价。评论属于观点，不能当作触觉或架构效果的实证。",
+      "sources": [
+        {
+          "label": "LessWrong作者原帖",
+          "url": "https://www.lesswrong.com/posts/ndS9Xn8Qx5PppHJ3Q/the-ability-of-frontier-models-to-control-robots-is-rapidly"
+        },
+        {
+          "label": "2001zhaozhao：低延迟VLA与规划分工（10月27日01:21 UTC）",
+          "url": "https://www.lesswrong.com/posts/ndS9Xn8Qx5PppHJ3Q/the-ability-of-frontier-models-to-control-robots-is-rapidly?commentId=FmLykdcQwugtxdzz7"
+        },
+        {
+          "label": "Thanh Do：触觉/握持力度与长尾质疑（10月27日21:31 UTC）",
+          "url": "https://www.lesswrong.com/posts/ndS9Xn8Qx5PppHJ3Q/the-ability-of-frontier-models-to-control-robots-is-rapidly?commentId=brwPvyPL4MkjD7bxh"
+        },
+        {
+          "label": "底层Robocurve论文",
+          "url": "https://arxiv.org/abs/2610.25287"
+        }
+      ]
+    },
+    {
+      "id": "trial-by-trace-agent-success-harness-reliability",
+      "category": "llm",
+      "tag": "Agent评测 · Harness可靠性 · HF论文讨论",
+      "title": "Trial by Trace：任务做成了，也可能掩盖Agent框架丢信息、错传结果或违反流程",
+      "organization": "TraceLite AI；论文机构列中国科学院自动化研究所、中关村学院、中国科学院信息工程研究所、清华大学、北京理工大学",
+      "published": "2026-10-23",
+      "date_label": "arXiv v1：2026-10-23；Hengjie Zhu于10月27日提交Hugging Face Papers，本轮快照233赞/4评论。MLSystemsRI在10月27日17:20 UTC（北京时间28日01:20）评论，zsicheng于17:29回复，未独立确认回复者作者身份。封面10月14日不是公开首发日期。",
+      "summary": "TraceTrial-Bench把Agent任务结果与harness的信息、执行和生命周期责任分开评分。作者在95个机制任务、4种原生harness和9组模型中保留每格一次选定执行，共3420次。其中1065次〔(1351−286)/3420＝31.1%〕任务标准全部通过，但Harness至少一项标准未通过；分母是全部选定运行，不能读成31.1%的成功任务或真实缺陷率。HF用户MLSystemsRI主张结果之外也要检查过程，zsicheng回复应让框架责任及其证据可检查。",
+      "why": "Agent越来越依赖上下文管理、工具协议、权限和恢复，具身横评也会受动作接口与停止语义影响。该研究把“做成”和“过程可靠”拆开，为解读机器人榜单提供一个检查项：同一个模型的执行是否真的收到正确反馈、按规定完成工具生命周期，而不是只看最终物体位置。",
+      "limitation": "实验是Docker、文件和工具流程，不是机器人成功率；3420格各保留一次选定执行，含恢复替换，不能估计重复稳定性。某标准未通过可能是证据不足，不能直接当作框架缺陷或因果传播；HF目前只核到一名用户评论及回复，不能称多方热议。",
+      "sources": [
+        {
+          "label": "论文HTML：方法、评分定义与聚合表（本轮读取范围）",
+          "url": "https://arxiv.org/html/2610.32285v1"
+        },
+        {
+          "label": "arXiv公开日期与作者入口",
+          "url": "https://arxiv.org/abs/2610.32285"
+        },
+        {
+          "label": "Hugging Face Papers条目与讨论",
+          "url": "https://huggingface.co/papers/2610.32285"
+        },
+        {
+          "label": "作者代码入口（本轮未运行）",
+          "url": "https://github.com/TraceLite-AI/TraceTrial-Bench"
+        }
+      ]
+    },
+    {
+      "id": "trajectory2gym-decision-grounded-tool-trajectories",
+      "category": "llm",
+      "tag": "工具使用数据 · 轨迹监督 · HF日榜发现",
+      "title": "Trajectory2Gym：成功轨迹不一定是好监督，关键是每一步是否被可见证据支撑",
+      "organization": "论文作者Yihao Hu、Zhihao Wen、Yitong Lin等；Hugging Face提交组织为ant-international，不能仅据此确认全部作者机构",
+      "published": "2026-10-24",
+      "date_label": "arXiv v1：2026-10-24；Hugging Face Papers 10月27日提交，快照331赞/2评论。本期核读论文的方法与实验；项目/代码入口来自作者链接，未运行。点赞是发现信号，不等于独立热议。",
+      "summary": "Trajectory2Gym把工具轨迹监督拆成组合覆盖和决策可见性：它在原生环境中针对缺少多步依赖、恢复和澄清的路径合成交互，再只保留由Agent可见历史、真实执行和工作流顺序共同证明的动作目标。五个Qwen3规模上，作者报告Tau1、Tau2和BFCL均有提升，三基准等权均值增加16.9–29.8个百分点。",
+      "why": "具身任务同样不能把“整段成功”直接当作每一步都可学习。该方法把失败后的恢复、信息获取和动作前提写进监督筛选，能帮助研究者理解为什么有些长程轨迹看似成功却会教会模型使用隐藏信息或错误顺序。",
+      "limitation": "实验是文本工具使用，不是机器人控制；所有数字为作者报告，未独立复现。站内点赞/评论不能证明社区共识；其数据构造、teacher执行和可见历史投影仍需按论文和附录核对，不能外推为VLA数据路线已验证。",
+      "sources": [
+        {
+          "label": "arXiv全文",
+          "url": "https://arxiv.org/html/2610.33568v1"
+        },
+        {
+          "label": "Hugging Face Papers条目",
+          "url": "https://huggingface.co/papers/2610.33568"
+        },
+        {
+          "label": "作者项目页",
+          "url": "https://yihaohu0118.github.io/Trajectory2Gym-page/"
+        },
+        {
+          "label": "官方代码",
+          "url": "https://github.com/yihaohu0118/Trajectory2Gym"
+        }
+      ]
+    }
+  ],
+  "technical_explainer": {
+    "id": "direct-preference-optimization",
+    "title": "DPO：从偏好对直接优化语言模型",
+    "summary": "直接偏好优化（DPO）把同一提示下的偏好对转成一个可直接训练语言模型的分类式目标。它利用参考策略的相对序列概率，避免显式奖励模型和 PPO 在线采样，但偏好数据质量、β 与参考策略、长度处理和训练分布仍决定结果。",
+    "reading_minutes": 6,
+    "why_now": "本期关注 Agent 工作流的执行、验证、轨迹构造和多步结果。DPO 并非本期候选论文的方法；这里用它补一块后训练基础：当系统说“这个工具轨迹比那个更好”时，怎样把相对偏好转成参数更新，以及为什么偏好胜率、任务成功率和机器人闭环可靠性必须分开报告。",
+    "sections": [
+      {
+        "heading": "解决什么问题：从示范到相对偏好",
+        "paragraphs": [
+          "监督微调（SFT）对一条示范答案做最大似然，告诉模型“应当生成什么”。现实任务往往没有唯一答案：同一研究问题可以有多种正确表述，同一 Agent 目标也可以有不同工具顺序；我们更容易判断两个候选中哪一个更安全、完整、简洁或符合规范，而不是为每一步写出唯一金标准。偏好数据因此写成 (x, y⁺, y⁻)：在提示 x 下，标注者或评审器认为 y⁺ 优于 y⁻。",
+          "传统 RLHF 通常先用偏好对训练奖励模型，再让策略通过 PPO 等强化学习最大化奖励，同时用 KL 惩罚限制它离 SFT 模型太远。DPO 的理论出发点是：在 KL 正则化的奖励最大化问题和 Bradley–Terry 偏好模型假设下，最优策略可以写成参考策略乘以一个奖励指数项；把这个关系代回偏好似然，奖励函数可被策略的 log 概率比替代。于是训练只需要一个离线偏好分类损失。它减少了工程环节，却没有消除偏好标注、参考策略和分布偏差。"
+        ]
+      },
+      {
+        "heading": "公式：比较相对参考策略的序列概率",
+        "paragraphs": [
+          "设 πθ 是待训练策略，πref 是冻结的参考策略（常为 SFT 检查点）。对一条完整回答，序列对数概率是 log π(y|x)=Σt log π(yt|x,y<t)，不是只看最后一个 token。定义回答相对参考策略的 log ratio：rθ(x,y)=log πθ(y|x)−log πref(y|x)。对偏好对的相对间隔 mθ=rθ(x,y⁺)−rθ(x,y⁻)，DPO 的常见损失为 L_DPO=−log σ(β mθ)，其中 σ 是 sigmoid，β 是正的温度/尺度系数。mθ 越大，说明当前策略相对于参考策略更偏向 y⁺；损失越小。",
+          "从隐式奖励角度，DPO 推导选择 r̂(x,y)=β log[πθ(y|x)/πref(y|x)]+c(x)；只依赖提示的 c(x) 在同一提示下比较两条回答时抵消。因此语言模型本身就参数化了一个偏好奖励函数，但这并不表示模型内藏着一份客观正确的人类价值表。",
+          "β 需要精确解释。它不是奖励分数、准确率或“越大就一定推动偏好越强”的旋钮；在 KL 正则化的推导里，β 与策略允许偏离参考策略的约束强度相关，增大 β 通常对应更强的参考约束、较保守的策略偏移。数值上它也缩放 sigmoid 的斜率，改变梯度和对大 margin 样本的敏感性；不同实现的 β 定义和损失归一化可能相反，读论文必须看公式而不是只看超参数名称。",
+          "DPO 的梯度通过 log πθ(y⁺|x) 与 log πθ(y⁻|x) 的差来鼓励偏好间隔变大；但它不保证每次小批量更新都会改善其中每一个样本对。即使某个样本对的相对间隔变大，也不保证 y⁺ 的绝对概率增加：归一化、其他候选的概率转移和共享前缀都可能让两个候选概率同时下降，只要 y⁺相对 y⁻下降得较少。"
+        ],
+        "bullets": [
+          "先确认 y⁺ 与 y⁻ 使用同一个 x；计算两段回答的 token log-prob，并按实现决定是否去掉 prompt、如何处理 EOS。",
+          "分别减去参考策略 log-prob，形成两个相对 log ratio，再作 chosen 减 rejected。",
+          "用 −log σ(βm) 更新 πθ；πref 保持冻结，通常不反向传播。",
+          "用独立偏好集、事实性、拒答和环境成功率验证，不能只看训练损失。"
+        ]
+      },
+      {
+        "heading": "假设算例：相对概率比从 1 到 2",
+        "paragraphs": [
+          "下面是教学假设，不是任何本期论文的实测。定义 R=[πθ(y⁺|x)/πθ(y⁻|x)]÷[πref(y⁺|x)/πref(y⁻|x)]，也就是“当前偏好比相对于参考偏好比”。假设 R 从 1 变成 2，那么 m=lnR 从 0 变成 ln2≈0.693。取 β=0.1，sigmoid 的输入从 0 变成 0.0693，σ 从 0.5000 变成约 0.5173；损失 −lnσ 从约 0.6931 降到 0.6591。这里的 0.5173 是损失中的偏好拟合概率，不是模型生成 y⁺ 的绝对概率，更不是机器人成功率。",
+          "回答长度会影响序列 log-prob 的尺度和偏好间隔；不同长度回答的偏置方向会受到数据、共享前缀、终止符、参考策略及是否做长度归一化共同影响，不能笼统说 DPO 总偏好短回答或长回答。有的实现采用固定最大长度、截断或 token 级处理；截断可能删掉决定好坏的回答后段。报告结果时要记录 tokenization、max length、prompt 是否计入、长度归一化和丢弃样本规则。"
+        ]
+      },
+      {
+        "heading": "与相邻方法和今天主题的关系",
+        "paragraphs": [
+          "SFT 以示范答案为目标，DPO 以同提示下的相对偏好为目标。PPO-RLHF 通常显式训练奖励模型并在线采样，用优势估计更新策略；DPO 可以离线训练，不等于完全没有 RLHF 假设。GRPO 常从同一问题采样一组答案，根据可验证奖励或组内相对分数估计优势，再做策略更新；它与 DPO 都有“相对比较”，但监督来源、采样方式和更新公式不同。IPO 等后续目标改变偏好损失的理论性质，也不会自动修复错误偏好或分布外行为。",
+          "本期的 Trial by Trace 关注如何拆分 Agent harness 的可靠性与失败归因，Trajectory2Gym 强调轨迹必须覆盖可组合依赖并让每个动作由当时可见历史支持。它们不是 DPO 论文，也没有因此证明使用 DPO。把这两个要求放到偏好训练里，意味着 y⁺/y⁻ 的评判应读取模型当时可见的观察、工具返回和中间状态，不能因为最后结果碰巧正确就给一整条不可解释的轨迹贴上“优选”；在机器人系统中更不能把视频观感偏好直接写成真实闭环成功。"
+        ]
+      }
+    ],
+    "example": {
+      "title": "假设算例：工具调用偏好与可见轨迹",
+      "paragraphs": [
+        "假设提示是“查找某型号保修期”。候选 A 先调用官方资料检索，记录返回内容，再给出带来源答案；候选 B 没有检索，直接猜期限。若两者回答表面长度相近，标注者可把 A 标为 chosen、B 标为 rejected。DPO 会增大 A 相对 B 的策略概率比。",
+        "若这是机器人 Agent，则比较对象还应包含当时的相机帧、动作接口返回、失败重试和停止条件：一个最后放对物体但中间调用了不可见信息的轨迹，未必是可学习的优选监督。应另外在未见物体、布局和本体上检查事实正确、工具使用、控制延迟和真实成功率。这个例子只说明训练信号形式，不是本期任何论文的实验结果。"
+      ]
+    },
+    "comparison": {
+      "caption": "几种常见后训练信号的差别",
+      "columns": [
+        "方法",
+        "核心监督",
+        "典型更新信号"
+      ],
+      "rows": [
+        [
+          "SFT",
+          "示范答案",
+          "提高目标答案的似然"
+        ],
+        [
+          "DPO",
+          "同提示的偏好对",
+          "提高 chosen 相对 rejected 的策略概率比"
+        ],
+        [
+          "PPO-RLHF",
+          "奖励模型分数",
+          "采样后用策略梯度更新，并常用 KL 控制偏移"
+        ],
+        [
+          "GRPO / RLVR",
+          "可验证结果或组内奖励",
+          "对多条采样输出估计相对优势后更新策略"
+        ]
+      ]
+    },
+    "checklist": [
+      "偏好来自谁或什么标注器？标注准则、一致性、允许“不确定”的比例是否报告？",
+      "chosen 与 rejected 是否针对同一提示和相同可见历史？长度、格式、引用数量是否造成捷径？",
+      "参考策略是哪一个检查点？β 的定义、KL 方向、损失变体、序列长度归一化和截断规则是什么？",
+      "训练是静态离线偏好对还是含新采样？偏好数据与评测提示是否去重，是否存在同一模型自评循环？",
+      "结果是偏好胜率、离线基准、工具执行成功，还是仿真/实机闭环成功率？三者不能互换；实机还要记录本体、试验数、人工干预和延迟。"
+    ],
+    "takeaway": "DPO 的关键是相对冻结参考策略拉开 chosen 与 rejected 的序列 log-prob 比；它简化了偏好后训练，却不保证 chosen 绝对概率、事实正确性或具身闭环可靠性，所有结论都要回到偏好数据和独立环境验证。",
+    "sources": [
+      {
+        "label": "Rafailov et al., Direct Preference Optimization: Your Language Model is Secretly a Reward Model (2023), arXiv:2305.18290",
+        "url": "https://arxiv.org/abs/2305.18290"
+      },
+      {
+        "label": "Azar et al., A General Theoretical Paradigm to Understand Learning from Human Preferences (2023), arXiv:2310.12036 (IPO)",
+        "url": "https://arxiv.org/abs/2310.12036"
+      },
+      {
+        "label": "Ouyang et al., Training language models to follow instructions with human feedback (2022), arXiv:2203.02155",
+        "url": "https://arxiv.org/abs/2203.02155"
+      },
+      {
+        "label": "Shao et al., DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models (2024), arXiv:2402.03300（GRPO原始对照；历史基础资料）",
+        "url": "https://arxiv.org/abs/2402.03300"
+      }
+    ]
+  }
+}
