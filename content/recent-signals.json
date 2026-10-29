@@ -1,9 +1,94 @@
 {
   "title": "近期研究动向与真实讨论",
-  "intro": "本轮观察10月24–28日当前讨论、模型/代码事件、Hugging Face Papers与arXiv具身研究，并沿通用模型—专用策略协作、仿真迁移和Agent可靠性回查原文。published保留原始日期，source_label明确当下事件或发现依据；重读不算新发布，独立评论与作者自报分别标注。",
-  "window_start": "2026-10-24",
-  "window_end": "2026-10-28",
+  "intro": "本轮观察10月25–29日当前讨论、Hugging Face Papers实际日榜、arXiv具身新稿、RoboDojo榜单与国内外研究/代码事件；重读榜单无变化不称新发布，作者报告、HF发现信号和独立讨论分级保留。",
+  "window_start": "2026-10-25",
+  "window_end": "2026-10-29",
   "signals": [
+    {
+      "id": "robodojo-agent-observation-action-20261029",
+      "title": "RoboDojo Agent前五重查无变化：PyRUA与R²SI的观测—动作接口成为第二期焦点",
+      "published": "2026-10-29",
+      "summary": "官方榜单新bundle的updated_at仍为10月28日，Agent-Sim前五与分数未变。本期沿公开配置拆PyRUA的RGB→SAM3/标定几何→Python→IK→joint action，与R²SI的RGB/state→Skills→原生工具或24动作WAM chunk→Executor反馈。",
+      "keywords": [
+        "RoboDojo",
+        "具身Agent构型",
+        "决策粒度",
+        "逆运动学"
+      ],
+      "url": "https://robodojo-benchmark.com/leaderboard#agent",
+      "source_label": "RoboDojo官方榜单/协议、PyRUA-Lean代码与论文、R²SI报告/代码/HF模型卡；2026-10-29重查，非新上榜。",
+      "limitation": "全部Agent前五仍为Sim；RealWorld分轨不同。Score与SR分开。GO-3专属底座/WAM未公开；公开代码未运行，历史10月17日榜单服务工件未完全匹配。"
+    },
+    {
+      "id": "pdrvla-physical-tokens-without-online-video-20261029",
+      "title": "PDRVLA：让动作模型学会预测物理变化，执行时不必先生成未来视频",
+      "published": "2026-10-27",
+      "summary": "PDRVLA从VLM中间层抽取50个physical tokens，用未来RGB、深度和光流表征训练一个轻量物理动力学模块，再与VLM最终层特征和机器人状态一起驱动flow-matching动作专家。冻结视频模型只用于预训练辅助监督，部署不在线生成视频；每次生成并执行8步动作块后重新观测。作者报告LIBERO、LIBERO-Plus、RoboTwin 2.0和SimplerEnv成功率分别为99.3%、89.9%、93.6%和81.5%。",
+      "keywords": [
+        "VLA架构",
+        "近期新研究",
+        "arXiv"
+      ],
+      "url": "https://arxiv.org/html/2610.37381v1",
+      "source_label": "arXiv v1（UTC）；10月28日提交Hugging Face Papers，本轮29日核读全文，138赞/1评论仅作发现信号。；原论文日期 2026-10-27；本期29日回查全文，作者报告与独立评论分开。",
+      "limitation": "四项主结果全部为仿真，不能当实机可靠性。基线来自各自论文和代码协议，非全系统同预算复测；LIBERO-Plus机器人初始状态扰动成功率75.2%，SimplerEnv Carrot→Plate仅64.6%，不能用总平均抹掉弱项。本轮未取得专属代码或权重发布证据，也未独立复现。HF仅1评论且页面隐藏低质量评论，不称多方热议。"
+    },
+    {
+      "id": "rynnworld-latent-cross-embodiment-data-engine-20261029",
+      "title": "RynnWorld-Latent：用统一潜在动作连接人类视频、机器人与可控世界模型",
+      "published": "2026-10-27",
+      "summary": "RynnWorld-Latent以RynnLAM的3D-grounded潜在动作作为跨本体条件，在23个数据集、约5.535亿帧上学习可控视觉动力学；目标机器人另做适配，再通过数字遥操作或人类动作迁移生成动作—视频示范。下游π0.5在Marvin-WUJI与Astribot-S1真实闭环任务上加入数字遥操作数据后均有提升：每项35次试验中，摆盘82.86%→91.43%，上菜40.00%→54.29%，取盘45.71%→57.14%。",
+      "keywords": [
+        "世界模型",
+        "近期新研究",
+        "arXiv"
+      ],
+      "url": "https://arxiv.org/html/2610.36791v1",
+      "source_label": "arXiv v1（UTC）；10月28日提交Hugging Face Papers，本期29日核读论文、代码与模型目录，8赞/1评论仅作发现信号。；原论文日期 2026-10-27；本期29日回查全文，作者报告与独立评论分开。",
+      "limitation": "目标机器人需要真实示范适配，3,850条示范按每任务5%留出，验证的是未见示范而非未见任务；不是零样本跨本体。仅用合成数据的策略仍低于仅用真实数据，35次试验的改善也未主张统计显著。代码与HF模型目录已读，但raw模型卡不存在、权重未下载或运行；50Hz策略部署和500Hz低层接口不等于世界模型视频生成吞吐。"
+    },
+    {
+      "id": "agibot-rollback-counterfactual-world-model-policy-20261029",
+      "title": "Rollback：世界模型可以回到失败之前，比较替代动作后再训练实机策略",
+      "published": "2026-10-26",
+      "summary": "Rollback把GE-Sim 2.0世界模型变成可回滚环境，从同一关键决策状态分出替代动作，MCTS比较兄弟分支结果形成动作级训练监督；真实新轨迹再通过LoRA修正世界模型。最终π0.5策略在AGIBOT Genie-02上以30Hz闭环执行，不在部署时运行世界模型搜索。抽积木、投球、桌面冰壶成功率为69.33%、40.00%、64.44%，相对作者同世界模型RISE复现分别提升10.67、11.11、11.85个百分点。",
+      "keywords": [
+        "智元",
+        "近期新研究",
+        "arXiv"
+      ],
+      "url": "https://arxiv.org/html/2610.36068v1",
+      "source_label": "arXiv v1（UTC）；10月28日进入Hugging Face Papers，本期29日核读全文和作者项目，属于近期新研究，未核到独立复现。；原论文日期 2026-10-26；本期29日回查全文，作者报告与独立评论分开。",
+      "limitation": "三项任务分别150、90、135次实机试验，作者自报；策略暖启动与世界模型训练均使用任务数据。改进阶段使用1台实体机器人和48张H200（40张搜索、8张策略训练），另有前期训练，不能把8小时写成全部成本或证明递归加速。世界模型开环误差随长时滚动累积；world judge只标注想象分支，真实成功由物理结果判定。本轮未取得专属完整代码或模型发布证据。"
+    },
+    {
+      "id": "mpo-turn-token-credit-agent-rl-20261029",
+      "title": "MPO：长程Agent的信用分配，在完整回合与token之间怎样取舍？",
+      "published": "2026-10-26",
+      "summary": "Multiscale Policy Optimization（MPO）观察到长程Agent的critic值主要在完整assistant turn之间变化，同时保留turn内token差异；它用Multiscale Advantage Estimation传播回合级信用、用turn-level importance sampling做概率校正。作者在BrowseComp-Plus、GAIA、HLE、Claw-Eval和Automation Bench上用Qwen3-4B-Thinking与Qwen3-30B-A3B-Instruct比较GRPO、GSPO、PPO、VAPO、SAO，MPO在表中9项指标均最高；例如4B的GAIA pass@1为39.47、4B Automation Bench为13.33，30B-A3B分别为43.42和15.00。",
+      "keywords": [
+        "Agent后训练",
+        "近期新研究",
+        "arXiv"
+      ],
+      "url": "https://arxiv.org/html/2610.35013v1",
+      "source_label": "arXiv v1（UTC）；Hugging Face Papers提交日为2026-10-28，本轮读取日榜页为10月28日，372赞、3条评论，排名第1。；原论文日期 2026-10-26；本期29日回查全文，作者报告与独立评论分开。",
+      "limitation": "论文实验是搜索、工具使用和自动化任务，不是机器人或RoboDojo；Claw与Automation训练数据为未公开的公司内部数据。每个模型规模每个设置仅一次训练，选择最佳checkpoint，再做5次离线评估；作者在HF讨论中尚未给出多seed波动。pass@1/pass@3、Claw-Eval的pass3和Automation Bench终态断言口径不同，不能合并成单一成功率。"
+    },
+    {
+      "id": "trinity-capability-harness-rsi-20261029",
+      "title": "The Trinity：冻结底座，沿能力树改进Harness，再测试真实机器人迁移",
+      "published": "2026-10-26",
+      "summary": "The Trinity把Creator、Explorer和Evolver组成一个能力驱动的递归自改进框架：先从异构任务的执行轨迹抽取共享能力需求，构造capability tree；Creator在排除目标任务布局和解法的简化世界中做Real2Sim2Real训练，Explorer演化可复用模块，Evolver按固定树拓扑选择性继承并形成Harness tree，最后由Capability-Aware Harness Router按公开任务信息选配置。论文使用冻结的Claude Opus 5 backbone；作者报告28个训练benchmark平均提升34分、18个未见benchmark提升26分，并在SOON的Unitree G1和CaP-X的AlohaMini2上做实机迁移。",
+      "keywords": [
+        "Harness RSI",
+        "近期新研究",
+        "arXiv"
+      ],
+      "url": "https://arxiv.org/html/2610.36077v1",
+      "source_label": "arXiv v1（UTC）；Hugging Face Papers提交日为2026-10-28，本轮读取日榜页为10月28日，311赞、2条评论，排名第3。；原论文日期 2026-10-26；本期29日回查全文，作者报告与独立评论分开。",
+      "limitation": "实机每个Harness先在重建仿真中做5次准备试验、将轨迹总结为skills，再冻结skills测试，准备试验不计入测试成功率；正式SOON为1条路线10个episode，CaP-X为10个布局10个episode。因此“未见benchmark提升”包含目标benchmark的技能准备，不能直接当作零样本跨任务泛化。两种实机接口、消息处理、指导和验收规则不同，论文也明确没有隔离模块演化与技能准备的因果贡献。框架主要改Harness并冻结Claude Opus 5；代码仓库10月28日仅有报告与介绍，README承诺一周内发布，当前不是完整实现开源。"
+    },
     {
       "id": "robodojo-agent-architecture-followup-20261028",
       "title": "RoboDojo仿真前排Agent系统：从排名继续追到底座、工具与控制链路",

@@ -1,0 +1,502 @@
+{
+  "date": "2026-10-29",
+  "status": "daily",
+  "title": "Agent开始霸榜之后：从闭环接口到具身动作与反事实改进",
+  "intro": "本期继续用户指定的RoboDojo Agent专题，先重读官方榜单确认10月29日Agent前五与昨日相同，再把PyRUA-Lean和WorldScape-R²SI从RGB、本体状态与任务指令一路拆到Python、IK、WAM动作块和反馈边界。新闻部分补充10月28日Hugging Face Papers日榜发现的长程Agent信用分配、Harness接口迁移，以及三项近期具身研究：物理动力学表征、跨本体潜在动作世界模型和世界模型回滚改进策略。Hugging Face榜单、arXiv日期、作者报告、仿真/实机和未运行边界分别标注。",
+  "coverage": "北京时间2026-10-29采集，观察窗口10月25–29日。Hugging Face Papers网页与公开API均成功读取：网页实际显示Oct 28，API返回50条，不能称10月29日日榜；各论文的首发日期、HF发现日期、评论与当前核读分别保留。独立读取arXiv cs.RO/recent的10月28日前50/85条与最新50条API，并联查跨分类具身关键词；部分查询为空/不完整，未声称全量。七条入选研究均回查全文关键方法与实验，项目/代码/模型的实际开放范围单列，未运行独立复现。MPO读到O96a、alphabell-research两名独立评论者，Trinity读到一名独立质疑；其余HF点赞与作者说明只作发现信号。RoboDojo榜单、新bundle、Agent分轨与协议重查：前五分数与10月28日相同；本期专题沿固定公开配置拆PyRUA-Lean和R²SI，GO-3 Nano专属底座/WAM仍缺，当前公开代码也未完全匹配历史榜服务工件。国内九家大模型、十三家具身公司与XPENG渠道按台账补查：220个源请求213个成功响应，不把HTTP200、SPA或仓库更新时间当研究正文；GroundingPI/作者HF与独立GroundAnything分查，未发现可核新事件。DeepSeek主站/API/代码/模型卡并查，10月17日API工具和模型更新未重报为今日发布。human five本轮验证页、具身智能之心后续全文与机器之心SPA未读，中文社区覆盖存在缺口。会议读取NeurIPS/ICML/ICLR/COLM/CVPR/ECCV/ACL/EMNLP/RSS/CoRL部分当届目录、AAAI部分归档，ICCV核2025档案及2027入口；ICRA/IROS及ICLR2027 OpenReview部分受限，未确认本期预印本录用。HF使用现有127.0.0.1:7897请求级代理，系统Clash未开启；本轮末次scutil复核HTTP/HTTPS/SOCKS/PAC均为0/off。",
+  "highlights": [
+    {
+      "title": "Agent的接口会进入策略，换Harness要测适配",
+      "text": "Policy/Harness在网页任务中仅反转JSON字段，成功率85.0%→19.2%。它为专题中PyRUA程序与R²SI动作块的接口差异提供机制线索，尚无机器人实验。",
+      "story_id": "policy-secretly-harness-agent-interface-geometry"
+    },
+    {
+      "title": "未来物理知识可进入动作表征",
+      "text": "PDRVLA用50个physical tokens辅助8步动作生成，部署无需在线生成视频；四项仿真主表表现较强，真实闭环仍待验证。",
+      "story_id": "pdrvla-physical-tokens-without-online-video"
+    },
+    {
+      "title": "失败前的替代动作可以成为训练监督",
+      "text": "Rollback在世界模型中回滚、分支并比较动作，再更新Genie-02策略。三项实机改善是作者结果，计算与真实数据投入单列。",
+      "story_id": "agibot-rollback-counterfactual-world-model-policy"
+    },
+    {
+      "title": "回合级信用分配也需要稳定性证据",
+      "text": "MPO把assistant turn与token两级优化接起来；HF独立留言追问不等长回合、ratio稳定性及多seed，而非仅看均值。",
+      "story_id": "mpo-turn-token-credit-agent-rl"
+    },
+    {
+      "title": "合成数据与Harness演化走向不同的实机检验",
+      "text": "RynnWorld-Latent以目标本体适配后的视频增强π0.5；Trinity改Harness并做5次仿真准备，二者均保留实机分母与适应成本。",
+      "story_id": "rynnworld-latent-cross-embodiment-data-engine"
+    }
+  ],
+  "reading": [
+    {
+      "title": "RoboDojo榜单与协议",
+      "url": "https://robodojo-benchmark.com/leaderboard#agent",
+      "reason": "先确认Agent/RealWorld分轨、Score/SR和今日重查没有新排名。"
+    },
+    {
+      "title": "PyRUA-Lean：公开观测、Python与IK",
+      "url": "https://github.com/DAGroup-PKU/PyRUA-Lean/blob/fdf6e870654254e2c0c891ee407313fa48bdd0f9/docs/robots/robodojo.md",
+      "reason": "沿RGB、SAM3、标定几何、move_to和关节动作读完整条执行链。"
+    },
+    {
+      "title": "R²SI技术报告与架构",
+      "url": "https://r2si.worldscape.io/report.pdf",
+      "reason": "核对24动作chunk、Flash/Memory滚动上下文、动作边界接管和外层更新边界。"
+    },
+    {
+      "title": "PDRVLA全文",
+      "url": "https://arxiv.org/html/2610.37381v1",
+      "reason": "看physical tokens、8步动作专家和仿真主表，不把未来视频辅助监督写成在线规划。"
+    },
+    {
+      "title": "RynnWorld-Latent全文",
+      "url": "https://arxiv.org/html/2610.36791v1",
+      "reason": "区分统一潜在动作、目标本体适配、合成数据与真实闭环试验。"
+    },
+    {
+      "title": "Rollback全文",
+      "url": "https://arxiv.org/html/2610.36068v1",
+      "reason": "核对世界模型回滚、MCTS分支、LoRA修正和Genie-02实机分母。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "具身Agent决策粒度 / embodied-agent decision granularity",
+      "explanation": "Python多步程序、结构化工具调用、24步WAM动作块和逐步关节执行承担不同反馈频率。"
+    },
+    {
+      "term": "逆运动学 / inverse kinematics",
+      "explanation": "把末端位姿变成关节配置，是PyRUA几何链路的桥梁，但不等于碰撞、轨迹或力控。"
+    },
+    {
+      "term": "物理动力学表征 / physical dynamics representation",
+      "explanation": "PDRVLA把未来RGB、深度和光流压成physical tokens，部署时由动作专家使用。"
+    },
+    {
+      "term": "跨本体潜在动作 / cross-embodiment latent action",
+      "explanation": "RynnWorld-Latent用3D-grounded latent actions连接人类视频、机器人示范和可控世界模型。"
+    },
+    {
+      "term": "反事实世界模型改进 / counterfactual world-model improvement",
+      "explanation": "Rollback在关键状态回滚并比较替代动作，更新世界模型与动作策略权重。"
+    },
+    {
+      "term": "长程Agent信用分配 / long-horizon agent credit assignment",
+      "explanation": "MPO把assistant turn级变化与turn内token差异同时纳入后训练。"
+    },
+    {
+      "term": "Harness迁移 / harness transfer",
+      "explanation": "Policy/Harness显示观测字段、工具和控制逻辑的改变会造成policy mismatch，不能全归因于底座。"
+    },
+    {
+      "term": "能力树递归改进 / capability-driven harness evolution",
+      "explanation": "The Trinity冻结Claude Opus 5，改进Creator/Explorer/Evolver产生的模块和路由，实机准备成本需单列。"
+    },
+    {
+      "term": "流式空间记忆 / streaming spatial memory",
+      "explanation": "ChronoReplay用因果时间重放与家庭平衡监督减少空间读出接口锁定，但没有机器人闭环。"
+    }
+  ],
+  "featured_ids": [
+    "policy-secretly-harness-agent-interface-geometry",
+    "pdrvla-physical-tokens-without-online-video",
+    "agibot-rollback-counterfactual-world-model-policy",
+    "mpo-turn-token-credit-agent-rl",
+    "rynnworld-latent-cross-embodiment-data-engine",
+    "trinity-capability-harness-rsi"
+  ],
+  "stories": [
+    {
+      "id": "mpo-turn-token-credit-agent-rl",
+      "category": "llm",
+      "tag": "Agent后训练 · 长程工具调用 · RL信用分配",
+      "title": "MPO：长程Agent的信用分配，在完整回合与token之间怎样取舍？",
+      "organization": "IQuest / IQuestLab",
+      "published": "2026-10-26",
+      "date_label": "arXiv v1（UTC）；Hugging Face Papers提交日为2026-10-28，本轮读取日榜页为10月28日，372赞、3条评论，排名第1。",
+      "summary": "Multiscale Policy Optimization（MPO）观察到长程Agent的critic值主要在完整assistant turn之间变化，同时保留turn内token差异；它用Multiscale Advantage Estimation传播回合级信用、用turn-level importance sampling做概率校正。作者在BrowseComp-Plus、GAIA、HLE、Claw-Eval和Automation Bench上用Qwen3-4B-Thinking与Qwen3-30B-A3B-Instruct比较GRPO、GSPO、PPO、VAPO、SAO，MPO在表中9项指标均最高；例如4B的GAIA pass@1为39.47、4B Automation Bench为13.33，30B-A3B分别为43.42和15.00。",
+      "why": "一次assistant turn往往包含完整的工具调用、搜索或动作决策，失败可能只来自其中一个参数。MPO用回合级信用分配与token级细化检验这个训练问题；HF评论者O96a追问长短turn差异下的重要性比率与clipping，alphabell-research要求补多seed，核实turn-only消融到完整方法的增益是否可靠。这是两位独立用户的具体质疑，未核到复现；向具身工具调用迁移仍是研究假说。",
+      "limitation": "论文实验是搜索、工具使用和自动化任务，不是机器人或RoboDojo；Claw与Automation训练数据为未公开的公司内部数据。每个模型规模每个设置仅一次训练，选择最佳checkpoint，再做5次离线评估；作者在HF讨论中尚未给出多seed波动。pass@1/pass@3、Claw-Eval的pass3和Automation Bench终态断言口径不同，不能合并成单一成功率。",
+      "sources": [
+        {
+          "label": "arXiv全文：MPO方法、主表与单次训练/评估协议",
+          "url": "https://arxiv.org/html/2610.35013v1"
+        },
+        {
+          "label": "Hugging Face Papers日榜页面：10月28日第1、372赞、3条公开评论",
+          "url": "https://huggingface.co/papers/2610.35013"
+        },
+        {
+          "label": "arXiv记录：论文首发日期",
+          "url": "https://arxiv.org/abs/2610.35013"
+        }
+      ]
+    },
+    {
+      "id": "pdrvla-physical-tokens-without-online-video",
+      "category": "embodied",
+      "tag": "VLA架构 · 物理表征 · 仿真评测",
+      "title": "PDRVLA：让动作模型学会预测物理变化，执行时不必先生成未来视频",
+      "organization": "北京大学、京东JD.com",
+      "published": "2026-10-27",
+      "date_label": "arXiv v1（UTC）；10月28日提交Hugging Face Papers，本轮29日核读全文，138赞/1评论仅作发现信号。",
+      "summary": "PDRVLA从VLM中间层抽取50个physical tokens，用未来RGB、深度和光流表征训练一个轻量物理动力学模块，再与VLM最终层特征和机器人状态一起驱动flow-matching动作专家。冻结视频模型只用于预训练辅助监督，部署不在线生成视频；每次生成并执行8步动作块后重新观测。作者报告LIBERO、LIBERO-Plus、RoboTwin 2.0和SimplerEnv成功率分别为99.3%、89.9%、93.6%和81.5%。",
+      "why": "这与当下Agent/WAM分工的争点直接相连：物理预测知识可以进入动作表征，而无需把完整视频生成放入控制回路。论文把未来表征监督、子任务条件和ECoT分别消融，有助于追问收益来自物理信息、额外数据还是控制接口；它也提供Agent可调用的专用动作层的一种候选构型。",
+      "limitation": "四项主结果全部为仿真，不能当实机可靠性。基线来自各自论文和代码协议，非全系统同预算复测；LIBERO-Plus机器人初始状态扰动成功率75.2%，SimplerEnv Carrot→Plate仅64.6%，不能用总平均抹掉弱项。本轮未取得专属代码或权重发布证据，也未独立复现。HF仅1评论且页面隐藏低质量评论，不称多方热议。",
+      "sources": [
+        {
+          "label": "论文全文：物理模块、8步动作块与四项仿真协议",
+          "url": "https://arxiv.org/html/2610.37381v1"
+        },
+        {
+          "label": "Hugging Face Papers：10月28日提交及点赞/评论快照",
+          "url": "https://huggingface.co/papers/2610.37381"
+        }
+      ]
+    },
+    {
+      "id": "rynnworld-latent-cross-embodiment-data-engine",
+      "category": "embodied",
+      "tag": "世界模型 · 潜在动作 · 合成数据到实机",
+      "title": "RynnWorld-Latent：用统一潜在动作连接人类视频、机器人与可控世界模型",
+      "organization": "香港具身智能实验室、香港中文大学、阿里巴巴达摩院、湖畔实验室",
+      "published": "2026-10-27",
+      "date_label": "arXiv v1（UTC）；10月28日提交Hugging Face Papers，本期29日核读论文、代码与模型目录，8赞/1评论仅作发现信号。",
+      "summary": "RynnWorld-Latent以RynnLAM的3D-grounded潜在动作作为跨本体条件，在23个数据集、约5.535亿帧上学习可控视觉动力学；目标机器人另做适配，再通过数字遥操作或人类动作迁移生成动作—视频示范。下游π0.5在Marvin-WUJI与Astribot-S1真实闭环任务上加入数字遥操作数据后均有提升：每项35次试验中，摆盘82.86%→91.43%，上菜40.00%→54.29%，取盘45.71%→57.14%。",
+      "why": "相比只问世界模型画面是否逼真，这项工作检查生成数据是否能改善真实动作策略，并把机器人专属控制命令与跨本体潜在动作分开。它延续RynnVLA-Latent的统一动作接口路线，但承担的是可控世界模型与数据引擎角色，不能把两篇合成同一模型。",
+      "limitation": "目标机器人需要真实示范适配，3,850条示范按每任务5%留出，验证的是未见示范而非未见任务；不是零样本跨本体。仅用合成数据的策略仍低于仅用真实数据，35次试验的改善也未主张统计显著。代码与HF模型目录已读，但raw模型卡不存在、权重未下载或运行；50Hz策略部署和500Hz低层接口不等于世界模型视频生成吞吐。",
+      "sources": [
+        {
+          "label": "论文全文：潜在动作条件、数据引擎与35次实机协议",
+          "url": "https://arxiv.org/html/2610.36791v1"
+        },
+        {
+          "label": "作者代码：推理、标注、目标本体后训练与公开范围",
+          "url": "https://github.com/alibaba-damo-academy/RynnWorld-Latent"
+        },
+        {
+          "label": "作者所链接的模型目录：四个权重分片及配置，未运行",
+          "url": "https://huggingface.co/Alibaba-DAMO-Academy/RynnWorld-Latent"
+        }
+      ]
+    },
+    {
+      "id": "agibot-rollback-counterfactual-world-model-policy",
+      "category": "embodied",
+      "tag": "智元 · 世界模型搜索 · 实机策略改进",
+      "title": "Rollback：世界模型可以回到失败之前，比较替代动作后再训练实机策略",
+      "organization": "智元AgiBot、北京航空航天大学、新加坡国立大学",
+      "published": "2026-10-26",
+      "date_label": "arXiv v1（UTC）；10月28日进入Hugging Face Papers，本期29日核读全文和作者项目，属于近期新研究，未核到独立复现。",
+      "summary": "Rollback把GE-Sim 2.0世界模型变成可回滚环境，从同一关键决策状态分出替代动作，MCTS比较兄弟分支结果形成动作级训练监督；真实新轨迹再通过LoRA修正世界模型。最终π0.5策略在AGIBOT Genie-02上以30Hz闭环执行，不在部署时运行世界模型搜索。抽积木、投球、桌面冰壶成功率为69.33%、40.00%、64.44%，相对作者同世界模型RISE复现分别提升10.67、11.11、11.85个百分点。",
+      "why": "这条线把“失败经验如何变成新能力”落实到反事实动作比较，而非仅给整段成功轨迹贴标签。它更新的是动作策略与世界模型权重，和RoboDojo前排中只积累代码或文字经验的Agent路线不同，适合并行追踪二者如何利用执行反馈。",
+      "limitation": "三项任务分别150、90、135次实机试验，作者自报；策略暖启动与世界模型训练均使用任务数据。改进阶段使用1台实体机器人和48张H200（40张搜索、8张策略训练），另有前期训练，不能把8小时写成全部成本或证明递归加速。世界模型开环误差随长时滚动累积；world judge只标注想象分支，真实成功由物理结果判定。本轮未取得专属完整代码或模型发布证据。",
+      "sources": [
+        {
+          "label": "论文全文：反事实树、真实任务协议、计算量与世界模型误差",
+          "url": "https://arxiv.org/html/2610.36068v1"
+        },
+        {
+          "label": "作者项目：真实执行、搜索树与同世界模型基线",
+          "url": "https://rollback-wm.github.io/"
+        },
+        {
+          "label": "Hugging Face Papers：近期发现信号，不是独立复现",
+          "url": "https://huggingface.co/papers/2610.36068"
+        }
+      ]
+    },
+    {
+      "id": "trinity-capability-harness-rsi",
+      "category": "discussion",
+      "tag": "Harness RSI · Capability Tree · Real2Sim2Real",
+      "title": "The Trinity：冻结底座，沿能力树改进Harness，再测试真实机器人迁移",
+      "organization": "InfRec、Xidian University、Tongji University、National University of Singapore等",
+      "published": "2026-10-26",
+      "date_label": "arXiv v1（UTC）；Hugging Face Papers提交日为2026-10-28，本轮读取日榜页为10月28日，311赞、2条评论，排名第3。",
+      "summary": "The Trinity把Creator、Explorer和Evolver组成一个能力驱动的递归自改进框架：先从异构任务的执行轨迹抽取共享能力需求，构造capability tree；Creator在排除目标任务布局和解法的简化世界中做Real2Sim2Real训练，Explorer演化可复用模块，Evolver按固定树拓扑选择性继承并形成Harness tree，最后由Capability-Aware Harness Router按公开任务信息选配置。论文使用冻结的Claude Opus 5 backbone；作者报告28个训练benchmark平均提升34分、18个未见benchmark提升26分，并在SOON的Unitree G1和CaP-X的AlohaMini2上做实机迁移。",
+      "why": "这项工作把Agent能力放在可继承模块、生成世界与路由中组织，与RoboDojo构型专题形成另一组系统层证据。论文报告SOON和CaP-X实机从基础Harness的0%到最高60%；HF独立评论者alphabell-research要求给出18个未见benchmark不做目标准备的对照及准备成本。该质疑指向迁移与适应的区分，不能仅由总分宣称递归加速。",
+      "limitation": "实机每个Harness先在重建仿真中做5次准备试验、将轨迹总结为skills，再冻结skills测试，准备试验不计入测试成功率；正式SOON为1条路线10个episode，CaP-X为10个布局10个episode。因此“未见benchmark提升”包含目标benchmark的技能准备，不能直接当作零样本跨任务泛化。两种实机接口、消息处理、指导和验收规则不同，论文也明确没有隔离模块演化与技能准备的因果贡献。框架主要改Harness并冻结Claude Opus 5；代码仓库10月28日仅有报告与介绍，README承诺一周内发布，当前不是完整实现开源。",
+      "sources": [
+        {
+          "label": "arXiv全文：Creator/Explorer/Evolver、能力树、路由与实机迁移",
+          "url": "https://arxiv.org/html/2610.36077v1"
+        },
+        {
+          "label": "Hugging Face Papers日榜页面：10月28日第3、311赞、公开评论",
+          "url": "https://huggingface.co/papers/2610.36077"
+        },
+        {
+          "label": "项目主页：已读取但页面内容较少，主要技术证据取自论文",
+          "url": "https://trinity-rsi.github.io/"
+        },
+        {
+          "label": "官方仓库README：代码Coming Soon，计划10月28日起一周内发布",
+          "url": "https://github.com/InfRec-Cardinal/The-Trinity"
+        }
+      ]
+    },
+    {
+      "id": "policy-secretly-harness-agent-interface-geometry",
+      "category": "llm",
+      "tag": "Agent Harness · 接口迁移 · 后训练",
+      "title": "Policy/Harness：模型也会学进接口偏好，只改观测字段顺序就可能掉分",
+      "organization": "香港科技大学（广州）与香港科技大学",
+      "published": "2026-10-27",
+      "date_label": "arXiv v1（UTC）；Hugging Face Papers提交日为2026-10-28，本轮读取日榜页为10月28日，6赞、1条作者评论。",
+      "summary": "《Your Policy Is Secretly a Harness》把Agent的提示、工具、控制器和执行逻辑形式化为harness，并在KL正则控制下将部署回报分解为harness ceiling减去policy mismatch。MiniWoB++实验用Qwen3.5-2B、六种harness和LoRA后训练：只把JSON观测字段顺序反转、保持最优语义动作不变，训练模型成功率仍从85.0%降到19.2%，约一半状态的最高概率动作改变。对Terminal-Bench Lite的五种编码Agent harness，作者用更强教师模型估计ceiling与mismatch，C−M排序与实际准确率一致，而单看ceiling或mismatch不行。",
+      "why": "RoboDojo前排Agent的差异可能来自harness、工具/控制器与训练接口的共同作用；这篇工作提供了一个可检验的分解：固定权重直接换接口时测的是readout mismatch，适配后才测新harness能否抬高能力上限。它提醒跨模型/跨Agent榜单不能把一个冻结checkpoint在不同工具协议下的分数直接解释成底座能力差异，也适合后续对具身Agent的观测编码、动作菜单、验证器和记忆接口做对应消融。 Hugging Face Papers这里只作为发现窗口：页面和API实际日期为10月28日，点赞/评论是可见性信号，不等同于独立复现或行业共识。",
+      "limitation": "实验主体是MiniWoB++网页任务和Terminal-Bench Lite编码Agent，没有机器人、视觉闭环或实机数据；具身意义目前是接口迁移的机制假说。MiniWoB++后训练使用Qwen3.5-2B、LoRA rank16、每个harness 1,024次更新/4,096任务抽样，测试集576任务；Terminal-Bench Lite含39个任务、每个harness三次独立运行，教师为GPT-5.6-luna，目标为启用thinking的Qwen3.5-9B，结果依赖教师代理的最优近似与三项探针任务。HF页面目前只有作者评论，不能称社区共识。",
+      "sources": [
+        {
+          "label": "arXiv全文：harness ceiling/mismatch理论、MiniWoB++与Terminal-Bench协议",
+          "url": "https://arxiv.org/html/2610.37255v1"
+        },
+        {
+          "label": "Hugging Face Papers日榜页面：10月28日、6赞、作者评论",
+          "url": "https://huggingface.co/papers/2610.37255"
+        },
+        {
+          "label": "官方代码仓库：HRP实验与harness适配实现",
+          "url": "https://github.com/2020-qqtcg/HRP"
+        }
+      ]
+    },
+    {
+      "id": "chronoreplay-streaming-spatial-interface-lockin",
+      "category": "embodied",
+      "tag": "空间推理 · 流式视觉记忆 · 具身感知",
+      "title": "ChronoReplay：同一段视觉历史，怎样支持多种空间问题而不锁定一种接口？",
+      "organization": "西湖大学 LINs Lab、浙江大学、中国科学技术大学等",
+      "published": "2026-10-25",
+      "date_label": "arXiv v1（UTC）；Hugging Face Papers提交日为2026-10-28，本轮读取日榜页为10月28日，344赞、1条公开评论，排名第2；当前只有作者说明，不能称多方共识。",
+      "summary": "ChronoReplay研究流式空间VLM在同一段因果视频历史上同时回答左右关系、距离和时间问题时的接口锁定：只训练一种readout可能提升该接口，却损伤其他空间读出。方法保留各类监督的原生格式，按因果时间前缀组织成episode，并做family-balanced learning；推理时再用adaptive frame selection减少视觉输入。作者在OVO-S-Bench、OST-Bench和UCS-Bench上报告同一checkpoint的共同提升，OST最高提升13.41分，时间顺序对照在两组paired seeds上约多2.41分。",
+      "why": "具身Agent在长程移动中要持续回答“物体在哪里、走了多远、何时见过”。ChronoReplay把因果历史、监督格式和证据访问分开，研究为何一个空间读出变好时另一个会退化。本轮在10月28日HF榜单发现该文，344赞只表示可见性；目前读到的1条留言是作者说明，属于值得跟进的新研究，没有独立讨论或机器人实测。",
+      "limitation": "论文在室内流式空间benchmark上评测，主要基座为Qwen3-VL-8B并与大模型参考比较，没有真实机器人闭环、动作输出或触觉反馈。因此它支持具身感知/空间记忆的研究线索，不支持“机器人控制提升”的结论。作者指出观察访问是正交因素，adaptive frame selection改变了测试时证据访问；不同训练数据覆盖也限制了把收益归因于答案格式的范围。 代码README已读：提供实现/配置/测试与冻结训练membership，但不含微调权重、媒体、保存预测或论文分数文件，本轮未运行复现；仓库尚未选定项目级许可证。",
+      "sources": [
+        {
+          "label": "arXiv全文：接口锁定、Chronological Replay与消融",
+          "url": "https://arxiv.org/html/2610.34283v1"
+        },
+        {
+          "label": "Hugging Face Papers日榜页面：10月28日第2、344赞、作者说明",
+          "url": "https://huggingface.co/papers/2610.34283"
+        },
+        {
+          "label": "项目主页：ChronoReplay与流式空间基准说明",
+          "url": "https://yihaohu0118.github.io/ChronoReplay/"
+        },
+        {
+          "label": "官方代码仓库：训练与评测实现",
+          "url": "https://github.com/yihaohu0118/ChronoReplay"
+        }
+      ]
+    }
+  ],
+  "technical_explainer": {
+    "id": "inverse-kinematics-agent-to-joints",
+    "title": "逆运动学 IK：把“夹爪到这里”变成关节角",
+    "summary": "Agent可以提出夹爪的位置和朝向，机器人却要驱动各个关节。逆运动学利用机器人几何，把目标末端位姿变成关节配置；它是可执行动作链的一环，不能单独保证路径无碰撞、抓取成功或接触稳定。",
+    "reading_minutes": 6,
+    "why_now": "本期继续拆具身Agent从观测到动作的接口。PyRUA-Lean明确在host内解IK再发关节动作，R²SI也把高层决策与执行器分开；这里补足读源码时常遇到的IK、Jacobian和阻尼这些基础词。Modern Robotics材料发表于2017年，是今天解释仍在使用的运动学机制的历史教材，不是今日新闻；PyRUA代码为本轮核读的固定提交。",
+    "sections": [
+      {
+        "heading": "先分清正运动学与逆运动学",
+        "paragraphs": [
+          "正运动学给定关节角q，沿连杆长度、关节轴和安装位姿逐段计算，得到末端位姿T(q)。位姿同时包含位置和朝向；夹爪中心与腕部坐标系也可能有固定偏移。逆运动学反过来给定目标T*，求使T(q)接近T*的q。Agent说“到杯子上方”之前，还须把视觉估计转换到机器人使用的坐标系，并说明目标指的是腕部还是指尖。",
+          "同一个末端位置可能对应肘上、肘下等多组关节解；加上朝向、关节极限或障碍后，有些解才可用，有时根本无解。7关节机械臂若只约束常见6维末端位姿，通常还有冗余可用于避开限位或调整肘部。冗余并不保证任意目标都可达，解也不会自动连续。"
+        ]
+      },
+      {
+        "heading": "数值迭代：先算误差，再小步调整",
+        "paragraphs": [
+          "数值IK从一个初始关节配置开始，常选当前q。先用正运动学算当前末端，再形成目标与当前的位姿误差e；位置误差与旋转误差须在一致坐标系表达，旋转通常用旋转向量或刚体变换的对数，不直接逐项减欧拉角。两类误差量纲不同，工程上需要权重和分别的容差。",
+          "雅可比矩阵J描述当前姿态附近的局部关系：小关节变化Δq大约造成末端变化JΔq。求解器据此找Δq，加到q上，再重新计算误差；直到位置和朝向误差够小，或达到迭代次数。它是在电脑里试算关节配置，不能把每次优化迭代理解成机器人实际动一次。非线性关系只在局部近似，初值不好可能收敛到不合适的解或失败。",
+          "最简单的思路用伪逆Δq=J⁺e。接近奇异姿态时，某些方向很难靠关节小幅移动实现，伪逆可能要求很大的关节变化。常用阻尼最小二乘改为Δq=Jᵀ(JJᵀ+λ²I)⁻¹e；等价于在拟合局部误差时惩罚过大的Δq。阻尼使更新更温和，却会牺牲一部分误差下降速度，不能把不可达目标变成可达。实际还会限步长、处理关节边界，并尝试多个初值。"
+        ]
+      },
+      {
+        "heading": "读PyRUA代码：IK输出应带误差与状态",
+        "paragraphs": [
+          "本轮读到的PyRUA-Lean实现直接从ARX X5的运动链计算正运动学和6×6几何雅可比，用阻尼最小二乘迭代，并裁剪关节边界、限制单步更新。它返回关节角、位置误差、朝向误差、ok与碰撞检查结果，而不是只给一个看起来像动作的数组。代码中的旋转误差权重控制收敛时的取舍，不等于物理精度保证。",
+          "这里的碰撞检查主要检查连杆/指尖相对桌面的净空，不能当成完整场景避障。上层应读返回状态：失败时换抓取朝向、先移到中间航点、重新定位或停止，而非让语言模型看到“工具调用成功”就认定物体已被抓住。R²SI把控制工具与WAM都交给执行层，也不能因此推断每条动作模型关节输出都先经过同一个IK求解器。"
+        ]
+      },
+      {
+        "heading": "IK、规划与控制分别负责什么",
+        "paragraphs": [
+          "IK主要回答终点关节配置；路径规划回答从当前位置沿什么路线到终点，检查中间状态与障碍。轨迹生成再规定各时刻的位置、速度和加速度；低层反馈控制根据编码器、速度或力矩误差跟踪轨迹。一个终点IK解可以完全正确，手臂却在中途撞到杯子；一条几何无碰路径也可能超速度限制或在接触时失稳。",
+          "奇异是当前局部运动映射退化，不等于所有终点都不可达；不可达可能源于工作空间、姿态要求、限位或约束。数值求解失败也不总能证明数学上无解。读论文时应分别看残差、迭代/初值、路径碰撞、控制周期以及真实执行反馈，避免把“IK成功率”写成机器人任务成功率。"
+        ]
+      }
+    ],
+    "example": {
+      "title": "教学假设：两段手臂能到同一点，却未必同姿态",
+      "paragraphs": [
+        "假设平面机械臂两段均长0.5米，只要求末端位置到(0.5米,0.5米)，暂不约束朝向。关节角(0°,90°)与(90°,−90°)都能达到这个点，肘部位置不同，末端朝向也不同。若夹爪必须朝下，其中一组可能不再合适；若障碍占据某条路线，终点可达仍不能直接运动过去。",
+        "同一假设手臂伸直的最大距离为1米，目标(1.2米,0)超出工作空间。增加迭代次数只能继续逼近边界，不能凭计算长出连杆。这是教学算例，不是PyRUA、R²SI或本期任何论文的实测。"
+      ]
+    },
+    "checklist": [
+      "目标是位置还是完整位姿？坐标系、单位、旋转表示和工具中心点偏移是否一致？",
+      "机器人模型与标定来自哪里？关节限制、初值、多解选择和残差容差是否说明？",
+      "IK失败、近奇异或残差过大时，上层能否改变朝向、重规划或停止？",
+      "碰撞检查覆盖终点还是整条路径、桌面还是全部物体？谁做速度限制和低层跟踪？",
+      "结果报告的是数学残差、到达误差、抓取保持，还是完整任务成功率？是否回读真实状态？"
+    ],
+    "takeaway": "IK把末端目标翻译成关节配置；Agent能否把任务做成，还取决于目标是否测准、路径是否可行、控制是否跟得上，以及执行后有没有检查和恢复。",
+    "sources": [
+      {
+        "label": "Lynch & Park, Modern Robotics §6.2（2017）：Newton–Raphson、Jacobian伪逆与数值IK；历史基础教材，今用于解释机制",
+        "url": "https://modernrobotics.northwestern.edu/nu-gm-book-resource/6-2-numerical-inverse-kinematics-part-1-of-2/"
+      },
+      {
+        "label": "Modern Robotics §6.2 Part 2（2017）：刚体变换误差、body twist与收敛；本轮实际读取文字讲稿",
+        "url": "https://modernrobotics.northwestern.edu/nu-gm-book-resource/6-2-numerical-inverse-kinematics-part-2-of-2/"
+      },
+      {
+        "label": "PyRUA-Lean固定提交fdf6e87：robodojo_kinematics.py的FK、Jacobian、DLS与净空检查，本轮实际核读",
+        "url": "https://github.com/DAGroup-PKU/PyRUA-Lean/blob/fdf6e870654254e2c0c891ee407313fa48bdd0f9/src/pyrualean/hosts/robodojo_kinematics.py"
+      }
+    ]
+  },
+  "research_supplement": {
+    "id": "robodojo-observation-to-action-pyrura-r2si-20261029",
+    "title": "从图像到动作：PyRUA-Lean 与 WorldScape-R²SI 如何闭环",
+    "summary": "RoboDojo Agent 榜第二期教学续篇：榜单截至10月29日重查没有新排名变化，本期沿昨日的系统总览，专门比较 PyRUA-Lean 与 WorldScape-R²SI 如何把RGB、本体状态和任务指令接到可执行动作。PyRUA让GPT-6 Astra写多步Python程序，由SAM3/几何和自写IK执行；R²SI让Agent在原生工具与WorldScape Flash/Memory动作模型之间调度。两者都不是让大模型直接逐帧输出电机力矩。",
+    "reading_minutes": 9,
+    "why_now": "这是用户指定的RoboDojo连续专题第二期。10月29日实际重读官方榜单新bundle，Agent前五和分数仍是10月28日快照；因此本篇标明“今日教学续篇、不是新发布”，把注意力从名次转到决策粒度、空间信息、动作接口和反馈边界。代码、报告和配置均为公开材料阅读，未运行两套系统，也不能用当前公开版本替代10月17日R²SI历史榜单服务工件。",
+    "sections": [
+      {
+        "heading": "1. 今日先把榜单变化说清楚",
+        "paragraphs": [
+          "RoboDojo官方页面在10月29日重新读取到的新JavaScript bundle仍将站点updated_at写为2026-10-28，Agent分轨前五没有变化：GO-3 Nano Preview 61.90／56.42%，PyRUA-Lean 55.26／50.35%，HexaShell-Preview 53.18／46.85%，WorldScape-R²SI 46.58／39.35%，EmbodiedEvo 45.08／38.95%。这些是RoboDojo-Sim；RealWorld前五仍是另一组系统。今天的新增是把两套可核系统的观测到动作链拆开，不把重查包装成新上榜。",
+          "Score含部分任务进展，SR是二元完整成功率；统一Updated日期、公开rollout视频和榜单标签不能替代逐条的评测工件核验。GO-3 Nano的专属底座和WAM连接方式仍未取得，本篇不从Agent+WAM标签猜它的内部构型。"
+        ]
+      },
+      {
+        "heading": "2. PyRUA-Lean：从RGB和语言到可执行Python",
+        "paragraphs": [
+          "RoboDojo榜配置是GPT-6 Astra high加自写OpenAI-compatible Agent loop。它收到任务指令、头部和两只腕部的三路RGB、双臂关节/末端/夹爪状态；没有模拟器深度、物体真值或在线成功信号。模型可以按需请求图像和状态，代码在episode内的namespace中持续存在。",
+          "SAM3用于从彩色图像取得对象mask；公开工作站标定和多视图几何把像素、相机和工作台坐标联系起来。代码中的locate、segment、back_project等工具提供位置、掩膜和反投影信息，但厘米级空间结果依赖标定与本体几何工程前提，不能归因给Astra单独的视觉推理。",
+          "Astra写出的不是一个单独的关节向量，而是可执行Python：先定位，再调用move_to、set_gripper或home，读取打印结果与新图像，按条件继续或重试。move_to之后由自写逆运动学和直线/关节路径生成关节目标，发给ARX-X5的joint action接口。一个代码cell可以展开成多次native action，所以100次代码执行预算不能换算成100个物理控制步。",
+          "反馈只包括程序显式打印、按需图像和本体状态；RoboDojo自己的成功判定留在环境端。模型必须根据夹爪停住与宽度、末端位姿和视觉变化推断动作是否有效。官方summary为单seed3的55.26／50.35%，作者另一组seed0运行的58.20／51.62%和约13分钟/episode成本不能混为榜单复测。"
+        ]
+      },
+      {
+        "heading": "3. WorldScape-R²SI：在原生工具与动作模型之间切换",
+        "paragraphs": [
+          "R²SI公开内层配置为gpt-6-astra、high、full episode context。Agent上下文由任务指令、多视角RGB、机器人状态、已加载Skills、工具描述和episode历史组成；共享库包含34个Skills、4个工具和2个基础原语。它根据当前观测、进展和Skill条件选择原生操控工具，或调用WorldScape Flash/Memory动作模型。",
+          "WSP接收原始环境指令、RGB和本体状态，输出短动作chunk；公开部署文档写明每chunk 24个动作、观测间隔3、8个历史segment，Flash checkpoint容量为单chunk，Memory最多24个chunk。Executor以固定机器人运动学执行并回传已执行动作、状态、图像和工具反馈。只有被确认执行的动作推进策略历史，因此Agent能在动作块之间重新判断是否继续委托WAM。",
+          "公开架构还允许Agent在动作边界接管并丢弃未执行的动作后缀；完整chunk执行后保留rolling状态，切换策略时清空旧上下文。这里先把它理解为“动作块调度和反馈接口”，明天再单独追接管触发条件、WAM上下文清理和层级控制的失败恢复，不把一个边界规则写成完整的实时控制结论。",
+          "外层Recursion Agent可以从执行记录修改Skills、Memory和工具调用程序；只有另行配置数据集、训练预算和候选权重服务时，才启动WAM权重更新。报告称正式榜评测使用冻结的harness、Skills和模型权重；当前公开代码与HF模型manifest可相互核对，但没有历史10月17日榜单服务的原始release manifest，未运行权重，不能声称完全复现旧榜。"
+        ]
+      },
+      {
+        "heading": "4. 同一闭环中的不同决策粒度",
+        "paragraphs": [
+          "PyRUA的高层模型调用一次可以写出一段包含条件、循环和多个工具调用的程序，底层IK和路径代码把它拆为关节动作；R²SI则让Agent在每个决策阶段选择原生工具或一次动作chunk，并在已确认的动作边界再次观察。前者的中间状态是Python变量和显式反馈，后者还包含WAM的滚动上下文。",
+          "这说明Agent榜的比较轴不能只有底座模型名称。至少要同时问：观测是否含深度/真值/标定，模型输出是代码、工具调用还是动作块，谁负责IK与低层轨迹，反馈多久回来，失败是否能中断，跨episode经验是否冻结，评测前哪些工件被锁定。两套系统都把语言模型放在“选择、编程和重规划”位置，而把连续动作稳定性留给工具、运动学或动作模型。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "本期对照：RoboDojo-Sim榜项的观测、决策粒度与动作接口（公开配置阅读，未运行）",
+      "columns": [
+        "维度",
+        "PyRUA-Lean",
+        "WorldScape-R²SI"
+      ],
+      "rows": [
+        [
+          "模型如何看到世界",
+          "三路RGB＋双臂state＋指令；按需图像；无depth/物体真值；使用SAM3和标定几何",
+          "多视角RGB＋机器人state＋指令＋Skills/episode context；WSP使用RGB与本体状态"
+        ],
+        [
+          "模型输出的粒度",
+          "Python cell，可组合多个locate/move/gripper/检查操作",
+          "原生工具调用或WSP动作chunk；公开配置每chunk 24动作"
+        ],
+        [
+          "空间与低层控制",
+          "SAM3/反投影/标定几何＋自写IK和直线或joint path，输出joint action",
+          "固定Executor运动学执行工具或WAM动作；具体低层控制由公开harness/模型配置承担"
+        ],
+        [
+          "反馈与状态",
+          "打印结果、按需图像、本体state；namespace仅episode内持久；环境成功信号不直接给Agent",
+          "执行回执、RGB、robot state和episode history；确认动作推进WAM history，边界可接管"
+        ],
+        [
+          "主要预算边界",
+          "100 code executions、8192输出token/call、5400秒墙钟及任务native action limit；官方summary单seed3",
+          "代码公开24动作chunk/滚动上下文；外层训练需另配数据、预算、服务；历史榜release工件未完全匹配"
+        ]
+      ]
+    },
+    "example": {
+      "title": "假设例子：把红色积木放进碗时，谁在何时做决定？",
+      "paragraphs": [
+        "假设头部相机看到红色积木，腕部相机需要补充抓取角度。PyRUA可能让Astra写出“请求腕部图像→用locate得到目标→调用move_to下降→闭爪→读取夹爪停住与宽度→不满足就调整并重试”的程序，IK和路径代码负责把每段末端目标变成joint action。",
+        "R²SI可能先由Skill判断这是一个适合WSP的短操作，执行一个24动作chunk；在确认回执和新观测后，Agent发现目标偏移或进度不满足，改用原生工具或在动作边界接管，再把已执行部分保留进WAM历史。这个例子是机制教学，不是两套系统的真实轨迹或实测成功率；真实系统还要核对碰撞、夹爪接触、动作步限和环境终止条件。"
+      ]
+    },
+    "checklist": [
+      "观测到底有RGB、depth、物体真值、相机标定和本体state中的哪些项？缺失信息由模型推理、几何工具还是训练先验补足？",
+      "模型输出是Python程序、结构化工具调用、末端位姿、动作chunk还是逐步关节动作？一次输出实际执行多少native actions？",
+      "谁负责SAM/空间定位、IK、插值、速度限制、夹爪控制和碰撞/终止检查？模型是否能看到环境的成功信号？",
+      "反馈在每个代码cell、工具调用、动作chunk还是固定观测间隔返回？动作边界能否停止未执行后缀？",
+      "代码/Skills/Memory/episode history与模型权重分别是否更新？测试前冻结了哪些东西，训练数据和验证布局是否独立？",
+      "榜单成绩来自哪个seed、任务分母和版本？Score是否被误写成SR，Sim是否被误写成实机？",
+      "读到的README、模型卡、论文和公开代码是否与历史榜单服务工件同一版本？未运行就不要写成复现。"
+    ],
+    "takeaway": "Agent进入具身控制的关键不是让语言模型直接取代低层控制，而是改变决策粒度：PyRUA用可执行程序组织多步动作，R²SI用Skills在原生工具与WAM动作块之间调度并接收反馈。比较榜单时，观测边界、动作接口和反馈频率与底座模型同样重要。",
+    "sources": [
+      {
+        "label": "RoboDojo官方榜单：10月29日重查，分轨与Score/SR",
+        "url": "https://robodojo-benchmark.com/leaderboard#agent"
+      },
+      {
+        "label": "RoboDojo评测协议：固定系统、相同checkpoint与闭环Agent规则",
+        "url": "https://robodojo-benchmark.com/leaderboard/protocol"
+      },
+      {
+        "label": "PyRUA-Lean v2：RoboDojo配置、观测、代码cell和评测预算",
+        "url": "https://arxiv.org/html/2610.01939v2"
+      },
+      {
+        "label": "PyRUA-Lean RoboDojo README/API：RGB、SAM3、locate、IK和XPolicyLab链路",
+        "url": "https://github.com/DAGroup-PKU/PyRUA-Lean/blob/fdf6e870654254e2c0c891ee407313fa48bdd0f9/docs/robots/robodojo.md"
+      },
+      {
+        "label": "PyRUA-Lean固定代码版本：观测与运动实现",
+        "url": "https://github.com/DAGroup-PKU/PyRUA-Lean/tree/fdf6e870654254e2c0c891ee407313fa48bdd0f9"
+      },
+      {
+        "label": "R²SI技术报告（2026-10-24）：Agent与WAM的双层闭环",
+        "url": "https://r2si.worldscape.io/report.pdf"
+      },
+      {
+        "label": "R²SI架构文档：观测、动作回执、chunk接管和外层版本",
+        "url": "https://github.com/manifoldai-research/R2SI/blob/3edfe6afa69978d9d50e59e91e115143a8b486a9/docs/ARCHITECTURE.md"
+      },
+      {
+        "label": "WorldScape_RSI内层README：Astra配置、24动作chunk、Flash/Memory上下文",
+        "url": "https://github.com/manifoldai-research/R2SI/blob/3edfe6afa69978d9d50e59e91e115143a8b486a9/XPolicyLab/policy/WorldScape_RSI/README.md"
+      },
+      {
+        "label": "WorldScape-R2SI模型卡：RoboDojo后训练Flash/Memory与ARX X5绝对关节控制",
+        "url": "https://huggingface.co/manifoldai-research/WorldScape-R2SI"
+      },
+      {
+        "label": "R²SI项目页：10月17日榜单事件和公开系统入口",
+        "url": "https://r2si.worldscape.io/"
+      }
+    ]
+  }
+}

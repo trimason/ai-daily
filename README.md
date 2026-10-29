@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年10月28日日报：沿“通用模型进入具身”主线追踪EBench的Astra与VLA/WAM协作边界、ZAP仿真后训练到YAM实机、PhysLadder接触操作分层，补充Genie 4世界模拟、Hy-Nomas技术报告与社区接入、RynnVLA潜在动作、Trial by Trace的Harness可靠性、Trajectory2Gym与Hugging Face Papers日榜发现。每条保留原始日期、当前发现或讨论依据、仿真/实机和作者自报/独立讨论边界。Hugging Face Papers网页及API本轮经显式请求代理读取成功，网页实际显示10月27日；arXiv cs.RO与跨分类具身检索独立进行，但部分列表/API响应不完整，具体命中论文已回查，不能声称全量覆盖。每日技术点讲DPO，区分偏好训练、轨迹可见性和具身闭环成功率。同日按用户要求追加RoboDojo前五具身Agent构型专题，对照PyRUA、HexaShell、EmbodiedEvo与WorldScape-R²SI，GO-3 Nano精确架构保留缺口。
+当前首页为2026年10月29日日报：七条近期研究围绕Agent信用分配和Harness迁移、物理动力学动作表征、跨本体世界模型数据、反事实回滚策略改进与流式空间推理。Hugging Face Papers网页/API本轮均读成功，实际日榜是10月28日；arXiv cs.RO独立检索，来源日期与发现日期分开。RoboDojo连续专题第二期比较PyRUA-Lean和WorldScape-R²SI的观测→程序/工具→IK或WAM动作块→反馈链路，今日重查前五无变化，不作为新排名。每日技术点讲逆运动学IK，区分终点求解、路径、轨迹和低层控制；作者结果、仿真/实机、独立评论与未开放工件的边界随文保留。
 
 ## 本地构建与预览
 

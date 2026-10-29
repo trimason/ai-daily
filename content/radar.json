@@ -2814,8 +2814,8 @@
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-28",
-            "note": "已读实际榜单、JS数据、rollout manifest、协议和基准论文；四系统取得专属论文/报告/代码及R²SI模型卡，GO-3 Nano精确架构未取得，精确榜工件与当前公开版本仍须匹配。"
+            "checked_on": "2026-10-29",
+            "note": "已重读榜单新bundle、Agent分轨、RealWorld分轨与协议；10月29日Agent前五和分数与10月28日相同，专题推进到观测—动作接口。公开代码/报告已回查，未运行，GO-3专属架构与历史榜服务工件仍缺。"
           },
           "channels": [
             {
@@ -2823,16 +2823,16 @@
               "url": "https://robodojo-benchmark.com/leaderboard#agent",
               "kind": "榜单/评测",
               "status": "content_verified",
-              "checked_on": "2026-10-28",
-              "note": "已核前五、类型/机构、Score/SR和分轨；统一Updated日期不能代替逐条入榜日期。"
+              "checked_on": "2026-10-29",
+              "note": "10月29日重读新bundle，Agent前五与分数未变；仍分Sim/RealWorld，Score/SR分开。"
             },
             {
               "label": "官方完整性与防刷榜协议",
               "url": "https://robodojo-benchmark.com/leaderboard/protocol",
               "kind": "评测协议",
               "status": "content_verified",
-              "checked_on": "2026-10-28",
-              "note": "10月26日规则：固定system、允许planner、禁止按任务切checkpoint，三seed/隐藏布局/工件要求；不能据规则替历史条目补齐工件。"
+              "checked_on": "2026-10-29",
+              "note": "10月29日重读新bundle，Agent前五与分数未变；仍分Sim/RealWorld，Score/SR分开。"
             },
             {
               "label": "官方基准代码",
@@ -3225,10 +3225,10 @@
           "scope": "开源模型、训练、推理、数据集、机器人与工具",
           "note": "本次请求超时；项目数据与结论回查对应模型卡、数据卡和代码。",
           "verification": {
-            "status": "unreadable",
-            "checked_on": "2026-10-14",
+            "status": "content_verified",
+            "checked_on": "2026-10-29",
             "http_status": null,
-            "note": "本次HTTP读取未成功；这不表示来源停更，采集时须重试并核验文章页面。"
+            "note": "10月29日通过请求级127.0.0.1:7897成功读取Papers网页/API及论文页；网页实际日榜为Oct 28，API跨日期，点赞/评论只作发现信号；系统代理未开启，scutil最终确认off。"
           }
         },
         {
