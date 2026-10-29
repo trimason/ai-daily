@@ -3223,13 +3223,23 @@
           "url": "https://huggingface.co/blog",
           "role": "技术解读与开源生态",
           "scope": "开源模型、训练、推理、数据集、机器人与工具",
-          "note": "本次请求超时；项目数据与结论回查对应模型卡、数据卡和代码。",
+          "note": "Blog与Papers分别核验；10月29日Papers网页/API成功，实际日榜为10月28日，点赞/评论仅作发现信号。",
           "verification": {
-            "status": "content_verified",
-            "checked_on": "2026-10-29",
+            "status": "unreadable",
+            "checked_on": "2026-10-14",
             "http_status": null,
-            "note": "10月29日通过请求级127.0.0.1:7897成功读取Papers网页/API及论文页；网页实际日榜为Oct 28，API跨日期，点赞/评论只作发现信号；系统代理未开启，scutil最终确认off。"
-          }
+            "note": "此前Blog入口读取超时；10月29日实际核读范围为独立Papers网页/API及具体论文讨论页，不能视为已读Blog目录。"
+          },
+          "channels": [
+            {
+              "label": "Hugging Face Papers网页与公开API",
+              "url": "https://huggingface.co/papers",
+              "kind": "论文发现与公开讨论",
+              "status": "content_verified",
+              "checked_on": "2026-10-29",
+              "note": "实际网页日榜Oct 28；API读取50条，逐篇回查全文与评论。请求级7897代理，系统代理未开启。"
+            }
+          ]
         },
         {
           "id": "karpathy",
