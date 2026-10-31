@@ -218,14 +218,14 @@ def markdown_text(value):
     return re.sub(r'([\\`*_{}\[\]#|])', r'\\\1', html.escape(str(value), quote=False))
 
 
-def technical_markdown(lesson, *, section_title='每日技术点'):
+def technical_markdown(lesson, *, section_title='每日技术点', section_id='technical-explainer'):
     def paragraphs(items):
         return [line for text in items for line in [markdown_text(text), '']]
 
     is_supplement = section_title != '每日技术点'
     why_heading = '为什么今天补充' if is_supplement else '为什么今天讲这个'
     checklist_heading = '核验时检查这些' if is_supplement else '读论文时检查这些'
-    lines = [f'## {markdown_text(section_title)}：{markdown_text(lesson["title"])}', '', f'阅读时间：{lesson["reading_minutes"]} 分钟', '', markdown_text(lesson['summary']), '', f'**{why_heading}**', '', markdown_text(lesson['why_now']), '']
+    lines = [f'<a id="{esc(section_id)}"></a>', '', f'## {markdown_text(section_title)}：{markdown_text(lesson["title"])}', '', f'阅读时间：{lesson["reading_minutes"]} 分钟', '', markdown_text(lesson['summary']), '', f'**{why_heading}**', '', markdown_text(lesson['why_now']), '']
     for section in lesson['sections']:
         lines += [f'### {markdown_text(section["heading"])}', '']
         lines += paragraphs(section['paragraphs'])
@@ -250,7 +250,7 @@ def markdown(issue):
     edition = {'sample': ' · 样刊', 'curated': ' · 精选'}.get(issue.get('status'), '')
     lines = [f'# {issue["title"]}', '', f'日期：{issue["date"]}' + edition, '', issue['coverage'], '', issue['intro'], '']
     if issue.get('research_supplement'):
-        lines += technical_markdown(issue['research_supplement'], section_title='专题追踪 · 当日补充研究')
+        lines += technical_markdown(issue['research_supplement'], section_title='专题追踪 · 当日补充研究', section_id='research-supplement')
     for key, name in CATEGORIES.items():
         stories = [s for s in issue['stories'] if s['category'] == key]
         if not stories:
