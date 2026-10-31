@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-10-28",
+  "updated_on": "2026-10-31",
   "intro": "每日从研究目录、作者项目、论文、代码、模型卡、技术博客和社区原帖交叉发现大模型与具身的新进展及讨论问题，按当期证据轮换选题。持续覆盖国内外团队与小鹏 GroundingPI 等原始研究；主入口可达、内容已读和社区关注度分别核验。",
   "groups": [
     {
@@ -236,11 +236,11 @@
           "scope": "cs.AI、cs.CL、cs.CV、cs.RO、cs.LG、stat.ML",
           "note": "入口示例为 cs.AI；按分类并结合作者、机构及关键词检索，保存首版与修订日期。",
           "verification": {
-            "status": "reachable",
-            "checked_on": "2026-10-28",
+            "status": "content_verified",
+            "checked_on": "2026-10-31",
             "http_status": 200,
             "resolved_url": "https://arxiv.org/list/cs.AI/recent",
-            "note": "本轮独立检查cs.RO与跨分类具身关键词；cs.RO/new响应不完整、recent参数400、跨分类API远端关闭，具体命中论文逐篇回查，不能声称全量覆盖。"
+            "note": "2026-10-31独立读cs.RO recent及最新100项API；另按embodied/VLA/world-action/robot联查cs.AI/CV/LG各30项，最新均到10月29日UTC；未穷尽全部分类/关键词。"
           },
           "channels": [
             {
@@ -248,8 +248,8 @@
               "url": "https://arxiv.org/list/cs.RO/recent",
               "kind": "原论文发现",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "已读10月14日目录，包含LoopWAM；首版时间回查具体abs页面。"
+              "checked_on": "2026-10-31",
+              "note": "2026-10-31独立读cs.RO recent及最新100项API；另按embodied/VLA/world-action/robot联查cs.AI/CV/LG各30项，最新均到10月29日UTC；未穷尽全部分类/关键词。"
             },
             {
               "label": "计算机视觉 cs.CV 最新论文",
@@ -266,6 +266,30 @@
               "status": "unverified",
               "checked_on": "2026-10-14",
               "note": "以论文首版和修订时间去重。"
+            },
+            {
+              "label": "cs.AI具身关键词API",
+              "url": "https://export.arxiv.org/api/query?search_query=cat%3Acs.AI+AND+%28all%3Aembodied+OR+all%3AVLA+OR+all%3A%22world-action%22+OR+all%3Arobot%29&start=0&max_results=30&sortBy=submittedDate&sortOrder=descending",
+              "kind": "跨分类论文发现",
+              "status": "content_verified",
+              "checked_on": "2026-10-31",
+              "note": "2026-10-31独立读cs.RO recent及最新100项API；另按embodied/VLA/world-action/robot联查cs.AI/CV/LG各30项，最新均到10月29日UTC；未穷尽全部分类/关键词。"
+            },
+            {
+              "label": "cs.CV具身关键词API",
+              "url": "https://export.arxiv.org/api/query?search_query=cat%3Acs.CV+AND+%28all%3Aembodied+OR+all%3AVLA+OR+all%3A%22world-action%22+OR+all%3Arobot%29&start=0&max_results=30&sortBy=submittedDate&sortOrder=descending",
+              "kind": "跨分类论文发现",
+              "status": "content_verified",
+              "checked_on": "2026-10-31",
+              "note": "2026-10-31独立读cs.RO recent及最新100项API；另按embodied/VLA/world-action/robot联查cs.AI/CV/LG各30项，最新均到10月29日UTC；未穷尽全部分类/关键词。"
+            },
+            {
+              "label": "cs.LG具身关键词API",
+              "url": "https://export.arxiv.org/api/query?search_query=cat%3Acs.LG+AND+%28all%3Aembodied+OR+all%3AVLA+OR+all%3A%22world-action%22+OR+all%3Arobot%29&start=0&max_results=30&sortBy=submittedDate&sortOrder=descending",
+              "kind": "跨分类论文发现",
+              "status": "content_verified",
+              "checked_on": "2026-10-31",
+              "note": "2026-10-31独立读cs.RO recent及最新100项API；另按embodied/VLA/world-action/robot联查cs.AI/CV/LG各30项，最新均到10月29日UTC；未穷尽全部分类/关键词。"
             }
           ],
           "watch_terms": [
@@ -289,13 +313,13 @@
           "url": "https://huggingface.co/papers",
           "role": "社区论文发现与讨论",
           "scope": "Daily Papers 日榜、近期论文记录与具体条目的社区讨论",
-          "note": "2026-10-28经现有127.0.0.1:7897单次显式请求代理读取网页和公开API成功；网页dateString为2026-10-27、显示59条，API记录跨日期，不能称10月28日日榜。",
+          "note": "2026-10-31网页/API均经请求级7897代理实读；网页实际Oct 30，默认API50条跨日期。10月31日显式API400，不称当日榜；WorkFactory一位独立提问者和作者回复已读。未开启系统代理。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-28",
+            "checked_on": "2026-10-31",
             "http_status": 200,
             "resolved_url": "https://huggingface.co/papers",
-            "note": "网页和API正文实际读取；日榜日期为2026-10-27，API结果跨日期，点赞/评论仅作发现信号。系统代理未开启，采集后scutil HTTP/HTTPS/SOCKS/PAC均为0。"
+            "note": "2026-10-31网页/API均经请求级7897代理实读；网页实际Oct 30，默认API50条跨日期。10月31日显式API400，不称当日榜；WorkFactory一位独立提问者和作者回复已读。未开启系统代理。"
           },
           "channels": [
             {
@@ -303,16 +327,16 @@
               "url": "https://huggingface.co/papers",
               "kind": "论文榜单发现",
               "status": "content_verified",
-              "checked_on": "2026-10-28",
-              "note": "本轮实际读取；网页显示2026-10-27，API返回多日期记录，不能冒充当日榜。"
+              "checked_on": "2026-10-31",
+              "note": "2026-10-31网页/API均经请求级7897代理实读；网页实际Oct 30，默认API50条跨日期。10月31日显式API400，不称当日榜；WorkFactory一位独立提问者和作者回复已读。未开启系统代理。"
             },
             {
               "label": "Daily Papers 公开 JSON",
               "url": "https://huggingface.co/api/daily_papers",
               "kind": "近期论文元数据",
               "status": "content_verified",
-              "checked_on": "2026-10-28",
-              "note": "本轮实际读取；网页显示2026-10-27，API返回多日期记录，不能冒充当日榜。"
+              "checked_on": "2026-10-31",
+              "note": "2026-10-31网页/API均经请求级7897代理实读；网页实际Oct 30，默认API50条跨日期。10月31日显式API400，不称当日榜；WorkFactory一位独立提问者和作者回复已读。未开启系统代理。"
             }
           ],
           "watch_terms": [
@@ -1980,15 +2004,31 @@
               "status": "unreadable",
               "checked_on": "2026-10-23",
               "note": "HTTP200但提取文字只有AGIBOT WORLD，未读取有效新数据说明；改查官方HF实际文件。"
+            },
+            {
+              "label": "Innovation Day官方原文：GO-3 Preview与Worken",
+              "url": "https://www.agibot.com/article/231/detail/131.html",
+              "kind": "10-29官方发布",
+              "status": "content_verified",
+              "checked_on": "2026-10-31",
+              "note": "2026-10-31实际补读智元官方Newsroom：10月29日Innovation Day发布GO-3 Preview、WRAM、Worken、AHA3、WITA-Omni、G2 Max与Link-U OS 1.0；10月30日Worken说明页补读公式与适用边界。GO-3榜单Nano版本与官方Preview关系未公开。"
+            },
+            {
+              "label": "Worken官方说明：公式与边界",
+              "url": "https://www.agibot.com/article/231/detail/132.html",
+              "kind": "10-30官方说明",
+              "status": "content_verified",
+              "checked_on": "2026-10-31",
+              "note": "2026-10-31实际补读智元官方Newsroom：10月29日Innovation Day发布GO-3 Preview、WRAM、Worken、AHA3、WITA-Omni、G2 Max与Link-U OS 1.0；10月30日Worken说明页补读公式与适用边界。GO-3榜单Nano版本与官方Preview关系未公开。"
             }
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-23",
+            "checked_on": "2026-10-31",
             "http_status": 200,
-            "note": "已读featured.js、官方代码组织、HF组织与AgiBotWorld2026实际PhysicalReasoning目录/固定版本样本；不将目录日期或全库体积当本次数据规模。"
+            "note": "2026-10-31实际补读智元官方Newsroom：10月29日Innovation Day发布GO-3 Preview、WRAM、Worken、AHA3、WITA-Omni、G2 Max与Link-U OS 1.0；10月30日Worken说明页补读公式与适用边界。GO-3榜单Nano版本与官方Preview关系未公开。"
           },
-          "note": "10月23日研究索引、代码组织和HF均有实际读取。PhysicalReasoning新目录及真实LeRobot样本已完整核读，发布日10月22；HF上传仍持续。agibot-world.com本轮仅读到SPA标题，不能声称读到新发布正文。",
+          "note": "2026-10-31实际补读智元官方Newsroom：10月29日Innovation Day发布GO-3 Preview、WRAM、Worken、AHA3、WITA-Omni、G2 Max与Link-U OS 1.0；10月30日Worken说明页补读公式与适用边界。GO-3榜单Nano版本与官方Preview关系未公开。",
           "watch_terms": [
             "VLA",
             "world-action model",
@@ -2799,7 +2839,8 @@
             "PyRUA-Lean",
             "HexaShell",
             "WorldScape-R²SI",
-            "EmbodiedEvo"
+            "EmbodiedEvo",
+            "Q0-Preview"
           ],
           "watch_terms": [
             "agent architecture",
@@ -2814,8 +2855,8 @@
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-29",
-            "note": "已重读榜单新bundle、Agent分轨、RealWorld分轨与协议；10月29日Agent前五和分数与10月28日相同，专题推进到观测—动作接口。公开代码/报告已回查，未运行，GO-3专属架构与历史榜服务工件仍缺。"
+            "checked_on": "2026-10-31",
+            "note": "2026-10-31实际读取当前bundle/Agent分轨/协议：10月30日Q0-Preview新增73.33分、SR68.00%；HWM-0同日新增，WALL-OSS为10月28日。Q0专属架构未核到；R²SI固定10月24日源码复查每动作回执/接管。未运行。"
           },
           "channels": [
             {
@@ -2823,16 +2864,16 @@
               "url": "https://robodojo-benchmark.com/leaderboard#agent",
               "kind": "榜单/评测",
               "status": "content_verified",
-              "checked_on": "2026-10-29",
-              "note": "10月29日重读新bundle，Agent前五与分数未变；仍分Sim/RealWorld，Score/SR分开。"
+              "checked_on": "2026-10-31",
+              "note": "2026-10-31实际读取当前bundle/Agent分轨/协议：10月30日Q0-Preview新增73.33分、SR68.00%；HWM-0同日新增，WALL-OSS为10月28日。Q0专属架构未核到；R²SI固定10月24日源码复查每动作回执/接管。未运行。"
             },
             {
               "label": "官方完整性与防刷榜协议",
               "url": "https://robodojo-benchmark.com/leaderboard/protocol",
               "kind": "评测协议",
               "status": "content_verified",
-              "checked_on": "2026-10-29",
-              "note": "10月29日重读新bundle，Agent前五与分数未变；仍分Sim/RealWorld，Score/SR分开。"
+              "checked_on": "2026-10-31",
+              "note": "2026-10-31实际读取当前bundle/Agent分轨/协议：10月30日Q0-Preview新增73.33分、SR68.00%；HWM-0同日新增，WALL-OSS为10月28日。Q0专属架构未核到；R²SI固定10月24日源码复查每动作回执/接管。未运行。"
             },
             {
               "label": "官方基准代码",
@@ -2922,7 +2963,7 @@
           "url": "https://robocoliseum.ai/",
           "role": "评测团队原始技术报告与榜单",
           "scope": "GPT、Claude、Gemini与专用策略；指令跟随、空间推理、操作、鲁棒性和实机案例",
-          "note": "仅本轮公开榜API实际内容读取并对照昨日；四通用模型未变，Dream-1/ModelMaster新增或完成条目为平台自填，时间字段时区未单独确认，不写成正式模型发布。技术报告本轮SPA未读。",
+          "note": "2026-10-31仅公开榜API实际读到内容：GO-3 Nano Preview首位0.78825、提交10月26日，paper_link空；与GO-3 Preview关系未公开。主页/报告本轮仅12字SPA壳，不声称读到新报告。",
           "aliases": [
             "RoboColiseum",
             "Agent2Act",
@@ -2938,8 +2979,8 @@
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-23",
-            "note": "仅本轮公开榜API实际内容读取并对照昨日；四通用模型未变，Dream-1/ModelMaster新增或完成条目为平台自填，时间字段时区未单独确认，不写成正式模型发布。技术报告本轮SPA未读。"
+            "checked_on": "2026-10-31",
+            "note": "2026-10-31仅公开榜API实际读到内容：GO-3 Nano Preview首位0.78825、提交10月26日，paper_link空；与GO-3 Preview关系未公开。主页/报告本轮仅12字SPA壳，不声称读到新报告。"
           },
           "channels": [
             {
@@ -2947,8 +2988,8 @@
               "url": "https://robocoliseum.ai/techreport/agent2act",
               "kind": "原始评测协议与实验",
               "status": "unreadable",
-              "checked_on": "2026-10-23",
-              "note": "仅12字符SPA壳；不表示报告停更。"
+              "checked_on": "2026-10-31",
+              "note": "200但仅12字SPA壳，本轮未读到正文。"
             },
             {
               "label": "官方实时榜单",
@@ -2977,8 +3018,8 @@
             {
               "url": "https://robocoliseum.ai/api/challenge/leaderboard/overall?page=1&per-page=100",
               "status": "content_verified",
-              "note": "已读完整JSON并跨日比较，非独立复测。",
-              "checked_on": "2026-10-23",
+              "note": "2026-10-31仅公开榜API实际读到内容：GO-3 Nano Preview首位0.78825、提交10月26日，paper_link空；与GO-3 Preview关系未公开。主页/报告本轮仅12字SPA壳，不声称读到新报告。",
+              "checked_on": "2026-10-31",
               "label": "RoboColiseum · Agent2Act跨模型具身评测 · 实际读取材料",
               "kind": "具体材料与读取范围"
             }
@@ -3486,11 +3527,12 @@
           "url": "https://next.ithome.com/ei",
           "role": "具身产业与研究发现",
           "scope": "国内机器人、大模型团队具身布局与技术发布",
-          "note": "已读近期栏目与DeepSeek转载链；同一上游报道只计一条，不当成独立确认。",
+          "note": "2026-10-31实际读栏目与GO-3 Preview报道；媒体转述与官方发布分开。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-14",
-            "http_status": 200
+            "checked_on": "2026-10-31",
+            "http_status": 200,
+            "note": "2026-10-31实际读具身栏目及GO-3 Preview报道；10月30日文章转述智元10月29日发布会，作为媒体补充，不替代官方原文。"
           },
           "channels": [
             {
@@ -3508,6 +3550,14 @@
               "status": "content_verified",
               "checked_on": "2026-10-14",
               "note": "已核lastBuildDate为2026-10-14；总RSS需筛选具身与AI关键词。"
+            },
+            {
+              "label": "IT之家报道：GO-3 Preview、Genie Evolver、Genie Master与部署案例（10月30日）",
+              "url": "https://www.ithome.com/1/019/806.htm",
+              "kind": "实际读取发布会报道",
+              "status": "content_verified",
+              "checked_on": "2026-10-31",
+              "note": "10月30日报道，10月31日全文已读；厂商/发布会口径，非独立复测。"
             }
           ]
         },
@@ -3517,10 +3567,11 @@
           "url": "https://tech.sina.com.cn/",
           "role": "产业消息与采访发现",
           "scope": "具身创业、大模型团队布局、采访与官方回应",
-          "note": "已核DeepSeek10月12日原报道；匿名消息需注明来源与未回应状态。旧rollnews RSS仍停在2018年，不使用其作为当前发现流。",
+          "note": "2026-10-31实际读智元现场报道；发布会数据标公司/媒体口径。",
           "verification": {
-            "status": "unverified",
-            "checked_on": "2026-10-14"
+            "status": "content_verified",
+            "checked_on": "2026-10-31",
+            "note": "2026-10-31实际读10月30日智元现场报道；手机、便利店与技能数据标为公司发布会/媒体口径，未当独立复测。"
           },
           "channels": [
             {
@@ -3530,6 +3581,14 @@
               "status": "content_verified",
               "checked_on": "2026-10-14",
               "note": "完整正文可读；截至发稿DeepSeek未回应。"
+            },
+            {
+              "label": "新浪科技现场报道：发布会指标与便利店/真机数据（10月30日）",
+              "url": "https://finance.sina.com.cn/jjxw/2026-10-30/doc-iniwzazs2267724.shtml",
+              "kind": "实际读取发布会报道",
+              "status": "content_verified",
+              "checked_on": "2026-10-31",
+              "note": "10月30日报道，10月31日全文已读；厂商/发布会口径，非独立复测。"
             }
           ]
         },

@@ -1,0 +1,614 @@
+{
+  "date": "2026-10-31",
+  "status": "daily",
+  "title": "Agent怎样把计划落到动作：RoboDojo换榜首，工具、验证与策略训练各走哪一步",
+  "intro": "RoboDojo在10月30日新增Q0-Preview：Agent分轨73.33分、68.00%成功率，已超过此前GO-3 Nano；专属底座与构型仍缺可核资料。智元10月29日官方发布GO-3 Preview与Worken，但发布会版本与榜单中的GO-3 Nano Preview关系尚未公开对应。本期连续专题继续拆公开证据较完整的R²SI：每个WAM动作收到回执后谁决定放行、怎样接管和清理记忆。九条动态围绕通用Agent接机器人技能、具身基础模型、依赖图修复、世界模型负迁移、机载VLA，以及Agent训练任务与完整交付评测展开。10月30日漏期的重要进展合并于今天，原始日期保留；没有把旧事件重标为今日发布。",
+  "coverage": "北京时间2026-10-31采集，重点观察10月28–31日的新代码、榜单、论文与具体讨论，必要时回看10月26日起的原成果。网站上一期为10月29日；未生成虚构的10月30日补刊。Hugging Face Papers网页与公开API均成功：网页实际为Oct 30，默认API50条跨日期，显式10月31日接口400，不称今日榜；点赞、作者说明与独立评论分开。WorkFactory核到一位独立提问者与作者的具体问答，其余多为作者信号，未称多方热议。arXiv cs.RO recent与独立API读取，最新100项覆盖到10月29日UTC；另按embodied/VLA/world-action/robot关键词联查cs.AI/cs.CV/cs.LG各30条，最新均到10月29日；关键词会漏检，不是全站/所有新稿穷尽。六篇入选预印本核读全文关键方法、实验与边界，另核RobotSkills README/首次提交、RoboDojo当前加载数据及协议；均未运行独立复现。智元官方10月29日Innovation Day原文与10月30日Worken说明已读，GO-3 Preview与榜单GO-3 Nano Preview分开记录；IT之家和新浪现场报道作为媒体/厂商口径补充。九家国内大模型研究渠道及代码/模型补查，DeepSeek主站、API更新、官方GitHub与模型卡并读，10月17日版本不重报；腾讯/阶跃主页SPA通过代码和模型渠道补查，但不能声称组织全量覆盖。十三家具身公司及XPENG多渠道初始95次请求、79个成功响应；200与updated_at不视为当前研究。GroundingPI、作者HF与独立GroundAnything均实读，无可核本窗口新事件；TARS同名代码机构归属与部分arXiv别名查询仍缺。具身智能之心与human five定向公开检索均遇验证码，新正文未读；机器之心反爬、量子位403，PaperWeekly/AI科技评论/新智元本轮未核到后续正文，中文讨论覆盖有缺口。会议读取NeurIPS/ICML/ICLR/COLM/CVPR/ECCV/ACL/EMNLP/RSS当届部分目录，ICCV核2025档案；CoRL接受页正文不足、AAAI归档入口较薄，ICRA/IROS及ICLR2027 OpenReview部分403，未把本期预印本标成录用。HF等使用现有127.0.0.1:7897请求级代理，本次没有开启系统代理；结束时另复核并留台账。",
+  "highlights": [
+    {
+      "title": "RoboDojo榜首确有变化，Q0架构仍需证据",
+      "text": "10月30日新增Q0-Preview，Score73.33与SR68.00%分别报告。它是仿真Agent榜记录，内部模型、控制接口与成本尚未核实。",
+      "story_id": "robodojo-q0-preview-agent-leaderboard-20261030"
+    },
+    {
+      "title": "DeepSeek-Harness经技能工具接到实体机器人",
+      "text": "宇树10月28日公开RobotSkills；导航明确使用DeepSeek-Harness与MCP。技能代码、演示人工确认和剪辑边界随文说明。",
+      "story_id": "unitree-robotskills-frontier-agent-code-release"
+    },
+    {
+      "title": "GO-3 Preview把推理、预测、动作和部署学习连起来",
+      "text": "智元10月29日官方发布GO-3 Preview与Worken；WRAM与部署后学习是厂商口径，榜单Nano版本对应关系仍未公开。",
+      "story_id": "agibot-go3-preview-worken-physical-ai-scaling"
+    },
+    {
+      "title": "计划完成记录不等于物理条件仍成立",
+      "text": "LOGIV在VLA/WAM上方维护依赖图，局部修复被破坏的前提；实机同一π0.5由12/30到17/30，保留小样本边界。",
+      "story_id": "logiv-graph-verified-execution-local-repair"
+    },
+    {
+      "title": "预测未来可能误导动作，先检验是否值得生成",
+      "text": "Utility-WAM用匹配底座做负迁移对照，三项实机53/60对43/60；延迟节约随基准不同，不套用一个数字。",
+      "story_id": "utility-wam-world-model-negative-transfer-selective-futures"
+    },
+    {
+      "title": "Agent训练数据的难点是材料是否足够完成工作",
+      "text": "WorkFactory用隔离probe实际尝试后修复任务。独立评论追问数据扩展收益递减，作者回应teacher上限与效率。",
+      "story_id": "workfactory-executable-professional-task-synthesis"
+    }
+  ],
+  "reading": [
+    {
+      "title": "RoboDojo Agent当前榜与协议",
+      "url": "https://robodojo-benchmark.com/leaderboard#agent",
+      "reason": "先分Score/SR与仿真/实机，再看Q0新增；不从标签猜架构。"
+    },
+    {
+      "title": "R²SI每动作检查的固定实现",
+      "url": "https://github.com/manifoldai-research/R2SI/blob/3edfe6afa69978d9d50e59e91e115143a8b486a9/XPolicyLab/policy/WorldScape_RSI/harness/model.py",
+      "reason": "连续专题第三期：动作回执、审查、接管与状态所有权。"
+    },
+    {
+      "title": "宇树RobotSkills官方代码",
+      "url": "https://github.com/unitreerobotics/unitree_robotskills",
+      "reason": "把Agent host、MCP工具、SDK与具体机器人技能逐层分开。"
+    },
+    {
+      "title": "LOGIV全文",
+      "url": "https://arxiv.org/html/2610.40016v1",
+      "reason": "高层图验证怎样与已训练VLA/WAM协作；看匹配消融及实机分母。"
+    },
+    {
+      "title": "WorkFactory独立技术问答",
+      "url": "https://huggingface.co/papers/2610.37161",
+      "reason": "数据量增加后收益递减、执行变短与web-fetch失败如何解释。"
+    },
+    {
+      "title": "DAgger原始论文",
+      "url": "https://proceedings.mlr.press/v15/ross11a.html",
+      "reason": "每日技术点基础：学生动作会改变输入分布，怎样采集可靠恢复监督。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "具身Agent控制权交接 / embodied-agent control handoff",
+      "explanation": "预测动作、执行回执、语义审查与原生接管分属不同阶段；连续专题按固定源码拆开。"
+    },
+    {
+      "term": "技能工具与MCP / skill tools and Model Context Protocol",
+      "explanation": "RobotSkills把通用Agent接到机器人技能；工具协议不等于动作模型或低层控制器。"
+    },
+    {
+      "term": "世界推理动作模型 / World Reasoning Action Model (WRAM)",
+      "explanation": "GO-3 Preview把推理、未来预测和动作连成框架；Genie Evolver后训练、Genie Master部署经验与模型权重更新须分开核对。"
+    },
+    {
+      "term": "依赖图与局部修复 / dependency graphs and local repair",
+      "explanation": "LOGIV验证已完成动作的效果是否仍成立，再修复后续真正依赖的条件。"
+    },
+    {
+      "term": "未来预测负迁移 / future-induced negative transfer",
+      "explanation": "Utility-WAM检验生成未来是否反而损害动作，用效用门选择何时启用。"
+    },
+    {
+      "term": "行为克隆与数据聚合 / behavior cloning and dataset aggregation",
+      "explanation": "每日技术点解释从专家示范到学生分布恢复监督的区别，避免把轨迹蒸馏全叫DAgger。"
+    },
+    {
+      "term": "信息支持图 / information support graph",
+      "explanation": "WorkFactory把职业任务所需事实与依赖布置进环境，再由隔离probe检测缺失或矛盾。"
+    },
+    {
+      "term": "自适应任务刷新 / adaptive task refresh",
+      "explanation": "A-RSI据训练日志刷新可验证合成池，因果优势仍需固定周期对照。"
+    },
+    {
+      "term": "完整交付率 / full-pass rate",
+      "explanation": "Co-Design把全部验收标准通过的任务比例，与平均满足部分要求的分数分开。"
+    },
+    {
+      "term": "机载视觉语言动作模型 / onboard vision-language-action model",
+      "explanation": "OpenFlyV2给出约1B模型、Orin NX和100次实飞分母，飞控仍负责稳定和航点跟踪。"
+    }
+  ],
+  "featured_ids": [
+    "robodojo-q0-preview-agent-leaderboard-20261030",
+    "agibot-go3-preview-worken-physical-ai-scaling",
+    "unitree-robotskills-frontier-agent-code-release",
+    "logiv-graph-verified-execution-local-repair",
+    "utility-wam-world-model-negative-transfer-selective-futures",
+    "workfactory-executable-professional-task-synthesis"
+  ],
+  "stories": [
+    {
+      "id": "robodojo-q0-preview-agent-leaderboard-20261030",
+      "category": "embodied",
+      "tag": "跨系统具身横评 · Agent榜更新 · 仿真",
+      "title": "RoboDojo Agent榜换首位：Q0-Preview为73.33分／68.00%成功率，内部构型仍待核验",
+      "organization": "Qoo Tech；RoboDojo / AI MMLab Club（评测方）",
+      "published": "2026-10-30",
+      "date_label": "官方News标注10月30日新增；10月31日实际读取官方网页所加载bundle的榜项、分类、各项分数与News。原始方法发布时间及专属论文/模型版本尚未找到。",
+      "summary": "Q0-Preview被官方列为Agent类型，平均Score 73.33、SR 68.00%，超过GO-3 Nano Preview的61.90／56.42%，成为RoboDojo-Sim Agent分轨首位。Q0六个维度为：Generalization标准63.08／57.00%、随机56.25／51.67%，Precision65.30／58.50%，Long Horizon69.80／58.50%，Memory93.68／93.67%，Open78.20／75.00%。同一轮10月30日News还新增Horizon Robotics的HWM-0 Preview（VLM+WAM，32.81／27.17%）；10月28日新增自变量WALL-OSS-1.0-lite（VLA，42.59／34.97%）。",
+      "why": "这是用户持续关注的“通用模型通过Agent系统进入具身任务”的可核新榜变，值得追问高分究竟来自底座、工具、经验还是动作模型。此次证据是官方新增记录与分项分数；尚无独立复测或可读的Q0专属技术报告，不能把Agent标签当成底座身份、直接电机控制或社区共识，也不能据此断言通用Agent已普遍替代VLA/WAM。",
+      "limitation": "全部是仿真记录，不能外推实机；Score含部分进展，不等于成功率。当前未核到Q0底座模型、动作接口、记忆实现、训练/开发数据、累计LLM调用成本与延迟、逐seed方差及历史评测release工件。榜单公共协议写明公开布局为主、隐藏布局做辅助验证，要求固定系统；统一榜协议不能证明各系统训练数据、感知工程、控制与推理预算相同。官方News日期和统一updated_at也不证明代码/权重已公开；不从名称猜测公司中文身份。",
+      "sources": [
+        {
+          "label": "RoboDojo官方榜单：Q0、HWM-0、WALL-OSS榜项、Score/SR与News",
+          "url": "https://robodojo-benchmark.com/leaderboard#agent"
+        },
+        {
+          "label": "RoboDojo当前官方页面数据bundle：2026-10-30榜项与新增日期",
+          "url": "https://robodojo-benchmark.com/assets/index-DEMgWCA5.js"
+        },
+        {
+          "label": "RoboDojo评测协议：固定系统、公开布局及辅助验证",
+          "url": "https://robodojo-benchmark.com/leaderboard/protocol"
+        }
+      ]
+    },
+    {
+      "id": "agibot-go3-preview-worken-physical-ai-scaling",
+      "category": "embodied",
+      "tag": "智元 · GO-3 · WRAM · Worken",
+      "title": "智元发布 GO-3 Preview 与 Worken：把推理、预测、动作和部署产出放进同一条链",
+      "organization": "智元机器人（AgiBot）",
+      "published": "2026-10-29",
+      "date_label": "智元官方 Innovation Day 原文：2026年10月29日；10月30日IT之家/新浪科技补充发布会数据",
+      "summary": "智元10月29日官方发布GO-3 Preview：以WRAM统一任务推理、未来预测与动作生成，并将预训练、后训练和部署后改进连成Physical Intelligence Scaling。10月30日IT之家转述的Genie Evolver把真机、物理仿真与世界模型用于后训练；部署后的Genie Master把判断、执行、失败定位与经验沉淀接入作业循环。公司报告精灵G2便利店完整任务成功率由首日28.6%到第5天85.7%，但未披露完整试验分母。另提出Worken = 活跃机器人数量 × 自主工作时长 × 输出效率比，用来衡量定义任务下的有效工作产出。",
+      "why": "这为用户关心的“具身Agent如何构建”补充一个近期官方构型：世界推理/动作模型、混合环境后训练和部署Agent分处不同层。值得追问部署中究竟更新动作权重、工具、记忆还是流程，以及收益能否迁移到留出任务；公司现有材料未完整拆分。Worken把注意力引向自主有效工作与干预成本，仍需具体任务标准和外部验证。",
+      "limitation": "本条主要依据智元官方发布与发布会媒体转述，没有独立复现或完整实验报告；便利店5日数据未披露逐任务样本、独立留出、总计算与人工审查投入，不能直接证明递归加速。未核到GO-3精确底座、参数/权重、完整harness、WAM组成及Genie Master更新对象。官方10月29日称多榜第一是当时发布会口径；10月31日RoboDojo Agent榜已由Q0-Preview居首，RoboColiseum API首位名为GO-3 Nano Preview（10月26日提交，paper_link为空），与GO-3 Preview关系未公开，不能混为同一版本。媒体所称年底开源是计划。Worken是公司提出的任务化度量框架，尚非统一行业标准，说明性算例不是部署实验。",
+      "sources": [
+        {
+          "label": "智元官方 Innovation Day 原文：Worken、GO-3 Preview、WRAM、Link-U OS 1.0（10月29日）",
+          "url": "https://www.agibot.com/article/231/detail/131.html"
+        },
+        {
+          "label": "智元官方 Worken 说明：有效智能工作时长公式与适用边界（10月30日）",
+          "url": "https://www.agibot.com/article/231/detail/132.html"
+        },
+        {
+          "label": "新浪科技现场报道：发布会指标与便利店/真机数据（10月30日）",
+          "url": "https://finance.sina.com.cn/jjxw/2026-10-30/doc-iniwzazs2267724.shtml"
+        },
+        {
+          "label": "IT之家报道：GO-3 Preview、Genie Evolver、Genie Master与部署案例（10月30日）",
+          "url": "https://www.ithome.com/1/019/806.htm"
+        },
+        {
+          "label": "RoboColiseum当前榜单API：GO-3 Nano Preview版本名与分项分数",
+          "url": "https://robocoliseum.ai/api/challenge/leaderboard/overall?page=1&per-page=100"
+        }
+      ]
+    },
+    {
+      "id": "unitree-robotskills-frontier-agent-code-release",
+      "category": "embodied",
+      "tag": "宇树 · 具身Agent · DeepSeek-Harness",
+      "title": "宇树 RobotSkills 首次公开：把通用 Agent 接到机器人技能，导航使用 DeepSeek-Harness 与 MCP",
+      "organization": "宇树科技（Unitree Robotics）",
+      "published": "2026-10-28",
+      "date_label": "10月28日首次公开代码；10月31日核读README与提交记录",
+      "summary": "宇树在10月28日的首次公开提交中发布 RobotSkills：通用多模态 Agent 读取机器人相机、调用技能工具并检查反馈，覆盖绘画、五子棋、中国象棋和自然语言导航。官方README明确把 DeepSeek-Harness 列为导航技能的 Agent host，把 MCP 列为工具协议；物理执行仍经过机器人SDK、运动学和具体技能工具。",
+      "why": "这为“国内大模型/Agent基础设施如何进入实体机器人”提供了可核对的直接接口：模型负责观察、推理与工具调度，技能与SDK承担动作执行。它也提示后续关注应包括模型之外的Harness、工具边界与反馈频率。",
+      "limitation": "这是Agent与机器人技能的代码发布，未发布新的VLA基础模型，也没有可核对的通用任务成功率。五子棋流程含松爪前人工确认，中国象棋使用Fairy-Stockfish；演示视频加速并剪去部分推理/网络等待时间。本文仅核读文档与提交，未运行代码或实机验证。",
+      "sources": [
+        {
+          "label": "宇树官方README（固定公开版本）：技能、视频说明、DeepSeek-Harness引用",
+          "url": "https://github.com/unitreerobotics/unitree_robotskills/blob/bc60264a660432d5541adc9286161725c1f82a9f/README.md"
+        },
+        {
+          "label": "首次公开提交：2026-10-28 08:58 UTC",
+          "url": "https://github.com/unitreerobotics/unitree_robotskills/commit/bb9e32e2628c6880c565d2a589a9377a497e17a4"
+        },
+        {
+          "label": "DeepSeek-Harness官方仓库（作为被引用依赖入口，非单独新发布事件）",
+          "url": "https://github.com/deepseek-ai/deepseek-harness"
+        }
+      ]
+    },
+    {
+      "id": "logiv-graph-verified-execution-local-repair",
+      "category": "embodied",
+      "tag": "Agent执行监督 · VLA/WAM协作 · 实机小样本",
+      "title": "LOGIV：已经做完的动作，其效果还在吗？用依赖图验证并局部修复长程任务",
+      "organization": "香港中文大学（深圳）、A*STAR、COCO Matrix、加州理工、新加坡国立大学、香港科大、南洋理工等",
+      "published": "2026-10-29",
+      "date_label": "arXiv v1于10月29日13:30 UTC提交；10月31日核读全文、作者项目及代码README。新预印本，未确认会议录用。",
+      "summary": "LOGIV把高层计划编译成条件支持与资源顺序图，区分“某动作已完成”和“它为后续提供的条件仍成立”。GPT-4o根据视觉和执行反馈检查状态、节点与依赖，Fast Downward生成局部修复，VAL验证修复与保留动作组成的完整后续计划；下层由π0.5、AHA-WAM或Light-WAM执行。三项实机任务中，同一π0.5检查点加LOGIV后成功由12/30增至17/30；各任务分别为番茄7→9/10、搭积木3→5/10、插网线2→3/10。",
+      "why": "这是理解具身Agent的一项具体新证据：高层不必替代VLA/WAM，可以维护“哪些物理条件仍有效”，再让动作策略执行修复。匹配π0.5的RoboTwin消融中，去掉Graph Gate后扰动任务成功率由60%降为48%；把局部修复改成重规划全部剩余动作则为54%，提供了依赖验证和修复范围的有限机制证据。它不是RoboDojo参榜系统，也不能用它解释榜上Q0的增益。",
+      "limitation": "仿真为两套基准各10个任务、各10个固定初始状态，扰动类型和触发点预设；三种底座均做任务专用微调。实机为Astribot S1与双AgileX Piper，三任务各10次、无外加扰动，样本小且无独立复现。PDDL规格预先人工定义，VLM只写GPT-4o而未给精确服务快照；每故障最多3轮修复/4次VLM调用、规划30秒及VAL 5秒限额，不等于已测端到端低延迟。人类协助在实验中禁用。代码有核心模块与两个任务资源，README明确上游权重链接不构成论文全部任务微调检查点；本轮未运行。",
+      "sources": [
+        {
+          "label": "原论文全文：依赖图、匹配消融、实机分母与预算",
+          "url": "https://arxiv.org/html/2610.40016v1"
+        },
+        {
+          "label": "作者项目：原始任务视频与结果边界",
+          "url": "https://enqiao-lu.github.io/logiv-project/"
+        },
+        {
+          "label": "官方代码README：核心模块、两个示例任务和工件边界",
+          "url": "https://github.com/Enqiao-Lu/LOGIV"
+        }
+      ]
+    },
+    {
+      "id": "utility-wam-world-model-negative-transfer-selective-futures",
+      "category": "embodied",
+      "tag": "引望智能 · 清华/中科院 · 世界模型",
+      "title": "Utility-WAM：预测未来也会误导动作，用同一底座检验世界模型的负迁移",
+      "organization": "引望智能PAI X Lab/2030Lab、清华大学、中科院自动化所等",
+      "published": "2026-10-29",
+      "date_label": "arXiv v1：10月29日04:59 UTC；10月31日核读全文",
+      "summary": "Utility-WAM在同一个冻结WAM底座上比较有无预测未来图像：未来条件在部分精细任务中大幅降低成功率。作者训练残差适配器修正动作，并用生成前效用门决定是否值得预测未来。在双AgileX PiPER的三项实机任务、每项每方法20次试验中，选择性版本成功53/60（88.3%），FAST-WAM为43/60（71.7%）。",
+      "why": "它给“世界模型应不应该在线想象未来”增加了负面证据与计算账本：可见的未来不必然改善控制，应看动作误差、闭环成功与生成成本。国内公司研究也可以从论文作者机构与实验本身发现，而不能仅盯机器人公司的新闻稿。",
+      "limitation": "实机每任务使用200条遥操作示范，三任务60次试验仍是作者结果。RoboTwin中跳过75.5%的视频生成、降延迟38%，不能套用到LIBERO（该处只省6.7%）。实验复用同一个Stage1预训练checkpoint，未覆盖多预训练种子；效用门训练标签是离线动作误差代理，非闭环任务回报。本轮未发现专属可运行代码/权重公开入口。",
+      "sources": [
+        {
+          "label": "Utility-WAM论文与首发版本信息",
+          "url": "https://arxiv.org/abs/2610.39367"
+        },
+        {
+          "label": "完整论文：匹配消融、选择门与4.5实机评测",
+          "url": "https://arxiv.org/html/2610.39367v1"
+        }
+      ]
+    },
+    {
+      "id": "workfactory-executable-professional-task-synthesis",
+      "category": "llm",
+      "tag": "IQuest · 职业任务合成 · Teacher轨迹蒸馏",
+      "title": "WorkFactory：先让隔离探针真正做一次，再用修复后的职业任务训练Agent",
+      "organization": "IQuest Research、浙江大学、人大高瓴、深圳先进院、上海交大、北京大学等",
+      "published": "2026-10-27",
+      "date_label": "arXiv v1于10月27日12:54 UTC提交；10月30日进入Hugging Face Papers，本轮读取30赞。独立提问为北京时间10月30日17:08，作者回复为10月31日00:25，均与论文首发分开。",
+      "summary": "WorkFactory从职业意图反向构建交付物所需的信息支持图，再把事实和依赖放进文件环境；仅能看到求解输入的隔离probe尝试任务，定位缺失或矛盾信息，修复时保留原工作要求，再由独立teacher生成示范。作者构建112,686个任务、覆盖612个职业，以GLM-5.3轨迹SFT训练WorkPilot 4B、27B、35B-A3B。35B-A3B在GDPval-AA v2.1量尺上的本地估计由879升至1565 Elo，在其余三项职业工作评测也有提升。",
+      "why": "这将Agent合成数据的质量问题具体化为“给定材料是否足够完成真实工作”。HF独立用户orinmemory于北京时间10月30日17:08追问：最初5K任务增447 Elo，75K到110K只增13分，执行却缩短，后期数据是否主要改善计划效率；为何web-fetch仍有40–48%失败。作者Tingyang-Chen于北京时间10月31日00:25回复：学生逐步接近teacher能力上限，额外数据减少无效步骤，抓取失败多因网站不可达；计划用更难任务、拒绝采样和RL继续提升。这是一位独立提问者和作者的机制讨论，尚不是独立复现。",
+      "limitation": "训练与求解均为纯文本接口，原生视觉组件未使用；这是teacher轨迹SFT，不是闭环RL或机器人实机。1565、1612等为作者按两个固定锚点和Gemini裁判校准的本地Elo，不能冒充官方上榜成绩；每模型任务跑3次，区间不覆盖裁判和映射方法误差。任务构建平均每次尝试耗11.656M模型token，推理单任务价格不含这部分。论文称公开数据子集与权重，但本轮README资源徽章仍是本页占位锚点，未核到可下载数据/模型，不能写成已全面开源。",
+      "sources": [
+        {
+          "label": "论文全文：信息支持图、probe修复、纯文本评估和本地Elo",
+          "url": "https://arxiv.org/html/2610.37161v1"
+        },
+        {
+          "label": "官方仓库README：方法及数据/模型链接实际状态",
+          "url": "https://github.com/IQuestLab/WorkFactory"
+        },
+        {
+          "label": "Hugging Face Papers：orinmemory提问与Tingyang-Chen答复",
+          "url": "https://huggingface.co/papers/2610.37161"
+        }
+      ]
+    },
+    {
+      "id": "arsi-adaptive-task-refresh-zero-data",
+      "category": "llm",
+      "tag": "小米研究 · 可验证合成数据 · 自改进审计",
+      "title": "A-RSI：自改进不仅要生成任务，还要识别旧任务什么时候不再提供训练信号",
+      "organization": "Xiaomi Research / SeerRay Lab与高校合作者",
+      "published": "2026-10-28",
+      "date_label": "arXiv v1于10月28日10:03 UTC提交；10月30日进入Hugging Face Papers，本轮10月31日读取的网页实际仍为Oct 30，157赞仅作发现信号。",
+      "summary": "A-RSI把“何时更换训练任务”与“怎样取得可核验答案”分开：模型先写出固定的几何、图表、表格和计数程序库，由程序生成图像、问题与参考答案；GRPO训练日志里的奖励差异和准确率触发整池刷新。主实验从Qwen3-VL-8B-Instruct完成100步初始化后的检查点出发，再做8个100步窗口；11个完整测试集的Macro11平均由57.77升至61.05，引入800个新任务。每窗口刷新对照引入3,200题，得60.64。",
+      "why": "它把近期“递归自改进”的讨论收窄到可检查机制：训练反馈决定是否刷新，答案由程序计算，且审计正确率提升是否只是更少输出截断。主实验在8,192 token限额仍比同限额底座高3.25分，保留4,096 token增益的80%。但新池和刷新时机的因果贡献仍需分开检验；适合与改进Harness、改权重、改数据的其他路线并列追踪。",
+      "limitation": "每个训练臂只有一次运行，未做小差值显著性检验或16k输出评估；两次实际刷新均在3个窗口后，缺少固定三窗口随机刷新对照，不能证明自适应时机优于固定周期。固定任务库、类别比例和19个主题词受评测范围启发，初始池含模型改写问题；“无外部训练样例/人工答案”不等于无需先验、人工设计或无限自生任务。作者项目仍标Code coming soon，本轮未独立复现。HF可见留言为提交者摘要、作者项目链接和自动机器人内容，没有读到独立技术争论。",
+      "sources": [
+        {
+          "label": "论文全文：训练窗口、Macro11、输出预算与局限",
+          "url": "https://arxiv.org/html/2610.38568v1"
+        },
+        {
+          "label": "作者项目：静态生成库、刷新演示与Code coming soon",
+          "url": "https://seerray-lab.github.io/A-RSI/"
+        },
+        {
+          "label": "Hugging Face Papers：10月30日发现与实际评论",
+          "url": "https://huggingface.co/papers/2610.38568"
+        }
+      ]
+    },
+    {
+      "id": "codesign-bench-complete-application-revisions",
+      "category": "llm",
+      "tag": "Qwen研究 · 多模态编码 · 完整交付评测",
+      "title": "Co-Design Bench：平均满足七成要求，和把用户整项改动完整交付相距多远？",
+      "organization": "阿里巴巴Token Hub / Qwen、复旦、浙江大学、香港中文大学、上海交大、南洋理工等",
+      "published": "2026-10-26",
+      "date_label": "arXiv v1于10月26日10:10 UTC提交；10月30日进入Hugging Face Papers，本轮31日核读全文、项目、代码说明和HF数据卡；不作为10月31日刚发布。",
+      "summary": "Co-Design Bench从26,314个真实编码会话的37,463条去重请求中整理273项既有应用修改任务：100项多模态编辑、173项仓库编辑，共2,331条隐藏专家验收标准。先按源码和浏览器证据判分，再由独立LLM反驳正面/部分完成判决并审计视觉与交互声明。在固定Claude Code harness、最多3小时/120轮的设置下，10个模型中最佳者平均满足69.9%的标准，却只有26.4%的任务全部通过；跨3–4种改动的任务普遍更难。",
+      "why": "它把“模型能写代码”转成“能理解多模态意图、改好正在运行的应用，并满足全部请求”。额外跨harness实验固定两个求解模型，换Codex/OpenCode/Qwen Code后，仓库编辑的模型差距可跨16.2个百分点并改变排序，提示日报比较模型时应同时注明执行框架。热点关键词可以转向完整交付率、验收标准、浏览器证据、多模态协作和模型—harness配对。",
+      "limitation": "完整实验273题，当前公开数据仅96项ME任务、521条标准，不含RE；公开子集结果不能直接当完整榜单。判分仍依赖LLM，替换裁判的敏感性检验只覆盖2个求解模型，分数最多偏移0.053，不能称裁判不变性已证明。共享harness隔离部分条件，整体换框架实验无法归因到某个具体工具。本文无机器人闭环，也未独立复现；HF仅提交者长说明，没有独立技术讨论。",
+      "sources": [
+        {
+          "label": "论文全文：固定协议、完整交付率与跨Harness实验",
+          "url": "https://arxiv.org/html/2610.35138v1"
+        },
+        {
+          "label": "作者项目：任务案例、评价流程与完整榜单",
+          "url": "https://codesignbench.github.io/"
+        },
+        {
+          "label": "官方代码README：公开ME-96范围与使用说明",
+          "url": "https://github.com/Wiselnn570/Co-Design-Bench"
+        },
+        {
+          "label": "HF数据卡：96项ME/521标准，RE不在公开版",
+          "url": "https://huggingface.co/datasets/Wiselnn/Co-Design-Bench"
+        }
+      ]
+    },
+    {
+      "id": "openflyv2-onboard-aerial-vla-100-trials",
+      "category": "embodied",
+      "tag": "上海AI Lab · TeleAI · 机载VLA",
+      "title": "OpenFlyV2：1B级模型在机载 Orin NX 上以10Hz闭环飞行，100次实飞成功48次",
+      "organization": "上海人工智能实验室、西北工业大学、天翼AI（TeleAI）等",
+      "published": "2026-10-29",
+      "date_label": "arXiv v1：10月29日03:35 UTC；10月31日核读全文",
+      "summary": "OpenFlyV2把视觉语言理解、运动感知时序记忆和紧凑动作专家接到同一个约1B参数模型，以12个航点为一块，在DJI M30T的Jetson Orin NX上以10Hz运行。作者报告100次实飞、四个场景的汇总导航成功率为48%；训练使用仿真轨迹与视觉语言数据，没有真实飞行训练轨迹或测试场地微调。",
+      "why": "它把具身讨论从机械臂扩展到空中机器人，并给出了模型尺寸、边缘算力、闭环频率和实际试验分母。动作输出仍由飞控稳定与跟踪，适合用来检查“端到端”究竟覆盖到哪一层。",
+      "limitation": "四个实飞场景中两个对应3DGS训练场景，另外两个未见；不能把100次全部写成未知地点测试。48%是单地标/双地标与场景混合汇总，由人工按任务完成判定，非独立复现。论文称代码将公开；本轮GitHub README接口限流，未确认当前可运行代码范围。MAM的80ms→20ms只指动作去噪阶段。",
+      "sources": [
+        {
+          "label": "OpenFlyV2论文与首发版本信息",
+          "url": "https://arxiv.org/abs/2610.39287"
+        },
+        {
+          "label": "完整论文：2.6实飞、机载执行与附录",
+          "url": "https://arxiv.org/html/2610.39287v1"
+        },
+        {
+          "label": "作者在论文给出的代码入口（开放范围本轮未确认）",
+          "url": "https://github.com/Ideal-ljl/AeroBrain"
+        }
+      ]
+    }
+  ],
+  "technical_explainer": {
+    "id": "behavior-cloning-covariate-shift-dagger",
+    "title": "行为克隆与DAgger：为什么看过正确示范，机器人仍会越做越偏？",
+    "summary": "行为克隆把观测和专家动作配对学习；部署后，自己的动作又改变下一刻会看到什么。理解这种分布偏移，才能判断Agent生成的轨迹能否训练成策略、纠错数据该怎样回流，以及离线动作误差为什么不能替代实机闭环成功率。",
+    "reading_minutes": 7,
+    "why_now": "今天的WorkFactory把teacher轨迹变成较小Agent的监督数据，Utility-WAM用遥操作示范训练动作适配器，RoboDojo专题则继续区分运行时工具改进和策略权重更新。它们都涉及“会做一次”和“训练出稳定策略”之间的鸿沟。本讲用2011年DAgger原论文与2023年ACT、Diffusion Policy原始项目说明基础机制；这些是历史资料的当下教学用途，不是10月31日的新发布，也不声称本期方法都用了DAgger。",
+    "sections": [
+      {
+        "heading": "1. 行为克隆学的是从输入到动作的映射",
+        "paragraphs": [
+          "一段机器人示范可以记为一串配对：(相机图像、关节状态、任务指令或历史) → 专家下一步动作。行为克隆（behavior cloning，BC）用监督学习，让策略在这些输入上生成接近专家的输出。动作可以是关节位置、末端位姿、速度，也可以是一个动作序列；训练前必须确定坐标系、单位、时间同步和动作实际生效的时刻。",
+          "这里的“专家”描述数据来源，不保证它完美。遥操作、规划器、较大Agent和其他策略都可能提供示范。若输入只有单帧，看不出夹爪是否滑落，网络就可能需要历史或本体状态；若数据同时包含绕障物左侧与右侧两种有效解，用均方误差直接取平均可能恰好撞向中间。因此，现代BC也会使用生成式动作分布，而不是只能回归一个平均动作。"
+        ]
+      },
+      {
+        "heading": "2. 关键难点：动作会改变后面的输入分布",
+        "paragraphs": [
+          "专家示范里的夹爪通常对准物体。学生执行时只偏了几毫米，下一帧就会出现专家很少见过的相对位置；如果学生仍输出示范里的前进动作，偏差可能扩大。训练集主要来自专家访问的状态分布，部署输入却来自学生自己的状态分布。这就是模仿学习中的协变量偏移与误差累积。",
+          "闭环读相机是纠错的必要渠道之一，但不能自动解决问题：若策略没有学过偏离状态下应该怎样恢复，再看一帧也可能继续做错。DAgger原论文在特定损失与代价假设下分析了随时域增长的误差界；常见的T²ε是最坏情形的理论上界，不是任意机器人必然遵循的实测公式，也不能把每帧误差独立相乘来预测真实成功率。"
+        ]
+      },
+      {
+        "heading": "3. DAgger：在学生实际走到的状态上请专家给答案",
+        "paragraphs": [
+          "Dataset Aggregation（DAgger）的工作过程是：先用示范训练初始策略；让当前学生在环境里运行，收集它真正访问到的观测；请专家为这些观测标出应该采取的动作；把新标注与旧数据合并，再训练下一版策略，然后重复。采集早期可以混合执行专家与学生的动作，并逐渐减少专家执行比例。",
+          "要分清“谁执行”与“谁标注”。学生可以产生偏离路径，专家为该状态提供恢复动作；训练标签不应直接把学生的错误动作当成正确答案。真实机器人上的专家查询与干预还涉及时间、重置和可达性成本，必须记录。若只保留一批Agent成功轨迹离线训练一次，属于示范蒸馏或BC；没有学生分布上的再采集和再标注，不能仅凭“用了反馈数据”就称DAgger。"
+        ]
+      },
+      {
+        "heading": "4. 现代动作模型改变表示方式，仍要面对数据覆盖",
+        "paragraphs": [
+          "ACT在2023年用Transformer与条件VAE预测动作块，Diffusion Policy同年用条件扩散表示多峰动作分布；两者都展示了从真实示范学习闭环动作的路线。这些设计可改善动作一致性或多解表达，却没有让“未见偏离状态如何恢复”的问题消失。模型的生成方式、数据的覆盖范围和执行时的反馈机制，需要分别检查。",
+          "把强Agent变成较小策略，也不是只保存它写下的自然语言。可训练数据需要对齐实际观测、真正执行的动作、时间戳、执行结果、任务条件及必要本体状态；规划了但没有执行的动作不能伪装成实机示范。仿真特权状态可以帮助teacher，但学生部署时拿不到的输入若泄漏进监督接口，就会造成另一种训练与部署不匹配。"
+        ]
+      },
+      {
+        "heading": "5. 三种常见误读",
+        "paragraphs": [
+          "第一，“离线动作误差更低，所以长程成功率必定更高”。离线指标主要测已有状态上的动作拟合，而闭环还包含状态漂移、接触、时延、终止与恢复；今天Utility-WAM用动作误差构造门的标签，就仍需真实成功率来检验。第二，“把失败都丢掉更干净”。失败中的局部成功与恢复状态可能有价值，但要有正确归因或专家动作，不能盲目照抄错误。",
+          "第三，“反复训练就是递归自我改进”。BC或DAgger确实更新策略权重，但专家是否固定、标注质量如何、每轮收益和总预算怎样，都要单列。工具或记忆改好了、teacher变强了、学生权重更新了，是三个不同层次；只有证据显示改进机制本身持续增强，才讨论更强的递归主张。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "这几种流程更新的对象与额外监督不同，名称不能互换",
+      "columns": [
+        "流程",
+        "新增数据从哪里来",
+        "更新什么",
+        "主要核验点"
+      ],
+      "rows": [
+        [
+          "离线行为克隆",
+          "已有专家示范",
+          "策略/模型权重",
+          "示范覆盖、动作同步、独立闭环测试"
+        ],
+        [
+          "DAgger式数据聚合",
+          "当前学生访问的状态 + 专家标注",
+          "策略权重与聚合数据集",
+          "每轮采集/标注/干预成本、学生分布覆盖"
+        ],
+        [
+          "Agent成功轨迹蒸馏",
+          "teacher实际执行与验收的轨迹",
+          "student权重",
+          "是否真的执行、特权信息、跨任务留出"
+        ],
+        [
+          "固定权重工具/记忆改进",
+          "运行记录和开发反馈",
+          "代码/工具/提示或记忆",
+          "冻结时点、开发测试隔离、运行预算"
+        ]
+      ]
+    },
+    "example": {
+      "title": "教学假设：把杯子移到托盘，不是论文实测",
+      "paragraphs": [
+        "假设有100段对准杯子后抓取的专家示范。学生第一次执行时，杯子在接近中被轻碰偏移；它从未见过这个视角，仍闭合夹爪，抓空。继续复制更多相同起始布局的成功示范，可能依旧没有覆盖“杯子被碰偏后”的恢复状态。",
+        "数据聚合可以让学生访问这种偏离状态，再由专家标出重新定位、张爪、退开与再次接近的动作，并把正确的观测—动作对加入训练。下一轮应在独立布局和扰动下检验恢复，记录专家查询、人工接管和总试验数。这个过程不保证每轮提升；专家标错、动作不可达或输入缺少必要信息时，仍会失败。"
+      ]
+    },
+    "checklist": [
+      "输入包含什么、部署能否取得？相机、本体状态、历史与任务指令是否同训练一致？",
+      "动作标签对应计划动作还是实际执行动作？坐标、时间、控制频率与单位如何对齐？",
+      "数据来自专家分布还是学生访问状态？恢复动作由谁提供、如何验收？",
+      "是否跨轮更新学生权重？专家查询、人工接管、重置和训练计算各花多少？",
+      "离线动作误差、短程技能成功与长程全任务成功是否分别报告？测试任务、布局和本体有没有留出？"
+    ],
+    "takeaway": "示范教机器人该做什么；学生亲自走到的偏离状态与可靠纠错监督，决定它能否在自己的闭环分布里把任务做完。",
+    "sources": [
+      {
+        "label": "Ross等，DAgger原论文，AISTATS 2011：分布偏移、数据聚合与条件性理论界",
+        "url": "https://proceedings.mlr.press/v15/ross11a.html"
+      },
+      {
+        "label": "ACT原始项目，RSS 2023：真实示范、条件VAE与动作序列学习",
+        "url": "https://tonyzhaozh.github.io/aloha/"
+      },
+      {
+        "label": "Diffusion Policy原始项目，RSS 2023 / IJRR 2024：生成式动作分布与示范学习",
+        "url": "https://diffusion-policy.cs.columbia.edu/"
+      }
+    ]
+  },
+  "research_supplement": {
+    "id": "robodojo-handoff-memory-boundaries-r2si-20261031",
+    "title": "谁有权放行下一动作？R²SI的接管、回执与记忆清理",
+    "summary": "RoboDojo连续专题第三期：Q0-Preview在10月30日成为新的Agent榜首，但内部构型尚未核实。本篇继续拆可读源码的R²SI，说明Agent怎样在每个已回执动作后审查WAM队列，怎样丢弃未执行后缀，以及为什么模型记忆不能把预测当成已发生事实。材料基于10月24日公开代码的今日复查，是教学续篇，不是10月31日新算法发布。",
+    "reading_minutes": 9,
+    "why_now": "前两期已讲系统总览和RGB到动作，本期兑现接管触发、WAM上下文清理与失败恢复的后续。今天榜单确有新增：Q0-Preview 73.33／68.00%进入Agent首位，GO-3 Nano Preview61.90／56.42%退至第二；这只更新榜项，不提供Q0内部架构证据。R²SI当前公开commit仍为3edfe6a（10月24日），以下是实际阅读代码与测试夹具，未运行模拟器、权重或作者测试。",
+    "sections": [
+      {
+        "heading": "1. 委托WAM之前，Agent知道的东西没有全部传过去",
+        "paragraphs": [
+          "R²SI内层Agent使用GPT-6 Astra/high，能读任务、RGB、本体状态、Skills和episode对话；但WAM的call_tool参数为空，收到的是原始环境指令、RGB和本体状态，Agent挑出的对象、子目标、文字Skills和对话记忆不会自动成为WAM输入。高层知道“先移开挡住的杯子”，不意味着动作模型知道同一个约束。",
+          "源码要求每个新chunk前先调用assess_control，给出当前证据、预期变化和适用判断。需要精确接触/朝向、Agent私有记忆，或原指令不足以描述当前阶段时，ControlGuard拒绝WAM许可，要求原生工具。若从其他控制方式切回Memory，它从当前帧重新开始；不能拿已经丢失的历史为委托理由。"
+        ]
+      },
+      {
+        "heading": "2. 每个动作收到回执后，才决定放不放下一动作",
+        "paragraphs": [
+          "适配器get_action只放行一个native joint action，并记为pending；再次取动作之前必须先update_obs接回新的公开状态和RGB。没有新观测、重复观测或上一动作还未收到回执，都会拒绝继续。这是执行顺序约束，不是“模型预测出来就算执行成功”。",
+          "WAM虽然一次可预测24个动作，当前固定代码会在每个已回执动作后、队列还有后缀时，调用review_wam_execution：Agent比较新RGB/state与预期变化，用只读review_policy_chunk选择continue或takeover。它检查错误对象/方向、接触与可见性风险、不确定状态或完成后需要返航等情况。先前文档只概括chunk之间重判断；源码中的这个动作边界更细，不能把它描述成必须等整块执行完。",
+          "这里的“每动作审查”是调用时序，不等于已有高频实时控制实测。审查新增一次模型推理，会改变墙钟延迟和LLM成本；源码未给出对应榜项每动作延迟或总token账。没有这些数据，不能把闭环更密直接写成更快或更优。"
+        ]
+      },
+      {
+        "heading": "3. 两类接管：机械跟踪异常与语义进度不符",
+        "paragraphs": [
+          "ExecutionMonitor先预检整个提案的维度、关节范围和命令跳变，再在回执后检查公开关节状态。跟踪误差超过固定关节步预算的3倍、观测跳变超过6倍，会中断后缀。这些是控制诊断阈值，既不是物体任务成功阈值，也不证明碰撞检测完备；代码明确不把夹爪命令状态当成手指接触反馈。",
+          "另一条通路是Agent的语义评估：wrong_direction或uncertain立即要求原生纠正；累计两次stalled也触发这个门槛。takeover同样锁定native_required。只有实际下发且在新状态中看到双臂之一发生非微小原生运动后，才解除这道锁，并要求新的assessment；不能在Flash与Memory之间循环切换来跳过失败。",
+          "若review回答格式不合规，代码回退到takeover/uncertain并扣住后缀；若review请求本身失败，则报告基础设施失败，不再释放队列。原生纠正有回执只是恢复委托资格，不能据此认定物体摆正、抓取成功或整个任务成功。"
+        ]
+      },
+      {
+        "heading": "4. 预测队列、WAM记忆与Agent对话是三份不同的状态",
+        "paragraphs": [
+          "完整chunk的全部动作都有回执后，WamSkills先commit_action(executed_steps)，再把最后一帧送入模型，保留同一WAM连续运行的滚动上下文。中途接管则discard_action(execution_started=True)，清掉未完成预测及其旧历史，并用真实最新帧重建起点；调用原生工具或切换Flash/Memory也会reset原来的连续上下文。",
+          "已预测但未下发的提案被预检拒绝，用execution_started=False丢弃；已经下发但没有最后回执而episode结束，也不能冒充完成commit。这里丢弃的是未来预测与上下文，不会让已经发生的机器人运动倒带。",
+          "Agent的对话则保持episode内连续，审查工具从第一次请求就声明，后续只改变允许调用的工具选择；provider拒绝改写已经完成的上下文。这是推理记忆与工具协议。它不同于WAM滚动上下文，也不同于跨episode保存的Skills/Memory文件，更不等于在线更新模型权重。"
+        ]
+      },
+      {
+        "heading": "5. 冻结边界与榜单边界",
+        "paragraphs": [
+          "正式报告称评测使用固定的已接受harness、Skills和权重。公开代码还验证发布manifest、源码与checkpoint文件声明哈希；上次已核到公开代码与HF manifest一致，但未下载重哈希二进制、未运行，且缺少10月17日历史榜单服务的原始release manifest。当前model.release_metadata还明确自标eligibility_status=unverified、official_single_entry_eligible=false；不能把可读源码或当前哈希对应写成官方完整审计通过。",
+          "现榜Q0、GO-3、R²SI等都是完整系统记录。Q0新高分提示继续追它的底座、经验与动作接口；R²SI提供可检查的接管代码，不能因代码更透明而推断Q0也这样实现，也不能用一个系统的细节解释整个榜单差距。所有上述R²SI榜分均为Sim，不是ARX X5实机复现。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "R²SI当前公开代码的控制边界；源码阅读，未运行，阈值不是实测成功判据",
+      "columns": [
+        "发生什么",
+        "动作队列/状态如何处理",
+        "能得出与不能得出的结论"
+      ],
+      "rows": [
+        [
+          "完整chunk都有回执",
+          "commit已执行数量，再送最后观测；同一WAM保留rolling context",
+          "可延续同一动作模型上下文；不表示任务成功"
+        ],
+        [
+          "Agent在部分已回执后接管",
+          "扣住下一动作，discard剩余预测，并从实际最新帧rebase",
+          "已执行运动仍发生；未执行后缀不能计入历史"
+        ],
+        [
+          "wrong_direction/uncertain或两次stalled",
+          "native_required锁定；先有回执的原生运动，再新评估",
+          "防止仅切WAM变体绕过恢复；不保证语义纠正成功"
+        ],
+        [
+          "原生工具或Flash/Memory切换",
+          "reset旧WAM连续状态，改从当前帧进入",
+          "Agent对话可仍连续；WAM历史不可凭空继承"
+        ],
+        [
+          "Q0新榜首",
+          "官方仅可核Agent标签及73.33／68.00%",
+          "不能从排名推底座、控制频率或训练/成本公平性"
+        ]
+      ]
+    },
+    "example": {
+      "title": "假设例子：预测了24步，只执行6步时物体滑开",
+      "paragraphs": [
+        "这是机制假设，非作者实测轨迹。设WAM预测24步，前6步逐步下发并各自收到新RGB/state；第6步后Agent看到物体滑开，给takeover/wrong_direction。第7–24步尚未执行，队列直接丢弃，WAM不能把24步终点当成机器人当前状态。",
+        "之后原生工具做一次有回执的纠正，Agent基于新帧重新assess_control。若再选Memory，不能宣称保留了刚才中断前的完整滚动历史；应按reset/rebase后的当前信息判断是否够用。此例只教顺序和状态所有权，不提供成功率、延迟或安全性保证。"
+      ]
+    },
+    "checklist": [
+      "高层Agent的子目标、选定对象、文字记忆是否实际进入动作模型输入？别用“共享上下文”想当然。",
+      "一次动作预测多少步，执行端一次放行多少步？下一动作前必须等哪一种观测或回执？",
+      "机械异常阈值来自关节预算还是任务成功信号？语义接管由谁判断，错误/不确定时怎样处理？",
+      "中断后未执行后缀是否丢弃，已执行动作和WAM滚动历史如何对齐？切策略是否reset？",
+      "episode对话、跨episode Skills、WAM上下文和权重分别何时冻结、更新或清空？",
+      "更密集反馈增加了多少模型调用、延迟和总成本？没有实测就不能声称实时或同算力优势。",
+      "源码、模型manifest、官方榜项与历史评测服务能否逐版本对应？读过测试不等于测试通过或复现。"
+    ],
+    "takeaway": "具身Agent与动作模型的关键连接是有回执的控制权交接：先观察已发生的运动，再决定是否放行未来动作，并在中断后清理预测与记忆。榜单只给结果；解释排名还要核对输入、接管时序、冻结版本和实际推理预算。",
+    "sources": [
+      {
+        "label": "RoboDojo官方榜单：10月30日Q0新增与Agent分轨",
+        "url": "https://robodojo-benchmark.com/leaderboard#agent"
+      },
+      {
+        "label": "R²SI报告（10月24日）：内外层系统及正式评测冻结声明",
+        "url": "https://r2si.worldscape.io/report.pdf"
+      },
+      {
+        "label": "固定源码model.py：pending、执行回执与review_pending放行顺序",
+        "url": "https://github.com/manifoldai-research/R2SI/blob/3edfe6afa69978d9d50e59e91e115143a8b486a9/XPolicyLab/policy/WorldScape_RSI/harness/model.py"
+      },
+      {
+        "label": "固定源码backends.py：审查、执行监视与原生/WAM切换",
+        "url": "https://github.com/manifoldai-research/R2SI/blob/3edfe6afa69978d9d50e59e91e115143a8b486a9/XPolicyLab/policy/WorldScape_RSI/harness/backends.py"
+      },
+      {
+        "label": "固定源码policy.py：每动作审查、WAM输入限制与失败回退",
+        "url": "https://github.com/manifoldai-research/R2SI/blob/3edfe6afa69978d9d50e59e91e115143a8b486a9/XPolicyLab/policy/WorldScape_RSI/harness/vendor/policy/RoboRSI_RoboProbe/policy.py"
+      },
+      {
+        "label": "固定源码control_guard.py：许可、stalled/uncertain与原生纠正",
+        "url": "https://github.com/manifoldai-research/R2SI/blob/3edfe6afa69978d9d50e59e91e115143a8b486a9/XPolicyLab/policy/WorldScape_RSI/harness/control_guard.py"
+      },
+      {
+        "label": "固定源码wam.py：commit、discard、rebase与reset",
+        "url": "https://github.com/manifoldai-research/R2SI/blob/3edfe6afa69978d9d50e59e91e115143a8b486a9/XPolicyLab/policy/WorldScape_RSI/harness/wam.py"
+      },
+      {
+        "label": "固定源码execution_monitor.py：公共关节反馈与诊断阈值",
+        "url": "https://github.com/manifoldai-research/R2SI/blob/3edfe6afa69978d9d50e59e91e115143a8b486a9/XPolicyLab/policy/WorldScape_RSI/harness/vendor/policy/RoboRSI_RoboProbe/execution_monitor.py"
+      },
+      {
+        "label": "固定源码provider.py：episode上下文与只读审查工具",
+        "url": "https://github.com/manifoldai-research/R2SI/blob/3edfe6afa69978d9d50e59e91e115143a8b486a9/XPolicyLab/policy/WorldScape_RSI/harness/provider.py"
+      },
+      {
+        "label": "公开测试夹具：生命周期预期，本文未运行",
+        "url": "https://github.com/manifoldai-research/R2SI/blob/3edfe6afa69978d9d50e59e91e115143a8b486a9/XPolicyLab/policy/WorldScape_RSI/harness/tests/test_wam_skills.py"
+      }
+    ]
+  }
+}

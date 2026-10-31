@@ -2,8 +2,8 @@
   "metadata": {
     "title": "研究方向与检索关键词",
     "status": "sample-research-map",
-    "updated": "2026-10-26",
-    "intro": "中英关键词连接具体研究问题，覆盖大模型与具身的多条路线。10月26日更新加入执行日志记忆、失败预测与回退、动作 horizon、机器人成功判定器、交互式世界模型和隐状态回收；主题随近期证据轮换，不是实时热度排名。",
+    "updated": "2026-10-31",
+    "intro": "中英关键词连接具体研究问题，覆盖大模型与具身的多条路线。10月31日补入具身技能工具、世界模型负迁移、依赖图修复、自适应任务刷新、可执行职业任务合成和完整交付率；历史案例保留原日期，不是实时热度排名。",
     "verification": "来源通过具体官方页面、论文、代码/模型卡或数据卡核验；镜像读取与访问限制在对应条目中保留。每日热点由近期研究、实测和社区证据重新筛选，未独立复现的结果不写成共识。",
     "dating_policy": "来源日期默认记录arXiv首版提交日期；官方文章单独注明发布日期。更新日期表示研究地图整理时间。"
   },
@@ -239,6 +239,18 @@
           "url": "https://www.kimi.ai/blog/kimi-k3-1-pro",
           "published": "2026-10-24",
           "verified": "10月26日本期采集来源；作者结果与独立讨论范围随日报说明，未独立复现。"
+        },
+        {
+          "label": "宇树 RobotSkills 首次公开：把通用 Agent 接到机器人技能，导航使用 DeepSeek-Harness 与 MCP",
+          "url": "https://github.com/unitreerobotics/unitree_robotskills/blob/bc60264a660432d5541adc9286161725c1f82a9f/README.md",
+          "published": "2026-10-28",
+          "verified": "2026-10-31核读；原始日期、讨论窗口与实验/开放边界见当期日报。"
+        },
+        {
+          "label": "智元发布 GO-3 Preview 与 Worken：把推理、预测、动作和部署产出放进同一条链",
+          "url": "https://www.agibot.com/article/231/detail/131.html",
+          "published": "2026-10-29",
+          "verified": "2026-10-31核读；原始日期、讨论窗口与实验/开放边界见当期日报。"
         }
       ]
     },
@@ -356,6 +368,12 @@
           "published": "2026-10-13",
           "date_basis": "arXiv首版（UTC）",
           "verified": "已读定义、L0—L5分层、评价与总结；这是综述框架，不是实证突破"
+        },
+        {
+          "label": "A-RSI：自改进不仅要生成任务，还要识别旧任务什么时候不再提供训练信号",
+          "url": "https://arxiv.org/html/2610.38568v1",
+          "published": "2026-10-28",
+          "verified": "2026-10-31核读；原始日期、讨论窗口与实验/开放边界见当期日报。"
         }
       ]
     },
@@ -499,6 +517,18 @@
           "url": "https://robo-jev.com/",
           "published": "2026-10-23",
           "verified": "本期核验来源；未独立复现"
+        },
+        {
+          "label": "WorkFactory：先让隔离探针真正做一次，再用修复后的职业任务训练Agent",
+          "url": "https://arxiv.org/html/2610.37161v1",
+          "published": "2026-10-27",
+          "verified": "2026-10-31核读；原始日期、讨论窗口与实验/开放边界见当期日报。"
+        },
+        {
+          "label": "Co-Design Bench：平均满足七成要求，和把用户整项改动完整交付相距多远？",
+          "url": "https://arxiv.org/html/2610.35138v1",
+          "published": "2026-10-26",
+          "verified": "2026-10-31核读；原始日期、讨论窗口与实验/开放边界见当期日报。"
         }
       ]
     },
@@ -824,6 +854,12 @@
           "url": "https://arxiv.org/html/2610.32208v1",
           "published": "2026-10-23",
           "verified": "本期核验来源；未独立复现"
+        },
+        {
+          "label": "LOGIV：已经做完的动作，其效果还在吗？用依赖图验证并局部修复长程任务",
+          "url": "https://arxiv.org/html/2610.40016v1",
+          "published": "2026-10-29",
+          "verified": "2026-10-31核读；原始日期、讨论窗口与实验/开放边界见当期日报。"
         }
       ]
     },
@@ -915,6 +951,12 @@
           "url": "https://github.com/Tencent-Hunyuan/Hy-Nomas",
           "published": "2026-10-21",
           "verified": "本期核验来源；未独立复现"
+        },
+        {
+          "label": "Utility-WAM：预测未来也会误导动作，用同一底座检验世界模型的负迁移",
+          "url": "https://arxiv.org/abs/2610.39367",
+          "published": "2026-10-29",
+          "verified": "2026-10-31核读；原始日期、讨论窗口与实验/开放边界见当期日报。"
         }
       ]
     },

@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年10月29日日报：七条近期研究围绕Agent信用分配和Harness迁移、物理动力学动作表征、跨本体世界模型数据、反事实回滚策略改进与流式空间推理。Hugging Face Papers网页/API本轮均读成功，实际日榜是10月28日；arXiv cs.RO独立检索，来源日期与发现日期分开。RoboDojo连续专题第二期比较PyRUA-Lean和WorldScape-R²SI的观测→程序/工具→IK或WAM动作块→反馈链路，今日重查前五无变化，不作为新排名。每日技术点讲逆运动学IK，区分终点求解、路径、轨迹和低层控制；作者结果、仿真/实机、独立评论与未开放工件的边界随文保留。
+当前首页为2026年10月31日日报：九条动态围绕RoboDojo新榜首Q0-Preview、智元GO-3 Preview与Worken、宇树RobotSkills与DeepSeek-Harness、LOGIV依赖图修复、Utility-WAM未来负迁移、OpenFlyV2机载实飞，以及WorkFactory、A-RSI和Co-Design的Agent训练/评测。10月30日漏期的重要事件合并进今日并保留原日期。Hugging Face网页与API本轮读成功，实际日榜Oct 30；arXiv cs.RO独立检索，独立问答与作者信号分开。RoboDojo连续专题第三期讲R²SI逐动作回执、审查、接管与记忆清理，Q0内部构型仍缺公开证据。每日技术点讲行为克隆、分布偏移与DAgger；仿真/实机、试验分母、工件未开放与公众号访问缺口随文保留。
 
 ## 本地构建与预览
 

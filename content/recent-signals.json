@@ -1,9 +1,135 @@
 {
   "title": "近期研究动向与真实讨论",
-  "intro": "本轮观察10月25–29日当前讨论、Hugging Face Papers实际日榜、arXiv具身新稿、RoboDojo榜单与国内外研究/代码事件；重读榜单无变化不称新发布，作者报告、HF发现信号和独立讨论分级保留。",
-  "window_start": "2026-10-25",
-  "window_end": "2026-10-29",
+  "intro": "本轮观察10月26–31日原成果、10月28–31日的新代码/榜单和Hugging Face具体问答；Q0新首位与R²SI历史源码复查分开，原始成果日、当前发现日及公开工件边界逐项保留。历史动向保留原日期供回查，不冒充均为本窗口新事件。",
+  "window_start": "2026-10-26",
+  "window_end": "2026-10-31",
   "signals": [
+    {
+      "id": "robodojo-q0-preview-agent-leaderboard-20261030-20261031",
+      "title": "RoboDojo Agent榜换首位：Q0-Preview为73.33分／68.00%成功率，内部构型仍待核验",
+      "published": "2026-10-30",
+      "summary": "Q0-Preview被官方列为Agent类型，平均Score 73.33、SR 68.00%，超过GO-3 Nano Preview的61.90／56.42%，成为RoboDojo-Sim Agent分轨首位。Q0六个维度为：Generalization标准63.08／57.00%、随机56.25／51.67%，Precision65.30／58.50%，Long Horizon69.80／58.50%，Memory93.68／93.67%，Open78.20／75.00%。同一轮10月30日News还新增Horizon Robotics的HWM-0 Preview（VLM+WAM，32.81／27.17%）；10月28日新增自变量WALL-OSS-1.0-lite（VLA，42.59／34.97%）。",
+      "keywords": [
+        "跨系统具身横评",
+        "近期核验",
+        "具身Agent"
+      ],
+      "url": "https://robodojo-benchmark.com/leaderboard#agent",
+      "source_label": "官方News标注10月30日新增；10月31日实际读取官方网页所加载bundle的榜项、分类、各项分数与News。原始方法发布时间及专属论文/模型版本尚未找到；10月31日实际核读，作者/官方结果与独立评论分开。",
+      "limitation": "全部是仿真记录，不能外推实机；Score含部分进展，不等于成功率。当前未核到Q0底座模型、动作接口、记忆实现、训练/开发数据、累计LLM调用成本与延迟、逐seed方差及历史评测release工件。榜单公共协议写明公开布局为主、隐藏布局做辅助验证，要求固定系统；统一榜协议不能证明各系统训练数据、感知工程、控制与推理预算相同。官方News日期和统一updated_at也不证明代码/权重已公开；不从名称猜测公司中文身份。"
+    },
+    {
+      "id": "agibot-go3-preview-worken-physical-ai-scaling-20261031",
+      "title": "智元发布 GO-3 Preview 与 Worken：把推理、预测、动作和部署产出放进同一条链",
+      "published": "2026-10-29",
+      "summary": "智元10月29日官方发布GO-3 Preview：以WRAM统一任务推理、未来预测与动作生成，并将预训练、后训练和部署后改进连成Physical Intelligence Scaling。10月30日IT之家转述的Genie Evolver把真机、物理仿真与世界模型用于后训练；部署后的Genie Master把判断、执行、失败定位与经验沉淀接入作业循环。公司报告精灵G2便利店完整任务成功率由首日28.6%到第5天85.7%，但未披露完整试验分母。另提出Worken = 活跃机器人数量 × 自主工作时长 × 输出效率比，用来衡量定义任务下的有效工作产出。",
+      "keywords": [
+        "智元",
+        "近期核验",
+        "具身Agent"
+      ],
+      "url": "https://www.agibot.com/article/231/detail/131.html",
+      "source_label": "智元官方 Innovation Day 原文：2026年10月29日；10月30日IT之家/新浪科技补充发布会数据；10月31日实际核读，作者/官方结果与独立评论分开。",
+      "limitation": "本条主要依据智元官方发布与发布会媒体转述，没有独立复现或完整实验报告；便利店5日数据未披露逐任务样本、独立留出、总计算与人工审查投入，不能直接证明递归加速。未核到GO-3精确底座、参数/权重、完整harness、WAM组成及Genie Master更新对象。官方10月29日称多榜第一是当时发布会口径；10月31日RoboDojo Agent榜已由Q0-Preview居首，RoboColiseum API首位名为GO-3 Nano Preview（10月26日提交，paper_link为空），与GO-3 Preview关系未公开，不能混为同一版本。媒体所称年底开源是计划。Worken是公司提出的任务化度量框架，尚非统一行业标准，说明性算例不是部署实验。"
+    },
+    {
+      "id": "unitree-robotskills-frontier-agent-code-release-20261031",
+      "title": "宇树 RobotSkills 首次公开：把通用 Agent 接到机器人技能，导航使用 DeepSeek-Harness 与 MCP",
+      "published": "2026-10-28",
+      "summary": "宇树在10月28日的首次公开提交中发布 RobotSkills：通用多模态 Agent 读取机器人相机、调用技能工具并检查反馈，覆盖绘画、五子棋、中国象棋和自然语言导航。官方README明确把 DeepSeek-Harness 列为导航技能的 Agent host，把 MCP 列为工具协议；物理执行仍经过机器人SDK、运动学和具体技能工具。",
+      "keywords": [
+        "宇树",
+        "近期核验",
+        "具身Agent"
+      ],
+      "url": "https://github.com/unitreerobotics/unitree_robotskills/blob/bc60264a660432d5541adc9286161725c1f82a9f/README.md",
+      "source_label": "10月28日首次公开代码；10月31日核读README与提交记录；10月31日实际核读，作者/官方结果与独立评论分开。",
+      "limitation": "这是Agent与机器人技能的代码发布，未发布新的VLA基础模型，也没有可核对的通用任务成功率。五子棋流程含松爪前人工确认，中国象棋使用Fairy-Stockfish；演示视频加速并剪去部分推理/网络等待时间。本文仅核读文档与提交，未运行代码或实机验证。"
+    },
+    {
+      "id": "logiv-graph-verified-execution-local-repair-20261031",
+      "title": "LOGIV：已经做完的动作，其效果还在吗？用依赖图验证并局部修复长程任务",
+      "published": "2026-10-29",
+      "summary": "LOGIV把高层计划编译成条件支持与资源顺序图，区分“某动作已完成”和“它为后续提供的条件仍成立”。GPT-4o根据视觉和执行反馈检查状态、节点与依赖，Fast Downward生成局部修复，VAL验证修复与保留动作组成的完整后续计划；下层由π0.5、AHA-WAM或Light-WAM执行。三项实机任务中，同一π0.5检查点加LOGIV后成功由12/30增至17/30；各任务分别为番茄7→9/10、搭积木3→5/10、插网线2→3/10。",
+      "keywords": [
+        "Agent执行监督",
+        "近期核验",
+        "具身Agent"
+      ],
+      "url": "https://arxiv.org/html/2610.40016v1",
+      "source_label": "arXiv v1于10月29日13:30 UTC提交；10月31日核读全文、作者项目及代码README。新预印本，未确认会议录用；10月31日实际核读，作者/官方结果与独立评论分开。",
+      "limitation": "仿真为两套基准各10个任务、各10个固定初始状态，扰动类型和触发点预设；三种底座均做任务专用微调。实机为Astribot S1与双AgileX Piper，三任务各10次、无外加扰动，样本小且无独立复现。PDDL规格预先人工定义，VLM只写GPT-4o而未给精确服务快照；每故障最多3轮修复/4次VLM调用、规划30秒及VAL 5秒限额，不等于已测端到端低延迟。人类协助在实验中禁用。代码有核心模块与两个任务资源，README明确上游权重链接不构成论文全部任务微调检查点；本轮未运行。"
+    },
+    {
+      "id": "utility-wam-world-model-negative-transfer-selective-futures-20261031",
+      "title": "Utility-WAM：预测未来也会误导动作，用同一底座检验世界模型的负迁移",
+      "published": "2026-10-29",
+      "summary": "Utility-WAM在同一个冻结WAM底座上比较有无预测未来图像：未来条件在部分精细任务中大幅降低成功率。作者训练残差适配器修正动作，并用生成前效用门决定是否值得预测未来。在双AgileX PiPER的三项实机任务、每项每方法20次试验中，选择性版本成功53/60（88.3%），FAST-WAM为43/60（71.7%）。",
+      "keywords": [
+        "引望智能",
+        "近期核验",
+        "具身Agent"
+      ],
+      "url": "https://arxiv.org/abs/2610.39367",
+      "source_label": "arXiv v1：10月29日04:59 UTC；10月31日核读全文；10月31日实际核读，作者/官方结果与独立评论分开。",
+      "limitation": "实机每任务使用200条遥操作示范，三任务60次试验仍是作者结果。RoboTwin中跳过75.5%的视频生成、降延迟38%，不能套用到LIBERO（该处只省6.7%）。实验复用同一个Stage1预训练checkpoint，未覆盖多预训练种子；效用门训练标签是离线动作误差代理，非闭环任务回报。本轮未发现专属可运行代码/权重公开入口。"
+    },
+    {
+      "id": "workfactory-executable-professional-task-synthesis-20261031",
+      "title": "WorkFactory：先让隔离探针真正做一次，再用修复后的职业任务训练Agent",
+      "published": "2026-10-27",
+      "summary": "WorkFactory从职业意图反向构建交付物所需的信息支持图，再把事实和依赖放进文件环境；仅能看到求解输入的隔离probe尝试任务，定位缺失或矛盾信息，修复时保留原工作要求，再由独立teacher生成示范。作者构建112,686个任务、覆盖612个职业，以GLM-5.3轨迹SFT训练WorkPilot 4B、27B、35B-A3B。35B-A3B在GDPval-AA v2.1量尺上的本地估计由879升至1565 Elo，在其余三项职业工作评测也有提升。",
+      "keywords": [
+        "IQuest",
+        "近期核验",
+        "Agent训练/评测"
+      ],
+      "url": "https://arxiv.org/html/2610.37161v1",
+      "source_label": "arXiv v1于10月27日12:54 UTC提交；10月30日进入Hugging Face Papers，本轮读取30赞。独立提问为北京时间10月30日17:08，作者回复为10月31日00:25，均与论文首发分开；10月31日实际核读，作者/官方结果与独立评论分开。",
+      "limitation": "训练与求解均为纯文本接口，原生视觉组件未使用；这是teacher轨迹SFT，不是闭环RL或机器人实机。1565、1612等为作者按两个固定锚点和Gemini裁判校准的本地Elo，不能冒充官方上榜成绩；每模型任务跑3次，区间不覆盖裁判和映射方法误差。任务构建平均每次尝试耗11.656M模型token，推理单任务价格不含这部分。论文称公开数据子集与权重，但本轮README资源徽章仍是本页占位锚点，未核到可下载数据/模型，不能写成已全面开源。"
+    },
+    {
+      "id": "arsi-adaptive-task-refresh-zero-data-20261031",
+      "title": "A-RSI：自改进不仅要生成任务，还要识别旧任务什么时候不再提供训练信号",
+      "published": "2026-10-28",
+      "summary": "A-RSI把“何时更换训练任务”与“怎样取得可核验答案”分开：模型先写出固定的几何、图表、表格和计数程序库，由程序生成图像、问题与参考答案；GRPO训练日志里的奖励差异和准确率触发整池刷新。主实验从Qwen3-VL-8B-Instruct完成100步初始化后的检查点出发，再做8个100步窗口；11个完整测试集的Macro11平均由57.77升至61.05，引入800个新任务。每窗口刷新对照引入3,200题，得60.64。",
+      "keywords": [
+        "小米研究",
+        "近期核验",
+        "Agent训练/评测"
+      ],
+      "url": "https://arxiv.org/html/2610.38568v1",
+      "source_label": "arXiv v1于10月28日10:03 UTC提交；10月30日进入Hugging Face Papers，本轮10月31日读取的网页实际仍为Oct 30，157赞仅作发现信号；10月31日实际核读，作者/官方结果与独立评论分开。",
+      "limitation": "每个训练臂只有一次运行，未做小差值显著性检验或16k输出评估；两次实际刷新均在3个窗口后，缺少固定三窗口随机刷新对照，不能证明自适应时机优于固定周期。固定任务库、类别比例和19个主题词受评测范围启发，初始池含模型改写问题；“无外部训练样例/人工答案”不等于无需先验、人工设计或无限自生任务。作者项目仍标Code coming soon，本轮未独立复现。HF可见留言为提交者摘要、作者项目链接和自动机器人内容，没有读到独立技术争论。"
+    },
+    {
+      "id": "codesign-bench-complete-application-revisions-20261031",
+      "title": "Co-Design Bench：平均满足七成要求，和把用户整项改动完整交付相距多远？",
+      "published": "2026-10-26",
+      "summary": "Co-Design Bench从26,314个真实编码会话的37,463条去重请求中整理273项既有应用修改任务：100项多模态编辑、173项仓库编辑，共2,331条隐藏专家验收标准。先按源码和浏览器证据判分，再由独立LLM反驳正面/部分完成判决并审计视觉与交互声明。在固定Claude Code harness、最多3小时/120轮的设置下，10个模型中最佳者平均满足69.9%的标准，却只有26.4%的任务全部通过；跨3–4种改动的任务普遍更难。",
+      "keywords": [
+        "Qwen研究",
+        "近期核验",
+        "Agent训练/评测"
+      ],
+      "url": "https://arxiv.org/html/2610.35138v1",
+      "source_label": "arXiv v1于10月26日10:10 UTC提交；10月30日进入Hugging Face Papers，本轮31日核读全文、项目、代码说明和HF数据卡；不作为10月31日刚发布；10月31日实际核读，作者/官方结果与独立评论分开。",
+      "limitation": "完整实验273题，当前公开数据仅96项ME任务、521条标准，不含RE；公开子集结果不能直接当完整榜单。判分仍依赖LLM，替换裁判的敏感性检验只覆盖2个求解模型，分数最多偏移0.053，不能称裁判不变性已证明。共享harness隔离部分条件，整体换框架实验无法归因到某个具体工具。本文无机器人闭环，也未独立复现；HF仅提交者长说明，没有独立技术讨论。"
+    },
+    {
+      "id": "openflyv2-onboard-aerial-vla-100-trials-20261031",
+      "title": "OpenFlyV2：1B级模型在机载 Orin NX 上以10Hz闭环飞行，100次实飞成功48次",
+      "published": "2026-10-29",
+      "summary": "OpenFlyV2把视觉语言理解、运动感知时序记忆和紧凑动作专家接到同一个约1B参数模型，以12个航点为一块，在DJI M30T的Jetson Orin NX上以10Hz运行。作者报告100次实飞、四个场景的汇总导航成功率为48%；训练使用仿真轨迹与视觉语言数据，没有真实飞行训练轨迹或测试场地微调。",
+      "keywords": [
+        "上海AI Lab",
+        "近期核验",
+        "具身Agent"
+      ],
+      "url": "https://arxiv.org/abs/2610.39287",
+      "source_label": "arXiv v1：10月29日03:35 UTC；10月31日核读全文；10月31日实际核读，作者/官方结果与独立评论分开。",
+      "limitation": "四个实飞场景中两个对应3DGS训练场景，另外两个未见；不能把100次全部写成未知地点测试。48%是单地标/双地标与场景混合汇总，由人工按任务完成判定，非独立复现。论文称代码将公开；本轮GitHub README接口限流，未确认当前可运行代码范围。MAM的80ms→20ms只指动作去噪阶段。"
+    },
     {
       "id": "robodojo-agent-observation-action-20261029",
       "title": "RoboDojo Agent前五重查无变化：PyRUA与R²SI的观测—动作接口成为第二期焦点",
@@ -30,7 +156,7 @@
         "arXiv"
       ],
       "url": "https://arxiv.org/html/2610.37381v1",
-      "source_label": "arXiv v1（UTC）；10月28日提交Hugging Face Papers，本轮29日核读全文，138赞/1评论仅作发现信号。；原论文日期 2026-10-27；本期29日回查全文，作者报告与独立评论分开。",
+      "source_label": "arXiv v1（UTC）；10月28日提交Hugging Face Papers，本轮29日核读全文，138赞/1评论仅作发现信号；原论文日期 2026-10-27；本期29日回查全文，作者报告与独立评论分开。",
       "limitation": "四项主结果全部为仿真，不能当实机可靠性。基线来自各自论文和代码协议，非全系统同预算复测；LIBERO-Plus机器人初始状态扰动成功率75.2%，SimplerEnv Carrot→Plate仅64.6%，不能用总平均抹掉弱项。本轮未取得专属代码或权重发布证据，也未独立复现。HF仅1评论且页面隐藏低质量评论，不称多方热议。"
     },
     {
@@ -44,7 +170,7 @@
         "arXiv"
       ],
       "url": "https://arxiv.org/html/2610.36791v1",
-      "source_label": "arXiv v1（UTC）；10月28日提交Hugging Face Papers，本期29日核读论文、代码与模型目录，8赞/1评论仅作发现信号。；原论文日期 2026-10-27；本期29日回查全文，作者报告与独立评论分开。",
+      "source_label": "arXiv v1（UTC）；10月28日提交Hugging Face Papers，本期29日核读论文、代码与模型目录，8赞/1评论仅作发现信号；原论文日期 2026-10-27；本期29日回查全文，作者报告与独立评论分开。",
       "limitation": "目标机器人需要真实示范适配，3,850条示范按每任务5%留出，验证的是未见示范而非未见任务；不是零样本跨本体。仅用合成数据的策略仍低于仅用真实数据，35次试验的改善也未主张统计显著。代码与HF模型目录已读，但raw模型卡不存在、权重未下载或运行；50Hz策略部署和500Hz低层接口不等于世界模型视频生成吞吐。"
     },
     {
@@ -58,7 +184,7 @@
         "arXiv"
       ],
       "url": "https://arxiv.org/html/2610.36068v1",
-      "source_label": "arXiv v1（UTC）；10月28日进入Hugging Face Papers，本期29日核读全文和作者项目，属于近期新研究，未核到独立复现。；原论文日期 2026-10-26；本期29日回查全文，作者报告与独立评论分开。",
+      "source_label": "arXiv v1（UTC）；10月28日进入Hugging Face Papers，本期29日核读全文和作者项目，属于近期新研究，未核到独立复现；原论文日期 2026-10-26；本期29日回查全文，作者报告与独立评论分开。",
       "limitation": "三项任务分别150、90、135次实机试验，作者自报；策略暖启动与世界模型训练均使用任务数据。改进阶段使用1台实体机器人和48张H200（40张搜索、8张策略训练），另有前期训练，不能把8小时写成全部成本或证明递归加速。世界模型开环误差随长时滚动累积；world judge只标注想象分支，真实成功由物理结果判定。本轮未取得专属完整代码或模型发布证据。"
     },
     {
@@ -72,7 +198,7 @@
         "arXiv"
       ],
       "url": "https://arxiv.org/html/2610.35013v1",
-      "source_label": "arXiv v1（UTC）；Hugging Face Papers提交日为2026-10-28，本轮读取日榜页为10月28日，372赞、3条评论，排名第1。；原论文日期 2026-10-26；本期29日回查全文，作者报告与独立评论分开。",
+      "source_label": "arXiv v1（UTC）；Hugging Face Papers提交日为2026-10-28，本轮读取日榜页为10月28日，372赞、3条评论，排名第1；原论文日期 2026-10-26；本期29日回查全文，作者报告与独立评论分开。",
       "limitation": "论文实验是搜索、工具使用和自动化任务，不是机器人或RoboDojo；Claw与Automation训练数据为未公开的公司内部数据。每个模型规模每个设置仅一次训练，选择最佳checkpoint，再做5次离线评估；作者在HF讨论中尚未给出多seed波动。pass@1/pass@3、Claw-Eval的pass3和Automation Bench终态断言口径不同，不能合并成单一成功率。"
     },
     {
@@ -86,7 +212,7 @@
         "arXiv"
       ],
       "url": "https://arxiv.org/html/2610.36077v1",
-      "source_label": "arXiv v1（UTC）；Hugging Face Papers提交日为2026-10-28，本轮读取日榜页为10月28日，311赞、2条评论，排名第3。；原论文日期 2026-10-26；本期29日回查全文，作者报告与独立评论分开。",
+      "source_label": "arXiv v1（UTC）；Hugging Face Papers提交日为2026-10-28，本轮读取日榜页为10月28日，311赞、2条评论，排名第3；原论文日期 2026-10-26；本期29日回查全文，作者报告与独立评论分开。",
       "limitation": "实机每个Harness先在重建仿真中做5次准备试验、将轨迹总结为skills，再冻结skills测试，准备试验不计入测试成功率；正式SOON为1条路线10个episode，CaP-X为10个布局10个episode。因此“未见benchmark提升”包含目标benchmark的技能准备，不能直接当作零样本跨任务泛化。两种实机接口、消息处理、指导和验收规则不同，论文也明确没有隔离模块演化与技能准备的因果贡献。框架主要改Harness并冻结Claude Opus 5；代码仓库10月28日仅有报告与介绍，README承诺一周内发布，当前不是完整实现开源。"
     },
     {
