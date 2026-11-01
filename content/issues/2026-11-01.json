@@ -1,0 +1,577 @@
+{
+  "date": "2026-11-01",
+  "status": "daily",
+  "title": "Agent怎样变成可执行系统：DeepSeek原型、GO-3 Nano源码与量化可靠性",
+  "coverage": "北京时间2026-11-01采集，重点观察10月29日–11月1日的RoboDojo榜单、Agent/具身构型、代码与论文；回看10月28日起相关原成果。Hugging Face Papers网页与公开API读取成功：网页实际dateString为2026-10-30，默认API返回跨日期50项；显式2026-11-01接口返回400，因此不称11月1日日榜。arXiv cs.RO及cs.AI/CV/LG具身关键词独立读取，最新提交到10月29日UTC；未把无新证据的旧论文包装成今日发布。 国内固定九家大模型、十三家具身与XPENG的研究/代码/模型渠道补查，实际请求和未读缺口留/tmp台账；DeepSeek主站/API/GitHub/模型卡并读，主站旧目录不代表无新发布。GroundingPI/GroundAnything的10月31日HF提交仅更新BibTeX，不重复作研究。human five按账号名、How-to-AI和gh_7f0ee33c662a公开检索，新正文未核到；具身智能之心仅搜索摘要读到云深处架构线索，未读到全文。量子位首页及DeepSeek全文已读，机器之心主页仅数据服务壳；PaperWeekly/AI科技评论/新智元搜索多旧结果，未称全量覆盖。原论文、README、配置与HF评论实读范围分别标注，没有独立运行/复现。顶会查当届部分目录；CoRL接受页壳、AAAI目录薄，ICRA/IROS与ICLR2027部分403，ACL/EMNLP Anthology本轮超时，未把预印本或UMI workshop当主会录用。HF使用现有7897请求级代理，未开启系统代理，结束复核另存台账。",
+  "intro": "11月1日有新公开原型，也有需要修正的证据：DeepSeek于10月31日晚公开dsh-superagent；RoboDojo的Q0当前分数与昨天快照不同，但原因未说明；GO-3 Nano的公开实现补齐三路观测到动作chunk的链路。本期围绕Agent接口与执行、仿真/示范数据、部署工件可靠性三条线，纳入七条有原始证据的内容。量化旧论文因10月30–31日新的作者说明和独立质疑重新进入讨论，保留原始研究日期；不把个人经验写成行业共识。",
+  "highlights": [
+    {
+      "title": "Q0仍居首，但当前分数和上期快照不同",
+      "text": "官方当前bundle显示74.20／68.87%；前一版记录为73.33／68.00%。没有修订原因，先记测量差异。",
+      "story_id": "robodojo-q0-preview-score-snapshot-revision-20261101"
+    },
+    {
+      "title": "同能力接口也会改变Agent行为",
+      "text": "MICA把MCP/CLI接到相同语义能力和运行时，检查动作选择与恢复的差异；GO-3 Nano构型另见本期专题。",
+      "story_id": "mica-mcp-cli-interface-closed-loop-agents-20261030"
+    },
+    {
+      "title": "DeepSeek把授权、工单和执行目录拆开",
+      "text": "dsh-superagent是研究原型，不是具身模型或产品；它展示了复杂Agent的Harness边界。",
+      "story_id": "deepseek-superagent-prototype-event-driven-workflow"
+    },
+    {
+      "title": "编码Agent能造仿真，但测试集仍为0/25",
+      "text": "Gym-Anything把仿真生成、独立审计与小VLA训练分开，保留特权状态和仿真边界。",
+      "story_id": "gym-anything-roboworld-coding-agents-simulations-20261030"
+    },
+    {
+      "title": "UMI-Live先解决数据链，再看策略",
+      "text": "双YAM六橙子任务每条件10次，混合数据训练的π0.5为9/10或10/10；没有UMI-only消融。",
+      "story_id": "umi-live-bimanual-data-collection-20261029"
+    },
+    {
+      "title": "量化工件可复现，功能仍要测",
+      "text": "作者修正了旧诊断；10月31日独立用户追问代码筛检能否覆盖JSON schema和工具往返，经验与实验分开。",
+      "story_id": "quantcheck-calibration-artifact-function-community-20261031"
+    }
+  ],
+  "reading": [
+    {
+      "title": "RoboDojo当前Agent榜与协议",
+      "url": "https://robodojo-benchmark.com/leaderboard#agent",
+      "reason": "先核对当前快照、Score/SR和Agent类型。"
+    },
+    {
+      "title": "GO-3 Nano固定提交与部署配置",
+      "url": "https://github.com/XPolicyLab/XPolicyLab/tree/58885ce8f0cf746ff6c78500d1b6e35ab49db7e5/policy/GO_3_Nano_preview",
+      "reason": "拆开三路观测、动作chunk和外层harness缺口。"
+    },
+    {
+      "title": "DeepSeek dsh-superagent固定提交",
+      "url": "https://github.com/deepseek-ai/dsh-superagent-prototype/commit/6337fc823ce20251c8de8085948165c81aaa701e",
+      "reason": "查看Trigger、Eval、Ticket和worker执行边界。"
+    },
+    {
+      "title": "quantcheck的独立HF质疑",
+      "url": "https://huggingface.co/papers/2609.05881",
+      "reason": "看10月31日O96a具体观点与论文证据边界。"
+    },
+    {
+      "title": "MICA论文PDF",
+      "url": "https://arxiv.org/pdf/2610.34298",
+      "reason": "共享能力/运行时、接口因子和DART的Gemini单模型干预。"
+    },
+    {
+      "title": "AWQ原始项目",
+      "url": "https://hanlab.mit.edu/projects/awq",
+      "reason": "量化技术点：激活统计、缩放与低bit权重。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "Agent榜单与系统构型 / Agent leaderboard and system composition",
+      "explanation": "当前Q0内部构型未知，GO-3 Nano公开了Agent+WAM适配器；标签不能替代底座、动作接口和预算证据。"
+    },
+    {
+      "term": "Agent+WAM / agent-plus-world-action model",
+      "explanation": "GO-3 Nano把三路视觉、本体状态和指令送入视频/动作模型，输出绝对关节动作chunk。"
+    },
+    {
+      "term": "Harness与授权门 / harness and authorization gates",
+      "explanation": "DeepSeek原型将Trigger、Eval、Mandate、Ticket、Assignment和worker session分层。"
+    },
+    {
+      "term": "MCP/CLI接口表示 / interface representation",
+      "explanation": "MICA在固定语义动作契约下观察到工具呈现、实现和反馈仍改变闭环行为。"
+    },
+    {
+      "term": "仿真生成与独立审计 / simulation generation and auditing",
+      "explanation": "Gym-Anything用编码Agent生成仿真，再由不同审计Agent检查真实性、动力学、速度和漏洞。"
+    },
+    {
+      "term": "双臂示范数据链 / bimanual demonstration data pipeline",
+      "explanation": "UMI-Live用手持设备、异步重建和少量目标场景遥操作生成策略训练数据。"
+    },
+    {
+      "term": "统一多模态解析 / unified multimodal parsing",
+      "explanation": "Youtu-Parsing-Omni以OmniSchema把图像、文档、音频和视频转为结构化Agent输入。"
+    },
+    {
+      "term": "训练后量化与校准 / post-training quantization and calibration",
+      "explanation": "quantcheck与独立评论把可复现配方、代码功能、schema与实际部署分开；每日技术点解释低bit及校准。"
+    },
+    {
+      "term": "语义承诺与表达修复 / semantic commitment and realization repair",
+      "explanation": "MICA的DART先固定已验证动作，再只修接口表达，避免语法纠错时无意换任务。"
+    }
+  ],
+  "featured_ids": [
+    "robodojo-q0-preview-score-snapshot-revision-20261101",
+    "deepseek-superagent-prototype-event-driven-workflow",
+    "mica-mcp-cli-interface-closed-loop-agents-20261030",
+    "gym-anything-roboworld-coding-agents-simulations-20261030",
+    "umi-live-bimanual-data-collection-20261029",
+    "youtu-parsing-omni-multimodal-agent-perception-20261030"
+  ],
+  "stories": [
+    {
+      "id": "robodojo-q0-preview-score-snapshot-revision-20261101",
+      "category": "embodied",
+      "tag": "跨系统具身横评 · Agent榜快照复核 · 仿真",
+      "title": "RoboDojo复查：Q0-Preview当前为74.20分／68.87%成功率，更新原因未公开",
+      "organization": "Qoo Tech；RoboDojo / AI MMLab Club（评测方）",
+      "published": "2026-10-30",
+      "date_label": "原始事件：RoboDojo官方News标注2026-10-30新增；当前观察：2026-11-01 08:02–08:12（北京时间）读取官方页面加载的index-DXE6c9rW.js。当前bundle生成时间为2026-10-30T17:48:45.033Z（北京时间10月31日01:48:45），未发现11月1日News或新模型发布。",
+      "summary": "RoboDojo当前Agent分轨仍将Q0-Preview列为Qoo Tech的Agent系统首位，但复查到的平均Score/SR为74.20／68.87%，而10月31日报告依据的前一快照为73.33／68.00%。当前六个分项为：Generalization标准64.75／58.67%、随机63.25／58.67%，Precision65.30／58.50%，Long-Horizon 69.80／58.50%，Memory 93.68／93.67%，Open 78.20／75.00%。榜单News仍写10月30日新增；官方bundle没有说明数值变化的原因、评测重跑、取整口径或方法更新。",
+      "why": "这是用户连续追踪的Agent霸榜现象中一个需要先固定的事实：同一榜项在不同读取日出现了不同数字。把原始News日期、当前读取时间和数值分开，才能避免把榜单快照变化包装成11月1日新算法，也避免在没有证据时为Q0高分归因于底座、工具、记忆或控制接口。当前可确认的是Agent分轨的仿真榜记录和分项数值；Q0的内部构型仍需另找公开工件。",
+      "limitation": "这是RoboDojo-Sim Agent分轨记录；Score与SR分开，Score含进度成分，不等于完整任务成功率，也不能外推实机。当前公开页面只确认Q0的Agent类型、Qoo Tech贡献方和榜单数字，未核到精确底座模型/版本、观测与标定、规划或工具层、记忆实现、动作接口、训练与开发数据、推理成本/延迟、三seed原始明细或对应评测release工件。数值从前一快照变化的原因没有官方说明，不能据此声称模型修订、重跑或性能提升。",
+      "sources": [
+        {
+          "label": "RoboDojo官方榜单：当前Agent分轨、Q0分项与News",
+          "url": "https://robodojo-benchmark.com/leaderboard#agent"
+        },
+        {
+          "label": "RoboDojo当前页面数据bundle：Q0数值、类型映射、生成时间与News文本",
+          "url": "https://robodojo-benchmark.com/assets/index-DXE6c9rW.js"
+        },
+        {
+          "label": "RoboDojo评测协议：固定系统、Score/SR及公开/隐藏布局规则",
+          "url": "https://robodojo-benchmark.com/leaderboard/protocol"
+        }
+      ]
+    },
+    {
+      "id": "deepseek-superagent-prototype-event-driven-workflow",
+      "category": "llm",
+      "tag": "官方代码 / Agent研究原型",
+      "title": "DeepSeek公开Super-agent研究原型：把事件、工单与隔离执行接成持续协作系统",
+      "organization": "DeepSeek Harness团队 / deepseek-ai",
+      "published": "2026-10-31",
+      "date_label": "官方仓库首次提交：10月31日12:05:39 UTC（北京时间20:05:39）；11月1日核读固定代码与文档",
+      "summary": "DeepSeek于10月31日首次公开dsh-superagent-prototype，作为DeepSeek Harness的单GitHub仓库协作bundle。公开实现把GitHub及可选飞书事件写成Trigger，按Thread批处理评估，接受后形成带授权范围的Ticket，再交给各自独立Session和目录中的Executor执行；订阅线程的后续消息可直接送到对应工作会话，结果由主会话统一对外报告。运行状态、工单与派工分开持久化，允许CI反馈、人工追问、失败恢复继续推进同一工作。",
+      "why": "这是近期可检查的Agent系统新工件：改进对象是事件路由、任务状态、并发执行和人的注意力管理，而非再训练底座。代码把“给工作会话补上下文”和“允许开始一项新工作”分开，帮助研究者分析长期Agent的重复接单、恢复后重复外部动作、跨线程续办与可追溯交付。它也与具身Agent共享一个结构性问题：模型会推理之外，谁保存任务状态、谁有权推进下一步；本项目本身没有机器人控制实验。",
+      "limitation": "仅核读README、固定提交中的领域/授权/执行/架构文档及policy/role-models等关键实现，未安装、运行或独立复现。README明确这是参考用研究原型、不是DeepSeek正式产品，并与内部系统和《Super-agent设计探索》文章的实现不完全相同；部分设计仍属未来方向。默认主动模式为observe，只记录“本会接单”；默认普通worker上限3个，评估与执行模型可分别配置或继承profile默认，并未发布新模型或固定一个精确底座。本期不将媒体转述的合成调度实验数字归给此公开工件，不声称已证明真实编码或机器人任务成功率提升，也没有模型/策略权重训练证据。",
+      "sources": [
+        {
+          "label": "官方仓库README：研究原型、单仓范围与内部实现差异",
+          "url": "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/README.md"
+        },
+        {
+          "label": "官方首次提交：2026-10-31 12:05:39 UTC",
+          "url": "https://github.com/deepseek-ai/dsh-superagent-prototype/commit/6337fc823ce20251c8de8085948165c81aaa701e"
+        },
+        {
+          "label": "固定领域模型文档：Trigger、Thread、Mandate、Ticket、Subscription与Assignment",
+          "url": "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/001-domain.md"
+        },
+        {
+          "label": "固定执行文档：独立Session/目录、后台任务、恢复与并发",
+          "url": "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/003-execution.md"
+        },
+        {
+          "label": "固定policy实现：observe默认、普通worker上限3与可配置角色模型",
+          "url": "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/src/policy.ts"
+        }
+      ]
+    },
+    {
+      "id": "mica-mcp-cli-interface-closed-loop-agents-20261030",
+      "category": "llm",
+      "tag": "Agent工具接口 · MCP/CLI · 受控对照",
+      "title": "MICA：能力相同，MCP 与 CLI 仍会把 Agent 带向不同轨迹",
+      "organization": "香港理工大学、 中国科学院计算技术研究所",
+      "published": "2026-10-25",
+      "date_label": "论文首版10月25日；作者10月30日在HF介绍方法和项目/代码；11月1日读PDF全文、项目和代码README，未声称代码于10月30日首次公开",
+      "summary": "MICA从同一语义动作契约渲染MCP与CLI，随后使用同一验证、编译和执行运行时，在6个模型、ALFWorld/WebShop/ScienceWorld三个交互环境中比较接口表示。2,004个episode中94.3%出现结构化轨迹分歧；差异延伸到语义动作选择、失败路径和恢复。作者提出DART，保留已验证的语义承诺、只修复接口实现，在六个设置中最高提升9.0分，并在三个环境减少最多27.1k tokens/任务。",
+      "why": "RoboDojo和RobotSkills都把工具、技能、反馈协议放在模型与动作之间；MICA说明即便可执行能力匹配，接口呈现本身也会改变闭环策略。它提供了一个可迁移的核验问题：Agent高分究竟来自底座推理，还是工具schema、反馈格式和动作实现？但这篇实验不是机器人，也不证明MCP普遍优于CLI。",
+      "limitation": "受控比较覆盖三种交互环境和六个模型，模型包括Qwen3-4B/8B/14B/32B、DeepSeek-v4-Flash、Gemini-2.5-Flash；结果依赖各环境、提示和实现，不能外推到机器人控制。作者HF评论包含作者自述和自动推荐；本轮没有找到独立复现。DART的9.0分和27.1k token是论文报告，不是本日报独立测量。 DART六个环境×接口设置的干预只用Gemini-2.5-Flash，不能概括为六个模型都取得同样增益。",
+      "sources": [
+        {
+          "label": "MICA论文全文（arXiv 2610.34298v1）",
+          "url": "https://arxiv.org/abs/2610.34298"
+        },
+        {
+          "label": "MICA项目页（作者10月30日评论所链）",
+          "url": "https://modalitydance.github.io/MICA/"
+        },
+        {
+          "label": "MICA代码仓库",
+          "url": "https://github.com/ModalityDance/MICA"
+        },
+        {
+          "label": "Hugging Face Papers页面与作者说明/评论",
+          "url": "https://huggingface.co/papers/2610.34298"
+        }
+      ]
+    },
+    {
+      "id": "gym-anything-roboworld-coding-agents-simulations-20261030",
+      "category": "embodied",
+      "tag": "具身Agent·仿真生成·RoboWorld",
+      "title": "Gym-Anything：让编码Agent生成并审计机器人仿真，RoboWorld扩到25个仿真与200个RL环境",
+      "organization": "Carnegie Mellon University（Pranjal Aggarwal、Sean Welleck）",
+      "published": "2026-10-29",
+      "date_label": "论文首版2026-10-29；官方代码与RoboWorld首个提交2026-10-30 14:19 UTC；截至11月1日复查官网和固定提交",
+      "summary": "Gym-Anything把“建仿真器”当成编码Agent任务：创建Agent研究工作流程并写代码，四类独立审计Agent（真实性、动力学/可解性、速度/文档、对抗漏洞）复查、重跑物理检查，连续三轮修复；这些创建/审计角色在本文实例中都使用Claude Opus 5.5，独立Agent不等于独立研究团队。RoboWorld包含25个仿真、25个测试和175个训练RL环境（合计200个RL环境），覆盖制造、建筑、餐饮、实验室、物流、家庭等，支持FR3/Panda/UR10e、双臂、移动操作器和Unitree G1/H1-2等可替换本体。",
+      "why": "它直接展示Agent如何作用于具身研发基础设施：先生成物理环境和验证器，再让模型在仿真内试错、写代码策略或训练小VLA，而不是把Agent标签等同于电机控制。论文中的前沿模型使用Claude Code/Codex、observe/act工具，三小时每次尝试、三轮上下文学习；这提供一个可对照的Agent—仿真—策略训练机制案例，但论文没有参加RoboDojo，也没有证据说明它解释RoboDojo任何榜项的高分。",
+      "limitation": "RoboWorld仍是仿真，未证明现实迁移。GPT-6 Astra、GPT-6.1 Terra、Claude Opus 5.5在25个测试任务均0/25成功；训练集易子集25任务分别24%、12%、32%成功率（Astra/Terra/Opus）。训练示范来自可读特权物体状态的代码策略：先在2,048个变化初始状态评估，保留1,000条成功示范训练π0.5：目标任务53%成功，未见物体姿态/外观/物理变化55%；这是两项gift-box任务，不是全RoboWorld。代码策略可读相机、proprioception和特权物体状态后输出普通机器人命令，训练后的π0.5只读三路相机与本体状态。尚无实机闭环或独立复现；运行需Linux、NVIDIA GPU、Isaac Sim/RT核，不宜把展示数字当普遍Agent能力。 HF本轮未核到独立技术讨论，不称社区共识。 另一个coaching实验让教师/教练读取学生仿真的当前特权状态，但最多回复10条定性提示、不含坐标或数值机器人命令、不能直接执行；不能与完全无特权监督的试验混写。论文未给出53%/55%对应的明确评测分母，不能补算为53/100或55/100。",
+      "sources": [
+        {
+          "label": "论文全文（Gym-Anything/RoboWorld，arXiv 2610.40565）",
+          "url": "https://arxiv.org/html/2610.40565"
+        },
+        {
+          "label": "官方项目页：RoboWorld仿真、任务与结果",
+          "url": "https://gym-anything.github.io/robotics"
+        },
+        {
+          "label": "固定代码提交febb260b0d（2026-10-30）",
+          "url": "https://github.com/gym-anything/robotics/commit/febb260b0d34d9d3641bc2b3545acabeacf402bb"
+        }
+      ]
+    },
+    {
+      "id": "umi-live-bimanual-data-collection-20261029",
+      "category": "embodied",
+      "tag": "机器人数据·双臂·开放硬件",
+      "title": "UMI-Live：把手持示范、异步重建和双臂策略训练连成可复用数据链",
+      "organization": "Yale University、Carnegie Mellon University、AfterQuery、University of Pennsylvania、Harvard University",
+      "published": "2026-10-29",
+      "date_label": "论文首版2026-10-29；项目页标注CoRL 2026 UMI Arena Workshop；代码仓库提交主要在2026-10-10/11，11月1日复查论文、项目、README和HF数据卡",
+      "summary": "UMI-Live是双手持Universal Manipulation Interface系统：每个Raspberry Pi 5客户端连接RoboSense Airy LiDAR、Arducam AR0234全局快门相机、板载计算和电源；服务端通过异步SLAM/GLIM重建，将两只手的数据转为LeRobot训练集。双臂观测状态合计14维（相对episode起点的xyz、旋转向量、夹爪），训练部署时预测相对TCP姿态与绝对夹爪开度；公开合并数据卡的action则是同帧observation.state的精确副本，训练loader还须选取未来帧并转换表示。公开数据卡合计3,255 episodes、4,288,182帧、39.705小时、30 FPS。",
+      "why": "它补充具身Agent进入机器人系统的另一条路径：Agent或VLA不一定先学会通用规划，关键也可能是低摩擦、跨场景的数据采集和动作表示。手持示范在不同地点/光照采集，再用少量目标场景遥操作数据补齐本体分布；这能帮助区分“Agent推理改进”与“策略训练数据/接口改进”。它没有参加RoboDojo，也不解释其榜单名次。",
+      "limitation": "实体评测只有一个橙子到碗任务、双i2RT YAM机械臂，每条件10次，成功要求6个橙子全部入碗；π0.5混合95% UMI/5%遥操作为9/10，90%/10%为10/10；MolmoAct2混合75%/25%为8/10，未训练发布检查点0/10。该任务训练池为296条UMI示范与75条机器人遥操作示范；每条件12,000 updates、一个训练seed；没有UMI-only与teleoperation-only对照，不能分离两种数据来源的贡献，也未报告跨任务或多本体泛化。设备每个1.42 kg、仍需一次相机/夹爪标定；没有Agent榜单分数或LLM闭环证据。 HF本轮未核到独立技术讨论；CoRL标注为UMI Arena Workshop而非主会录用。",
+      "sources": [
+        {
+          "label": "论文全文（UMI-Live，arXiv 2610.39385）",
+          "url": "https://arxiv.org/html/2610.39385"
+        },
+        {
+          "label": "项目页与公开硬件/软件链接",
+          "url": "https://umi-live.github.io/"
+        },
+        {
+          "label": "UMI-Live固定代码仓库",
+          "url": "https://github.com/AfterQuery-Research/umi-live"
+        },
+        {
+          "label": "公开数据卡（3,255 episodes）",
+          "url": "https://huggingface.co/datasets/brandonyang/umi-live-dataset"
+        }
+      ]
+    },
+    {
+      "id": "youtu-parsing-omni-multimodal-agent-perception-20261030",
+      "category": "llm",
+      "tag": "多模态感知·Agent输入·国内发布",
+      "title": "腾讯 Youtu-Parsing-Omni：5B模型用共享编码器把文档、图像、音频和视频变成同一结构化感知接口",
+      "organization": "Tencent Youtu Parsing Omni Team / 腾讯",
+      "published": "2026-10-29",
+      "date_label": "论文首版2026-10-29；代码、权重与评测README在2026-10-30前后更新；11月1日复查论文、GitHub README、HF模型卡与固定提交",
+      "summary": "Youtu-Parsing-Omni用一个总规模约5B的模型，以共享编码器和OmniSchema，把文档、自然图像、图表/几何、音频、自然视频和富文本视频输出成统一JSON；视觉与音频在共享时空位置编码和少量融合层中对齐。后训练先做schema-routed RLVR，再做OmniSchema-Aware On-Policy Distillation（OSAD）：冻结参考副本基于模型自身rollout提供token级目标，训练后刷新teacher，实现解析器和监督共同演化。代码、vLLM插件和Hugging Face权重公开。",
+      "why": "它不是机器人控制模型，却是Agent闭环中的感知层案例：如果文档、相机、声音和视频都进入统一、带空间/时间引用的结构化记录，规划Agent可以调用同一接口，而不是把每种模态当成独立工具。它也提供一个国内团队近期把自演化后训练用于多模态结构化输出的可核查实例；它不是机器人控制模型，也没有RoboDojo榜单归属。",
+      "limitation": "论文评估单一5B checkpoint、单一推理配置。OmniDocBench v1.6 Overall 96.96；OmniParsingBench Avg 75.08（作者自写工具重评分，和论文作者报告的基准数不直接可比），最大优势在音频/视频；ChemOCR exact fingerprint Tani@1.0为54.2，PDMX-Synth字符错误率22.73。OmniParsingBench原始3,874样本因不可用媒体排除136，保留3,738；相机视频子集因标注问题剔除。完整能力还依赖schema修复与评估工具，不等于机器人实机感知成功率，也没有本期RoboDojo榜单归属。 HF有作者参与标记与点赞，但本轮评论页读取受限，未核到独立技术问答，不据此称热议。 共享编码器由Qwen3-0.6B-Base初始化，5B是整套模型量级；OSAD更新策略权重与参考副本，不应仅凭六轮单调增分称递归加速。模型采用自定义Youtu-Parsing许可。",
+      "sources": [
+        {
+          "label": "论文全文（Youtu-Parsing-Omni，arXiv 2610.39301）",
+          "url": "https://arxiv.org/html/2610.39301"
+        },
+        {
+          "label": "腾讯官方代码与OmniDocBench评测README",
+          "url": "https://github.com/TencentCloudADP/youtu-parsing/tree/main/youtu_parsing_omni"
+        },
+        {
+          "label": "Hugging Face模型卡与权重",
+          "url": "https://huggingface.co/tencent/Youtu-Parsing-Omni"
+        },
+        {
+          "label": "2026-10-30固定代码提交",
+          "url": "https://github.com/TencentCloudADP/youtu-parsing/commit/c6b57f755b5bb2c6d4ed2887c8aaf983a322c50b"
+        }
+      ]
+    },
+    {
+      "id": "quantcheck-calibration-artifact-function-community-20261031",
+      "category": "llm",
+      "tag": "模型量化 · 工件审计 · 具体社区质疑",
+      "title": "量化文件能复现，不等于模型能工作：quantcheck引出“代码筛检够不够”的质疑",
+      "organization": "Aditi Patodiya（独立研究者）；HF评论者 O96a",
+      "published": "2026-09-05",
+      "date_label": "论文v1首版2026-09-05，v2修订2026-10-25，当前v3修订2026-10-29；代码v3.4于10月29日02:52:21 UTC（北京时间10:52）公开chat-template复测，试验在10月28日完成；10月30日作者在HF介绍新归因，10月31日12:11 UTC独立评论追问工具/JSON检测；11月1日核读v3全文、代码/数据卡与评论",
+      "summary": "quantcheck审计15条模型线中305个符合条件的Ollama官方tag与22个HF社区GGUF：15题代码筛检后，对嫌疑项复测164题HumanEval+，发现7个官方tag最多解出6题。重建的5个失败文件与注册文件逐张量相同，因此不能归因为下载损坏；在保持源权重、工具链和tensor mix不变时，加入importance matrix让Qwen2.5-Coder-3B三个低bit构建从0题升到76–113题。当前v3把两份TheBloke deepseek-coder-6.7B社区文件从v2所称backend-dependent改为缺失chat template：补上指令模板后，15题筛检由5/6升到13/15，164题由16/18升到98/101；v3.4 README说明这一归因修正。",
+      "why": "10月31日HF用户O96a报告自己在边缘设备上遇到“聊天正常、工具调用近似JSON导致解析失败”的情况，质疑代码题筛检不能覆盖schema和上下文召回，并建议逐文件公开JSON、长上下文和工具往返测试。这个分歧把讨论从“能否下载/复现”推进到“部署需要验证哪些行为”；个人经历尚未受控复现，但问题直接关联小模型/Agent在机器人边缘端的可用性。",
+      "limitation": "论文审计库存生成于8月10日、实测8月12日，模板复测在10月28日，不是今天对全站重新抽检；305 tag属于15条模型线的官方Ollama可执行清单，不是全部Ollama/HF。所有7个官方失败为≤4B的低bit构建，不能推出7B或4bit普遍损坏。v3.4的两份社区文件结论依赖同一RTX 4090 pod、Ollama版本和固定指令模板，不能外推所有后端或模型家族。代码筛检在66个通过筛检的抽样tag中未发现非功能项，但不证明它覆盖工具schema或机器人闭环；O96a只是单个用户的未核实经验。原研究没有机器人实机、没有本日报独立复现；当前新事件是10月30–31日具体讨论与v3/v3.4修订，而非新模型发布。",
+      "sources": [
+        {
+          "label": "原论文v3全文：采样日期、recipe匹配重建与chat-template归因修正",
+          "url": "https://arxiv.org/html/2609.05881v3"
+        },
+        {
+          "label": "HF原帖：10月30日作者说明与10月31日O96a独立质疑",
+          "url": "https://huggingface.co/papers/2609.05881"
+        },
+        {
+          "label": "quantcheck代码与审计/重建工具",
+          "url": "https://github.com/aditi-p31/quantcheck"
+        },
+        {
+          "label": "公开审计数据卡",
+          "url": "https://huggingface.co/datasets/aditiPatodiya/quantcheck-audit"
+        },
+        {
+          "label": "quantcheck v3.4 release（2026-10-29）：chat-template复测与归因修正",
+          "url": "https://github.com/aditi-p31/quantcheck/releases/tag/v3.4"
+        }
+      ]
+    }
+  ],
+  "technical_explainer": {
+    "id": "post-training-quantization-calibration",
+    "title": "模型量化与校准：同样写着4bit，为什么能力和速度会不同？",
+    "summary": "量化用较少的离散数值近似模型权重或激活，节省内存和搬运；校准数据帮助决定哪些误差最值得避免。位宽、量化配方、运行内核和功能验证是四个不同层次，下载成功或文件可复现都不能代替实际任务测试。",
+    "reading_minutes": 7,
+    "why_now": "今天quantcheck的具体讨论把量化文件的可复现性、代码功能和工具schema可靠性分开。机器人与边缘Agent常受显存、带宽和功耗限制，因此需要理解低bit怎样节省资源、误差怎样进入输出，以及为什么不能只按“4bit”或参数量选择模型。本讲引用GPTQ（首版2022-10-31）、AWQ（首版2023-06-01）和SmoothQuant（首版2022-11-18）的原始资料，说明当下仍在使用的训练后量化机制；历史来源用于基础教学，不是11月1日新发布。",
+    "sections": [
+      {
+        "heading": "1. 先明确：量化了哪些数",
+        "paragraphs": [
+          "神经网络原本用FP16/BF16等浮点数保存大量权重。量化把一组连续实数映射到有限整数码，再通过scale与可能的zero point近似还原。4bit有16种码值，但4bit文件并不一定把所有层、embedding、norm、激活和KV cache都改成同一种格式；实际还要保存scale、分组信息和部分高精度张量。",
+          "Weight-only通常只压权重，计算时可反量化再与高精度激活相乘；W8A8表示权重与激活都用8bit路径。KV cache量化又是另一个对象。模型权重小了，可以减少显存占用与内存搬运，但计算速度取决于硬件和内核是否真正支持该格式。"
+        ]
+      },
+      {
+        "heading": "2. 为什么逐个四舍五入还不够",
+        "paragraphs": [
+          "一个线性层写成y=Wx。把W换成近似Ŵ之后，输出误差为(W−Ŵ)x；同样大小的权重舍入误差，遇到不同输入激活x，影响可能很不一样。模型还会经过许多非线性层，最后的token选择、JSON标点或工具参数可能受局部误差放大。",
+          "校准使用一小批有代表性的输入，观察激活与误差，帮助挑选scale、分组或补偿方式。它不是重新收集全部预训练数据，也不保证任何任务都保持原性能；若部署使用代码、长上下文或机器人状态，而校准文本没有覆盖这些分布，必须额外验证。"
+        ]
+      },
+      {
+        "heading": "3. GPTQ、AWQ与SmoothQuant各自改哪里",
+        "paragraphs": [
+          "GPTQ做训练后权重量化，用校准激活形成二阶近似，逐块量化并补偿尚未量化权重的误差，尽量保持层输出。AWQ从激活统计识别重要权重通道，通过等价缩放降低低bit误差；“保护重要权重”不应被误读为所有重要参数都简单留在FP16。",
+          "SmoothQuant针对激活离群值难以量化的问题：在线性变换两侧施加相互抵消的通道缩放，把一部分量化难度从激活搬到权重，方便W8A8执行。三种方法都说明“位宽相同”并不意味着量化过程和输出误差相同；它们的校准、分组、格式与内核适用范围也不同。"
+        ]
+      },
+      {
+        "heading": "4. 教学算例：内存预算与校准误差",
+        "paragraphs": [
+          "假设只有10亿个可压缩权重、忽略所有额外信息，FP16原始权重约2GB，4bit码约0.5GB。这是十进制理想算例，不是实际GGUF或某个机器人模型大小；加入scale、zero point、未量化张量、KV cache、激活和运行缓冲后，内存会更高。",
+          "再假设两个输入通道的激活量级分别为10和0.1，相同0.02权重误差在单项输出上的影响分别为0.2和0.002。这个人为算例展示了为什么激活统计重要，不代表某层真实误差，也不能据此预测整模型成功率。"
+        ]
+      },
+      {
+        "heading": "5. 功能验证必须跟着部署任务走",
+        "paragraphs": [
+          "“哈希正确”回答文件有没有变化；“配方可复现”回答能否重新生成相同张量；“代码题通过”回答这批代码功能是否保留；“工具JSON有效”回答接口是否可靠。它们各自有价值，不能互相替代。今天HF评论提出的schema和召回问题是待测假说，不能用单个经历覆盖论文的代码实测，也不能用代码实测驳回所有部署问题。",
+          "在具身系统中，还需按同一相机/状态输入、动作接口、harness、控制和推理预算比较量化前后闭环；不能把离线困惑度或显存节约直接写成机器人成功率。延迟还要包含预处理、网络、反量化、动作执行和重试，尤其当小batch运行时。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "分清省了什么、改变了什么、还需验证什么",
+      "columns": [
+        "设置",
+        "压缩对象/典型机制",
+        "读实验时检查"
+      ],
+      "rows": [
+        [
+          "Weight-only PTQ",
+          "权重离散化；激活可保持高精度",
+          "真实位宽混合、group size、校准集、反量化内核"
+        ],
+        [
+          "W8A8 / SmoothQuant类",
+          "权重与激活；等价缩放缓和离群值",
+          "硬件kernel、精度/吞吐、激活范围"
+        ],
+        [
+          "KV cache量化",
+          "历史K/V缓存",
+          "长上下文质量、缓存带宽、生成长度"
+        ],
+        [
+          "功能审计",
+          "对每个发布工件执行任务",
+          "代码、JSON schema、工具往返和具体部署闭环"
+        ]
+      ]
+    },
+    "example": {
+      "title": "假设排查：能聊天，却不能稳定调工具",
+      "paragraphs": [
+        "假设一个4bit版本的聊天回答看起来正常，但100次工具调用中有若干次多出注释或错单位。先保存量化前后的同输入输出、固定解码与harness，测schema有效率、语义参数正确率和任务完成率；再对照校准、格式/内核与bit配置。",
+        "这是排查示例，不是O96a经历的复现。只有匹配比较后，才能归因到量化、提示、解析器或执行接口；盲目提高位宽或宽松修JSON都可能掩盖另一层问题。"
+      ]
+    },
+    "checklist": [
+      "W、激活、KV cache分别是什么精度？“4bit”是否包含所有张量？",
+      "scale、zero point、分组、校准数据和工具版本是否公开？",
+      "与原模型比较时prompt、解码、tokenizer、harness和硬件是否相同？",
+      "速度测的是内核还是端到端？反量化、KV、缓冲和小batch内存是否计入？",
+      "功能测试是否包含真实需要的代码、schema、长上下文、工具参数和机器人闭环？",
+      "采样日期、tag/commit和工件哈希是否固定，是否把旧审计冒充今天全站重测？"
+    ],
+    "takeaway": "量化把更多模型放进资源预算，校准帮助把有限精度用在更重要的方向；位宽和文件完整性都只是起点，最终要验证同一工件在具体接口与闭环任务中是否仍能工作。",
+    "sources": [
+      {
+        "label": "GPTQ原论文：2022首版，2023修订；训练后权重量化与误差补偿",
+        "url": "https://arxiv.org/abs/2210.17323"
+      },
+      {
+        "label": "AWQ原论文/项目：2023首版；激活感知缩放与weight-only量化",
+        "url": "https://hanlab.mit.edu/projects/awq"
+      },
+      {
+        "label": "SmoothQuant原论文：2022首版；激活离群值与W8A8",
+        "url": "https://arxiv.org/abs/2211.10438"
+      }
+    ]
+  },
+  "research_supplement": {
+    "id": "robodojo-go3-nano-agent-wam-architecture-20261101",
+    "title": "GO-3 Nano Preview到底是哪一种Agent？从榜单标签拆到WAM动作接口",
+    "summary": "RoboDojo连续专题第四期：本轮补核到XPolicyLab在固定提交58885ce8f0cf746ff6c78500d1b6e35ab49db7e5公开的GO_3_Nano_preview适配器、README和推理配置。官方榜单把它标为Agent + WAM，但已读的公开适配器展示的是三路RGB、本体状态和指令进入WAM推理、输出绝对关节动作块；没有在该适配器中看到外层LLM工具调用或任务规划harness。这个缺口不能反向证明提交时不存在外层Agent，也不能把榜单的Agent+WAM标签改写成纯VLA或“语言模型直接控电机”。",
+    "reading_minutes": 8,
+    "why_now": "11月1日当前榜单仍把GO-3 Nano Preview列为Agent分轨第二，Q0-Preview虽居首但内部构型未公开；本期因此选一个公开工件相对完整的前排系统，补齐从观测、状态和指令到WAM、动作块和机器人执行的核验。此次读取的XPolicyLab源码提交时间是2026-10-25，不是11月1日新发布；GO-3 Nano Preview也不能与智元10月29日发布会所称GO-3 Preview或榜单版本对应关系未公开的其他名称混用。",
+    "sections": [
+      {
+        "heading": "1. 先分清榜单的类型标签、公开适配器和方法参考",
+        "paragraphs": [
+          "RoboDojo当前页面的类型映射把GO-3 Nano Preview写作agent-wam（Agent + WAM），贡献方写作AGIBOT，平均Score/SR为61.90／56.42%。这个标签是评测方对提交系统的分类，说明系统中可以有Agent层并结合World-Action Model；它本身没有给出外层模型名称、工具列表、调用预算或控制频率。",
+          "XPolicyLab固定提交58885ce8公开了policy/GO_3_Nano_preview/README.md、model.py、deploy.yml和configs/robotwin_infer.py。README把Contributor写为AgiBot Research，并把GE-Act 2.0（arXiv:2609.05588）列作method reference。能够确认的是这些公开适配器如何接收观测并调用WAM推理；不能把method reference、榜单标签和某次提交的完整部署harness自动视为同一层证据。"
+        ]
+      },
+      {
+        "heading": "2. 观测与状态：三路RGB加双臂本体，不是只给一张图",
+        "paragraphs": [
+          "model.py要求双臂机器人和joint动作类型；输入相机键固定为cam_head、cam_left_wrist、cam_right_wrist。每次update_obs读取三路已经解码的RGB图像，按README/deploy.yml的image_size [256,384]缩放，再把任务instruction作为prompt送进推理请求。",
+          "本体状态由left_arm_joint_state、left_ee_joint_state、right_arm_joint_state、right_ee_joint_state四个字段拼接。代码会检查各字段维度、数值是否有限，并用env_cfg_type得到机器人关节/末端维度；这意味着标定、机器人profile和state/action统计仍由XPolicyLab与运行环境提供，不能把三路相机加状态的输入边界写成单靠Qwen或Agent学出来的感知。配置还标出vlm_head_view_only=True、vlm_head_view_index=0、vlm_text_tokens_only=True：WAM总接口可接三路RGB，但VLM子支路只取头部视角，不能笼统写成三路图像都进入同一个语言视觉分支。",
+          "公开适配器没有声明depth、物体真值或外层对象列表。相机、关节统计、VAE latent statistics和机器人配置通过checkpoint/runtime.conf加载；公开README给出接口与路径要求，但没有提供此次榜单使用的私有checkpoint路径或完整服务启动映射。"
+        ]
+      },
+      {
+        "heading": "3. WAM与动作接口：绝对关节动作块由谁执行？",
+        "paragraphs": [
+          "model.py把三路图像、拼接后的state、instruction、num_ae_steps和dense_action_steps交给go3_nano_preview的WAM_policy inferrer。推理结果分成left_arm、left_effector、right_arm、right_effector四组数组，适配器检查形状和有限值，再逐步打包成绝对joint/gripper action字典；README的数据约定是14维，即每臂6个关节加1个夹爪。",
+          "XPolicyLab负责websocket policy server、环境客户端、图像解码和标准化观测/动作合同；适配器明确要求update_obs后才能get_action，并在batch模式为每个环境独立请求。运动学、关节限制、插值、低层跟踪和仿真环境执行由评测环境/部署栈承担，当前公开文件没有证明WAM直接输出电机力矩。",
+          "在已读的GO_3_Nano_preview公开适配器中，未见外层LLM planner、工具调用、Python代码执行或跨episode记忆模块。正确表述是：榜单保留Agent+WAM类型；本轮可读的发布适配器展示了WAM策略接口，但外层Agent的完整harness、是否存在提交专用包装层、以及榜单实际加载的checkpoint尚未公开核对。"
+        ]
+      },
+      {
+        "heading": "4. 52步、5步和30Hz分别是什么？不要混成控制频率",
+        "paragraphs": [
+          "deploy.yml与model.py的action_horizon/dense_action_steps默认为52，含义是一次WAM推理请求要准备最多52个dense executable action steps；它是动作块长度，不是52Hz，也不等于连续执行52步后才反馈。公开适配器返回一个动作列表，具体环境何时取下一观测、执行多少步和是否滚动调用，需要看评测客户端与榜单配置。",
+          "num_ae_steps默认为5，推理配置把它传到prepare transform的num_ae_steps/num_inference_step字段。它是该推理流程的AE/采样步数参数，不能写成机器人执行5步，更不能写成5Hz。当前公开材料没有给出榜单提交的实际墙钟延迟或每次动作调用间隔。",
+          "configs/robotwin_infer.py同时出现fps_list=[30]和basic_fps=30，主要是视频/训练与配置时序字段；这不构成GO-3 Nano榜单实测以30Hz发布动作的证据。只有当评测客户端、服务端日志和硬件时间戳同时可读时，才能报告实际控制频率、动作延迟与反馈周期。"
+        ]
+      },
+      {
+        "heading": "5. GE-Act 2.0能解释什么，不能替代哪一份榜单工件？",
+        "paragraphs": [
+          "GE-Act 2.0论文与官网把世界—动作模型拆成控制向Autoencoder（CoAE）、单步视觉规划器（SVP）和逆动力学模型（IDM）：前两类互补数据分别预训练，之后用knowledge-aligned selective optimization（KASO）选择与动作相容的预测未来再联合训练。这是README列出的method reference，帮助理解为什么发布适配器同时出现video model、action model、VAE和latent statistics。",
+          "GE-Act 2.0项目报告的是其自身零样本OOD实验和单RTX 5090上的104 ms/52动作chunk/30 Hz管线数字；这些不是RoboDojo GO-3 Nano榜单条目的实测记录。不能因为名字、README引用或参数形状相似，就把GE-Act论文的训练时长、成功率、延迟、数据规模或外层部署流程归到榜单版本。",
+          "当前仍未公开或未匹配到：RoboDojo实际提交的精确checkpoint、完整XPolicyLab服务启动命令、外层Agent是否存在、评测客户端滚动策略、训练/开发数据与推理成本。GO-3 Nano的公开构型因此可以拆到WAM输入输出层，但不能声称已经完成榜单系统级复现。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "GO-3 Nano公开适配器的层次边界；参数含义来自固定提交读取，未运行权重或仿真",
+      "columns": [
+        "层次",
+        "本轮能核到的证据",
+        "当前不能推出的结论"
+      ],
+      "rows": [
+        [
+          "榜单分类",
+          "RoboDojo JS把GO-3 Nano Preview映射为Agent + WAM；贡献方AGIBOT；61.90／56.42%",
+          "不能由标签推出外层LLM版本、工具列表、harness或控制频率"
+        ],
+        [
+          "观测与状态",
+          "三路RGB（head/left wrist/right wrist）＋双臂关节/夹爪状态＋instruction；RGB缩放256×384",
+          "不能说有depth、物体真值或此次榜单使用了公开默认profile"
+        ],
+        [
+          "WAM模型资产",
+          "video diffusion model、action_model diffusion checkpoint、Qwen 3.5 2B VLM/processor、VAE与latent stats路径",
+          "不能把README路径要求当成已公开权重，不能确认榜单加载的具体checkpoint"
+        ],
+        [
+          "动作输出",
+          "绝对joint/gripper action chunk；14维约定；action_horizon/dense_action_steps=52",
+          "52是块长度，不是52Hz，也不能推出一次必须执行完52步"
+        ],
+        [
+          "推理参数",
+          "num_ae_steps/num_inference_step=5；WAM请求带该字段",
+          "5是推理流程参数，不是5步机器人动作或5Hz"
+        ],
+        [
+          "执行与反馈",
+          "XPolicyLab websocket标准合同，update_obs后get_action；环境/部署栈负责执行与回传",
+          "当前材料没有榜单实际延迟、反馈周期、外层Agent调度或真实控制频率"
+        ]
+      ]
+    },
+    "example": {
+      "title": "假设例子：一次52步候选动作遇到新观测",
+      "paragraphs": [
+        "这是教学假设，不是GO-3 Nano或RoboDojo实测轨迹。WAM在当前图像、双臂状态和instruction下生成最多52步绝对关节候选；环境先执行其中若干步并回传下一次观测，适配器再按评测客户端要求重新请求。52只说明候选块的上限，不能从配置文件推断实际每次下发几步。",
+        "num_ae_steps=5表示这次推理调用使用5个AE/采样步参数；它与候选动作数量和控制周期独立。即使训练配置里出现30 fps，也要等服务日志和环境时间戳才能知道动作实际多久更新一次。这个例子刻意把“模型采样步”“动作块长度”“物理执行频率”分成三件事。"
+      ]
+    },
+    "checklist": [
+      "榜单Agent+WAM标签是否有同一版本的提交README、checkpoint、完整harness和评测配置支撑？",
+      "底座模型精确版本是什么？Qwen 3.5 2B是公开配置依赖还是此次榜单实际加载权重？",
+      "观测包含哪些相机、状态、标定、depth或真值？图像预处理与robot profile是否和训练/评测一致？",
+      "action_horizon、num_ae_steps、环境动作步长、feedback interval和实际控制频率是否分别报告？",
+      "模型输出由WAM、IK、轨迹生成、低层控制器和SDK如何分工？是否有电机力矩或只到joint目标？",
+      "外层Agent是否调用工具、写代码、维护记忆或更新权重？公开adapter没看到的层不能默认为不存在，也不能默认为存在。",
+      "GE-Act论文的zero-shot OOD、104 ms、52动作和30Hz是否明确标注为论文/项目自身结果，而非榜单复测？",
+      "XPolicyLab提交、checkpoint哈希、评测客户端和榜单News日期能否逐版本对应？没有对应关系就保留缺口。"
+    ],
+    "takeaway": "理解具身Agent要把标签拆成接口：GO-3 Nano公开适配器能核实的是三路视觉与本体状态进入WAM、WAM生成绝对关节动作块，并由XPolicyLab合同交给环境；Agent+WAM标签、52步块长、5步推理参数和30Hz配置字段都不能替代外层harness、实际反馈周期和榜单提交工件。",
+    "sources": [
+      {
+        "label": "RoboDojo当前榜单与Agent类型映射：GO-3 Nano Preview 61.90／56.42%",
+        "url": "https://robodojo-benchmark.com/leaderboard#agent"
+      },
+      {
+        "label": "RoboDojo当前页面bundle：agent-wam映射、分数与榜单News",
+        "url": "https://robodojo-benchmark.com/assets/index-DXE6c9rW.js"
+      },
+      {
+        "label": "XPolicyLab固定提交58885ce8：GO-3 Nano README与GE-Act 2.0方法参考",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/blob/58885ce8f0cf746ff6c78500d1b6e35ab49db7e5/policy/GO_3_Nano_preview/README.md"
+      },
+      {
+        "label": "XPolicyLab固定提交58885ce8：观测拼接、WAM推理与绝对动作chunk适配器",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/blob/58885ce8f0cf746ff6c78500d1b6e35ab49db7e5/policy/GO_3_Nano_preview/model.py"
+      },
+      {
+        "label": "XPolicyLab固定提交58885ce8：WebSocket、三相机、52步动作块与5步推理参数",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/blob/58885ce8f0cf746ff6c78500d1b6e35ab49db7e5/policy/GO_3_Nano_preview/deploy.yml"
+      },
+      {
+        "label": "XPolicyLab固定提交58885ce8：Qwen 3.5 2B接口、video/action expert与时序配置",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/blob/58885ce8f0cf746ff6c78500d1b6e35ab49db7e5/policy/GO_3_Nano_preview/configs/robotwin_infer.py"
+      },
+      {
+        "label": "GE-Act 2.0 arXiv全文：CoAE、SVP、IDM、KASO与原始实验边界",
+        "url": "https://arxiv.org/html/2609.05588v3"
+      },
+      {
+        "label": "GE-Act 2.0官方项目：104 ms、52动作chunk与30 Hz为项目自身报告",
+        "url": "https://ge-act-v2.github.io/"
+      },
+      {
+        "label": "XPolicyLab标准接口README：websocket服务、观测解码与环境客户端合同",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/blob/58885ce8f0cf746ff6c78500d1b6e35ab49db7e5/README.md"
+      }
+    ]
+  }
+}

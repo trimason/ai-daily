@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-10-31",
+  "updated_on": "2026-11-01",
   "intro": "每日从研究目录、作者项目、论文、代码、模型卡、技术博客和社区原帖交叉发现大模型与具身的新进展及讨论问题，按当期证据轮换选题。持续覆盖国内外团队与小鹏 GroundingPI 等原始研究；主入口可达、内容已读和社区关注度分别核验。",
   "groups": [
     {
@@ -316,10 +316,10 @@
           "note": "2026-10-31网页/API均经请求级7897代理实读；网页实际Oct 30，默认API50条跨日期。10月31日显式API400，不称当日榜；WorkFactory一位独立提问者和作者回复已读。未开启系统代理。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-31",
+            "checked_on": "2026-11-01",
             "http_status": 200,
             "resolved_url": "https://huggingface.co/papers",
-            "note": "2026-10-31网页/API均经请求级7897代理实读；网页实际Oct 30，默认API50条跨日期。10月31日显式API400，不称当日榜；WorkFactory一位独立提问者和作者回复已读。未开启系统代理。"
+            "note": "11月1日通过现有127.0.0.1:7897请求级代理实读网页与公开API；网页dateString为2026-10-30，默认API50条跨日期，显式2026-11-01接口400；未开启系统代理。"
           },
           "channels": [
             {
@@ -815,8 +815,8 @@
           "note": "研究目录、API新闻/模型日志、官方模型卡和代码并行检查；API新闻是模型新版本的一手渠道，不能因主站目录较旧而只作次要线索。具身产业动向另查官方与媒体原报道，未获确认则明示。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-23",
-            "note": "已读研究与动态索引，最新动态9月10日、研究索引6月24日；另查API/代码/模型卡，不能从主站旧目录推断停更。"
+            "checked_on": "2026-11-01",
+            "note": "主站news与API更新页仍旧；另读官方GitHub在10月31日首次提交的dsh-superagent研究原型固定commit、README与docs/000–007。原型不是正式产品，未读到机器人或策略训练实验。"
           },
           "aliases": [
             "DeepSeek",
@@ -2855,8 +2855,8 @@
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-31",
-            "note": "2026-10-31实际读取当前bundle/Agent分轨/协议：10月30日Q0-Preview新增73.33分、SR68.00%；HWM-0同日新增，WALL-OSS为10月28日。Q0专属架构未核到；R²SI固定10月24日源码复查每动作回执/接管。未运行。"
+            "checked_on": "2026-11-01",
+            "note": "11月1日08:02–08:12实际重读新bundle/Agent分轨/协议：Q0当前74.20/68.87%，前一快照73.33/68.00%；GO-3 Nano公开XPolicyLab adapter已补核三RGB+状态→WAM动作chunk。Q0专属构型仍缺；未运行。"
           },
           "channels": [
             {

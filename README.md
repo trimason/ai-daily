@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年10月31日日报：九条动态围绕RoboDojo新榜首Q0-Preview、智元GO-3 Preview与Worken、宇树RobotSkills与DeepSeek-Harness、LOGIV依赖图修复、Utility-WAM未来负迁移、OpenFlyV2机载实飞，以及WorkFactory、A-RSI和Co-Design的Agent训练/评测。10月30日漏期的重要事件合并进今日并保留原日期。Hugging Face网页与API本轮读成功，实际日榜Oct 30；arXiv cs.RO独立检索，独立问答与作者信号分开。RoboDojo连续专题第三期讲R²SI逐动作回执、审查、接管与记忆清理，Q0内部构型仍缺公开证据。每日技术点讲行为克隆、分布偏移与DAgger；仿真/实机、试验分母、工件未开放与公众号访问缺口随文保留。
+当前首页为2026年11月1日日报：七条动态围绕RoboDojo Q0-Preview分数快照变化、DeepSeek Super-agent研究原型、MICA的MCP/CLI接口对照、Gym-Anything仿真生成、UMI-Live双臂数据链、Youtu-Parsing-Omni感知层与quantcheck量化工件审计。RoboDojo连续专题第四期核读GO-3 Nano公开WAM适配器，区分榜单类型标签、三路观测、VLM头部视角支路、52步动作块、5步推理参数与实际控制频率；完整榜单checkpoint和外层Agent仍有缺口。每日技术点讲模型量化与校准。Hugging Face实际显示Oct 30日榜，论文版本、作者讨论、单用户质疑、仿真/实机和公众号覆盖缺口分别记录。
 
 ## 本地构建与预览
 

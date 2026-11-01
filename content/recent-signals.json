@@ -1,9 +1,100 @@
 {
   "title": "近期研究动向与真实讨论",
-  "intro": "本轮观察10月26–31日原成果、10月28–31日的新代码/榜单和Hugging Face具体问答；Q0新首位与R²SI历史源码复查分开，原始成果日、当前发现日及公开工件边界逐项保留。历史动向保留原日期供回查，不冒充均为本窗口新事件。",
-  "window_start": "2026-10-26",
-  "window_end": "2026-10-31",
+  "intro": "本轮观察10月29日–11月1日的新榜单快照、代码、论文、模型工件与具体讨论；Q0数值变化、GO-3 Nano构型补核、DeepSeek dsh-superagent公开原型和quantcheck新评论分别保留原始日期与当前读取日期。Hugging Face Papers实际网页为10月30日，arXiv最新提交到10月29日UTC；未读渠道和未独立复现范围逐项说明。",
+  "window_start": "2026-10-29",
+  "window_end": "2026-11-01",
   "signals": [
+    {
+      "id": "robodojo-q0-preview-score-snapshot-revision-20261101-signal",
+      "title": "RoboDojo复查：Q0-Preview当前为74.20分／68.87%成功率，更新原因未公开",
+      "published": "2026-10-30",
+      "summary": "RoboDojo当前Agent分轨仍将Q0-Preview列为Qoo Tech的Agent系统首位，但复查到的平均Score/SR为74.20／68.87%，而10月31日报告依据的前一快照为73.33／68.00%。当前六个分项为：Generalization标准64.75／58.67%、随机63.25／58.67%，Precision65.30／58.50%，Long-Horizon 69.80／58.50%，Memory 93.68／93.67%，Open 78.20／75.00%。榜单News仍写10月30日新增；官方bundle没有说明数值变化的原因、评测重跑、取整口径或方法更新。",
+      "keywords": [
+        "跨系统具身横评 · Agent榜快照复核 · 仿真",
+        "11月1日复查"
+      ],
+      "url": "https://robodojo-benchmark.com/leaderboard#agent",
+      "source_label": "原始事件：RoboDojo官方News标注2026-10-30新增；当前观察：2026-11-01 08:02–08:12（北京时间）读取官方页面加载的index-DXE6c9rW.js。当前bundle生成时间为2026-10-30T17:48:45.033Z（北京时间10月31日01:48:45），未发现11月1日News或新模型发布。",
+      "limitation": "这是RoboDojo-Sim Agent分轨记录；Score与SR分开，Score含进度成分，不等于完整任务成功率，也不能外推实机。当前公开页面只确认Q0的Agent类型、Qoo Tech贡献方和榜单数字，未核到精确底座模型/版本、观测与标定、规划或工具层、记忆实现、动作接口、训练与开发数据、推理成本/延迟、三seed原始明细或对应评测release工件。数值从前一快照变化的原因没有官方说明，不能据此声称模型修订、重跑或性能提升。"
+    },
+    {
+      "id": "deepseek-superagent-prototype-event-driven-workflow-signal",
+      "title": "DeepSeek公开Super-agent研究原型：把事件、工单与隔离执行接成持续协作系统",
+      "published": "2026-10-31",
+      "summary": "DeepSeek于10月31日首次公开dsh-superagent-prototype，作为DeepSeek Harness的单GitHub仓库协作bundle。公开实现把GitHub及可选飞书事件写成Trigger，按Thread批处理评估，接受后形成带授权范围的Ticket，再交给各自独立Session和目录中的Executor执行；订阅线程的后续消息可直接送到对应工作会话，结果由主会话统一对外报告。运行状态、工单与派工分开持久化，允许CI反馈、人工追问、失败恢复继续推进同一工作。",
+      "keywords": [
+        "官方代码 / Agent研究原型",
+        "11月1日复查"
+      ],
+      "url": "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/README.md",
+      "source_label": "官方仓库首次提交：10月31日12:05:39 UTC（北京时间20:05:39）；11月1日核读固定代码与文档",
+      "limitation": "仅核读README、固定提交中的领域/授权/执行/架构文档及policy/role-models等关键实现，未安装、运行或独立复现。README明确这是参考用研究原型、不是DeepSeek正式产品，并与内部系统和《Super-agent设计探索》文章的实现不完全相同；部分设计仍属未来方向。默认主动模式为observe，只记录“本会接单”；默认普通worker上限3个，评估与执行模型可分别配置或继承profile默认，并未发布新模型或固定一个精确底座。本期不将媒体转述的合成调度实验数字归给此公开工件，不声称已证明真实编码或机器人任务成功率提升，也没有模型/策略权重训练证据。"
+    },
+    {
+      "id": "mica-mcp-cli-interface-closed-loop-agents-20261030-signal",
+      "title": "MICA：能力相同，MCP 与 CLI 仍会把 Agent 带向不同轨迹",
+      "published": "2026-10-25",
+      "summary": "MICA从同一语义动作契约渲染MCP与CLI，随后使用同一验证、编译和执行运行时，在6个模型、ALFWorld/WebShop/ScienceWorld三个交互环境中比较接口表示。2,004个episode中94.3%出现结构化轨迹分歧；差异延伸到语义动作选择、失败路径和恢复。作者提出DART，保留已验证的语义承诺、只修复接口实现，在六个设置中最高提升9.0分，并在三个环境减少最多27.1k tokens/任务。",
+      "keywords": [
+        "Agent工具接口 · MCP/CLI · 受控对照",
+        "11月1日复查"
+      ],
+      "url": "https://arxiv.org/abs/2610.34298",
+      "source_label": "论文首版10月25日；作者10月30日在HF介绍方法和项目/代码；11月1日读PDF全文、项目和代码README，未声称代码于10月30日首次公开",
+      "limitation": "受控比较覆盖三种交互环境和六个模型，模型包括Qwen3-4B/8B/14B/32B、DeepSeek-v4-Flash、Gemini-2.5-Flash；结果依赖各环境、提示和实现，不能外推到机器人控制。作者HF评论包含作者自述和自动推荐；本轮没有找到独立复现。DART的9.0分和27.1k token是论文报告，不是本日报独立测量。 DART六个环境×接口设置的干预只用Gemini-2.5-Flash，不能概括为六个模型都取得同样增益。"
+    },
+    {
+      "id": "gym-anything-roboworld-coding-agents-simulations-20261030-signal",
+      "title": "Gym-Anything：让编码Agent生成并审计机器人仿真，RoboWorld扩到25个仿真与200个RL环境",
+      "published": "2026-10-29",
+      "summary": "Gym-Anything把“建仿真器”当成编码Agent任务：创建Agent研究工作流程并写代码，四类独立审计Agent（真实性、动力学/可解性、速度/文档、对抗漏洞）复查、重跑物理检查，连续三轮修复；这些创建/审计角色在本文实例中都使用Claude Opus 5.5，独立Agent不等于独立研究团队。RoboWorld包含25个仿真、25个测试和175个训练RL环境（合计200个RL环境），覆盖制造、建筑、餐饮、实验室、物流、家庭等，支持FR3/Panda/UR10e、双臂、移动操作器和Unitree G1/H1-2等可替换本体。",
+      "keywords": [
+        "具身Agent·仿真生成·RoboWorld",
+        "11月1日复查"
+      ],
+      "url": "https://arxiv.org/html/2610.40565",
+      "source_label": "论文首版2026-10-29；官方代码与RoboWorld首个提交2026-10-30 14:19 UTC；截至11月1日复查官网和固定提交",
+      "limitation": "RoboWorld仍是仿真，未证明现实迁移。GPT-6 Astra、GPT-6.1 Terra、Claude Opus 5.5在25个测试任务均0/25成功；训练集易子集25任务分别24%、12%、32%成功率（Astra/Terra/Opus）。训练示范来自可读特权物体状态的代码策略：先在2,048个变化初始状态评估，保留1,000条成功示范训练π0.5：目标任务53%成功，未见物体姿态/外观/物理变化55%；这是两项gift-box任务，不是全RoboWorld。代码策略可读相机、proprioception和特权物体状态后输出普通机器人命令，训练后的π0.5只读三路相机与本体状态。尚无实机闭环或独立复现；运行需Linux、NVIDIA GPU、Isaac Sim/RT核，不宜把展示数字当普遍Agent能力。 HF本轮未核到独立技术讨论，不称社区共识。 另一个coaching实验让教师/教练读取学生仿真的当前特权状态，但最多回复10条定性提示、不含坐标或数值机器人命令、不能直接执行；不能与完全无特权监督的试验混写。论文未给出53%/55%对应的明确评测分母，不能补算为53/100或55/100。"
+    },
+    {
+      "id": "umi-live-bimanual-data-collection-20261029-signal",
+      "title": "UMI-Live：把手持示范、异步重建和双臂策略训练连成可复用数据链",
+      "published": "2026-10-29",
+      "summary": "UMI-Live是双手持Universal Manipulation Interface系统：每个Raspberry Pi 5客户端连接RoboSense Airy LiDAR、Arducam AR0234全局快门相机、板载计算和电源；服务端通过异步SLAM/GLIM重建，将两只手的数据转为LeRobot训练集。双臂观测状态合计14维（相对episode起点的xyz、旋转向量、夹爪），训练部署时预测相对TCP姿态与绝对夹爪开度；公开合并数据卡的action则是同帧observation.state的精确副本，训练loader还须选取未来帧并转换表示。公开数据卡合计3,255 episodes、4,288,182帧、39.705小时、30 FPS。",
+      "keywords": [
+        "机器人数据·双臂·开放硬件",
+        "11月1日复查"
+      ],
+      "url": "https://arxiv.org/html/2610.39385",
+      "source_label": "论文首版2026-10-29；项目页标注CoRL 2026 UMI Arena Workshop；代码仓库提交主要在2026-10-10/11，11月1日复查论文、项目、README和HF数据卡",
+      "limitation": "实体评测只有一个橙子到碗任务、双i2RT YAM机械臂，每条件10次，成功要求6个橙子全部入碗；π0.5混合95% UMI/5%遥操作为9/10，90%/10%为10/10；MolmoAct2混合75%/25%为8/10，未训练发布检查点0/10。该任务训练池为296条UMI示范与75条机器人遥操作示范；每条件12,000 updates、一个训练seed；没有UMI-only与teleoperation-only对照，不能分离两种数据来源的贡献，也未报告跨任务或多本体泛化。设备每个1.42 kg、仍需一次相机/夹爪标定；没有Agent榜单分数或LLM闭环证据。 HF本轮未核到独立技术讨论；CoRL标注为UMI Arena Workshop而非主会录用。"
+    },
+    {
+      "id": "youtu-parsing-omni-multimodal-agent-perception-20261030-signal",
+      "title": "腾讯 Youtu-Parsing-Omni：5B模型用共享编码器把文档、图像、音频和视频变成同一结构化感知接口",
+      "published": "2026-10-29",
+      "summary": "Youtu-Parsing-Omni用一个总规模约5B的模型，以共享编码器和OmniSchema，把文档、自然图像、图表/几何、音频、自然视频和富文本视频输出成统一JSON；视觉与音频在共享时空位置编码和少量融合层中对齐。后训练先做schema-routed RLVR，再做OmniSchema-Aware On-Policy Distillation（OSAD）：冻结参考副本基于模型自身rollout提供token级目标，训练后刷新teacher，实现解析器和监督共同演化。代码、vLLM插件和Hugging Face权重公开。",
+      "keywords": [
+        "多模态感知·Agent输入·国内发布",
+        "11月1日复查"
+      ],
+      "url": "https://arxiv.org/html/2610.39301",
+      "source_label": "论文首版2026-10-29；代码、权重与评测README在2026-10-30前后更新；11月1日复查论文、GitHub README、HF模型卡与固定提交",
+      "limitation": "论文评估单一5B checkpoint、单一推理配置。OmniDocBench v1.6 Overall 96.96；OmniParsingBench Avg 75.08（作者自写工具重评分，和论文作者报告的基准数不直接可比），最大优势在音频/视频；ChemOCR exact fingerprint Tani@1.0为54.2，PDMX-Synth字符错误率22.73。OmniParsingBench原始3,874样本因不可用媒体排除136，保留3,738；相机视频子集因标注问题剔除。完整能力还依赖schema修复与评估工具，不等于机器人实机感知成功率，也没有本期RoboDojo榜单归属。 HF有作者参与标记与点赞，但本轮评论页读取受限，未核到独立技术问答，不据此称热议。 共享编码器由Qwen3-0.6B-Base初始化，5B是整套模型量级；OSAD更新策略权重与参考副本，不应仅凭六轮单调增分称递归加速。模型采用自定义Youtu-Parsing许可。"
+    },
+    {
+      "id": "quantcheck-calibration-artifact-function-community-20261031-signal",
+      "title": "量化文件能复现，不等于模型能工作：quantcheck引出“代码筛检够不够”的质疑",
+      "published": "2026-09-05",
+      "summary": "quantcheck当前v3审计15条模型线中305个符合条件的Ollama官方tag与22个HF社区GGUF：15题代码筛检后，对嫌疑项复测164题HumanEval+，发现7个官方tag最多解出6题。重建的5个失败文件与注册文件逐张量相同，importance matrix让Qwen2.5-Coder-3B三个低bit构建从0题升到76–113题；v3.4又把两份TheBloke deepseek-coder-6.7B社区文件的低分从“backend-dependent”修正为缺失chat template，补模板后15题由5/6升至13/15、164题由16/18升至98/101。",
+      "keywords": [
+        "模型量化 · 工件审计 · 具体社区质疑",
+        "11月1日复查"
+      ],
+      "url": "https://arxiv.org/html/2609.05881v3",
+      "source_label": "论文v1首版2026-09-05，v2修订2026-10-25，当前v3修订2026-10-29；v3.4 release于2026-10-29 02:52:21 UTC公开；10月30日作者在HF介绍新归因，10月31日12:11 UTC独立评论追问工具/JSON检测；11月1日核读v3全文、代码/数据卡与评论",
+      "limitation": "审计库存生成于8月10日、实测8月12日，模板复测在10月28日，不是今天全站重抽检；305 tag是15条模型线的官方Ollama可执行清单，不是全部Ollama/HF。7个官方失败为≤4B低bit构建；v3.4社区模板实验依赖固定Ollama/RTX 4090环境，不能外推所有后端。O96a仍是单个用户未核实经验；原研究没有机器人实机，本日报没有独立复现。"
+    },
     {
       "id": "robodojo-q0-preview-agent-leaderboard-20261030-20261031",
       "title": "RoboDojo Agent榜换首位：Q0-Preview为73.33分／68.00%成功率，内部构型仍待核验",

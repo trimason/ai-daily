@@ -2,8 +2,8 @@
   "metadata": {
     "title": "研究方向与检索关键词",
     "status": "sample-research-map",
-    "updated": "2026-10-31",
-    "intro": "中英关键词连接具体研究问题，覆盖大模型与具身的多条路线。10月31日补入具身技能工具、世界模型负迁移、依赖图修复、自适应任务刷新、可执行职业任务合成和完整交付率；历史案例保留原日期，不是实时热度排名。",
+    "updated": "2026-11-01",
+    "intro": "中英关键词连接具体研究问题，覆盖Agent接口与Harness、RoboDojo构型、具身数据链、世界动作模型、多模态解析、量化工件与部署验证。11月1日新增Q0快照差异、GO-3 Nano公开适配器、DeepSeek dsh-superagent和quantcheck讨论；历史论文日期保留，不是实时热度排名。",
     "verification": "来源通过具体官方页面、论文、代码/模型卡或数据卡核验；镜像读取与访问限制在对应条目中保留。每日热点由近期研究、实测和社区证据重新筛选，未独立复现的结果不写成共识。",
     "dating_policy": "来源日期默认记录arXiv首版提交日期；官方文章单独注明发布日期。更新日期表示研究地图整理时间。"
   },
@@ -1056,6 +1056,53 @@
           "published": "2024-06-04",
           "date_basis": "论文首版提交日期",
           "verified": "已通过HTTP核验页面标题、日期与摘要/正文；未阅读全文或独立复现"
+        }
+      ]
+    },
+    {
+      "id": "agent-interface-and-embodied-handoff",
+      "title": "Agent接口、Harness与具身动作交接",
+      "category": "embodied",
+      "keywords_zh": [
+        "Agent接口",
+        "Harness",
+        "工具协议",
+        "WAM",
+        "动作chunk",
+        "控制权交接"
+      ],
+      "keywords_en": [
+        "agent interface",
+        "harness",
+        "tool protocol",
+        "world action model",
+        "action chunk",
+        "control handoff"
+      ],
+      "explanation": "同一Agent标签可能包含事件驱动Harness、工具/代码规划、WAM或VLA动作策略；GO-3 Nano公开适配器和MICA受控接口对照提醒逐层核验。",
+      "researchers_do": [
+        "比较观测、状态、工具/记忆、动作接口、反馈与策略权重分别在哪一层更新。",
+        "把榜单Score/SR、仿真/实机、外层Agent和低层控制分开。"
+      ],
+      "evidence_to_check": [
+        "模型与checkpoint精确版本、动作单位和控制频率是否公开。",
+        "工具schema/反馈、LLM调用预算、WAM/VLA输入和独立复现是否匹配。"
+      ],
+      "sources": [
+        {
+          "label": "RoboDojo当前Agent榜与协议",
+          "url": "https://robodojo-benchmark.com/leaderboard#agent",
+          "published": "2026-11-01"
+        },
+        {
+          "label": "GO-3 Nano XPolicyLab固定适配器",
+          "url": "https://github.com/XPolicyLab/XPolicyLab/tree/58885ce8f0cf746ff6c78500d1b6e35ab49db7e5/policy/GO_3_Nano_preview",
+          "published": "2026-10-25"
+        },
+        {
+          "label": "MICA MCP/CLI受控研究",
+          "url": "https://arxiv.org/abs/2610.34298",
+          "published": "2026-10-25"
         }
       ]
     }
