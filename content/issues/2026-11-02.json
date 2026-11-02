@@ -1,0 +1,548 @@
+{
+  "date": "2026-11-02",
+  "status": "daily",
+  "title": "Agent为何进入具身前列：SO-101实机对照、动作交接与可读经验",
+  "coverage": "北京时间2026-11-02实际核读：RoboDojo当前Agent分轨、协议和页面JS与11月1日逐字节一致，最新榜单数据仍为10月30日，未发现今日换榜。沿10月30日至11月2日观察窗口核验SO-101 Bench、Agent2Act、EmbodiedEvo新工件、Soft-MTP和AskStream的论文/代码/具体讨论，以及11月1日量子位机器人零售原报道。Hugging Face Papers实际可读页面日期为10月30日，显式11月2日API请求返回400，未将其称为11月2日日榜；周末未读到11月1–2日新的cs.RO提交。国内固定团队、DeepSeek研究/API更新/GitHub/模型卡、XPENG GroundingPI及独立GroundAnything入口按采集台账检查；空壳页、旧目录、归属未明和超时均不当作新成果。human five未找到可读后续全文，具身智能之心仅核到公开搜索结果与摘要，公众号覆盖不完整。NeurIPS/ICML/ICLR/CVPR/ACL/EMNLP等部分目录可读，ICRA/IROS/AAAI/OpenReview的部分入口403或仅返回壳页面，不声称全量会议覆盖。量子位走访点位未具名，未核到相应供应商官方回应；红旗连锁7月公告单列为旧背景。本期未运行SO-101、Agent2Act或EmbodiedEvo仿真/实机复现。本轮未开启Clash系统代理，部分Hugging Face请求仅使用请求级代理。",
+  "intro": "本期围绕三个问题：Agent与VLA怎样分工，高分是否伴随更高时间成本，开发中写下的技能和经验究竟能否检查。SO-101 Bench提供代码Agent＋VLA的配对消融与45布局实机对照；智元Agent2Act和EmbodiedEvo公开的新代码展示动作交接与经验冻结。另读Soft-MTP训练/推理对照、AskStream主动澄清评测，以及11月1日新发布的机器人零售实地原报道。RoboDojo今天没有换榜，不把沿用快照当新事件。",
+  "highlights": [
+    {
+      "title": "仿真领先，实机优势和速度仍要一起看",
+      "text": "SO-101上Agent＋VLA实机29/45，单独VLA24/45，配对p=0.30；中位停止时间196.6秒对37.5秒。",
+      "story_id": "so101-bench-hybrid-agent-vla-sim2real-20261030"
+    },
+    {
+      "title": "把通用模型接到动作，代码公开了路由边界",
+      "text": "智元Agent2Act新框架让LLM提议末端目标，IK/插值执行；π0.5可以接管有限动作块，但没有新成功率实测。",
+      "story_id": "agibot-agent2act-llm-motion-policy-runtime-20261031"
+    },
+    {
+      "title": "42个任务的经验目录新增可读工件",
+      "text": "EmbodiedEvo新公开Skills/Lessons，允许逐文件查看代码、失败反例与适用边界；模型权重未因此更新。",
+      "story_id": "embodiedevo-42-task-skills-lessons-release-20261031"
+    },
+    {
+      "title": "多token预测的训练梯度能否提纯？",
+      "text": "Soft-MTP有同规模对照，1.2B以上和更多草稿头仍是读者追问，不把小收益扩写为前沿模型结论。",
+      "story_id": "soft-mtp-kl-gradient-recovery-community-20261030"
+    },
+    {
+      "title": "视频Agent的下一步可能是提问",
+      "text": "AskStream分开WAIT、ASK、ANSWER，评价何时需要澄清；不是机器人动作成功率。",
+      "story_id": "askstream-proactive-clarification-video-20261030"
+    },
+    {
+      "title": "真实零售的瓶颈还包括人工与摆货",
+      "text": "量子位11月1日实地报道读到固定值守、补货和远程异常处理；取货时长无样本分母，不写成受控成功率。",
+      "story_id": "qbit-retail-robot-boundary-20261101"
+    }
+  ],
+  "reading": [
+    {
+      "title": "SO-101 Bench：代码Agent接VLA抓取登顶仿真榜，实机优势仍要连同速度与置信度看",
+      "url": "https://arxiv.org/html/2610.36420",
+      "reason": "看代码Agent与VLA抓取如何分工，并核对配对实机结果、统计不确定性和延迟。"
+    },
+    {
+      "title": "智元Agent2Act公开：把通用多模态模型接到末端目标与π0.5，谁来掌管动作闭环？",
+      "url": "https://github.com/AgibotTech/genie_sim/commit/a2bbec0c0e2d05f7cb5c13c9a75bcbc16ea229be",
+      "reason": "沿官方代码拆开高层规划、动作合同、IK与π0.5策略接管，检查控制权何时归还。"
+    },
+    {
+      "title": "EmbodiedEvo公开42任务Skills与Lessons：Agent的经验开始能逐文件检查",
+      "url": "https://github.com/Einsia/EmbodiedEvo/commit/d46dd4c4318f04fe8c3d8ca8adef8229155d7c2e",
+      "reason": "逐文件查看可执行技能、经验文字与反例，并区分开发期试错和冻结后的测试。"
+    },
+    {
+      "title": "Soft-MTP：把多token预测的有用梯度取出来，小模型对照有收益，前沿规模仍待验证",
+      "url": "https://arxiv.org/html/2610.38331",
+      "reason": "核对梯度恢复方法、小模型消融和独立读者对更大规模及更多预测头的追问。"
+    },
+    {
+      "title": "AskStream：视频Agent不只要会等和回答，还要知道什么时候该问",
+      "url": "https://arxiv.org/html/2610.38678",
+      "reason": "看视频Agent何时等待、提问或回答，以及主动澄清评测和机器人成功率的区别。"
+    },
+    {
+      "title": "量子位机器人零售实地原报道",
+      "url": "https://www.qbitai.com/2026/11/506990.html",
+      "reason": "对照真实营业点位的人工参与、SKU和计时边界，将旧公告与新走访分开。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "Agent与VLA交接 / agent–VLA hand-off",
+      "explanation": "SO-101混合系统把抓取交给Galaxea 0.5，代码Agent做感知、空间规划与放置；不是把VLA从系统中删掉。"
+    },
+    {
+      "term": "匹配布局与配对消融 / matched layouts and paired ablations",
+      "explanation": "同一批场景固定接口比较harness、底座和低层策略；实机29/45对24/45仍须看配对不确定性。"
+    },
+    {
+      "term": "动作接口与执行前缀 / action interface and execution prefix",
+      "explanation": "Agent2Act区分模型目标、IK/插值、下发chunk和下一观测；10步执行前缀不等于10Hz。"
+    },
+    {
+      "term": "可执行技能与经验记忆 / executable skills and lessons",
+      "explanation": "EmbodiedEvo把代码helper与带适用条件、反例和假说的Lessons分开保存，再冻结迁移。"
+    },
+    {
+      "term": "固定权重与系统改进 / fixed weights and system improvement",
+      "explanation": "代码、工具、记忆和harness可改变，不能由Evo标签推断策略权重训练。"
+    },
+    {
+      "term": "多token预测与自蒸馏 / multi-token prediction and self-distillation",
+      "explanation": "Soft-MTP用梯度路由保留对齐的KL信号；相对MTP的小幅收益与相对自回归倍数分开。"
+    },
+    {
+      "term": "主动澄清与视频流 / proactive clarification in video streams",
+      "explanation": "AskStream检查信息缺口、询问内容和时机，Ask-F1不是机器人任务成功率。"
+    },
+    {
+      "term": "墙钟延迟与控制预算 / wall-clock latency and control budget",
+      "explanation": "仿真暂停、实机持位等待和rollout停止时间不能被片长或控制频率替代。"
+    },
+    {
+      "term": "FlashAttention与存储搬运 / IO-aware exact attention",
+      "explanation": "每日技术点解释分块在线softmax如何节省中间显存，并区分训练、prefill与decode。"
+    },
+    {
+      "term": "人工参与与运营分母 / human involvement and operational denominators",
+      "explanation": "零售机器人媒体走访提示预摆货、值守、补货和故障恢复需分别计入，取一瓶时长不是营业成功率。"
+    }
+  ],
+  "featured_ids": [
+    "so101-bench-hybrid-agent-vla-sim2real-20261030",
+    "agibot-agent2act-llm-motion-policy-runtime-20261031",
+    "embodiedevo-42-task-skills-lessons-release-20261031",
+    "soft-mtp-kl-gradient-recovery-community-20261030",
+    "askstream-proactive-clarification-video-20261030",
+    "qbit-retail-robot-boundary-20261101"
+  ],
+  "stories": [
+    {
+      "id": "so101-bench-hybrid-agent-vla-sim2real-20261030",
+      "category": "embodied",
+      "tag": "Agent+VLA横评 · 实机对照 · 作者v1动态",
+      "title": "SO-101 Bench：代码Agent接VLA抓取登顶仿真榜，实机优势仍要连同速度与置信度看",
+      "organization": "Truman Hickok（独立研究者）",
+      "published": "2026-10-27",
+      "date_label": "论文v1首发10月27日；作者10月30日05:08 UTC在HF再次宣布v1与公开工件；11月2日核读论文全文、项目和README，不称今日新发",
+      "summary": "SO-101 Bench在低成本SO-101数字孪生中，以138个物体、3,629条仿真示范和916个主测episode比较9个VLA/WAM及2个LLM Agent。GPT-6.1 Sol＋冻结PyRUA-Lean v9.6把抓取交给Galaxea 0.5、自己用代码完成空间关系放置，主榜15个任务×物体划分单元格平均成功Score为83.2，最佳单体WAM为61.4、Galaxea单独为60.8。相同仿真训练权重在真实SO-101的45个匹配布局中，Agent成功29/45，Galaxea为24/45；五个系统的仿真/实机排序保持，但实机这组配对差异的精确McNemar检验p=0.30。",
+      "why": "它为用户追问的“Agent为什么进入前列”提供了比标签更具体的机制证据：底座负责代码规划和空间关系，低层VLA负责抓取，两者是组合系统。作者还在60个固定episode比较harness和底座；保持PyRUA+Galaxea时，Sol、Gemini、DeepSeek、MiMo成功分别为51/60、46/60、39/60、33/60，说明接口、代码能力和底座版本都要核验。这不是RoboDojo榜项或同一版PyRUA配置，不能用来替未知系统解释高分。",
+      "limitation": "主榜是15单元格平均成功Score，不是RoboDojo含进度的Score，也不能直接称916题总体成功率。相同微调预算为36小时/4×A100-80GB，但Agent额外调用LLM和VLA，预算并不相同。真实45布局的Agent中位rollout停止时间196.6秒，Galaxea37.5秒；统计含成功与失败、包括API等待，非成功耗时。仿真等待LLM时暂停，所以演示的1×仿真时间不等于墙钟延迟。真机Agent相对Galaxea多解10题、少解5题，p=0.30，不能声称已证明显著普遍优势；实机只有一个本体和小规模布局。结果是作者报告，无独立复现；HF主要为作者动态与自动推荐，未核到独立技术争论。",
+      "sources": [
+        {
+          "label": "论文全文：主榜、harness消融、Table 5–7真机成功与耗时",
+          "url": "https://arxiv.org/html/2610.36420"
+        },
+        {
+          "label": "作者项目：公开结果、成本、演示时间口径与资源",
+          "url": "https://so101-bench.github.io/"
+        },
+        {
+          "label": "官方代码：HTTP动作块接口、PyRUA脚本、验证集与检查点",
+          "url": "https://github.com/5hadytru/so101_bench"
+        },
+        {
+          "label": "HF作者10月30日v1动态；独立讨论覆盖有限",
+          "url": "https://huggingface.co/papers/2610.36420"
+        }
+      ]
+    },
+    {
+      "id": "agibot-agent2act-llm-motion-policy-runtime-20261031",
+      "category": "embodied",
+      "tag": "具身Agent · 新代码工件 · 仿真运行时",
+      "title": "智元Agent2Act公开：把通用多模态模型接到末端目标与π0.5，谁来掌管动作闭环？",
+      "organization": "AgiBot / Genie Sim Team",
+      "published": "2026-10-31",
+      "date_label": "官方代码首次加入Agent2Act：2026-10-31 04:36:33 UTC（北京时间12:36:33），固定提交a2bbec0c；11月2日核读README、G2配置、架构及runtime/router/policy实现。根README仍预告11月2日大更新，未据此声称整套新版本已正式发布。",
+      "summary": "Agent2Act新增一个CoRobot WebSocket+msgpack运行时：多模态LLM读取原始指令、当前RGB/本体状态，能对当前帧做只读深度像素查询；motion路径输出夹爪中心目标/途经点，由URDF逆运动学、时间参数化与插值转换为关节动作，完整动作块校验后只下发前缀。代码还支持policy路径，把局部指令交给π0.5/OpenPI；auto只在允许模式间路由，动作被拒绝后携带原因有限重规划，不能静默切模式。G2示例配置是gpt-6-astra、reasoning_effort=high、pure motion、五候选筛选、execute_steps=10，实际LLM只在下一观测回来后看到执行反馈。",
+      "why": "用户关心Agent怎样真正进入具身系统，这次有可逐层核读的新代码：语言模型做目标与模式决策，运行时负责坐标、IK、动作合同与预算，专用策略可以在获得有限chunk授权后接管，并在每次新观测下重算，再将控制权交还LLM。它把“模型提议”“已下发动作”“环境观察结果”分开记录，具体展示Agent、VLA与低层控制的交接；不是用榜单Agent标签猜系统。",
+      "limitation": "这是10月31日代码事件，不是11月2日新底座或新训练成果，也未核到它作为RoboDojo参赛系统。公开README明确示例模型名、相机键、动作顺序与dt_s=1/30需部署校准，不能当验证过的硬件配置；纯motion G2例子关闭enforce_speed_limits，不能声称满足速度/动力学或避碰约束。CoRobot在消耗完整已下发chunk后才请求新推理，chunk中途不可打断；示例300秒timeout、20次网络重试、2次重规划理论等待可达小时级，不提供实时保证。代码不管理权重或训练；本轮未运行LLM、π0.5或Isaac Sim，无新任务成功率、试验次数、端到端延迟或实机迁移证据。仓库单元/本地协议测试不等于机器人实测。",
+      "sources": [
+        {
+          "label": "官方首次公开提交（2026-10-31）：Agent2Act框架、配置、实现与测试",
+          "url": "https://github.com/AgibotTech/genie_sim/commit/a2bbec0c0e2d05f7cb5c13c9a75bcbc16ea229be"
+        },
+        {
+          "label": "固定README：motion/policy闭环、限制与未报告实测边界",
+          "url": "https://github.com/AgibotTech/genie_sim/blob/a2bbec0c0e2d05f7cb5c13c9a75bcbc16ea229be/source/agent2act/README.md"
+        },
+        {
+          "label": "固定G2配置：gpt-6-astra high、五候选、10步前缀、速度校验关闭",
+          "url": "https://github.com/AgibotTech/genie_sim/blob/a2bbec0c0e2d05f7cb5c13c9a75bcbc16ea229be/source/agent2act/examples/g2_llm_recipe.json"
+        },
+        {
+          "label": "固定架构：动作前缀、反馈边界、有限policy chunk授权与回收",
+          "url": "https://github.com/AgibotTech/genie_sim/blob/a2bbec0c0e2d05f7cb5c13c9a75bcbc16ea229be/source/agent2act/docs/architecture.md"
+        },
+        {
+          "label": "实际runtime与router：记录、拒绝重规划及固定/自动模式合同",
+          "url": "https://github.com/AgibotTech/genie_sim/blob/a2bbec0c0e2d05f7cb5c13c9a75bcbc16ea229be/source/agent2act/src/agent2act/application/runtime.py"
+        }
+      ]
+    },
+    {
+      "id": "embodiedevo-42-task-skills-lessons-release-20261031",
+      "category": "embodied",
+      "tag": "具身Agent · 新公开工件 · 固定权重经验迁移",
+      "title": "EmbodiedEvo公开42任务Skills与Lessons：Agent的经验开始能逐文件检查",
+      "organization": "Einsia.AI／EmbodiedEvo作者团队",
+      "published": "2026-10-31",
+      "date_label": "论文v1为2026-10-13、v2为10-14；新工件提交2026-10-31 12:08:56 UTC（北京时间20:08:56），README入口12:11 UTC；11月2日核读固定树、样例与原论文",
+      "summary": "官方仓库新增42个RoboDojo任务的Skills与Lessons：Skills目录293文件、其中109个Python文件，Lessons目录165个Markdown文件。公开样例把闭环动作写成带实际末端残差、视觉特征漂移、预算和终止检查的helper，并在笔记中保留“接触不代表插入”“闭爪不代表抓稳”的反例、scene-specific限制和hypothesis。GPT-6 Astra/xhigh权重固定，经验主要积累在代码与文字目录。",
+      "why": "10月28日概览只能说明系统把Playground试错经验冻结传给新Test Agent；10月31日的新工件进一步允许研究者检查经验到底是可执行控制逻辑、几何常量还是待测假说。它为用户关心的“Agent如何在具身实现”补出更具体的一层：高层模型写代码，原生控制器做IK/插值，程序和新观测构成反馈闭环。本期专题逐项拆读，不把Agent标签或目录数量当成能力证明。",
+      "limitation": "这是经验集合公开，不是新模型训练或新榜单结果；11月2日RoboDojo实际bundle与前一日完全相同，EmbodiedEvo仍为仿真Score45.08／SR38.95%。论文单seed、每任务50场景共2100 episodes自测44.48／37.82%与官方榜是不同记录；新增文件未证明逐字节对应原榜单冻结快照。README说明集合供参考/显式复用，标准流程仍冻结当轮新学知识；整体许可证尚未选定，完整历史结果档案和私有部署不在分发内。代码与笔记只有作者证据，本日报未运行或独立复现；仿真暂停思考不等于实机实时闭环。",
+      "sources": [
+        {
+          "label": "官方10月31日提交：42任务learned skills/lessons",
+          "url": "https://github.com/Einsia/EmbodiedEvo/commit/d46dd4c4318f04fe8c3d8ca8adef8229155d7c2e"
+        },
+        {
+          "label": "固定README：新工件入口、冻结流程和分发边界",
+          "url": "https://github.com/Einsia/EmbodiedEvo/blob/689a09b419d2555bf94f7345f58c62969a43739e/README.md"
+        },
+        {
+          "label": "可执行控制样例：guarded descent",
+          "url": "https://github.com/Einsia/EmbodiedEvo/blob/689a09b419d2555bf94f7345f58c62969a43739e/Workspace/skills/insert_tubes/guarded_descent.py"
+        },
+        {
+          "label": "Lessons样例：接触和插入、反例与假说",
+          "url": "https://github.com/Einsia/EmbodiedEvo/blob/689a09b419d2555bf94f7345f58c62969a43739e/Workspace/lessons/insert_tubes/insertion_contact.md"
+        },
+        {
+          "label": "原论文v2：观察接口、固定权重、配对消融与实验分母",
+          "url": "https://arxiv.org/html/2610.18867v2"
+        }
+      ]
+    },
+    {
+      "id": "soft-mtp-kl-gradient-recovery-community-20261030",
+      "category": "llm",
+      "tag": "LLM训练架构 · 多token预测 · 具体独立追问",
+      "title": "Soft-MTP：把多token预测的有用梯度取出来，小模型对照有收益，前沿规模仍待验证",
+      "organization": "MIT / Jayden Teoh",
+      "published": "2026-10-28",
+      "date_label": "论文v1首发10月28日06:31 UTC；10月30日08:09 UTC作者HF说明、09:08 UTC独立读者提问；11月2日核读全文与公开代码",
+      "summary": "Soft-MTP把标准多token预测（MTP）对隐藏状态的交叉熵梯度拆成对齐同位置下一token分布的KL自蒸馏项和残差，再通过共享线性输出头的straight-through梯度路由，保留MTP对主干的KL信号。它复用现有NTP/MTP交叉熵计算，无需显式构建词表规模KL矩阵。作者在167M–1.2B四种规模、K=3等设置中报告更低NTP困惑度和更高零样本均值；1.2B零样本均值56.80升到57.31，FineWeb-Edu自推测解码速度相对自回归为1.74×升到1.76×。",
+      "why": "推测解码不只取决于草稿头猜对几个token，也取决于草稿分布是否匹配验证器。10月30日独立读者orinmemory据梯度信噪比结果追问：收益在1.2B以上是否继续、草稿头多于3个时接受长度提升是否保留。这是可检查的研究争点，且代码和多规模模型已公开；今天关注其训练目标与推理效益的受控对应，不把一条独立评论当多方热议。",
+      "limitation": "最大实验仅1.2B，不能直接外推前沿大模型。所谓一行和无可测开销依赖共享输出头、位置对齐、损失归一化等条件，且开销是相对标准MTP，不是相对纯NTP；输出头仍保留交叉熵训练。1.76×是相对自回归，不能写成相对标准MTP再快1.76倍；该示例相对增益约1.1%。作者比较支持DeepSeek/Meta风格结构，不证明这些团队已部署Soft-MTP。本轮未发现多seed统计或独立复现，HF另一条为自动推荐，尚未读到作者对扩展规模问题的回答。",
+      "sources": [
+        {
+          "label": "论文全文：梯度分解、训练与推测解码对照",
+          "url": "https://arxiv.org/html/2610.38331"
+        },
+        {
+          "label": "官方代码与公开模型入口",
+          "url": "https://github.com/JaydenTeoh/Soft-MTP"
+        },
+        {
+          "label": "HF作者说明与10月30日独立具体追问",
+          "url": "https://huggingface.co/papers/2610.38331"
+        }
+      ]
+    },
+    {
+      "id": "askstream-proactive-clarification-video-20261030",
+      "category": "llm",
+      "tag": "多模态Agent · 流式视频评测 · 主动澄清",
+      "title": "AskStream：视频Agent不只要会等和回答，还要知道什么时候该问",
+      "organization": "中科院自动化所、北京智源、湖南师范大学、中央民族大学",
+      "published": "2026-10-28",
+      "date_label": "论文v1首发10月28日；10月30日作者在HF介绍，09:06 UTC独立读者评论提到近期主动询问讨论；11月2日核读全文、项目与公开数据",
+      "summary": "AskStream用438段视频和2,714个经人工标注的时间窗，把流式视频交互分为WAIT、ASK、ANSWER，检查模型能否识别缺失视觉证据、含糊意图或偏好，并在合适时机询问。其StreamHarness保留最近10帧和压缩历史记忆，每秒给一次决策机会。多选设置下，Gemini-3.8 Flash的Ask-F1为52.18%，最佳原生流式主动模型AURA为7.22%；开放回答是另一设置，最高29.19%，不能混为同一结果。",
+      "why": "具身Agent把ask_human当工具后，成功率可能提升，但是否识别了必要信息、是否过早提问、人工负担多少，仍需单独评价。AskStream为这个问题提供动作时机与询问内容的可复查标注。10月30日独立读者ZebangCheng明确讨论“意图或证据不清时主动问用户”的价值；这是一个独立观点，尚非社区共识。",
+      "limitation": "这是流式视频理解评测，没有机器人动作或实机闭环；最多每轮一问，所有交互由明确用户问题触发。Ask-F1是询问与回答阶段分数的调和汇总，不是传统精确率/召回率F1，也非任务成功率。离线模型使用外接StreamHarness，原生流式模型用各自记忆，差距不能全归底座。开放回答由Gemini-3.8 Flash裁判评判，另有裁判与提示影响；未核到独立复现。HF作者说明、一名独立评论和自动推荐分别计数，不按点赞或自动推荐声称热议。",
+      "sources": [
+        {
+          "label": "论文全文：任务、Ask-F1、StreamHarness与局限",
+          "url": "https://arxiv.org/html/2610.38678"
+        },
+        {
+          "label": "作者项目",
+          "url": "https://askstream.top/"
+        },
+        {
+          "label": "官方代码",
+          "url": "https://github.com/wanglu-cs/AskStream"
+        },
+        {
+          "label": "HF作者说明与10月30日独立观点",
+          "url": "https://huggingface.co/papers/2610.38678"
+        }
+      ]
+    },
+    {
+      "id": "qbit-retail-robot-boundary-20261101",
+      "category": "embodied",
+      "tag": "部署边界 · 零售机器人 · 媒体实地观察",
+      "title": "量子位走访两处机器人零售点：取货已到十几至二十多秒，但仍需固定值守",
+      "organization": "红旗连锁（项目终止公告）；北京中关村匿名零售机器人点位（供应商未披露）",
+      "published": "2026-11-01",
+      "date_label": "官方原始事件：红旗连锁公告落款2026-07-03，巨潮资讯网于2026-07-04披露；当前新事件：量子位/QbitAI于2026-11-01 15:50:57刊发实地走访原报道（正文乔迟、编辑李欢欢；网页作者Jay），11月2日核读全文并独立读取官方公告PDF。报道未给出现场走访的具体日期。",
+      "summary": "量子位ROBO走访北京中关村约10平方米机器人零售仓和一家连锁便利店前台。零售仓由轮式机器人配二指夹取相似规格饮料，报道观察一次取货约20多秒，每日10:00–22:00需人持续值守、补货、充电及故障报备，再由远程运维处理；商品需人预先摆齐，缺货或歪放时机器人会卡住或等待。另一便利店只允许机器人在前台小范围活动，值班测试人员周匀（化名）称，经抓取力度和位置调试，取货由近1分钟缩至十几秒；当前限硬包装饮料/口香糖，未配置灵巧手。两个计时来自不同点位、不同流程，不是同协议横评。",
+      "why": "这条11月1日的新原报道提供真实营业点位的人工与SKU边界，适合与具身Agent构型一起阅读：把“能取货”继续拆成货物预摆、场地限制、充电补货和异常恢复。红旗连锁7月旧项目终止只是报道背景，不包装成今日停运；官方公告仅确认尚未达到大规模商业化落地标准、拟终止研发并加快24小时云值守。",
+      "sources": [
+        {
+          "label": "量子位/QbitAI原报道（2026-11-01，现场走访与化名访谈）",
+          "url": "https://www.qbitai.com/2026/11/506990.html"
+        },
+        {
+          "label": "红旗连锁官方公告PDF（公告编号2026-028，落款2026-07-03；独立读取）",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-07-04/1225407977.PDF"
+        }
+      ],
+      "limitation": "这是媒体现场观察与化名访谈，不是受控实验。两处供应商和型号未披露，取货时间没有样本量、成功订单分母、失败重试/人工介入是否计时，不能换算成功率或吞吐；没有底座、VLA/Agent架构、人工接管率或长期运营数据，不能做模型失效归因。报道明确周襄、林启、周匀、小陶均为化名；资深从业者、前优必选行业销售经理贾川未被列入化名说明。红旗冷饮玻璃瓶结水珠摔碎来自“接近红旗的业内人士”，不是公告原话。未核到两处未具名点位供应商对此报道的官方回应，红旗7月公告也不是对这些点位的回应。"
+    }
+  ],
+  "technical_explainer": {
+    "id": "flashattention-io-aware-exact-attention",
+    "title": "FlashAttention：不存整张注意力表，为什么仍能算出同一种注意力？",
+    "summary": "FlashAttention把注意力计算按块组织，在GPU片上高速存储里累计softmax和输出，减少显存来回搬运；它主要改变计算调度和中间存储，不把标准稠密注意力改成线性复杂度算法。",
+    "reading_minutes": 7,
+    "why_now": "本期继续观察长程Agent与多模态具身接口。视觉、状态、工具回执和历史都可能增加token数量，推理成本与等待时间会直接改变闭环预算。继10月16日GQA/KV cache、10月21日投机解码和11月1日量化之后，今天补齐注意力内核这一层；用FlashAttention（2022年原论文）、FlashAttention-2（2023年原论文）和FlashAttention-3（2024年原论文）的原始材料讲机制，历史论文不是11月2日新发布，也不把后续版本或硬件优化泛化到所有部署。",
+    "sections": [
+      {
+        "heading": "1. 标准注意力先产生什么，瓶颈在哪里？",
+        "paragraphs": [
+          "一个注意力头把输入映射成查询Q、键K和值V。对每个查询，先与所有允许看到的键做点积，得到分数，再做softmax归一化，用这些权重对V加权求和。写成公式是O=softmax(QKᵀ/√d)V；因果模型还要屏蔽未来位置。",
+          "朴素实现往往把N×N的分数表和概率表写到GPU显存，再由后续运算读回。GPU的HBM显存容量大，但比寄存器和片上SRAM慢；即使矩阵乘法很快，大量中间读写仍可能占掉时间。这里的IO指存储层级间搬运数据，不是联网或机器人传感器接口。"
+        ]
+      },
+      {
+        "heading": "2. 按块计算：暂存一小块，立即用于输出",
+        "paragraphs": [
+          "FlashAttention把Q、K、V切成小块。取一块查询，依次与各块K/V计算，在片上高速存储中形成一小块分数并更新输出累计值，用完就丢掉局部分数，不把完整注意力矩阵落到HBM。最后只需写回输出以及少量归一化统计。",
+          "困难是softmax的分母需要整行全部键：前一块算完时，还不知道后面是否出现更大的分数。若直接把每一块softmax独立归一化再平均，结果通常不对。正确做法是维护整行目前的最大值m、指数和l，以及未归一化输出累计值u；新块到来时，把旧累计和新块重新缩放到相同最大值基准。"
+        ]
+      },
+      {
+        "heading": "3. 在线softmax怎样保持正确？",
+        "paragraphs": [
+          "假设新块使最大分数从m变为m′。旧指数和与旧输出累计都乘exp(m−m′)，新块每项用exp(s−m′)加入l和u，最后输出u/l。这样不必保存过去全部分数，也能得到对整行做softmax的同一数学结果，并避免直接对很大的分数求指数。",
+          "训练反向传播时，算法保存必要统计，再按块重新计算部分注意力概率。它用额外的局部计算换取更少的中间张量存储和HBM读写；“重计算一定更慢”在GPU上并不成立，因为少搬数据可能比少做运算更重要。浮点加法顺序改变后，数值不保证逐bit一致；这里的exact指不把稠密注意力近似成另一种数学算法。"
+        ]
+      },
+      {
+        "heading": "4. 为什么第二代、第三代仍能变快？",
+        "paragraphs": [
+          "FlashAttention-2进一步减少非矩阵乘法运算，调整线程块、warp间分工与序列维度并行，避免GPU有计算单元闲着，或线程之间频繁交换中间结果。它和GQA/MQA可以配合：GQA减少KV头的数量，FlashAttention改善注意力计算和搬运方式，两者解决的层次不同。",
+          "FlashAttention-3针对Hopper等硬件能力设计异步流水，把数据搬运、矩阵乘法和softmax尽可能重叠，并探索FP8路径。FP8涉及额外数值误差与精度评估，不能把exact attention一句话当成所有低精度实现逐数相同的保证。不同GPU、head dimension、序列长度、mask、dtype和内核版本都会影响速度，论文倍数不能直接照搬到机器人端到端延迟。"
+        ]
+      },
+      {
+        "heading": "5. 它没有消灭哪些成本？",
+        "paragraphs": [
+          "标准稠密注意力仍需要覆盖允许的查询—键配对，计算量通常随序列长度平方增长。FlashAttention降低了注意力中间存储和IO，不等于线性注意力、滑动窗口或稀疏注意力；若窗口或稀疏模式同时出现，应把结构改变和内核优化分别说明。",
+          "单token解码时只有一个新查询，历史KV仍要保存和读取。FlashAttention不自动缩小KV cache，也不代替GQA、KV量化、缓存管理或专用decode kernel。它对长prompt预填充和训练的收益不能直接等同于每个生成token、视觉编码、工具调用或机器人执行都按同一倍数加速。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "把常见“省显存/加速”机制放到各自层次",
+      "columns": [
+        "机制",
+        "主要改变",
+        "不能据此推出"
+      ],
+      "rows": [
+        [
+          "FlashAttention",
+          "注意力分块、在线softmax、重计算与存储搬运",
+          "不自动把稠密注意力变成O(N)，不消除历史KV"
+        ],
+        [
+          "GQA/MQA",
+          "多个查询头共享较少KV头",
+          "不是同一种内核优化；原模型架构/训练需匹配"
+        ],
+        [
+          "KV cache",
+          "复用已算出的历史K/V",
+          "不免除新query读取历史键值的成本"
+        ],
+        [
+          "量化",
+          "权重、激活或缓存的数值表示",
+          "位宽低不代表所有硬件内核都更快"
+        ],
+        [
+          "窗口/稀疏/线性注意力",
+          "允许的连接或注意力数学结构",
+          "可能改变模型行为，不能统称exact dense attention"
+        ]
+      ]
+    },
+    "example": {
+      "title": "教学算例：两块分数怎样合成一个softmax？",
+      "paragraphs": [
+        "假设只有一行三个分数[1,2,3]，对应V都是标量[10,20,30]；先处理前两个，m=2，l=exp(−1)+1≈1.368，u=10exp(−1)+20≈23.679。新块分数3到来，m′=3，旧l和u都乘exp(−1)，再加入新块的1和30；得l≈1.503、u≈38.711，输出u/l≈25.752。它与一次性对[1,2,3]做softmax加权完全是同一个数学结果。",
+        "再假设N=8192，一张FP16的N×N表就有约1.34亿字节（128 MiB），还没算batch、head和额外张量；按块处理可避免这整张表常驻HBM。这是理想教学内存算例，不是某个模型实测峰值；实际显存还包括权重、KV、激活、输出和运行缓冲。"
+      ]
+    },
+    "checklist": [
+      "实验加速的是训练、prefill还是单token decode？序列长、batch、head维度、mask与dtype是否一致？",
+      "报告的是attention kernel耗时、整模型耗时，还是含视觉/网络/工具/动作的端到端闭环？",
+      "优化仅改变调度与中间存储，还是同时换了稀疏结构、窗口、GQA或低精度？",
+      "声称exact时是否区分数学等价、浮点误差、dropout/mask实现和逐bit一致？",
+      "HBM/SRAM分块、KV cache占用和模型权重占用有没有分别测量？",
+      "GPU架构、库与内核版本是否公开，是否实际命中目标kernel而非回退到其他实现？"
+    ],
+    "takeaway": "FlashAttention把“整张注意力表先存下来”改成“分块计算、在线归一化、立即累计输出”。它的价值是减少显存中间读写并更充分使用GPU；理解Agent与具身延迟时，仍要把prefill、decode、KV缓存、网络和动作执行分别计时。",
+    "sources": [
+      {
+        "label": "FlashAttention原论文（2022）：IO-aware exact attention、tiling与重计算",
+        "url": "https://arxiv.org/html/2205.14135"
+      },
+      {
+        "label": "FlashAttention-2原论文（2023）：online softmax、GPU并行与warp分工",
+        "url": "https://arxiv.org/html/2307.08691"
+      },
+      {
+        "label": "FlashAttention-3原论文（2024）：异步流水、Hopper与FP8误差边界",
+        "url": "https://arxiv.org/html/2407.08608"
+      }
+    ]
+  },
+  "research_supplement": {
+    "id": "robodojo-embodiedevo-skills-lessons-release-20261102",
+    "title": "Agent把经验存在哪里？EmbodiedEvo新公开42任务Skills与Lessons",
+    "summary": "连续专题本期从新公开工件出发：EmbodiedEvo于10月31日上传42个RoboDojo任务的可执行Skills与文字Lessons。我们沿“看到什么→怎样写代码→谁执行动作→如何检查失败→冻结什么迁移”拆解一个Agent，把代码中的控制循环、文字中的适用前提、宿主维护的预算和模型权重分开；文件公开是新事件，论文和榜单分数都不是今天首次发布。",
+    "reading_minutes": 8,
+    "why_now": "11月2日重读RoboDojo榜单及协议，当前实际JS与11月1日逐字相同，Agent前六未变；不重复发布旧排名。新的研究证据是EmbodiedEvo官方仓库10月31日12:08:56 UTC（北京时间20:08:56）提交d46dd4c，新增42任务的Skills/Lessons，12:11 README补入口。论文v1为10月13日、v2为10月14日；10月28日已讲过系统概览，本期因此只深入此前未公开的具体经验如何变成可调用程序、带条件的笔记和冻结迁移材料。",
+    "sections": [
+      {
+        "heading": "1. 先分清：新公开的是经验工件，模型权重没有跟着训练",
+        "paragraphs": [
+          "当前仿真Agent分轨中EmbodiedEvo仍为Score 45.08／SR 38.95%，位于Q0、GO-3 Nano、PyRUA、HexaShell、WorldScape之后。正式main表排除Agent，实机另表；今天没有新榜单事件。Score不等于SR，也不能用10月31日新文件去解释一个缺少版本对应关系的历史榜单分数。",
+          "新提交可读到42个任务的skills/和lessons/：固定树里Skills有293个文件，其中109个Python文件，Lessons有165个Markdown文件。Skills把动作经验保存为可执行helper与使用说明；Lessons保留失败征兆、替代做法、观测索引和适用状态。这里更新的是代码和文字知识，系统固定底座为GPT-6 Astra／xhigh，不是给机器人策略权重做一次新训练。",
+          "README也提醒这些目录可供参考或显式复用，而标准Playground→Test流程仍从任务模板出发，冻结该轮运行实际学出的知识。因此，这次上传集合不能自动当作此前榜单运行所用的精确冻结快照，更不能把42个任务目录说成42个任务都已成功。"
+        ]
+      },
+      {
+        "heading": "2. 观测到动作：Python掌管循环，原生控制器掌管IK和插值",
+        "paragraphs": [
+          "论文和当前配置中的执行底座是Codex＋gpt-6-astra、xhigh推理档位；API模型没有披露日期锁定的服务快照。Agent看到指令、RGB图像、关节状态、末端位姿和夹爪命令状态；这个接口不提供物体真值位姿、深度或相机标定。它通过持续Python会话调用get_instruction、get_observation、step(action)，再用变量、函数、循环和条件组合过程。",
+          "输出是关节或末端目标加夹爪命令，低层原生控制器处理逆运动学与插值。公开XPolicyLab部署配置为ARX X5、ee动作接口；Model adapter为每个episode启动worker，逐次返回一个native action，执行后把新观测送回worker。模型思考或编程时空动作块只用于轮询，不推进仿真；这与真实机器人必须持续稳定控制的墙钟约束不同。",
+          "Agent可在一次代码执行中完成许多物理动作。100次accepted code executions不是100个控制步，配置中的25 feedback fps也不是模型控制频率。每个任务仍有自己的native action上限；公开默认Test scenes=25、论文全量每任务50场景是不同运行设置，不能互换。"
+        ]
+      },
+      {
+        "heading": "3. 一个Skill不是一条提示词，而是有停止条件的控制小程序",
+        "paragraphs": [
+          "新增的insert_tubes/guarded_descent.py很好地展示了分工：函数先从RGB指定区域计算颜色特征中心，再按小步下降；每次step后读取真实末端高度，检查是否终止、特征是否消失或漂移、实际高度是否偏离目标。返回的reason区分episode_end、slip、contact、reached与budget，给上层下一次决策使用。",
+          "这段代码把“别一直向下压”变成了可执行检查，而不是只在提示里提醒模型小心。它的颜色阈值、ROI、3mm步长、10像素漂移阈值和4mm位置残差都是该helper的参数或默认值，不是通用物理定律，也没有证明对所有物体或相机可迁移；调用者仍须选特征、目标和预算。",
+          "同样，general_pickup/move_ee.py记录位置与姿态误差，动作停滞持续若干步就返回stalled。这里接收的是控制器到达与否的反馈；达到目标末端位姿不等于成功抓住物体，不能把程序return reason='reached'当作任务成功率。"
+        ]
+      },
+      {
+        "heading": "4. Lesson保存边界：一次接触不等于插入，一次夹紧不等于抓稳",
+        "paragraphs": [
+          "insert_tubes/insertion_contact.md明确保留了一次错误判断：管子在接触高度附近停住，放手后却倒在架子后方；后续改对齐位置后才在图像中保持直立。笔记把“接触可能来自孔沿、夹爪或底部支撑”标成hypothesis，把已观察到的失败与只在当前场景验证的修正分别标注。它的价值是保留适用条件与反例，让下一轮不要把低层接触信号当成任务完成。",
+          "stack_blocks/camera_and_pose.md则要求闭爪后短距离上提，再结合腕部和头部图像验证物体随夹爪运动；提醒末端坐标系高度不等于物体接触高度、不同高度物体不能直接按斜视图像像素中心对齐。数字位姿和像素位置都带scene-specific限制，不能原样复制成另一布局的目标。",
+          "这些是作者公开的经验文本与代码，不是本日报独立复现。文件引用00000x观测编号，但仓库不包含完整历史结果档案，无法仅凭笔记重新核对所有原始轨迹。单场景标记verified表示作者在该记录中的验证范围，不能扩展成跨任务、跨本体或真实部署保证。"
+        ]
+      },
+      {
+        "heading": "5. 迁移的关键是冻结边界，而不是把整个聊天历史搬过去",
+        "paragraphs": [
+          "Playground在固定场景允许reset，Agent通过反复尝试修代码、写Skills/Lessons；重置会补回native action allowance，但不重置已消耗的代码执行次数。宿主在选取Test场景前只冻结skills/和lessons/，每个Test用新Agent、新工作区和新模拟器，知识只读；Test内仍能观察、写临时代码和纠错，但不能reset，也不能把本场Test经验传给下场。",
+          "这种设计区分三种记忆：Python变量维持同一episode的中间状态；Skills/Lessons是跨阶段传递的显式工件；模型权重保持固定。作者论文在5场景/任务的配对开发集上报告，task-description-only条件从8.50%到30.17%，对经验继承有局部支持；不能把这个分母和论文全量2100 episodes或当前榜单混为一谈。",
+          "论文全量自测是单seed、每任务50场景，Score 44.48／SR 37.82%，并使用公开wiki recipes；当前榜45.08／38.95%是另一记录。公开模板默认baseline和增强组都供recipe，可通过环境变量关闭。整体许可证尚未选定，集群部署与历史结果档案未随源码分发；本轮只核读工件，没有运行仿真、权重或完成系统级复现。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "这次公开资料让不同层次的“学习”更容易区分",
+      "columns": [
+        "保存对象",
+        "具体职责",
+        "不能据此推出"
+      ],
+      "rows": [
+        [
+          "episode内Python变量",
+          "保存目标、测量、循环进度，减少重复请求",
+          "不能自动跨Test场景继承"
+        ],
+        [
+          "可执行Skills",
+          "用观测/动作/停止条件构成控制helper",
+          "代码能调用不等于跨布局成功"
+        ],
+        [
+          "文字Lessons",
+          "记录失败征兆、反例、适用条件和待测假说",
+          "作者单场景verified不等于独立复现"
+        ],
+        [
+          "冻结的知识目录",
+          "Playground后只传skills/lessons到全新Test Agent",
+          "不能携带整段会话或跨Test继续学习"
+        ],
+        [
+          "固定模型权重",
+          "Astra/xhigh解释观测、写代码并使用知识",
+          "Evo标签不证明更新权重或递归加速"
+        ]
+      ]
+    },
+    "example": {
+      "title": "读公开样例时，怎样判断“这段经验可不可以搬走”",
+      "paragraphs": [
+        "以作者的插管资料为例：先读guarded_descent的输入与reason，再读insertion_contact中“先前接触后放手倒下”的反例。可复用的是按实测残差和视觉漂移中止、释放后再次检查的程序结构；ROI、颜色阈值、坐标和孔位偏移需要在新场景重新确认。",
+        "这是对公开代码和笔记的阅读方法，不是新增实验。真正要迁移到实机，还需同一观察接口、动作定义、低层控制与停止机制，并计入网络/模型延迟、碰撞风险和人工介入；RoboDojo仿真中的暂停思考不能代替这些测量。"
+      ]
+    },
+    "checklist": [
+      "公开日期是论文、代码、经验集合还是模型权重？新工件是否与旧榜单运行逐版本对应？",
+      "Agent看到什么真值、标定、recipe和成功信号？本体/相机变化后哪些假设需重新验证？",
+      "Skill输出是关节、末端目标还是电机力矩？谁做IK、插值、动作预算和异常停止？",
+      "代码里的reached、contact、stalled与最终任务success是否分开？返回标志依赖什么传感证据？",
+      "Lessons是否区分hypothesis、scene-specific与verified，有没有留下失败反例和适用条件？",
+      "Playground冻结什么、何时选Test场景、Test能否reset、能否跨场景学习？",
+      "100次代码执行、物理步数、反馈帧率、墙钟/仿真时间和模型token是否各自报告？",
+      "论文配对消融、全量单seed自测、官方榜单和新上传文件是否保持不同证据层次？"
+    ],
+    "takeaway": "EmbodiedEvo的新工件把“Agent学会了”拆成可检查的东西：控制程序保存做法，Lessons保存前提和反例，冻结协议限定哪些经验能迁移；它们能改进固定大模型组成的具身系统，但不等于策略权重训练，也不等于已证明所有场景都能泛化。",
+    "sources": [
+      {
+        "label": "官方新增工件提交：2026-10-31公开42任务Skills/Lessons",
+        "url": "https://github.com/Einsia/EmbodiedEvo/commit/d46dd4c4318f04fe8c3d8ca8adef8229155d7c2e"
+      },
+      {
+        "label": "固定README：新目录入口、标准冻结流程、许可证与分发边界",
+        "url": "https://github.com/Einsia/EmbodiedEvo/blob/689a09b419d2555bf94f7345f58c62969a43739e/README.md"
+      },
+      {
+        "label": "固定动作helper：insert_tubes的guarded_descent.py",
+        "url": "https://github.com/Einsia/EmbodiedEvo/blob/689a09b419d2555bf94f7345f58c62969a43739e/Workspace/skills/insert_tubes/guarded_descent.py"
+      },
+      {
+        "label": "固定Lessons：接触、错误插入判断、修正与迁移限制",
+        "url": "https://github.com/Einsia/EmbodiedEvo/blob/689a09b419d2555bf94f7345f58c62969a43739e/Workspace/lessons/insert_tubes/insertion_contact.md"
+      },
+      {
+        "label": "固定Lessons：stack_blocks的观察、姿态与抓取验证",
+        "url": "https://github.com/Einsia/EmbodiedEvo/blob/689a09b419d2555bf94f7345f58c62969a43739e/Workspace/lessons/stack_blocks/camera_and_pose.md"
+      },
+      {
+        "label": "固定协议：persistent session、冻结、预算和Test隔离",
+        "url": "https://github.com/Einsia/EmbodiedEvo/blob/689a09b419d2555bf94f7345f58c62969a43739e/docs/PROTOCOL.md"
+      },
+      {
+        "label": "固定配置：gpt-6-astra/xhigh、100次执行与默认场景设置",
+        "url": "https://github.com/Einsia/EmbodiedEvo/blob/689a09b419d2555bf94f7345f58c62969a43739e/tasks/RoboDojo/task.toml"
+      },
+      {
+        "label": "原论文v2（2026-10-14）：接口、配对消融与全量实验",
+        "url": "https://arxiv.org/html/2610.18867v2"
+      },
+      {
+        "label": "RoboDojo当前Agent仿真分轨；11月2日读取快照未变",
+        "url": "https://robodojo-benchmark.com/leaderboard#agent"
+      }
+    ]
+  }
+}

@@ -2,8 +2,8 @@
   "metadata": {
     "title": "研究方向与检索关键词",
     "status": "sample-research-map",
-    "updated": "2026-11-01",
-    "intro": "中英关键词连接具体研究问题，覆盖Agent接口与Harness、RoboDojo构型、具身数据链、世界动作模型、多模态解析、量化工件与部署验证。11月1日新增Q0快照差异、GO-3 Nano公开适配器、DeepSeek dsh-superagent和quantcheck讨论；历史论文日期保留，不是实时热度排名。",
+    "updated": "2026-11-02",
+    "intro": "中英关键词连接当前研究问题，覆盖具身Agent与VLA动作交接、固定权重的代码/记忆改进、实机对照与墙钟延迟、多模态主动询问、LLM训练和注意力内核。11月2日新增SO-101配对实机证据、Agent2Act及EmbodiedEvo公开代码；历史来源日期保留，研究地图不是实时热度榜。",
     "verification": "来源通过具体官方页面、论文、代码/模型卡或数据卡核验；镜像读取与访问限制在对应条目中保留。每日热点由近期研究、实测和社区证据重新筛选，未独立复现的结果不写成共识。",
     "dating_policy": "来源日期默认记录arXiv首版提交日期；官方文章单独注明发布日期。更新日期表示研究地图整理时间。"
   },
@@ -1069,7 +1069,10 @@
         "工具协议",
         "WAM",
         "动作chunk",
-        "控制权交接"
+        "控制权交接",
+        "可执行技能",
+        "动作块授权",
+        "墙钟时延"
       ],
       "keywords_en": [
         "agent interface",
@@ -1077,16 +1080,21 @@
         "tool protocol",
         "world action model",
         "action chunk",
-        "control handoff"
+        "control handoff",
+        "executable skills",
+        "action chunk authority",
+        "wall-clock latency"
       ],
-      "explanation": "同一Agent标签可能包含事件驱动Harness、工具/代码规划、WAM或VLA动作策略；GO-3 Nano公开适配器和MICA受控接口对照提醒逐层核验。",
+      "explanation": "同一Agent标签可能包含LLM代码规划、VLA抓取、IK/插值与可执行Skills；SO-101 Bench的配对实机对照和Agent2Act、EmbodiedEvo新代码让动作交接与时间代价可以逐层核验。",
       "researchers_do": [
         "比较观测、状态、工具/记忆、动作接口、反馈与策略权重分别在哪一层更新。",
         "把榜单Score/SR、仿真/实机、外层Agent和低层控制分开。"
       ],
       "evidence_to_check": [
         "模型与checkpoint精确版本、动作单位和控制频率是否公开。",
-        "工具schema/反馈、LLM调用预算、WAM/VLA输入和独立复现是否匹配。"
+        "工具schema/反馈、LLM调用预算、WAM/VLA输入和独立复现是否匹配。",
+        "同一批布局与相同低层权重时，Agent增加的收益、置信区间、配对p值和额外墙钟/人工预算各是多少？",
+        "新公开技能/记忆是否对应历史榜单的精确冻结工件？动作停止条件能否跨场景、跨本体独立复现？"
       ],
       "sources": [
         {
@@ -1103,6 +1111,21 @@
           "label": "MICA MCP/CLI受控研究",
           "url": "https://arxiv.org/abs/2610.34298",
           "published": "2026-10-25"
+        },
+        {
+          "label": "SO-101 Bench原论文：Agent＋Galaxea 0.5的916仿真与45布局实机对照",
+          "url": "https://arxiv.org/html/2610.36420",
+          "published": "2026-10-27"
+        },
+        {
+          "label": "智元Agent2Act固定首次提交：LLM到IK/动作块/π0.5接口",
+          "url": "https://github.com/AgibotTech/genie_sim/commit/a2bbec0c0e2d05f7cb5c13c9a75bcbc16ea229be",
+          "published": "2026-10-31"
+        },
+        {
+          "label": "EmbodiedEvo新公开42任务Skills/Lessons固定提交",
+          "url": "https://github.com/Einsia/EmbodiedEvo/commit/d46dd4c4318f04fe8c3d8ca8adef8229155d7c2e",
+          "published": "2026-10-31"
         }
       ]
     }

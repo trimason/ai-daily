@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年11月1日日报：七条动态围绕RoboDojo Q0-Preview分数快照变化、DeepSeek Super-agent研究原型、MICA的MCP/CLI接口对照、Gym-Anything仿真生成、UMI-Live双臂数据链、Youtu-Parsing-Omni感知层与quantcheck量化工件审计。RoboDojo连续专题第四期核读GO-3 Nano公开WAM适配器，区分榜单类型标签、三路观测、VLM头部视角支路、52步动作块、5步推理参数与实际控制频率；完整榜单checkpoint和外层Agent仍有缺口。每日技术点讲模型量化与校准。Hugging Face实际显示Oct 30日榜，论文版本、作者讨论、单用户质疑、仿真/实机和公众号覆盖缺口分别记录。
+当前首页为2026年11月2日日报：六条动态围绕SO-101 Bench的Agent与VLA协作、智元Agent2Act动作运行时、EmbodiedEvo新公开的Skills与Lessons、Soft-MTP训练梯度、AskStream视频主动澄清，以及量子位机器人零售实地报道。RoboDojo本次核读未发现新榜单事件；研究专题逐文件拆解EmbodiedEvo的可执行经验、文字记忆和冻结测试边界。每日技术点讲FlashAttention的分块计算与online softmax，区分注意力计算、KV cache与量化。论文原始日期、当前工件或讨论日期、实机与仿真、作者自测与媒体观察分别记录，公众号和部分会议目录的读取缺口如实披露。
 
 ## 本地构建与预览
 
