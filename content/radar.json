@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-11-01",
+  "updated_on": "2026-11-05",
   "intro": "每日从研究目录、作者项目、论文、代码、模型卡、技术博客和社区原帖交叉发现大模型与具身的新进展及讨论问题，按当期证据轮换选题。持续覆盖国内外团队与小鹏 GroundingPI 等原始研究；主入口可达、内容已读和社区关注度分别核验。",
   "groups": [
     {
@@ -18,8 +18,8 @@
           "note": "",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-23",
-            "note": "实际读主页；最新10/22聚会博客非研究；未全读2026论文"
+            "checked_on": "2026-11-05",
+            "note": "实际读取NeurIPS2026 papers列表；主站部分已切到2027。仅目录检索，未逐篇核录用类型/评审；本期未据目录声称某论文录用。"
           }
         },
         {
@@ -31,8 +31,8 @@
           "note": "",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-23",
-            "note": "实际读主页；最新研究/奖项为7–8月；未全读论文"
+            "checked_on": "2026-11-05",
+            "note": "实际读取ICML2026 papers列表；主站部分已切到2027。仅目录检索，未逐篇核录用类型/评审；本期未据目录声称某论文录用。"
           }
         },
         {
@@ -44,8 +44,8 @@
           "note": "公开稿件与评审回查 OpenReview；是否录用以官方结果为准。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-23",
-            "note": "当前2027，reviews11/5、decisions12/16均未来；未全读投稿/评审"
+            "checked_on": "2026-11-05",
+            "note": "实际读取ICLR2026 papers列表；主站部分已切到2027。仅目录检索，未逐篇核录用类型/评审；本期未据目录声称某论文录用。"
           }
         },
         {
@@ -2855,8 +2855,8 @@
           ],
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-11-01",
-            "note": "11月1日08:02–08:12实际重读新bundle/Agent分轨/协议：Q0当前74.20/68.87%，前一快照73.33/68.00%；GO-3 Nano公开XPolicyLab adapter已补核三RGB+状态→WAM动作chunk。Q0专属构型仍缺；未运行。"
+            "checked_on": "2026-11-05",
+            "note": "实际读取index-BCOrvz4N.js及协议；11月3日SLA-Preview新增实机VLA，42.33/33.89%；仿真Agent前六未变。Q0首次公开运行链已核，默认Opus5.5/Astra示例不证明历史精确配置，未运行。"
           },
           "channels": [
             {
@@ -2864,16 +2864,16 @@
               "url": "https://robodojo-benchmark.com/leaderboard#agent",
               "kind": "榜单/评测",
               "status": "content_verified",
-              "checked_on": "2026-10-31",
-              "note": "2026-10-31实际读取当前bundle/Agent分轨/协议：10月30日Q0-Preview新增73.33分、SR68.00%；HWM-0同日新增，WALL-OSS为10月28日。Q0专属架构未核到；R²SI固定10月24日源码复查每动作回执/接管。未运行。"
+              "checked_on": "2026-11-05",
+              "note": "实际读取index-BCOrvz4N.js及协议；11月3日SLA-Preview新增实机VLA，42.33/33.89%；仿真Agent前六未变。Q0首次公开运行链已核，默认Opus5.5/Astra示例不证明历史精确配置，未运行。"
             },
             {
               "label": "官方完整性与防刷榜协议",
               "url": "https://robodojo-benchmark.com/leaderboard/protocol",
               "kind": "评测协议",
               "status": "content_verified",
-              "checked_on": "2026-10-31",
-              "note": "2026-10-31实际读取当前bundle/Agent分轨/协议：10月30日Q0-Preview新增73.33分、SR68.00%；HWM-0同日新增，WALL-OSS为10月28日。Q0专属架构未核到；R²SI固定10月24日源码复查每动作回执/接管。未运行。"
+              "checked_on": "2026-11-05",
+              "note": "实际读取index-BCOrvz4N.js及协议；11月3日SLA-Preview新增实机VLA，42.33/33.89%；仿真Agent前六未变。Q0首次公开运行链已核，默认Opus5.5/Astra示例不证明历史精确配置，未运行。"
             },
             {
               "label": "官方基准代码",
@@ -2954,6 +2954,14 @@
               "status": "content_verified",
               "checked_on": "2026-10-28",
               "note": "经请求级代理读取卡片与模型目录：WSP2后训练、Flash单chunk/Memory最多24chunks、ARX X5 joint；未下载权重。"
+            },
+            {
+              "label": "Q0-Preview固定新公开运行链",
+              "url": "https://github.com/XPolicyLab/XPolicyLab/tree/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview",
+              "kind": "Agent代码/配置",
+              "status": "content_verified",
+              "checked_on": "2026-11-05",
+              "note": "README、精确配置、API/观测、protocol、持久Python沙箱、几何工具与CuRobo执行器已读；公开配置与历史榜单逐字节对应待核，无本地策略权重训练。"
             }
           ]
         },
@@ -3208,6 +3216,37 @@
               "note": "README与默认配置已读，未运行；可选few-shot故事板未用于报告，不能混入零样本结果。"
             }
           ]
+        },
+        {
+          "id": "robocolosseum",
+          "name": "RoboColosseum · 跨站真实机器人配对评测",
+          "url": "https://arxiv.org/abs/2611.02497",
+          "role": "论文、客户端与多站点实机协议",
+          "scope": "四本体、Open/Fine-tune分轨、Agent与VLA、DCR与进展/成功率",
+          "note": "不同于robocoliseum.ai的RoboColiseum，也不是RoboDojo。论文11月2日；HF作者11月4日提交。",
+          "verification": {
+            "status": "content_verified",
+            "checked_on": "2026-11-05",
+            "note": "全文与Appendix10.1、客户端README已读，5,699配对、124站点；无独立实机复现。"
+          },
+          "channels": [
+            {
+              "label": "原论文v1全文",
+              "url": "https://arxiv.org/html/2611.02497v1",
+              "kind": "论文与实验协议",
+              "status": "content_verified",
+              "checked_on": "2026-11-05",
+              "note": "配对比较、DCR、进展/完整成功、精确Agent接口与预算已读。"
+            },
+            {
+              "label": "官方客户端README",
+              "url": "https://github.com/RoboColosseum/robocolosseum-client",
+              "kind": "评测客户端",
+              "status": "content_verified",
+              "checked_on": "2026-11-05",
+              "note": "通过官方GitHub API实际读取README；未运行或审计全部代码。"
+            }
+          ]
         }
       ]
     },
@@ -3354,8 +3393,8 @@
           "note": "用户重点公众号；10月20日LingBot外部采用专题已通过36氪明确转载全文读取，并参与本期世界动作模型选题。技术数值逐篇回查；官方账号完整公开历史入口仍待核。",
           "verification": {
             "status": "unverified",
-            "checked_on": "2026-10-23",
-            "note": "本轮精确公开检索没有新增可核全文；10/20的36氪署名转载是昨日已读取范围，保留其checked_on=10/22，不把今天检索写成全文重读。"
+            "checked_on": "2026-11-05",
+            "note": "公开检索主要为招聘与旧研究/融资摘要；重读10月20日36氪转载，不是新原帖，不代表全量覆盖或无更新。"
           },
           "channels": [
             {
@@ -3382,8 +3421,8 @@
           "note": "用户指定的重点技术发现源。线索参与当期精选与讨论筛选，主题随实际研究和社区讨论轮换；不将单篇文章的模型或方法设为每日固定主题。公众号未贴出处时独立找官方材料，并记录实际可读范围。",
           "verification": {
             "status": "unverified",
-            "checked_on": "2026-10-23",
-            "note": "本轮精确账号检索未找到最新可核全文，非无更新；保留历史身份核验。"
+            "checked_on": "2026-11-05",
+            "note": "指定微信页65字环境异常提示；公开检索仅读到其他账号对旧话题二次提及，未获得新原帖或日期。不能据此断言无更新。"
           },
           "channels": [
             {
@@ -3391,8 +3430,8 @@
               "url": "https://mp.weixin.qq.com/s/c6jtVqfZ0bI3JtCtExzlhg",
               "kind": "公开微信文章 · 账号识别与话题发现",
               "status": "unreadable",
-              "checked_on": "2026-10-23",
-              "note": "本轮返回微信验证页面，不能声称读到后续新文章。"
+              "checked_on": "2026-11-05",
+              "note": "本轮仅环境异常提示，历史身份核验保留；未读新全文。"
             }
           ],
           "watch_terms": [

@@ -1,0 +1,631 @@
+{
+  "date": "2026-11-05",
+  "status": "daily",
+  "title": "Agent控制权与模型改进：Q0构型公开、跨站实机横评和权重编程争论",
+  "coverage": "北京时间2026-11-05核读，合并11月2–4日的新研究、公开工件与讨论并保留各自原始日期；11月3–4日未生成独立日报，不把补跑日冒充来源日期。RoboDojo当前JS的11月3日新事件是SLA-Preview进入实机VLA榜，仿真Agent前六与分数未变；Q0新工件另作专题。Hugging Face网页实际显示Nov 4，显式11月4日API返回50项，默认API含跨日记录；票数只作读取快照。独立读取arXiv cs.RO/cs.AI/cs.CV/cs.LG最新目录，各首50条实际到11月4日，不能称覆盖所有提交。NeurIPS/ICML/ICLR当届论文列表、CVPR开放论文和ACL/EMNLP论文集已读目录，但非逐篇审查；部分会议主页已切到2027，ICRA/IROS/AAAI入口403，RSS论文路径404，ECCV目录仍显示2024，未推断2026录用。国内固定名单、DeepSeek多入口和XPENG研究入口按具体台账检查；空壳、重定向与旧目录不算新成果。国内固定团队按161个具体URL实读尝试、官方代码/模型卡及别名补查；155次请求成功不等于155个有效研究正文。human five指定页本轮返回环境异常，公开检索只读到其他账号二次提及旧话题摘要；具身智能之心仅发现招聘与旧研究/融资摘要，并重读10月20日36氪署名转载，未称两个账号无更新或全量覆盖。量子位11月3–4日三篇全文已读，技术线索回查原模型卡；产业候选未因篇幅凑入本期。本期结果均为作者报告、实际代码或明确署名的社区观点，无本日报独立仿真/实机复现；本轮未开启Clash系统代理，仅部分请求使用请求级代理。",
+  "intro": "本期围绕三个问题：前沿模型怎样取得有限动作执行权；长期观察和合成数据怎样成为可复用策略；所谓系统改进到底改的是代码、记忆还是模型权重。Q0-Preview新公开的运行链与RoboColosseum多站点实机证据继续回应“Agent为何进入具身前列”。权重编程的多位独立质疑、LoCo的必要验证追问，以及LIFE、Route Anything、DataFarm和DreamX的新工件/研究，分别提供可检查的机制与边界。",
+  "highlights": [
+    {
+      "title": "Q0榜首的代码链终于可以拆开",
+      "text": "默认Opus5.5，空间点计划经CuRobo执行；新图像检查再放行第二段。公开配置与历史分数对应仍未证实。",
+      "story_id": "q0-preview-spatial-points-agent-harness-open-20261103"
+    },
+    {
+      "title": "“直接读写权重”出现独立质疑与部分复测",
+      "text": "无工具读小网络、Python分析和批量前向修复必须分开；不从一次修复推出通用自我加速。",
+      "story_id": "weight-space-programming-tool-boundary-replication-20261103"
+    },
+    {
+      "title": "实机配对支持竞争力，不支持统一霸榜结论",
+      "text": "RoboColosseum的901次Agent–VLA配对平均进展差5.3个百分点；本体、微调协议与预算改变名次。",
+      "story_id": "robocolosseum-multisite-frontier-vla-real-evaluation-20261104"
+    },
+    {
+      "title": "少想四成，还要检查必要验证是否丢失",
+      "text": "LoCo发布7B权重并出现具体读者追问；token下降不是同幅度墙钟提速。",
+      "story_id": "loco-local-preference-reasoning-verification-20261104"
+    },
+    {
+      "title": "Agent的长时记忆先要选对证据",
+      "text": "LIFE公开门控LoRA与SSS-Bench；24小时案例是离线回放问答，98.3%为评分而非机器人成功率。",
+      "story_id": "agibot-life-robobeats-streaming-memory-release-20261104"
+    }
+  ],
+  "reading": [
+    {
+      "title": "Q0固定公开代码与构型",
+      "url": "https://github.com/XPolicyLab/XPolicyLab/blob/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview/README.md",
+      "reason": "沿观测、空间工具、动作合同、控制器与检查回路逐层核验。"
+    },
+    {
+      "title": "权重编程原实验与权限",
+      "url": "https://rikiyat.github.io/blog/weight-space-programming/",
+      "reason": "把无工具小网络任务与代码辅助大模型修复分开阅读。"
+    },
+    {
+      "title": "RoboColosseum论文与Agent接口",
+      "url": "https://arxiv.org/html/2611.02497v1",
+      "reason": "看配对实机证据、DCR分数和跨本体或微调后排名反转。"
+    },
+    {
+      "title": "LoCo的局部偏好与独立追问",
+      "url": "https://huggingface.co/papers/2611.04814",
+      "reason": "追问哪些冗余推理可删，哪些验证必须保留，并回查原论文。"
+    },
+    {
+      "title": "LIFE的门控、记忆和公开范围",
+      "url": "https://arxiv.org/html/2611.00180v1",
+      "reason": "区分持续观察系统、离线24小时问答案例和真正公开的模块。"
+    },
+    {
+      "title": "PyTorch官方Autograd说明源码",
+      "url": "https://github.com/pytorch/pytorch/blob/main/docs/source/notes/autograd.md",
+      "reason": "补齐梯度计算、冻结和更新权重的基础，读懂每日技术点。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "空间点动作合同 / spatial-point action contract",
+      "explanation": "Q0以有序夹爪点和朝向点提交目标，低层转换成姿态与关节轨迹。"
+    },
+    {
+      "term": "控制权与中间检查 / execution authority and checkpoints",
+      "explanation": "Q0两组计划之间由新观测决定继续或重规划，25Hz接口不等于模型推理频率。"
+    },
+    {
+      "term": "实机同场配对 / matched real-world comparisons",
+      "explanation": "RoboColosseum让两系统在同一本体与局部布局对比，进展、成功与难度校准评分分别报告。"
+    },
+    {
+      "term": "工具权限与权重编辑 / tool access and weight editing",
+      "explanation": "无工具读小网、Python辅助分析与多批前向试验是不同证据设定。"
+    },
+    {
+      "term": "局部偏好与停止推理 / local preference and reasoning termination",
+      "explanation": "LoCo在固定前缀构造较短正确延续，用DPO训练LoRA，并需测试必要验证。"
+    },
+    {
+      "term": "事件门控与可重解释记忆 / event gating and reinterpretable memory",
+      "explanation": "LIFE先选择何时写入，再保留可回查的图像、时间与可补写字段。"
+    },
+    {
+      "term": "离线策略路由 / offline policy routing",
+      "explanation": "Route Anything从场景预测多候选成功概率，在记录结果上评估，router任务留出不等于策略未见任务。"
+    },
+    {
+      "term": "合成数据到策略训练 / synthetic data to policy training",
+      "explanation": "DataFarm由Agent生成仿真与视频数据，再后训练π0.5，区分数据生产和在线Agent控制。"
+    },
+    {
+      "term": "潜在动作与视频先验 / latent actions and video priors",
+      "explanation": "DreamX将视频动作压缩为查询token，开环动作迁移与训练后闭环策略分开评价。"
+    },
+    {
+      "term": "反向传播与优化器 / backpropagation and optimizers",
+      "explanation": "每日技术点区分损失、梯度、权重和Adam更新；经验文件变化不等于模型训练。"
+    }
+  ],
+  "featured_ids": [
+    "q0-preview-spatial-points-agent-harness-open-20261103",
+    "weight-space-programming-tool-boundary-replication-20261103",
+    "robocolosseum-multisite-frontier-vla-real-evaluation-20261104",
+    "loco-local-preference-reasoning-verification-20261104",
+    "agibot-life-robobeats-streaming-memory-release-20261104",
+    "route-anything-robot-policy-routing-cost-boundary-20261104"
+  ],
+  "stories": [
+    {
+      "id": "q0-preview-spatial-points-agent-harness-open-20261103",
+      "category": "embodied",
+      "tag": "新代码 · Agent构型 · 仿真榜单",
+      "title": "Q0-Preview公开完整运行时：通用模型用空间点发计划，CuRobo执行，视觉检查再放行",
+      "organization": "Qoo Tech；XPolicyLab集成",
+      "published": "2026-11-03",
+      "date_label": "10月30日加入RoboDojo仿真Agent榜；11月3日08:15:40 UTC首次公开代码，15:01:10 UTC移除任务来源哈希；11月5日按固定提交核读，非今日新换榜",
+      "summary": "RoboDojo仿真Agent榜首Q0-Preview在11月3日公开Q0_Preview适配器、Python工具、提示与任务文档、动作合同、观测生命周期及CuRobo控制器。默认配置为claude-opus-5-5，规划用xhigh effort、独立视觉检查用low；gpt-6-astra作为另一份示例配置。模型读取头部和双腕RGB、相机标定、关节与末端状态，在持久Python会话中计算世界坐标，再用两个有序夹爪参考点和一个朝向点提交目标；低层负责IK、轨迹、碰撞和关节动作。每次提交一至两个动作组，两个组之间必须由新观测触发独立检查后才放行。",
+      "why": "11月1日的榜单只能确认Agent标签，无法核实Q0构型；这次是可以逐层检查的新工件。它展示了一种把前沿多模态模型空间计算、显式几何工具、动作合同与成熟运动规划组合起来的办法，直接回答Agent怎样进入具身控制。11月5日当前Agent前六仍为Q0、GO-3 Nano、PyRUA-Lean、HexaShell、WorldScape-R²SI和EmbodiedEvo，Q0仍为Score74.20／SR68.87%。本轮真正新榜单事件是11月3日SLA-Preview进入实机榜，Score42.33／SR33.89%，类型为VLA；不能把实机VLA新增说成Agent又一次换榜。",
+      "limitation": "代码没有本地策略训练或权重下载，外部API模型别名也不是不可变的权重版本；默认配置不证明历史74.20分运行使用同一模型和参数。README称实机结果将在后续发布，目前Q0条目是仿真结果。25Hz是关节动作接口频率，不是LLM推理频率；标准配置最多100次计划、每episode10800秒墙钟、每规划窗口3600秒、检查60秒，这些是上限而非实际耗时或成本。夹爪状态是命令回显，接触约束是几何条件，不提供真实接触力或抓住物体的传感证明。未发现匹配消融可将高分归因于三点表达、检查器或某个底座；未运行仿真或独立复现。首次代码提交与榜单历史运行的逐字节对应、成本、三seed明细仍需额外记录。",
+      "sources": [
+        {
+          "label": "首次公开提交：11月3日08:15:40 UTC",
+          "url": "https://github.com/XPolicyLab/XPolicyLab/commit/974a4c7e9f91bf7779bdce9bf6c7abb7f72189c1"
+        },
+        {
+          "label": "固定提交README：构型、预算与公开范围",
+          "url": "https://github.com/XPolicyLab/XPolicyLab/blob/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview/README.md"
+        },
+        {
+          "label": "API配置：Opus默认、Astra示例、xhigh/low",
+          "url": "https://github.com/XPolicyLab/XPolicyLab/blob/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview/INSTALLATION.md"
+        },
+        {
+          "label": "实际动作合同：空间点、单/双组及检查门控",
+          "url": "https://github.com/XPolicyLab/XPolicyLab/blob/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview/runtime/protocol.py"
+        },
+        {
+          "label": "控制执行与逐动作回执",
+          "url": "https://github.com/XPolicyLab/XPolicyLab/blob/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview/controller/executor.py"
+        },
+        {
+          "label": "当前RoboDojo榜单：Agent与RealWorld分轨",
+          "url": "https://robodojo-benchmark.com/leaderboard#agent"
+        },
+        {
+          "label": "当前榜单协议：三seed、隐藏布局和工件要求",
+          "url": "https://robodojo-benchmark.com/leaderboard/protocol"
+        }
+      ]
+    },
+    {
+      "id": "weight-space-programming-tool-boundary-replication-20261103",
+      "category": "llm",
+      "tag": "权重编辑 · 作者博客 · 多位独立讨论与部分复测",
+      "title": "“读写权重”能替代训练吗？MIT新博客引出无工具小网络、代码分析与权重修复的边界争论",
+      "organization": "MIT CSAIL / Rikiya Takehi、Jayden Teoh、Alex Zhang、Omar Khattab；独立讨论：Matthew Honnibal、Sean Goedecke、Simon Willison",
+      "published": "2026-11-02",
+      "date_label": "作者博客11月2日；实验日志commit为10月29日04:47 UTC；Honnibal、Goedecke与Willison11月3日发表评论/部分复测；11月5日读取原文和日志目录",
+      "summary": "作者将通用LLM直接解释或改变神经网络权重称为Weight-Space Programming，但八组实验的工具和反馈权限不同。GPT-6 Astra在无工具、无前向条件下读取17,253参数游戏网络，4/4识别游戏；在给定失败轨迹的Kinetix单关卡中一次改动3.5%权重，作者报告1024次均成功。Qwen3.5-0.8B修复则允许Python和最多50批前向：Astra定位循环相关方向，触及131,072个权重位置（约0.016%；bfloat16舍入后实际130,188个值不同），MATH-500从7.9%到48.1%，IFEval从21.0%到62.3%；同样尝试Gemma 3 270M未得到确立的数学收益。",
+      "why": "11月3日出现多个独立、具体而非同源转载的追问。Honnibal认为摘要把无工具直接读小网络与Python驱动大模型修复混在一起；Goedecke指出有空间语义标签的输入权重可用热图解释，Qwen修复近似已有方向消除/steering工作流。Willison部分复测了无工具猜游戏，用笔记本上的Qwen 3.8 27B认出Pac-Man、Pong、Breakout，Freeway失败，每题约46–65分钟。这支持小型结构化网络可读的现象，同时把“超人研究能力”与工具辅助工程能力的争论落到可检查权限。",
+      "limitation": "这是作者博客及实验日志，不是已核会议录用。无工具结果只覆盖约17K–172K参数小网络，不可套到0.8B；Qwen结果有训练集练习题、Python、批量前向和评价反馈，并非零反馈直接看完全部权重。移除循环可释放已有能力，不证明获得全新推理能力或递归加速；Gemma负结果需要同报。独立复测仅为单用户四个游戏识别，不复现Qwen编辑，也非盲测人类对照。批评者对Qwen“超过32K才循环”的解释与作者原文不同，正文应采用作者报告：循环使93%回答撞上32,768-token上限。没有运行本地独立实验。 固定README注明实验8使用gpt-6-astra/max；实验1/2/4为high。CLI内置工具关闭不等于完整实验无工具：3/6/7/8由宿主执行Python并回传输出。日志只含最终报告的prompt版本，早期试跑未收录。 实验8固定README进一步披露50-pass运行158轮、80次Python、4个会话、20.3小时墙钟（含4.7小时服务不可达等待）；最多300代码运行，每pass可生成512道或teacher-forcing读取1024段文本，练习集另含714条AIME仅答案。未给出完整agent harness代码，大激活工作区未纳入。",
+      "sources": [
+        {
+          "label": "MIT作者博客：逐实验权限、Qwen收益及Gemma负结果",
+          "url": "https://rikiyat.github.io/blog/weight-space-programming/"
+        },
+        {
+          "label": "固定实验日志commit（10月29日）",
+          "url": "https://github.com/RikiyaT/lm_understand-logs/tree/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f"
+        },
+        {
+          "label": "Matthew Honnibal 11月3日：不同实验权限不能合并",
+          "url": "https://honnibal.dev/blog/astra-read-write-misleading"
+        },
+        {
+          "label": "Sean Goedecke 11月3日：热图与方向编辑的替代解释",
+          "url": "https://www.seangoedecke.com/llms-are-not-superhuman-at-reading-and-writing-neural-network-weights/"
+        },
+        {
+          "label": "Simon Willison 11月3日本地Qwen部分复测与失败例",
+          "url": "https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/"
+        }
+      ]
+    },
+    {
+      "id": "robocolosseum-multisite-frontier-vla-real-evaluation-20261104",
+      "category": "embodied",
+      "tag": "多地点实机横评 · 作者报告 · 当前论文与工件",
+      "title": "RoboColosseum实机横评：Agent可与VLA竞争，但排名随本体和微调协议改变",
+      "organization": "新加坡国立大学等联合研究团队 / Hugging Face与合作实验室、机器人评测站点",
+      "published": "2026-11-02",
+      "date_label": "实测窗口9月17日至10月28日；论文v1首发11月2日；作者11月4日提交HF Papers并公开客户端/微调工件入口；11月5日核读全文与附录",
+      "summary": "RoboColosseum汇总124个地点、4种本体、5,699次同场配对比较，在Open Track比较5个VLA和GPT-6 Astra、Claude Opus 5.5、Grok 4.7。901次Agent对VLA的配对中，Agent进展更大394次、VLA更大265次、持平242次，平均进展差为Agent多5.3个百分点；不同Agent与本体差异明显。另设Fine-tune Track，5个VLA各用每任务100条示范，在4种本体的20个任务上每策略每任务计划25次；部分组合因安全提前停止；开放榜名次与微调后名次并不稳定对应。",
+      "why": "它把“通用模型进入具身”推进到跨地点、同场配对的真实机器人证据，并明确公开Agent接口：640×480多视角图像、关节状态和指令，经Inspect Robots每轮调用move/done/give_up，move输出绝对关节目标，服务器插值与校验，执行后返回新观测。每试验最多30次模型调用、800个控制步，单次推理120秒期限；模型声明done不自动计成功。独立于RoboDojo和RoboColiseum，这是名称相近的另一研究；当前HF主要为作者介绍，尚无独立复现或多方技术讨论。",
+      "limitation": "微调协议计划每策略每任务25次，附录部分组合因安全提前停止，实际次数以图示为准。5,699是配对比较次数，每对含两次执行，不是5,699次独立成功。DCR Rating是按成功与任务难度拟合后线性变换的能力分，非成功率或普通逐场Elo；5.3个百分点是任务进展差，非成功率提升。模型/本体覆盖不齐，Agent仅在SO-101、Franka、双臂YAM参与Open Track；Fine-tune并未测试Agent，不能将VLA微调后排序当成Agent对照。各VLA用官方训练配方，优化器/预算并非统一；开放任务分布、checkpoint和指标也不同，因此排名反转不能只归因泛化能力。报告的各操控类别任务完整成功率均未超过13%，指该次采样与类别统计，不代表所有固定机器人任务的上限。Agent使用medium推理且速度低于VLA，同控制步预算不等于同墙钟/API成本。操作者重置、评分并可安全停机，系统提示允许监督者反馈；未披露统一人工反馈频度和总成本。本日报仅核读，未实机复现。",
+      "sources": [
+        {
+          "label": "论文v1全文：同场配对、DCR、任务进展与Appendix10.1 Agent接口",
+          "url": "https://arxiv.org/html/2611.02497v1"
+        },
+        {
+          "label": "arXiv首版日期与完整机构",
+          "url": "https://arxiv.org/abs/2611.02497"
+        },
+        {
+          "label": "官方客户端README与操作入口；本轮未运行",
+          "url": "https://github.com/RoboColosseum/robocolosseum-client"
+        },
+        {
+          "label": "HF作者11月4日介绍；非独立复现",
+          "url": "https://huggingface.co/papers/2611.02497"
+        }
+      ]
+    },
+    {
+      "id": "loco-local-preference-reasoning-verification-20261104",
+      "category": "llm",
+      "tag": "推理压缩 · DPO/LoRA · 权重发布与独立追问",
+      "title": "LoCo教7B模型何时结束推理：token少四成之后，必要验证会不会也被省掉？",
+      "organization": "西安交通大学 / 腾讯WeChat AI",
+      "published": "2026-11-03",
+      "date_label": "论文v1为11月3日12:44:50 UTC；代码11月3日初始提交；11月4日07:46 UTC模型卡/权重工件；11月4日11:07–13:11 UTC独立读者与作者技术问答",
+      "summary": "LoCo固定模型已走到的推理前缀，从同一状态再生成较短、答案经验证的后续，将其与原本冗长后续组成局部偏好对，使用Qwen3-30B-A3B-Instruct-2507复核疑似过度思考位置，再用DPO训练DeepSeek-R1-Distill-Qwen-7B的LoRA。作者从数学自生成轨迹构造数据，在5个数学和3个代码基准上评估：数学completion token减少41.7%–45.4%，代码减少23.4%–36.3%；MATH-500准确率91.88%到91.80%，平均token4015到2243，LiveCodeBench准确率41.77%到42.51%，token12319到9278。11月4日作者公布LoCo-7B模型。",
+      "why": "11月4日HF独立用户guicybercode追问：数学训练能转到代码，但如果多想一步是必要的测试验证，模型会不会提前停止？作者回应目标是在已足够确信的状态减少冗余验证，读者仍要求专门测量“验证本身决定答案”的任务。这使研究问题从笼统短思维转成停止决策与验证风险；新发布模型卡提供可测工件。观察到一名独立具体提问者和作者回答，不称多方共识。",
+      "limitation": "仅验证一个7B蒸馏底座的LoRA（rank256），不是前沿模型全参数通用结论；训练为数学数据，跨域证据限于所选代码基准。每题8次生成、temperature0.6/top-p0.95、最大32768新token；token减少不能直接换算相同比例墙钟加速。MATH-500准确率变化近乎持平，不能写成所有指标提高；均值和误差来自作者评估。必要验证任务上的专门失效测试和独立复现尚未核到。模型卡确认完整safetensors文件清单，但未下载权重或运行推理。",
+      "sources": [
+        {
+          "label": "论文v1全文：局部状态偏好、训练与逐基准数据",
+          "url": "https://arxiv.org/html/2611.04814v1"
+        },
+        {
+          "label": "固定代码提交fdfe55（11月4日README更新）",
+          "url": "https://github.com/MuyaoYuan/LoCo/tree/fdfe55fe65d8e154352553a1f9048e5cfc03e773"
+        },
+        {
+          "label": "公开模型卡与权重清单，9e98cf6d版本",
+          "url": "https://huggingface.co/MuyaoYuan/LoCo-7B/tree/9e98cf6d58ec4152c599ec099d4a818ea5aea77d"
+        },
+        {
+          "label": "HF独立问题与作者回复，11月4日精确时间已读",
+          "url": "https://huggingface.co/papers/2611.04814"
+        }
+      ]
+    },
+    {
+      "id": "agibot-life-robobeats-streaming-memory-release-20261104",
+      "category": "embodied",
+      "tag": "具身Agent · 新代码与LoRA · 视频回放边界",
+      "title": "智元LIFE公开RoboBeats：先决定什么值得记，再把旧画面变成可用经验",
+      "organization": "Agibot Human Intelligence Project / AgibotGeneral/LIFE",
+      "published": "2026-11-04",
+      "date_label": "原论文2611.00180v1：2026-10-30 15:23:52 UTC（北京时间23:23:52）；README将RoboBeats/SSS-Bench发布记为11月3日，实际可核GitHub首次公开提交为11月4日06:42:13 UTC（北京时间14:42:13，a63e763c）。11月5日读取全文、固定代码和三款LoRA模型卡；不将README日期与commit时间混写。",
+      "summary": "LIFE把持续观察拆成三层：RoboBeats小VLM门控判断当前条件或新事件是否值得响应、写入；Plastic Memory保留图像、时间、位姿和可补写的JSON字段；EDM将临时探索得到的程序去掉场景答案、验证后注册为工具或技能。新公开工件包含基于Qwen3.5的0.8B/2B/4B LoRA、1fps因果门控推理，以及SSS-Bench的618题、171视频和复现脚本。门控实现每100帧成块、重叠10帧，读取false/true logits，以0.5/0.3迟滞阈值保留事件窗口；每帧输出不看未来，不自动证明实时响应延迟。",
+      "why": "它把Agent长期记忆拆成可重新解释的原始证据、可检索字段与可复用方法，直接补充具身Agent构型。同一Qwen3.8-27B writer/reader和写入预算的SSS-Bench对照中，观察至少20分钟时RoboBeats-2B比均匀采样高5.2个百分点；在OVO的固定回答设置下，writer输入量从全帧0.338M降到0.186M tokens/小时，但问答均分70.0降到66.6，说明省写入与保留证据仍有取舍。新代码使这种取舍可以复查；尚未观察到多团队独立复现或社区共识。",
+      "limitation": "24小时A3 Ultra案例是对10月21日21:00至22日21:00录制视频离线重建记忆、回放问答：6个问题，每配置3次，人工rubric可给部分分；98.3%是29.5/30评分，绝非机器人任务成功率，也不测试动作如何改变后续观察。同底座GPT-6.1 Sol的LIFE回答均时80.6秒、直接视频Codex A为961.5秒、另给记忆的Codex B为554.7秒，均排除记忆构建；初始写入/整理已用约8.04M输入、0.14M输出tokens，检测与重扫另计。EDM的程序、工具、技能改进不等于每任务更新底座权重，复用结果主要从ReSight沿用；本次公开库以RoboBeats和SSS-Bench为主，不能称完整LIFE机器人部署或EDM已开源。SSS参考答案是LLM辅助构造并由独立视觉模型复核，并非逐题人工标注；未独立运行权重、基准或机器人。",
+      "sources": [
+        {
+          "label": "原论文全文：门控、Plastic Memory、EDM与24小时回放成本和边界",
+          "url": "https://arxiv.org/html/2611.00180v1"
+        },
+        {
+          "label": "11月4日首次公开提交：RoboBeats推理与SSS-Bench",
+          "url": "https://github.com/AgibotTech/LIFE/commit/a63e763c515136a5090f9fb251f7b72f702ad93a"
+        },
+        {
+          "label": "固定门控实现：100帧块、10帧重叠、0.5/0.3迟滞",
+          "url": "https://github.com/AgibotTech/LIFE/blob/a63e763c515136a5090f9fb251f7b72f702ad93a/robobeats/gate.py"
+        },
+        {
+          "label": "固定SSS-Bench协议：618题、因果前缀、评分与模型标注",
+          "url": "https://github.com/AgibotTech/LIFE/blob/a63e763c515136a5090f9fb251f7b72f702ad93a/sss_bench/README.md"
+        },
+        {
+          "label": "RoboBeats-2B LoRA模型卡：Qwen3.5-2B底座",
+          "url": "https://huggingface.co/superbigsaw/RoboBeats-2B"
+        }
+      ]
+    },
+    {
+      "id": "route-anything-robot-policy-routing-cost-boundary-20261104",
+      "category": "embodied",
+      "tag": "具身策略路由 · 仿真 · 匹配基线与成本分母",
+      "title": "Route Anything：给场景挑VLA，仿真成功率只多1.1个百分点，主要收益先体现在策略推理时间",
+      "organization": "新加坡国立大学HPC-AI Lab / InfRec Cardinal AI Lab / UC Berkeley / 香港科技大学",
+      "published": "2026-11-03",
+      "date_label": "论文v1为11月3日17:56:42 UTC；11月4日05:04 UTC作者HF说明；11月5日核读全文、作者项目与官方仓库入口",
+      "summary": "Route Anything以25基准、452候选配置、374,401次评分建立跨模态路由比较。具身部分在RoboTwin中训练Qwen3.5-4B+LoRA(rank8)，输入指令、3张240×320相机帧和机器人状态，以7个sigmoid头预测各VLA策略成功概率，而非强制学习唯一赢家。router按35/5/10任务族划分，10个router未见测试任务的2000场景中，路由成功率71.55%，最佳固定ME-Dex为70.45%，配对差+1.10个百分点，95%区间[-0.40,+2.55]；每场策略推理时间11.05秒对14.51秒。 训练使用49,000个逐策略结果；7个候选为π0.5、GigaBrain、Spatial Forcing、X-VLA、X-WAM、PatchWAM和ME-Dex。",
+      "why": "它把“Agent调策略是否有用”拆成可测决策：干净场景更常选PatchWAM，随机场景更常选ME-Dex。相同输入、底座和训练数据下，唯一赢家分类器成功率仅42.8%，逐策略成功预测为71.6%；因为多数场景有多个成功策略，按延迟打破平手会把大量成功样本错误标成负类。主结果不提供稳健胜率提升证据，但支持路由标签设计和推理开销的研究价值。HF当前只读到作者说明，不称社区热议。",
+      "limitation": "RoboTwin仿真结果，非RoboDojo榜或实机；10任务/2000场景的增益置信区间跨0，不可称显著战胜最佳固定策略。policy time只累计策略查询推理秒数，不是含机器人动作、感知、网络和router开销的全程墙钟时间。8.82×为跨不同设置的质量/美元或质量/策略秒平均效率，不是机器人成功率或端到端速度倍数。机器人router仅一个训练seed，三帧与状态已经提供感知信息；理论固定状态分布不覆盖由前次路由改变后续状态的完整长程闭环。 七个底层策略都在全部50个RoboTwin任务上co-train，因此新任务划分只对router成立，不是策略层任务OOD。作者开源README明确omni-modal矩阵为私有，不发布逐任务记录、split、媒体、嵌入或训练checkpoint；HF公开replay仅旧代码/文本研究，不能用来复现机器人71.55%。这是每场输入挑一次候选、从记录outcome评价的离线路由，不是已部署逐动作重路由系统；未报告机器人额外重复seed。",
+      "sources": [
+        {
+          "label": "论文v1全文：RoboTwin构型、配对区间与policy time定义",
+          "url": "https://arxiv.org/html/2611.05275v1"
+        },
+        {
+          "label": "作者项目入口（SPA，只核标题与公开bundle入口）",
+          "url": "https://mikeeeeeeeeeeeeee.github.io/RouteAnything/"
+        },
+        {
+          "label": "固定官方README：矩阵/模型不公开、replay范围与实验对应",
+          "url": "https://github.com/InfRec-Cardinal/route-anything/tree/e137f3f83c4b62dc1b3ab885d030ccfec64f23e9"
+        },
+        {
+          "label": "HF11月4日作者说明，未见独立技术评论",
+          "url": "https://huggingface.co/papers/2611.05275"
+        }
+      ]
+    },
+    {
+      "id": "pyrua-datafarm-agent-sim-video-real-policy-data-20261103",
+      "category": "embodied",
+      "tag": "新论文 · 合成数据 · 作者实机",
+      "title": "PyRUA-DataFarm：Agent生成仿真专家与多视角视频，再训练π0.5上实机",
+      "organization": "北京大学、NVIDIA",
+      "published": "2026-11-03",
+      "date_label": "arXiv v1于11月3日18:25:14 UTC首发（北京时间11月4日02:25）；11月5日核读全文、项目和DataFarm分支README，无独立复现",
+      "summary": "DataFarm接收每个场景一个校准episode与数据请求，由编码Agent拟合相机与场景、生成仿真任务和专家，再用冻结judge及留出初态验收。仿真给出动作，MiniMax-H3或Seedance以真实图像为外观参考，同画布生成头部和双腕视频，review验收后训练π0.5。五个双臂PiPER任务为叠杯、苹果称重、敲鼓、拉抽屉放积木并关闭、折毛巾。每来源每任务100条训练数据，原场景100次实机试验成功93次，真实遥操训练为84次；未见桌布与彩灯下为87对46。",
+      "why": "它将Agent作用从在线控制延伸到数据生产：Agent生成仿真专家与带动作标签的外观视频，最终部署的是后训练π0.5。三组来源（真实遥操、同轨迹Sim+DR、DataFarm）共用观察/动作空间和相机，训练均为50步动作horizon、batch128、50k步。每任务每条件20次，随机初始摆放在策略间共享。Sim+DR原场景26/100、OOD21/100，提供检查外观生成的匹配对照；DataFarm训练混合原外观及变化材质/灯光，测试桌布不在训练中。",
+      "limitation": "结果为作者报告，无独立复现和多seed置信区间。OOD只指未见桌布与彩灯，不代表新任务、物体或跨本体；任务、机器人与目标场景由同一校准流程生成，并非完全独立新任务测试。校准录像仍需实机和人工前置采集，不能称零真实输入；未重复使用校准动作不等于没有真实图像参考。论文未报告实机控制频率、动作块执行前缀、延迟、人工接管/安全干预计数，不能由仓库支持EEF或delta-EEF推断试验具体配置。每任务约21美元适配加5美元render合同、边际0.80美元只按作者API/租GPU/审核口径；100条摊销均值1.06美元/条，并非全部研发、校准和硬件成本。默认H3每worker需至少172GB空闲GPU；Seedance按公开价为12–63美元/条，不能套0.80美元。与中国117美元/可用小时报价、北美290美元人工估算并非同口径实测；北美估算不含机器人/场地。最便宜Sol方案在两任务需后续指令且接纳了超关节速度数据，作者主成本采用不需人工介入的Opus5.5/SoL-Pi，不能把最便宜代理等同同质结果。仿真器、视频模型、资产和数据未包含；独立review指分离执行而非独立团队，部分角色分离由指令保证。",
+      "sources": [
+        {
+          "label": "v1全文：匹配实机对照、成本与限制",
+          "url": "https://arxiv.org/html/2611.05320v1"
+        },
+        {
+          "label": "作者项目：本体、视频和研究归属",
+          "url": "https://dagroup-pku.github.io/PyRUA-Lean/DataFarm/"
+        },
+        {
+          "label": "DataFarm代码分支：外部依赖与开放范围",
+          "url": "https://github.com/DAGroup-PKU/PyRUA-Lean/tree/DataFarm"
+        }
+      ]
+    },
+    {
+      "id": "dreamx-latent-actions-video-prior-open-loop-policy-20261104",
+      "category": "embodied",
+      "tag": "视频潜在动作 · 预印本 · 项目公开/代码待发",
+      "title": "DreamX把视频先验压成潜在动作：跨本体迁移与闭环策略须分开看",
+      "organization": "KAIST / NVIDIA",
+      "published": "2026-11-03",
+      "date_label": "论文v1首发11月3日；作者11月4日提交HF Papers，项目页已公开、Code标为soon；11月5日核读全文和附录",
+      "summary": "DreamX以Cosmos-Predict2.5 2B为视频骨干，使用人类与机器人视频预训练潜在动作编码器，每个VAE潜在视频帧从1,200个token压为4个查询token，再用于视频迁移、人的动作到机器人开环执行，以及单独训练的观测条件机器人策略。双臂YAM关抽屉实验用45条轨迹训练、3种配置各10次测试；作者报告平均子目标分96.7%，单次策略调用1,474毫秒，对照Mimic-Video为50.0%与28,226毫秒。",
+      "why": "它尝试让视频模型提供可跨外观、本体复用的动作表示，再由专门动作头把紧凑代码解成机器人指令，补充Agent调用底层策略以外的训练路线。关键新意是压缩并解耦动作相关动态，而不是只生成一段好看的未来视频。11月4日作者公开说明构成当前关注点；HF50票只是读取快照，未核到独立复现或具体反对意见，不能据此称社区共识。",
+      "limitation": "300倍指每个潜在帧的token数比，不是系统算力或端到端300倍加速；19.1倍是与该Mimic-Video对照的单次推理延迟比，不是机器人全程速度。96.7%是到达/推动两个子目标再跨配置平均的分数，不是完整任务成功率；推动完成分别80%、100%、100%，样本很小。人的动作到机器人示例是仅用初始本体状态、无视觉反馈的开环迁移；关抽屉策略是另行训练的闭环设定，不能把zero-shot标签套给全部实机策略。两方法预训练骨干与表示不同，不能将全部收益只归因token压缩。人类视频可监督潜在代码，但底层机器人动作头仍需相应机器人监督；Code soon，未核到完整代码/权重公开。本日报未运行或独立复现。",
+      "sources": [
+        {
+          "label": "论文v1全文及B.1–B.3/C.1：开环动作迁移、30次实机与子目标口径",
+          "url": "https://arxiv.org/html/2611.05377v1"
+        },
+        {
+          "label": "官方项目：方法、演示与Code soon状态",
+          "url": "https://cvlab-kaist.github.io/DreamX/"
+        },
+        {
+          "label": "HF作者11月4日发布说明",
+          "url": "https://huggingface.co/papers/2611.05377"
+        }
+      ]
+    }
+  ],
+  "technical_explainer": {
+    "id": "backprop-autograd-and-optimizers",
+    "title": "反向传播与优化器：一个答错的token怎样改动模型权重？",
+    "summary": "反向传播沿计算图求出损失对每个可训练参数的局部导数，优化器再结合学习率、动量与缩放决定更新。它解释“训练模型”究竟在做什么，也帮助区分直接编辑权重、LoRA/DPO训练和仅修改Agent代码记忆。",
+    "reading_minutes": 7,
+    "why_now": "今天的权重编程争论关心“不按常规梯度训练也能否修复网络”，LoCo则用局部偏好数据做真正的梯度训练，LIFE与Q0又分别涉及模块权重和运行时状态。这里补齐共同基础。反向传播资料发表于1986年，Adam首版为2014年，AdamW首版为2017年；它们是本期用于理解训练的原理来源，不是今日新成果。",
+    "sections": [
+      {
+        "heading": "1. 先分开三件事：答案、损失、权重",
+        "paragraphs": [
+          "语言模型先用当前权重处理上下文，为下一个token产生一组概率。若训练目标是正确token t，常见负对数似然损失是 −log p(t)：正确项概率越低，惩罚越大。这里的“正确”由训练目标与数据决定；数学答案验证、人工偏好或DPO会改变目标怎样构造，但不会凭空替模型定义所有现实价值。",
+          "权重是跨输入保留的参数；激活值是这次前向计算产生的中间量；梯度则回答：在当前输入和当前权重附近，小幅改变某个参数，损失大约怎样变化。这三者不是同一种记忆。一次推理可以更新上下文、KV cache或Agent的经验文件，却完全不修改模型权重。"
+        ]
+      },
+      {
+        "heading": "2. 前向计算留下依赖，反向计算沿依赖传递导数",
+        "paragraphs": [
+          "把模型想成许多可微运算组成的计算图：矩阵乘、非线性、归一化、注意力，最后得到损失。前向阶段按依赖顺序算数，并保存反向需要的中间信息；反向阶段从损失开始，按反方向使用链式法则，把“输出受输入影响多少”逐层相乘，遇到多条路径则相加。",
+          "例如损失通过两条支路依赖同一个权重，那个参数的梯度必须汇总两条支路的贡献。共享参数在多个token位置出现，也会累计各位置贡献。自动微分系统组织这些局部导数的传递，通常不显式构造整个模型的巨大雅可比矩阵。",
+          "这不是为每个参数单独改一点再跑一遍模型的有限差分。一次标量损失的反向传播就能得到所有参与计算且允许求导的参数梯度。但它仍消耗计算和激活存储；检查点重计算等技术会在显存与计算之间取舍。"
+        ]
+      },
+      {
+        "heading": "3. 反向传播给方向，优化器决定实际走哪一步",
+        "paragraphs": [
+          "最简单的随机梯度下降写成 θ ← θ − ηg，其中g是当前小批量样本估计的损失梯度，η是学习率。负梯度在足够小的局部范围内指向更快降低当前损失的方向；步长太大、样本有噪声或目标发生变化，都可能让实际损失反而升高。一次更新没有全局最优保证。",
+          "Adam还维护梯度的指数移动平均和平方梯度的指数移动平均，经偏差修正后，用前者除以后者的平方根加稳定项，再乘学习率。直观上，它平滑带噪方向，并按各参数的历史梯度尺度调节更新；不能简化成“梯度越大永远更新越大”。",
+          "AdamW将权重衰减从这种自适应梯度缩放中解耦。在Adam中，向损失加L2正则与独立做权重衰减通常不再等价。学习率、衰减、梯度裁剪和哪些参数可训练，都属于训练方法的一部分，不能只记录底座名字与训练步数。"
+        ]
+      },
+      {
+        "heading": "4. 从一个答错的token到一次更新，中间还有监督设计",
+        "paragraphs": [
+          "训练语言模型时，多个位置的token损失通常按一定方式汇总，再回传到共享参数。同一个参数可能同时影响词义、格式、推理与其他行为，因此“纠正这一个token”不等于只改一条独立规则，也可能损伤其他能力。验证集、对照与训练后评测负责检查这种迁移。",
+          "LoRA冻结原有大矩阵，只训练额外的低秩矩阵，仍然需要损失、链式法则和优化器。LoCo把相同推理前缀之后的较短正确延续与冗长延续组成偏好对，再用DPO训练LoRA；局部数据构造不等于只修改某几个token专属的权重。",
+          "反过来，模型借助Python识别某个方向并直接编辑权重，可以不经过常规反向传播；它是否可靠要看定位依据、前向试验、允许的反馈和独立测试。Q0写计划或EmbodiedEvo积累代码与经验，也不能据此叫作策略权重训练。"
+        ]
+      },
+      {
+        "heading": "5. 读训练代码时，留意梯度在哪里被切断",
+        "paragraphs": [
+          "有些模块参与前向，但权重被冻结；有些中间张量被detach，阻止梯度沿该路径继续传播；有些步骤处于不记录梯度的上下文。三者都会改变实际训练的对象与路径，不能只看结构图上“接在一起”。冻结参数也不自动表示所有相关中间计算都能省掉。",
+          "常见实现会先清理旧梯度，执行前向，调用backward计算或累计梯度，最后optimizer.step更新权重。若有意跨多个小批次累积，就应检查损失归一化、累积步数和更新时机；“调用一次backward”与“更新一次模型”并非永远一一对应。",
+          "梯度是当前数据和参数附近的敏感度，不是某个神经元拥有某种能力的因果证明；训练损失下降也不是OOD能力提升的充分证据。直接权重编辑、梯度优化、只读记忆迁移都可以有用，但需要各自匹配的实证。"
+        ]
+      }
+    ],
+    "example": {
+      "title": "教学算例：用两个参数走一次前向、反向与更新",
+      "paragraphs": [
+        "以下是人为设定的单样本线性模型，演示普通梯度下降，不是真实语言模型实验。令预测 ŷ=wx+b，输入x=2，目标y=5，初始w=1、b=0，损失L=(ŷ−y)²/2。前向得到ŷ=2、误差−3、L=4.5。",
+        "链式法则给出 ∂L/∂ŷ=−3，∂ŷ/∂w=x=2，∂ŷ/∂b=1，所以g_w=−6、g_b=−3。取学习率η=0.1，使用同一次前向所得的两个梯度同时更新：w=1.6、b=0.3。",
+        "新预测为1.6×2+0.3=3.5，新损失为(3.5−5)²/2=1.125。这个例子展示损失如何经导数变为参数变化；真实模型有共享参数、海量数据与非凸目标，不能由这一个下降步骤推断泛化或长期收敛。"
+      ]
+    },
+    "comparison": {
+      "caption": "同样说“系统改进”，实际更新对象不同",
+      "columns": [
+        "过程",
+        "更新对象",
+        "是否需要常规反向传播"
+      ],
+      "rows": [
+        [
+          "常规微调 / DPO / LoRA",
+          "全部或部分可训练权重",
+          "通常需要；损失与可训练参数可不同"
+        ],
+        [
+          "直接权重编辑",
+          "选定权重或参数方向",
+          "可使用梯度，也可用解析规则或代码搜索，须查具体方法"
+        ],
+        [
+          "Agent代码、工具与经验迭代",
+          "可执行程序、提示或经验文件",
+          "不必更新模型权重"
+        ],
+        [
+          "单次推理的上下文与KV cache",
+          "当前序列激活及缓存",
+          "通常不更新权重；TTT等是另有训练环节的设定"
+        ]
+      ]
+    },
+    "checklist": [
+      "训练目标如何定义，监督与验证器是否可靠？",
+      "哪些权重允许训练，哪些路径被冻结或detach？",
+      "实际优化器、学习率、有效batch、梯度累积和衰减是什么？",
+      "报告的是训练损失、独立测试还是对同一批题反复调参后的结果？",
+      "更新成本包含数据构造、前向搜索、反向、验证与人工投入吗？"
+    ],
+    "takeaway": "先看损失怎样产生，再追梯度传到哪些参数，最后看优化器如何更新；“参数变了”与“具备新能力”之间还隔着独立评测。",
+    "sources": [
+      {
+        "label": "Rumelhart、Hinton、Williams：Learning representations by back-propagating errors，1986；链式法则训练的原始资料",
+        "url": "https://www.nature.com/articles/323533a0"
+      },
+      {
+        "label": "Kingma与Ba：Adam，2014年首版；自适应一阶优化",
+        "url": "https://arxiv.org/abs/1412.6980"
+      },
+      {
+        "label": "Loshchilov与Hutter：Decoupled Weight Decay Regularization，2017年首版；AdamW与L2的区别",
+        "url": "https://arxiv.org/abs/1711.05101"
+      },
+      {
+        "label": "PyTorch官方Autograd mechanics源码：11月5日通过官方GitHub读取；网页正文重定向/403，未称网页已读",
+        "url": "https://github.com/pytorch/pytorch/blob/main/docs/source/notes/autograd.md"
+      }
+    ]
+  },
+  "research_supplement": {
+    "id": "q0-preview-spatial-geometry-harness-architecture",
+    "title": "Q0-Preview怎样把“看懂位置”变成机器人动作？从三点目标拆到执行回执",
+    "summary": "11月3日新公开的Q0代码把此前榜首的黑箱变成可检查的运行链：多视角RGB与标定→前沿模型＋持久Python几何工具→三点动作合同→CuRobo与关节执行→新观测检查。它没有本地VLA训练；公开配置与历史榜单结果的对应仍有缺口。",
+    "reading_minutes": 8,
+    "why_now": "10月30日Q0首次登上仿真Agent榜；11月1–2日仍无内部工件可读。11月3日08:15:40 UTC首次代码提交974a4c7公开harness与控制器；本次固定核读当日15:01:10 UTC的1dc073f。后者移除了任务来源哈希及一致性检查，不将其包装成新方法。11月5日重读网站JS，数据标记11月3日，仿真Agent前六及分数未变；新条目SLA-Preview属于实机VLA。",
+    "sections": [
+      {
+        "heading": "1. 底座：默认Opus 5.5，Astra是另一份配置",
+        "paragraphs": [
+          "安装文档将config/agent.opus55.json列为默认，model字段为claude-opus-5-5；另一份agent.gpt6astra.example.json为gpt-6-astra。harness/api.py在规划时请求xhigh effort与最多49152个输出token，在隔离检查时请求low与1536个输出token；这些是请求参数和上限，不是实际每轮开销。",
+          "一次运行由选定配置的同一个模型承担规划和检查，不在API错误后自动换模型。Opus支路使用adaptive thinking和流式Messages，Astra支路使用非流式Responses。公开配置没有历史榜单的完整调用日志；不能据默认值宣布74.20分由某一底座单独取得，也不能把API别名当作不可变权重快照。"
+        ]
+      },
+      {
+        "heading": "2. 观测：RGB先有标定，世界坐标才有依据",
+        "paragraphs": [
+          "公开适配器支持RoboDojo双臂ARX X5、joint动作和单环境服务。输入为头部、左腕与右腕RGB，相机内参与当前camera-to-world外参，双臂关节、末端世界位姿、夹爪状态和任务指令。接口解释USD/OpenGL轴约定，缺标定会报错；深度、对象真实位姿、奖励和成功信号不是必要输入。",
+          "模型可由像素生成世界射线，用给定高度平面求交，或由两相机射线三角化。实际vlm_geom.py还返回射线错距、圆拟合残差、局部毫米/像素等几何量。工具负责数值运算，模型仍须选择与物体有关的像素、平面或参考点；标定可用不保证点选正确。对历史图像做计算时还须绑定同一观测ID的标定，不能把移动腕相机旧图配上当前外参。"
+        ]
+      },
+      {
+        "heading": "3. 规划、工具与记忆：持久Python会话承担几何运算",
+        "paragraphs": [
+          "harness整理当前图像与状态，提供无网络的Docker或bubblewrap Python沙箱，以及NumPy/SciPy、图像和绘图工具。同一episode内代码命名空间保持，reset后重建。模型检查图像、计算坐标后调用submit_trajectory；外部API由宿主调用，Python沙箱不共享凭据。",
+          "接受的计划可携带目标约1200 token的自包含记忆；6000字符只是异常输出护栏，不是精确token限制。上下文保留首轮与近期窗口，原始API尝试、观测和工具工件另行归档。模型权重不因此更新；这是工具、状态和记忆驱动的系统行为变化。任务卡、完成规则与几何参考同样影响模型，应视为策略工件，不能只归为安装附件。"
+        ]
+      },
+      {
+        "heading": "4. 动作接口：模型提交三点姿态，低层生成关节轨迹",
+        "paragraphs": [
+          "每只活动手的目标由有序p0、p1两点和orientation_point构成，单位为世界坐标米。p0→p1是带符号的夹爪轴，两点的物理手指身份不能随图像左右颠倒；交换两点可能请求真实180度翻转，不是同一姿态的另一种四元数表示。夹爪另外给open/close/width/keep与执行前后时机。",
+          "controller把点表达转成末端姿态，借助CuRobo、IK、静态机器人模型、碰撞球与关节限制生成和检查路径，通过标准接口输出关节目标。接触约束可指定平面、法向和工具工作点，但这是几何条件；没有因此增加触觉、力控或物体抓持传感器。25Hz是低层动作接口频率，不能写成前沿模型以25Hz看图推理。"
+        ]
+      },
+      {
+        "heading": "5. 反馈纠错：第二段计划没有预先获得执行权",
+        "paragraphs": [
+          "计划通常含一个动作组，最多两个；每组请求时长不超过3秒。两组计划必须在第一组写明期望的中间可见结果并设置checkpoint。第一组完成后的新图像交给一次隔离low-effort检查；检查没有Python、重规划工具或主历史，只能CONTINUE或REPLAN。超时、格式错误或意外结果都会丢弃待执行的第二组。",
+          "执行器在已确认动作后记录进展，区分已发送和已执行。IK不可达、关节/碰撞或接触平面条件不符会触发重规划，实际末端残差等诊断进入后续观测。夹爪state是命令回显，held_width是估计值，不能由“close已发出”推断物体已抓住；官方成功仍由评测器判定，结束回调不向Agent提供成绩。"
+        ]
+      },
+      {
+        "heading": "6. 预算与公开边界：高分原因仍需消融和历史记录",
+        "paragraphs": [
+          "标准deploy.yml最多允许100个计划、每episode10800秒墙钟、每规划窗口3600秒、每检查60秒。第一条观测启动episode时钟，API等待计入剩余预算；控制步上限来自任务定义。规划和检查等待时不推进隐藏动作，所以仿真控制时间、API等待与墙钟总时长必须分开。默认上限不是实测延迟或总成本。",
+          "本轮核读README、安装说明、配置、观测校验、episode、动作合同、API调用、history、runner、Python沙箱、backend/executor与几何helper；未启动Linux/GPU评测、调用付费模型或运行实机。仓库没有本地策略训练或checkpoint，README称实机结果待后续。三点表达、工具和检查器可能帮助空间计算与纠错，这是机制假说；尚无匹配消融能分别解释74.20分。协议要求三seed均值/标准差及完整已评工件，但规则文本不能补齐某条历史结果的seed、API版本、prompt、预算和代码对应。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "Q0执行链中各层的职责；代码事实与榜单归因分别核验",
+      "columns": [
+        "层",
+        "已核公开实现",
+        "不能据此推出"
+      ],
+      "rows": [
+        [
+          "多模态底座",
+          "默认Opus5.5；Astra示例；规划xhigh/检查low",
+          "默认配置就是历史榜单模型"
+        ],
+        [
+          "空间工具",
+          "标定射线、平面求交、三角化与残差",
+          "无需视觉误差和相机误差分析"
+        ],
+        [
+          "动作合同",
+          "有序夹爪点＋朝向点；最多两组",
+          "模型直接生成每个伺服时刻"
+        ],
+        [
+          "运动控制",
+          "IK/CuRobo、关节限制、碰撞检查、25Hz接口",
+          "通用模型25Hz或已具备触觉力控"
+        ],
+        [
+          "闭环检查",
+          "中间新图像决定继续或重规划",
+          "已证明此模块导致高分"
+        ],
+        [
+          "训练与部署",
+          "无本地策略训练；API模型＋工具/记忆",
+          "策略权重在线学习或实机已复现"
+        ]
+      ]
+    },
+    "example": {
+      "title": "教学例子：先夹杯，再移动；不是实验结果",
+      "paragraphs": [
+        "假设Agent已向夹爪发出闭合命令，但尚未验证是否抓稳杯子。它先提交“保持闭合并短距离抬高”的第一组，以及“平移到碗旁”的第二组，写明中间应看到杯子跟随夹爪抬升。第一组后，检查器看到杯子仍留在桌上，返回REPLAN，第二组被丢弃；模型根据当前观测重新计算目标。这是解释门控逻辑的人为例子，不代表Q0某次真实试验或成功率。"
+      ]
+    },
+    "checklist": [
+      "底座model/API版本、effort和prompt是否与榜单运行逐字节对应？",
+      "输入是否含真实可用标定与机器人状态？夹爪是测量值还是命令回显？",
+      "动作点、姿态、关节与接触条件分别由哪层生成和验证？",
+      "检查失败后是否丢弃预计划动作，并从新观测重算？",
+      "是否同时报告控制步、仿真时间、API等待、墙钟、token和成本？",
+      "是否有同底座、接口和预算的消融，区分控制器、几何工具和检查器贡献？",
+      "公开的是可运行工件、历史冻结运行包还是仅README？仿真和实机证据是否分开？"
+    ],
+    "takeaway": "Q0的公开实现更像“前沿模型做空间决策，Python做几何，运行时分配执行权，经典运动规划落实动作”的组合系统；它说明Agent可以怎样构建，尚不能单凭榜首证明每个设计都有效或已替代实机VLA。",
+    "sources": [
+      {
+        "label": "首次代码公开：974a4c7，2026-11-03 08:15:40 UTC",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/commit/974a4c7e9f91bf7779bdce9bf6c7abb7f72189c1"
+      },
+      {
+        "label": "固定提交README与目录边界",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/blob/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview/README.md"
+      },
+      {
+        "label": "精确模型配置与API参数",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/blob/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview/INSTALLATION.md"
+      },
+      {
+        "label": "观测、标定与信号语义",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/blob/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview/docs/OBSERVATION_INTERFACE.md"
+      },
+      {
+        "label": "三点动作合同与门控",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/blob/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview/runtime/protocol.py"
+      },
+      {
+        "label": "实际几何helper",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/blob/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview/harness/helpers/vlm_geom.py"
+      },
+      {
+        "label": "主循环与隔离checkpoint",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/blob/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview/harness/runner.py"
+      },
+      {
+        "label": "执行器与逐动作反馈",
+        "url": "https://github.com/XPolicyLab/XPolicyLab/blob/1dc073f0189f1e37bbbdc6c40884f0e81cc4b0f0/policy/Q0_Preview/controller/executor.py"
+      },
+      {
+        "label": "当前RoboDojo榜单与分轨",
+        "url": "https://robodojo-benchmark.com/leaderboard#agent"
+      },
+      {
+        "label": "官方评测协议与工件要求",
+        "url": "https://robodojo-benchmark.com/leaderboard/protocol"
+      }
+    ]
+  }
+}
