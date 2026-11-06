@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年11月5日日报：八条动态围绕Q0-Preview首次公开运行链、权重编程的独立质疑与部分复测、RoboColosseum跨站实机横评、LoCo推理压缩、智元LIFE门控与长期记忆、Route Anything离线路由、PyRUA-DataFarm合成数据及DreamX潜在动作。研究专题逐层拆解Q0的空间点合同、经典运动规划与中间视觉检查；默认模型与历史榜单配置对应仍待核。每日技术点讲反向传播、自动微分和优化器。11月3–4日未生成独立日报，本期合并有证据进展并保留原始日期；读取范围、统计和工件开放边界分别说明。
+当前首页为2026年11月6日日报：九条动态围绕METR对AI研发加速的独立评估、PyRUA-REAL实机程序沉淀、多轮RL的错误恢复与预算、ERNIE 5.5 Flash Base开放权重、Seed的SAE-MoE解释工件、T-Rex触觉闭环、Self-Repair受控重试、ServerBench服务优化，以及OpenAI仅按RSS核实的GPT-6 Cyber与Linux漏洞管线简讯。研究专题把实机程序/经验沉淀与重置模拟中的静态指导对照；RoboDojo当前分数仍为11月3日快照。每日技术点讲稀疏自编码器，区分重建、可读标签与因果干预。所有原始日期、公开事件日期、实验分母和访问缺口分别说明。
 
 ## 本地构建与预览
 

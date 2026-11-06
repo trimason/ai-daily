@@ -1,0 +1,605 @@
+{
+  "date": "2026-11-06",
+  "status": "daily",
+  "title": "大模型与具身智能前沿日报 · 2026年11月6日",
+  "coverage": "北京时间2026-11-06核读，聚焦11月4–5日新研究、版本、公开工件和具体独立提问，保留原论文、当前事件和核读日期。Hugging Face Papers网页实际为11月5日日榜，显式该日API有38项，默认接口50项含跨日记录，票数仅为读取快照；arXiv cs.RO/cs.AI/cs.CV/cs.LG目录各读11月5日前50条，RO目录62项中的后12项未逐项核读。export.arxiv.org的RO/CV/LG镜像返回10月30日旧页，已另读arxiv.org当前页，不能将镜像200解释为实时覆盖。国内固定名单161个具体URL尝试，152次请求成功含导航/SPA，不是152个成果；DeepSeek研究/API/GitHub/模型卡与XPENG GroundingPI、GroundAnything分别检查。它石TARS缺已验证官网和模型渠道，只有弱别名检索。human five指定页环境验证、账号检索未读到可核11月新原文；具身智能之心只取得旧/次级线索，两者均不能称无更新或全量覆盖。NeurIPS/ICML/ICLR当届目录、COLM预论文集、CVPR及ACL/EMNLP论文集已读目录，其中CVPR/ACL/EMNLP网页采集上限3.5MB；非逐篇审查。CoRL目录含嵌入内容，另按原论文区分Self-Repair的Learn@Deploy workshop；ICRA/IROS/AAAI入口403、RSS路径404、ICCV主页为2027，ECCV年份另核。RoboDojo本轮数据仍标11月3日，分轨及前列未变；不把新JS哈希当换榜。OpenAI两篇正文403，仅官方RSS简讯；本轮还读取LeRobot版本和原PR作交叉覆盖，未将其提升为能力效果新闻。研究与指标为作者报告，未做本地模型/仿真/实机独立复现；本轮只用请求级代理，未开启系统代理。",
+  "intro": "本期围绕四个当前问题：多轮Agent赢在单步决策还是失败恢复；实机探索怎样沉淀为无需运行时LLM的程序；开放基座和SAE如何让架构与专家分工可检查；独立评估怎样区分研发加速、系统工程收益和未经验证的归因。专题用PyRUA-REAL与Self-Repair新证据延续具身Agent研究，当前RoboDojo榜单没有新换榜。",
+  "highlights": [
+    {
+      "title": "实机经验可以沉淀程序，但先看冻结后的证据",
+      "text": "PyRUA-REAL七类任务可不调用运行时LLM；开发期汇总不等于独立留出成功率，插网线仍有失败与在线协助。",
+      "story_id": "pyrua-real-fixed-model-program-improvement-20261104"
+    },
+    {
+      "title": "多轮RL的成功，不保证每一步更好",
+      "text": "BudgetMix在显式告知回合预算时更稳；独立读者追问未知超时或成本上限，尚无直接实验回答。",
+      "story_id": "multiturn-rl-budgetmix-error-recovery-20261104"
+    },
+    {
+      "title": "ERNIE 5.5 Flash Base公开预训练末态权重",
+      "text": "280B总参数、14B激活，官方同管线评测；专用许可证有条件，不能泛称无限制开源。",
+      "story_id": "baidu-ernie-55-flash-base-release-20261105"
+    },
+    {
+      "title": "METR用内部访问估计研发加速，公开复核仍受删节限制",
+      "text": "AECI趋势约快1.9倍，基准、非AI因素与因果归因均存在不确定性。",
+      "story_id": "metr-anthropic-ai-rd-acceleration-independent-assessment-20261105"
+    },
+    {
+      "title": "MoE专家被选中，不等于贡献最多",
+      "text": "Seed用SAE特征分解专家输出；代码和PDF新公开，精确代数关系不等于全网络因果解释。",
+      "story_id": "bytedance-seed-sae-interprets-moe-open-code-20261105"
+    }
+  ],
+  "reading": [
+    {
+      "title": "PyRUA-REAL原论文与实机开发记录",
+      "url": "https://arxiv.org/html/2611.06768v1",
+      "reason": "把开发期改代码、冻结执行、在线协助和人工贡献逐项分开。"
+    },
+    {
+      "title": "Self-Repair的匹配重试与错配反馈",
+      "url": "https://arxiv.org/html/2611.06863v1",
+      "reason": "比较无反馈重采样、静态指导与匹配错误标签，勿从重试直接归因纠错。"
+    },
+    {
+      "title": "BudgetMix论文与具体独立追问",
+      "url": "https://huggingface.co/papers/2611.06483",
+      "reason": "检查已知回合预算与未知真实部署成本之间的差距。"
+    },
+    {
+      "title": "ERNIE 5.5 Flash Base官方发布与评测",
+      "url": "https://ernie.baidu.com/release/ernie-5-5-flash-base/",
+      "reason": "看干净基座、稀疏注意力/MoE设计和指标并非全面领先的边界。"
+    },
+    {
+      "title": "METR整体研发加速评估",
+      "url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+      "reason": "检查趋势拟合、主观归因和删节后公众能核到什么。"
+    },
+    {
+      "title": "Seed公开SAE分析与原论文PDF",
+      "url": "https://github.com/ByteDance-Seed/SAE-interprets-MoE",
+      "reason": "每日技术点对应的实际代码、模型卡与数据开放范围。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "冻结程序 / frozen executable policy",
+      "explanation": "PyRUA-REAL把开发期经验留在代码和技能中，运行时仍有视觉控制，基础模型权重不因此改变。"
+    },
+    {
+      "term": "错误恢复 / error recovery",
+      "explanation": "多轮RL在注入错误后的状态表现更好，不等于全部匹配状态的单步质量提高。"
+    },
+    {
+      "term": "交互预算 / interaction budget",
+      "explanation": "BudgetMix显式训练不同回合上限，未知timeout和成本上限仍是具体未答问题。"
+    },
+    {
+      "term": "静态指导 / reusable static guidance",
+      "explanation": "Self-Repair的错配反馈与固定指导对照表明，重试收益不自动来自诊断当前错误。"
+    },
+    {
+      "term": "预训练基座 / pretrained base checkpoint",
+      "explanation": "ERNIE 5.5 Flash Base公开预训练末态权重；不能把base结果当作完整Agent模型。"
+    },
+    {
+      "term": "稀疏自编码器 / sparse autoencoder, SAE",
+      "explanation": "用少数潜在特征重建激活，分别检验重建、语义和因果解释。"
+    },
+    {
+      "term": "贡献与路由 / contribution versus routing",
+      "explanation": "专家选择频次、路由权重和对固定SAE特征的贡献是不同统计。"
+    },
+    {
+      "term": "研发加速归因 / AI R&D acceleration attribution",
+      "explanation": "METR内部访问评估给出趋势估计，关键删节和非AI因素限制公开因果复核。"
+    },
+    {
+      "term": "触觉反馈 / tactile feedback",
+      "explanation": "T-Rex以慢视觉动作和快速触觉残差修正配合，需分清训练数据与公开数据。"
+    },
+    {
+      "term": "服务目标合格价值 / SLO-compliant serving value",
+      "explanation": "ServerBench在固定模型和GPU上按符合延迟目标的token价值计分，不把倍数称通用能力增益。"
+    }
+  ],
+  "featured_ids": [
+    "metr-anthropic-ai-rd-acceleration-independent-assessment-20261105",
+    "pyrua-real-fixed-model-program-improvement-20261104",
+    "baidu-ernie-55-flash-base-release-20261105",
+    "multiturn-rl-budgetmix-error-recovery-20261104",
+    "trex-tactile-reactive-official-explanation-20261105",
+    "serverbench-coding-agents-serving-system-design-20261104"
+  ],
+  "stories": [
+    {
+      "id": "metr-anthropic-ai-rd-acceleration-independent-assessment-20261105",
+      "category": "llm",
+      "tag": "AI研发加速 · 独立高访问评估 · 高不确定且有删节",
+      "title": "METR：Anthropic基准进展速度约为旧速率1.9倍，关键证据删节仍限制归因",
+      "organization": "METR（独立评估团队）；被评估方为Anthropic",
+      "published": "2026-11-05",
+      "date_label": "METR于11月5日发布整体评估及单独的风险报告章节复核；评估观察期2026年8月12日至10月29日；本轮实际读取11月6日",
+      "summary": "METR称其2.5名全职当量工作人员在Anthropic进行高访问评估，查看内部研发指标、访谈、调查及模型能力数据。其估计Anthropic自2025年10月以来的AECI模型基准进展速度约为此前的1.9倍（95%区间1.5–2.8）；团队主观判断截至2026年10月，对定义清楚任务的能力进展约为2024年3月至2025年10月速度的两倍，但称合理范围可在1.3至3倍。METR认为当前加速多数可能来自AI辅助研发，但非AI因素也有贡献，归因有显著不确定性；其未发现未来12个月内明确的算力、数据或算法瓶颈，但研究方同时强调判断仍不稳。",
+      "why": "这是一份基于企业内部访问而非公开基准猜测的独立评估，提供了关于模型研发加速的近期定量估计。当天值得看的争点是透明度和因果归因：Anthropic有权删去多数最有信息量的内部证据，METR明确说公众因此不得不更依赖评估者判断；AECI也是定义清楚、可验证基准，不等于现实世界所有研发任务。METR同日另发对Anthropic 8月Risk Report“automated R&D”章节的单项复核，认为当时模型可能已越过其早期预警阈值，但这是同一评估团队的相关分析，不算独立重复确认。",
+      "limitation": "估计只针对Anthropic、特定内部模型/任务与METR获得访问的期间，不能外推为行业平均或AI已经自主完成研发。1.9倍来自AECI历史趋势拟合，METR自己的稳健性分析随基准、模型日期和纳入方式可在1.1至2.9倍间变化；内部能力基准也可能过拟合，数据点稀疏且滞后。归因AI的约80%是团队对当前加速的主观估计，不是随机对照因果结果。多数关键内部证据经Anthropic删节，METR承认公众难以独立判断并存在团队内部不确定性。报告还指出增长率早期可能异常低、非AI因素和基准局限均可改变结论。应呈现为独立评估与风险判断，不写成实证证明AI已递归加速或必然导致失控。",
+      "sources": [
+        {
+          "label": "METR整体高访问评估全文，发布11月5日；评估期、AECI数据与删节边界",
+          "url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/"
+        },
+        {
+          "label": "METR单项复核Anthropic 2026年8月Risk Report的自动化研发风险章节，11月5日",
+          "url": "https://metr.org/blog/2026-11-05-rd-section-anthropic-risk-report-august-2026-review/"
+        }
+      ]
+    },
+    {
+      "id": "pyrua-real-fixed-model-program-improvement-20261104",
+      "category": "embodied",
+      "tag": "新论文与代码入口 · 实机探索 · 固定权重Agent",
+      "title": "PyRUA-REAL把实机探索沉淀为程序：七类任务可离线执行，插网线仍需在线协助",
+      "organization": "北京大学；EngineAI；新加坡国立大学",
+      "published": "2026-11-04",
+      "date_label": "arXiv v1于11月4日16:46:03 UTC提交（北京时间11月5日00:46）；11月5日HF日榜与REAL分支代码入口；11月6日核读全文、项目和分支目录",
+      "summary": "PyRUA-REAL让researcher选择实验方向、engineer写代码并读取实机证据，把环境事实、失败经历与可复用实现分别存成L0/L1/L2。基础模型权重保持固定，改进对象是程序、技能与记忆。作者在双Franka Research 3、Robotiq-85夹爪、头部ZED Mini和腕部D405相机上追踪八类任务；七类获得不再调用在线语言模型的程序，执行时仍用实时视觉、控制与恢复逻辑。叠五块的开发阶段中，完整叠放—拆除周期中位数从285.3秒降至156.0秒；这是跨程序版本的发展记录。",
+      "why": "此前PyRUA-Lean侧重部署时写代码，11月5日DataFarm侧重造训练数据；这篇新论文补上“物理交互怎样变成后续可以直接执行的技能”。它也公开不顺利的证据：七类获得无需在线LLM程序的任务，首次成功耗时约1.5–45小时；插网线的脚本执行0/4成功，而包含GPT-6-Astra Medium在线阶段决策的流程10/17成功。论文给出视频、关节轨迹和结果摘要的反馈对照，说明要比较的是反馈信息与开发预算，而不是把一次增分直接叫递归加速。当前未观察到多个独立复现；属于值得跟踪的新方向。",
+      "limitation": "实机91.1%摘要指标及七类任务91.67%–100%的记录汇集开发期多版本尝试，不能当作冻结程序在独立留出实机测试上的可靠性。插网线在线流程包含人工review，不能称完全自主。模拟反馈实验每任务/条件仅一次开发会话，四任务各18次留出执行；有真值状态的BS条件是特权诊断。RoboDojo正文与附录存在84.82%/84.42%及分项数字不一致，本文不采用该模拟总分作头条；与旧榜快照的不同seed比较也不证明新榜首。最新官方榜未列PyRUA-REAL。REAL分支可读取到模拟固定程序、适配器与旧PyRUA-Lean README，未确认包含所有实机程序、校准、完整harness与运行日志；底座在反馈实验和在线协助明确为GPT-6-Astra Medium，但所有实机开发阶段的精确API快照及预算未完整披露。未独立运行实机或模拟。",
+      "sources": [
+        {
+          "label": "原论文v1：完整方法、实机记录、反馈实验与局限",
+          "url": "https://arxiv.org/html/2611.06768v1"
+        },
+        {
+          "label": "原始提交日期与摘要",
+          "url": "https://arxiv.org/abs/2611.06768"
+        },
+        {
+          "label": "作者项目、实机视频与REAL代码入口",
+          "url": "https://dagroup-pku.github.io/PyRUA-Lean/real/"
+        },
+        {
+          "label": "核验REAL分支固定提交1c2843a（11月5日）",
+          "url": "https://github.com/DAGroup-PKU/PyRUA-Lean/tree/1c2843a2d5cfb94e28663465f6c79b39dd8bc4a0"
+        },
+        {
+          "label": "当前RoboDojo Agent轨：不将论文自报当新榜单",
+          "url": "https://robodojo-benchmark.com/leaderboard#agent"
+        }
+      ]
+    },
+    {
+      "id": "baidu-ernie-55-flash-base-release-20261105",
+      "category": "llm",
+      "tag": "百度文心 · 基座模型 · 稀疏MoE与长上下文",
+      "title": "百度开放权重 ERNIE 5.5 Flash Base：280B 总参数、14B 激活，给后训练和 Agent 研究一个新基线",
+      "organization": "Baidu ERNIE Team / 百度",
+      "published": "2026-11-05",
+      "date_label": "官方技术发布页日期 2026-11-05；HF FP8 模型卡同日更新（lastModified 2026-11-05T06:33:30Z）。本条新事件为模型与权重发布；官方页所引用的先前架构论文不作为今日新论文。",
+      "summary": "百度发布 ERNIE-5.5-Flash-Base，公开预训练末态权重，明确未经过 mid-training 或 post-training。模型为 280B 总参数、每 token 激活 14B 的稀疏 MoE，在 33.5T tokens 上从头训练，预训练上下文最高 128K，微调和推理支持 1M。架构将 37 个重压缩注意力 HCA 层与 6 个 MLA-DSA 层结合：HCA 每 128 token 缓存一个条目，MLA 层保留逐 token 访问并用稀疏注意力；MoE 采用 512 个 routed experts（top-10）加 shared expert，Multi-Router 用多路 sigmoid router 缓解单路选择噪声；另含 mHC、MultiMax 输出头和复用骨干末层的 ECHO 单步多 token 预测。官方同一评测管线与 DeepSeek-V4-Flash-Base、Hy3-preview-Base、MiMo-V2.5-Base 对比，ERNIE 在 MMLU 93.3、HumanEval+ 82.3、RepoQA 91.7 等项目占优，但在 ChineseSimpleQA、HELMET-Rerank、InfiniteBench 等项目不占优。",
+      "why": "这是本期国内大模型名单中可核实的最新权重发布，且公开的是干净基座而不是已经混入指令/强化训练的成品，适合作为后续 Agent、推理和领域后训练对照。技术上把稀疏 KV 缓存、MoE 路由、长上下文和训练效率放到同一设计目标下，社区可以直接检查真实权重和统一评测表，而不是只看产品页宣传。",
+      "limitation": "这是官方自报发布和同一评测管线，尚无本地独立运行或第三方复测；280B 总参数并不等于每 token 计算 280B，14B 是激活规模。1M 是微调/推理支持上限，不等于每个任务都在 1M 长度下验证。结果为 base checkpoint，不能直接当作已完成 Agent 或具身控制模型；官方称 post-trained ERNIE 5.5 后续发布。部分长上下文与自由回答指标由官方 LLM judge 或特定 harness 得出，需保留提示、few-shot 和 judge 细节。 权重使用专用 ERNIE 5.5 Flash Base License v1.0，并非 Apache/MIT；许可的地域排除欧盟、英国和韩国，商业相关产品或服务年营收不超过5000万美元（含恰好等于）时需一次性事前通知并标示Powered by ERNIE，超过5000万美元需事先书面授权，不能把公开权重等同无限制开源。",
+      "sources": [
+        {
+          "label": "百度 ERNIE 官方技术发布页（2026-11-05）",
+          "url": "https://ernie.baidu.com/release/ernie-5-5-flash-base/"
+        },
+        {
+          "label": "HF FP8 权重与完整模型卡",
+          "url": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Base"
+        },
+        {
+          "label": "HF BF16 权重入口",
+          "url": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Base-BF16"
+        },
+        {
+          "label": "权重许可协议原文",
+          "url": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Base/blob/main/LICENSE"
+        }
+      ]
+    },
+    {
+      "id": "multiturn-rl-budgetmix-error-recovery-20261104",
+      "category": "llm",
+      "tag": "多轮Agent RL · 新预印本 · 预算与局部动作质量",
+      "title": "多轮RL的优势可能来自纠错而非每一步更聪明：BudgetMix在短回合预算下更稳",
+      "organization": "中国科学院自动化研究所 / 中国科学院大学 / 清华大学",
+      "published": "2026-11-04",
+      "date_label": "arXiv v1提交2026-11-04 13:24:54 UTC（北京时间11月4日21:24:54）；HF条目11月4日，作者提交显示11月5日；独立读者提问2026-11-05 09:08:13 UTC（北京时间17:08:13）；本轮读取11月6日",
+      "summary": "论文在FrozenLake、DeepCoder-MT、BFCL-v3和InterCode-SQL上比较Qwen3-4B/8B的GRPO、GiGPO、PPO全预算RL与BudgetMix RL。将Pass@(K,T)同时按采样宽度和交互回合预算评估后，作者发现标准多轮RL的轨迹成功优势在预算收紧时显著减弱；在匹配状态上，RL并不普遍提升下一步动作质量，优势集中在错误后的恢复。BudgetMix只改变训练时的预算分布：按任务满预算的10%间隔采样预算，并把总/剩余预算写入系统提示。Qwen3-4B的BFCL-v3在25%回合预算下，Base/GRPO Full/GRPO BudgetMix的Pass@8分别为3.0%、2.5%、8.5%；作者跨两个模型规模、三种RL算法与四任务汇总，25%、50%、75%预算下相对全预算RL的平均提升分别为7.5、5.3、4.0个百分点。",
+      "why": "它把“多轮Agent RL有效”拆成两个可能来源：整条轨迹更容易成功，还是每个局部决策本身更好。作者报告匹配状态上，RL在DeepCoder-MT和FrozenLake只有46.8%与42.8%的状态取得更高单步质量；注入错误后的状态则分别为DeepCoder-MT 67.3%、FrozenLake 65.7%，支持“恢复能力”机制解释。HF独立读者Victor Grösser在11月5日09:08:13 UTC追问：BudgetMix把预算写进prompt，但真实部署常只有timeout或成本上限且模型未必被告知，若不公开预算是否仍学会更谨慎的早期策略；截至11月6日00:08 UTC读取未见作者回复。这是一个具体独立问题，不称社区共识。",
+      "limitation": "这是arXiv预印本（v1），不是会议录用或独立复现。实验任务是FrozenLake、DeepCoder-MT、BFCL-v3、InterCode-SQL，主要底座Qwen3-4B/8B；不能外推到机器人或所有多轮Agent。Pass@T实验在训练和评估都显式告知最大/剩余回合，BudgetMix的收益不能直接回答未知硬超时或隐藏成本预算。BFCL 25%那一行是Pass@8的百分比，不能写成单次成功率或所有预算平均；7.5/5.3/4.0是Table 1中两个模型规模、三种RL算法与四任务的汇总平均，不是每个任务的统一增益。匹配状态的单步质量用16次动作采样，FrozenLake用已知动态规划/BFS，DeepCoder用官方单测通过率；错误状态通过注入前一步错误动作构造，非自然发生错误的完整分布。预算写入prompt且BudgetMix仅改变预算分布，训练学习率、算法设置等保持基线相同；未报告未知预算条件的直接实验。HF页面有作者摘要和两条评论，读者提问未获回复，不构成独立复现或共识。",
+      "sources": [
+        {
+          "label": "arXiv论文v1全文：Pass@(K,T)、匹配状态、错误恢复和BudgetMix",
+          "url": "https://arxiv.org/html/2611.06483v1"
+        },
+        {
+          "label": "arXiv版本与提交时间",
+          "url": "https://arxiv.org/abs/2611.06483"
+        },
+        {
+          "label": "作者项目页与代码入口",
+          "url": "https://rethinking-agentic-rl.github.io/"
+        },
+        {
+          "label": "HF论文条目：作者提交与独立读者问题（2026-11-05 09:08:13 UTC）",
+          "url": "https://huggingface.co/papers/2611.06483"
+        },
+        {
+          "label": "公开代码仓库",
+          "url": "https://github.com/GaryStack/Rethinking-Agent-RL"
+        }
+      ]
+    },
+    {
+      "id": "trex-tactile-reactive-official-explanation-20261105",
+      "category": "embodied",
+      "tag": "官方新解读 · 旧研究回查 · 触觉闭环",
+      "title": "松下重新解释T-Rex触觉闭环：慢速视觉计划怎样接上快速指尖修正",
+      "organization": "UC Berkeley；NVIDIA；Stanford；Panasonic；La Sapienza等",
+      "published": "2026-11-05",
+      "date_label": "研究首版2026年6月15日、v2为6月18日；11月5日松下发布新的官方技术解读；11月6日回查作者项目与原始日期，非今日新论文",
+      "summary": "松下11月5日技术稿把T-Rex重新带入近期线索。作者项目展示可变速率MoT：慢动作专家完成部分流匹配去噪，轻量触觉专家复用缓存视觉上下文，以新触觉token多次完成残差修正。系统训练使用人类第一视角预训练、100小时触觉中训练和每任务约100条示教；在58自由度双臂/灵巧手平台的12类真实操作上报告平均65%，对最强基线35%为30个百分点。",
+      "why": "关注点是VLA慢规划与快反馈怎样合作，而不是给旧论文换发布日期。数据和机制细节有助于理解触觉为什么不能简单拼到视觉模型输入里：作者的同步/异步及触觉编码消融提供机制证据。本轮仅观察到新的官方解释，尚未发现近72小时独立复现或多位研究者争论。",
+      "limitation": "实验属于6月原研究，11月官方稿未证明新增了评测。12任务每任务16次随机试验，作者表中有多阶段进度rubric，不能默认所有数字为严格二元全任务成功率；触觉编码/异步消融只覆盖6个代表任务。项目同时写100小时总数据和50小时公开play，开放范围应按实际数据卡继续核对；没有在本轮下载数据或权重。未单独核验CoRL2026录用列表，不据新闻稿将其写成主会录用。",
+      "sources": [
+        {
+          "label": "11月5日Panasonic官方解读全文",
+          "url": "https://news.panasonic.com/global/press/en261105-2"
+        },
+        {
+          "label": "作者项目：模型、数据、逐任务/消融和失败案例",
+          "url": "https://tactile-reactive-dexterous.github.io/"
+        },
+        {
+          "label": "arXiv原始日期：6月15日v1、6月18日v2",
+          "url": "https://arxiv.org/abs/2606.17055"
+        },
+        {
+          "label": "作者链接代码入口",
+          "url": "https://github.com/ZhuoyangLiu2005/T-Rex"
+        }
+      ]
+    },
+    {
+      "id": "self-repair-static-guidance-matched-retry-20261104",
+      "category": "embodied",
+      "tag": "新论文 · 自修复对照 · CoRL工作坊",
+      "title": "机器人代码重试成功，究竟来自纠错还是好提示？静态指导接近按失败生成的反馈",
+      "organization": "Stanford University；Sesame AI",
+      "published": "2026-11-04",
+      "date_label": "arXiv v1于11月4日18:19:24 UTC提交（北京时间11月5日02:19）；作者注明CoRL 2026 Learn@Deploy workshop录用；11月6日核读全文",
+      "summary": "研究冻结Qwen2.5-Coder-7B在robosuite Panda抓取/堆叠中的重试：根据失败标签查固定MUST/NEVER指导，再重置场景并重新生成完整程序。在同一252个初始失败上，五次内恢复率为85.3%，同次数重新采样为68.3%；固定2000/5000 token预算下仍有优势。但同任务的不同失败标签反馈、以及每任务一份固定模板都达到86.1%，未检测到匹配当前粗粒度失败标签的额外收益。",
+      "why": "这篇新对照直接挑战“重试变好就证明Agent理解了失败”的归因：额外采样、可复用任务知识、当次故障信息必须拆开。700新场景中，从第一轮就提供固定指导的总体成功率达到92.4%，Compiled为89.6%，两者经多重比较校正后差异不显著；指导与生成指令同时变化，也不能单独归因。它为读PyRUA-REAL、RoboDojo前排系统的反馈与记忆机制提供可操作的实验检查项，并没有测试这些榜单系统。当前是单篇作者研究，不称社区共识。",
+      "limitation": "此处是无图像、特权状态的模拟任务，每次重试回到原始场景；不是从真实失败后的物理状态继续恢复，也没有部署实机。85.3%是“已初始失败的样本五次内恢复”，不是总体任务成功率或独立采样pass@k。无显著差异不证明方法等价；固定模板也会有害：需抓螺母边缘的任务中，中心抓取指导使恢复率82.5%，低于重新采样97.5%。直接编辑与额外反思的较差结果只约束其测试实现。论文提供完整模板和算法，但本轮未找到作者链接的独立代码仓库或复现讨论；CoRL Learn@Deploy为工作坊，不能写成主会录用。",
+      "sources": [
+        {
+          "label": "完整论文v1：匹配对照、静态指导、token预算与反例",
+          "url": "https://arxiv.org/html/2611.06863v1"
+        },
+        {
+          "label": "原始日期与Learn@Deploy工作坊录用声明",
+          "url": "https://arxiv.org/abs/2611.06863"
+        }
+      ]
+    },
+    {
+      "id": "bytedance-seed-sae-interprets-moe-open-code-20261105",
+      "category": "llm",
+      "tag": "Seed · MoE可解释性 · SAE专家分工",
+      "title": "Seed 公开 SAE-Interprets-MoE：把 Qwen3-30B-A3B 的专家输出分解成可追踪的细粒度主题",
+      "organization": "ByteDance Seed / 上海财经大学",
+      "published": "2026-11-05",
+      "date_label": "论文PDF首页标注2026-10-12；本次核验的工件事件是仓库首个commit于2026-11-05 12:34:52 UTC（北京时间20:34:52）包含代码、数据与论文PDF，HF模型卡同日15:40:37 UTC更新。未确认是否存在更早的公开稿；README和卡中arXiv入口仍为TODO，未核到正式发表信息。",
+      "summary": "ByteDance-Seed 新仓库公开 SAE-Interprets-MoE 代码与数据，用 TopK SAE 分析 Qwen3-30B-A3B 的 MoE block 输出。核心做法是利用 SAE 编码器的仿射结构，对固定已选中的 latent，将 TopK 之前的仿射激活值按代数关系分解到被路由的 experts；再单独对专家贡献取正部并归一化，再按语料平均贡献和阈值构造 expert–latent dominance graph，配合自动解释、主题检查与 expert domain 分组。代码覆盖 layer 4、30、46；发布 layer 30 的部分解释、专家标签、11 个 domain 分组和主题判断数据，并链接 2^20 latent、k=100 的 SAE 权重。README 给出的复现实验需约1.5B token 验证集，模型 bf16 约61GB、每层 fp32 SAE 约8GB，三层 tracing 需要两张80GB GPU。 全文报告layer30最大路由权重的平均占比23.1%，而最大正贡献占比51.2%；在阈值0.2下62.1% latent只有一个主导专家，名称与分类很多由GPT-5.5生成。",
+      "why": "这是近24小时国内团队新公开的可运行解释性工件，直接把 MoE 的路由选择和专家实际贡献拆开，为理解‘专家是否真的形成稳定细粒度分工’提供了可复查的 dominance graph 与 released data。它也能与百度 ERNIE 5.5 的 Multi-Router 路由主张形成方法层面对照，但不能将两个项目的结果拼成统一结论。",
+      "limitation": "已读随首commit公开的30页PDF全文、README、trace/aggregate实现和HF模型卡，但未运行复现。精确性限于固定 latent 的 TopK 前仿射分解；dominance统计另外对各专家贡献取ReLU正部并归一化，负贡献被排除。这不等于移除专家后全网络输出的因果作用，也不证明专家功能。只研究一个Qwen3-30B-A3B和三层，SAE重建不完美，FVU为12.6%/25.1%/7.6%；自选的Olmo3验证语料不是未公开的Qwen预训练分布。自动解释、专家标签、domain与theme判断使用GPT-5.5生成，机器解释不是人工事实标注；只释放layer30四个专家的完整解释样本，自动收集上下文/logit的explainer整体管线不在库内。项目网页本次为404，但PDF和代码可由GitHub固定commit读取；尚无独立复测或多方讨论证据。",
+      "sources": [
+        {
+          "label": "随首次commit公开的论文PDF；首页日期10月12日",
+          "url": "https://github.com/ByteDance-Seed/SAE-interprets-MoE/blob/f0464d2d7c164ba7c99b060b812be48f225a32d0/docs/static/paper.pdf"
+        },
+        {
+          "label": "官方仓库 README 与复现实验说明",
+          "url": "https://github.com/ByteDance-Seed/SAE-interprets-MoE"
+        },
+        {
+          "label": "SAE 权重模型卡",
+          "url": "https://huggingface.co/ByteDance-Seed/Qwen3-30B-A3B-MoE-SAE"
+        },
+        {
+          "label": "本仓库首个提交（2026-11-05；未确认更早公开稿）",
+          "url": "https://github.com/ByteDance-Seed/SAE-interprets-MoE/commit/f0464d2d7c164ba7c99b060b812be48f225a32d0"
+        },
+        {
+          "label": "固定贡献追踪实现：正贡献、TopK激活与归一化",
+          "url": "https://github.com/ByteDance-Seed/SAE-interprets-MoE/blob/f0464d2d7c164ba7c99b060b812be48f225a32d0/contribution/trace.py"
+        }
+      ]
+    },
+    {
+      "id": "serverbench-coding-agents-serving-system-design-20261104",
+      "category": "llm",
+      "tag": "编码Agent评测 · 新预印本与开源基准 · 推理服务系统设计",
+      "title": "ServerBench让编码Agent设计完整LLM服务：33次运行中22次通过独立验证",
+      "organization": "卡内基梅隆大学 / 南加州大学",
+      "published": "2026-11-04",
+      "date_label": "arXiv v1于11月4日17:59:07 UTC提交（北京时间11月5日01:59）；README固定提交为11月5日17:34:28 UTC（北京时间11月6日01:34）；11月6日核读全文、项目与README",
+      "summary": "ServerBench要求Agent从Transformers基线出发，在固定模型、GPU、工作负载和服务等级目标下，用8小时改造完整LLM推理服务并选择并发量。评测跨11种编码Agent和3种部署（Gemma 4 E4B/1×L40、Qwen3.5 9B/2×L40、Qwen3.8 27B INT4/2×L40），每个Agent-部署组合运行一次，共33次；22个最终系统通过新部署、留出工作负载重放和模型行为验证，13个超过最强vLLM/SGLang基线。Gemma E4B部署中Claude Sonnet 5.5得2.97“合格token价值/每GPU美元”，相对vLLM的0.61为4.87倍；另一部署由Opus 5.5领先。",
+      "why": "它把编码Agent能力从局部代码题扩展为服务目标、实验选择、系统优化和交付验证的完整闭环。工作负载来自代码Agent会话重建，保留共享上下文、依赖请求和并行分支；Agent需要在吞吐与p90首token/每token延迟之间选并发。作者实际分析到孤立/短测可能漏掉长上下文卡顿与跨请求崩溃，最终需独立校验完整prompt、输出长度、流式一致性、模型checkpoint忠实度和留出题正确率。研究首发两日内未找到独立技术复现；已读的作者开源项目和论文是主要证据，不称为社区热议。",
+      "limitation": "4.87倍是Gemma E4B单一模型/硬件/固定价格与延迟阈值下的每GPU美元合格token价值相对vLLM基线，不是模型质量、吞吐倍数或端到端利润。开发Agent的API成本另算，不在该服务价值分母里；OpenRouter token价格快照为10月13日。总计33个Agent-部署组合，每组合一轮8小时开发，只有30轮有可分析的执行记录；论文明确说需重复运行来分离Agent和工作负载随机性。最终系统在独立新部署上重放不同seed，但开发/验证共享重建语料来源，仅请求seed区分；其工作负载不是完整真实生产流量。公开仓库含基准/harness和记录，复现仍需Linux、NVIDIA GPU、约200GB磁盘、各模型工件与Claude Code或Codex认证。纯服务工程结果不代表Agent能普遍自主改进LLM权重或研究算法。",
+      "sources": [
+        {
+          "label": "arXiv论文v1：指标定义、11种Agent、三部署、验证和限制",
+          "url": "https://arxiv.org/html/2611.06841v1"
+        },
+        {
+          "label": "项目页与全部模型/基线结果表",
+          "url": "https://infini-ai-lab.github.io/Server-Bench/"
+        },
+        {
+          "label": "公开Apache-2.0代码、harness、任务与运行说明；README固定提交",
+          "url": "https://github.com/Infini-AI-Lab/Server-Bench/tree/b80a3fb21ff9037bedbde78536a5b918f100c6cc"
+        },
+        {
+          "label": "被测AgentX回放harness",
+          "url": "https://github.com/SemiAnalysisAI/agentx-harness"
+        }
+      ]
+    },
+    {
+      "id": "openai-gpt6-cyber-and-linux-pipeline-rss-20261105",
+      "category": "llm",
+      "tag": "网络安全Agent · 官方RSS简讯 · 正文读取受限",
+      "title": "OpenAI公布GPT-6 Cyber，前一天披露Linux漏洞验证与补丁管线",
+      "organization": "OpenAI",
+      "published": "2026-11-05",
+      "date_label": "Linux研究报告官方RSS标11月4日08:00 UTC（北京时间16:00）；GPT-6 Cyber公告11月5日09:00 UTC（北京时间17:00）；本轮读取11月6日",
+      "summary": "OpenAI官方RSS于11月5日发布“GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents”，摘要称这是用于发现可利用漏洞、开发修复并训练为留在授权范围内的网络安全模型。前一天同一RSS发布“A thousand fewer paths to root”，摘要称其自主管线在Linux内核中发现、验证并生成948项本地提权漏洞的修复。两条官方事件为本期新增动态，模型公告日期与漏洞报告日期分别保留。",
+      "why": "它提供了通用/专用模型进入可执行安全研究工作流的新事件线索：从发现漏洞推进到验证和修复。此次已读到的是官方RSS标题、日期与摘要；仍需读取系统卡、模型访问说明和漏洞报告全文，才能评价具体能力、验证方式、补丁接受状态及可用性。",
+      "limitation": "本轮普通直连及既有请求级代理读取两篇openai.com正文均403；开发者模型入口亦403，文本读取服务超时，网页工具未返回可用正文。只据RSS确认上述标题、事件日期和948口径，不声称已核系统卡、精确模型ID、公开API可用性、扫描耗时/候选数、PoC/去重/补丁接受分母或成本。RSS中的“生成修复”不等于948项补丁均已被Linux维护者接受或合入；未独立复现，未取得可读取的独立技术讨论原帖，不称社区共识。本条按官方RSS简讯呈现，不作量化能力重点。",
+      "sources": [
+        {
+          "label": "OpenAI官方新闻RSS：两篇公告的标题、日期和摘要均已实际读取",
+          "url": "https://openai.com/news/rss.xml"
+        },
+        {
+          "label": "GPT-6 Cyber官方公告入口（本轮正文403，内容范围仅RSS）",
+          "url": "https://openai.com/index/introducing-gpt-6-cyber"
+        },
+        {
+          "label": "Linux自主漏洞管线官方报告入口（本轮正文403，内容范围仅RSS）",
+          "url": "https://openai.com/index/a-thousand-fewer-paths-to-root/"
+        }
+      ]
+    }
+  ],
+  "technical_explainer": {
+    "id": "sparse-autoencoder-dictionary-and-causal-boundaries",
+    "title": "稀疏自编码器 SAE：怎样把混在一起的模型激活拆成可读特征？",
+    "summary": "SAE在冻结模型的一层激活旁训练一个稀疏字典，用少数特征近似重建每次激活。它让研究者寻找比单个神经元更细的模式，但重建好、标签可读和真正影响模型行为是三个需要分别验证的问题。",
+    "reading_minutes": 7,
+    "why_now": "Seed在11月5日公开用SAE解释MoE专家分工的代码、部分解释数据与权重，本期需要先理解这把测量工具。Cunningham等的基础研究发表于2023年9月，Gao等的TopK与评测研究首发2024年6月；它们是今天的原理来源。Seed随代码公开的论文PDF标注2026年10月12日，不把11月5日工件公开当成论文内容当天才产生。近30期已讲MoE路由和反向传播，本期转向如何测量激活中的特征。",
+    "sections": [
+      {
+        "heading": "1. 为什么一个神经元可能同时响应好几种事情？",
+        "paragraphs": [
+          "语言模型某层给每个token产生一个多维向量。一个坐标可以同时受到代码格式、词义、标点和上下文影响。把这个坐标叫作“代码神经元”，常会遇到它也在完全不同文本中变大的反例。单个坐标和人类概念没有天然的一一对应关系。",
+          "一个有用假说是叠加：模型把更多特征放在有限维空间中，用不同方向表示；只要它们通常很少同时出现，就能减少互相干扰。方向可以不是彼此垂直，也不必与原神经元坐标轴一致。SAE尝试从真实激活中学习这些方向；这是假设驱动的近似分解，不是读取模型自带的一本概念词典。"
+        ]
+      },
+      {
+        "heading": "2. 字典很大，每次只使用少数条目",
+        "paragraphs": [
+          "设原激活是x。编码器先把x映射到更宽的潜在向量z，再让大多数分量变为零；解码器用留下的少数系数，加权相加一组字典方向，得到近似重建x̂。每个解码方向像字典中的一个条目，z中的数值表示这个条目在当前token上使用多少。",
+          "普通压缩自编码器常把中间维度缩小；解释性SAE反而可以把字典扩得很大，然后对每个样本施加稀疏约束。宽度回答“可备多少条目”，稀疏度回答“当前准用几条”。拥有百万潜在特征不表示每个token都启用百万条，也不表示模型本身增加百万个专家。",
+          "经典训练目标同时惩罚重建误差与激活系数的L1大小：少数条目要尽量解释原向量。TopK变体则直接保留得分最高的k个分量，其余置零，并通常结合非负激活；这是控制稀疏度的另一种方式，并非所有SAE都必须使用TopK。"
+        ]
+      },
+      {
+        "heading": "3. 实际工作流程：冻结模型，另训一把测量工具",
+        "paragraphs": [
+          "第一步，选定模型、层和位置，例如残差流、MLP输出或MoE block输出，再用明确的语料跑前向并收集激活。不同位置和语料可能得到不同的字典，不能把一层结论自动搬到所有层。归一化、偏置、token过滤及样本分布也要记录。",
+          "第二步，在这些激活上训练SAE。优化器改变的是编码器和解码器参数，底座模型可以保持冻结。训练一个解释器不是再次后训练底座，更不是改变生产模型的路由。第三步，用未参与训练的数据测量稀疏度、重建误差、从未激活的死特征，以及替换激活后模型损失的变化。",
+          "最后才做解释：寻找特征高激活、一般激活和不激活的片段，提出一个可被反例推翻的描述，再在新文本上检验。只展示最漂亮的十个例子容易形成选择偏差；自动解释模型给出的“Java语法”“几何关系”是研究假说，仍需覆盖反例、混合语境和独立检查。"
+        ]
+      },
+      {
+        "heading": "4. 稀疏与重建之间有取舍，低误差也可能不够",
+        "paragraphs": [
+          "k太小会丢失信息；k很大可能把信息分摊给许多条目，增加解释成本。比较两个SAE时，应在相近稀疏度下看重建，或报告完整取舍曲线。字典更宽有时能把粗特征拆细，也可能带来重复、特征分裂和训练成本；条目数不是已发现概念数。",
+          "另一个问题是死特征：字典里许多条目几乎从不被选择。它们占用参数，却没有展示可分析的行为。常见改进会处理初始化、重采样或辅助损失，但某个训练办法减少死特征，不自动证明剩下的每条都具有单一语义。",
+          "向量重建误差小，也不保证模型输出几乎不变。某个数值很小的方向可能对后续决策很重要，因此还要把原激活替换为重建值，观察语言模型损失和具体任务性能。纯几何保真、下游保真和人类可解释性要分别报告。"
+        ]
+      },
+      {
+        "heading": "5. 从“特征可读”到“专家负责什么”，中间还差因果检查",
+        "paragraphs": [
+          "Seed本期工作把MoE输出写成路由权重乘各专家输出的和，再利用SAE编码器在非线性之前的仿射结构，将一个latent的预激活分解到专家贡献，并另行处理偏置。这个代数分解回答哪些专家对选定特征贡献较多；只统计专家被选中的次数则回答另一件事。",
+          "精确的是给定模型输出、编码器与偏置约定下的代数关系。跨语料聚合、dominance阈值、主题命名和因果责任仍有额外假设。TopK选择本身有非线性：删去一个专家后，哪些latent入选也可能改变，不能把原来某条贡献直接当成删专家后的完整行为变化。",
+          "要进一步说某特征或专家导致某种能力，通常还需匹配干预：抑制、替换或改变该方向，检查目标行为是否按预期改变，同时观察其他能力和重建误差是否受损。观察到相关贡献、命名一个主题、完成因果干预是不同证据层级。当前工作只研究指定模型的指定层，也不推出所有MoE都有相同分工。"
+        ]
+      }
+    ],
+    "example": {
+      "title": "教学算例：同一向量可以有多种分解",
+      "paragraphs": [
+        "下面完全是人为设定的二维字典，不是真实模型实验。令三个单位方向d₁=(1,0)、d₂=(0,1)、d₃=(1,1)/√2，原激活x=(2,2)。它可以由2d₁+2d₂精确重建，也可由2√2·d₃精确重建。前者使用两条，后者只用一条；两个坐标并没有限制字典只能有两条。",
+        "在这个字典里，追求一次只用一条会偏好d₃。但仅凭这组数字，无法把d₃叫作“数学”或“代码”：还需看它在什么真实上下文中激活，能否预测新样本，并通过干预检查它与行为的联系。真实SAE同时在大量样本上学习共享字典，结果仍可能随宽度、稀疏度、数据和随机种子变化。"
+      ]
+    },
+    "comparison": {
+      "caption": "阅读SAE结果时，三类证据各回答什么",
+      "columns": [
+        "证据",
+        "可以支持",
+        "仍需另查"
+      ],
+      "rows": [
+        [
+          "重建误差/下游替换测试",
+          "该字典保留多少原激活及任务信息",
+          "条目是否语义清晰、是否有遗漏"
+        ],
+        [
+          "激活样本与自动解释",
+          "某条目与一类上下文相关",
+          "反例、独立验证、模型解释偏差"
+        ],
+        [
+          "特征/专家干预与对照",
+          "在具体任务中有可测行为影响",
+          "副作用、干预是否离开原分布、能否跨任务泛化"
+        ]
+      ]
+    },
+    "checklist": [
+      "底座、层、激活位置、语料与归一化是否明确？",
+      "SAE宽度、L1系数或TopK的k、死特征比例是否同时报告？",
+      "比较是否控制稀疏度，并测量替换激活后的下游损失？",
+      "解释是否查看随机激活、反例与独立留出文本，而非只看top样本？",
+      "所谓精确贡献是在非线性前还是之后，偏置怎样分配？",
+      "语义标签来自人工还是另一个模型，是否经过验证？",
+      "能力归因是否有匹配干预及副作用检查，还是只有相关图？"
+    ],
+    "takeaway": "SAE把激活改写成稀疏字典，提供一种更细的测量坐标；字典的几何保真、语义可读性和因果解释力，必须分别接受检验。",
+    "sources": [
+      {
+        "label": "Cunningham等，2023年9月：稀疏字典、神经元叠加与解释评测",
+        "url": "https://arxiv.org/html/2309.08600v2"
+      },
+      {
+        "label": "Gao等，2024年6月：TopK、扩展规律、死特征与下游保真",
+        "url": "https://arxiv.org/html/2406.04093v1"
+      },
+      {
+        "label": "Seed随11月5日代码公开的论文PDF（PDF标注10月12日）",
+        "url": "https://github.com/ByteDance-Seed/SAE-interprets-MoE/blob/f0464d2d7c164ba7c99b060b812be48f225a32d0/docs/static/paper.pdf"
+      }
+    ]
+  },
+  "research_supplement": {
+    "id": "embodied-rsi-and-self-repair-evidence-20261106",
+    "title": "从“失败后重试”到实机技能沉淀：怎样证明具身Agent真的在改进？",
+    "summary": "本期把两个新证据放在同一检查框架中：PyRUA-REAL在真实双臂平台上把物理探索改写为可冻结程序与L0/L1/L2经验；Self-Repair论文在重置模拟的匹配预算下，固定任务指导取得相近的恢复率点估计，未检测到匹配当前粗粒度失败标签的额外收益。两者都涉及反馈和记忆，但前者更新的是程序/技能/经验，后者没有更新模型权重；均不能直接推出递归加速或榜单系统的构型。",
+    "reading_minutes": 8,
+    "why_now": "PyRUA-REAL于北京时间11月5日凌晨首次公开实机RSI论文，Self-Repair于同日凌晨提交并获CoRL 2026 Learn@Deploy workshop录用声明；它们为近日报反复出现的“Agent能否自我改进”提供了新的实机和受控对照证据。RoboDojo当前资产虽更新为index-X92qyXCU.js，但数据时间仍为2026年11月3日，Agent/main/real分轨与分数未变；因此专题从高分归因转向验证改进对象和实验边界。",
+    "sections": [
+      {
+        "heading": "1. 先问“改了什么”：权重、程序、记忆和工具不是同一层",
+        "paragraphs": [
+          "PyRUA-REAL把基础模型参数固定，研究者和工程师在实机交互中修改任务程序、可复用primitive与经验库。L0保存机器人和工作区事实，L1保存问题、尝试、结果和失败原因，L2保存可执行实现；七类任务的部署程序仍使用实时视觉、状态和控制反馈，但不再调用语言模型。这里发生的是代码/技能/经验的累积。",
+          "Self-Repair使用冻结Qwen2.5-Coder-7B，在每次重置后的模拟场景重新生成完整程序；反馈模板和重试次数改变输入条件，模型权重不变。不能把提示中的规则、缓存的历史或错误标签称为策略权重训练。"
+        ]
+      },
+      {
+        "heading": "2. 实机RSI的证据链：从环境观察到离线执行",
+        "paragraphs": [
+          "PyRUA-REAL的平台是双Franka Research 3、Robotiq-85夹爪、头部ZED Mini和腕部RealSense D405。研究者决定实验目标与停止条件，工程师实现、测试并读日志；程序在执行期使用视觉、控制和恢复逻辑。叠五块的完整周期中位数据报告由285.3秒降至156.0秒，但这是多版本开发记录，不能替代冻结版本的独立留出试验。",
+          "八项实机任务中，脚本离线执行在七项有报告，插网线任务脚本0/4，而含GPT-6-Astra Medium和人工review的在线流程10/17。这个反例说明“把Agent工作编译成程序”可以降低运行期开销，却仍需要在难接触任务上保留在线援助；人类选择SigLIP等方法也进入了经验形成过程。",
+          "按构型链核验：论文在反馈对照与在线插网线部分明确GPT-6-Astra Medium，但所有实机开发会话的精确模型/API快照没有完整列出；标定、控制器和求解器需在探索中建立，不能当作预先提供的完美接口。部署程序可调用SigLIP/SAM等本地感知模型，具体各任务版本与调用链仍需工件。REAL分支固定提交1c2843a可读到模拟任务程序和适配器，未见完整实机校准、研究者/工程师harness及全部日志；开发期预算和人工操作必须继续核实。"
+        ]
+      },
+      {
+        "heading": "3. 底座、动作与开发预算：公开程度还不完整",
+        "paragraphs": [
+          "论文反馈对照和插网线在线协助明确使用GPT-6-Astra Medium，但没有为所有实机开发阶段提供完整不可变API快照；不能把它推定为每条实机记录的统一底座。机器人视觉、标定和本体状态由任务程序使用，L2实现再调用动作primitive和底层控制，并通过新视觉、状态与执行日志闭环。没有证据表明某个未公开WAM或VLA构成全部实机系统，不按RSI标签补架构。",
+          "开发期有研究者/工程师代码代理、记忆积累、真实物理交互和人工review，七类获得无需在线LLM程序的任务，首次成功耗时约1.5–45小时。七项部署期不调用LLM，仍不意味着没有运行时感知、控制和恢复。完整token、人工贡献、全阶段动作接口与校准、冻结程序留出明细尚不齐；REAL分支能核到模拟固定程序和适配器，不能据入口存在宣布全部实机harness已开放。"
+        ]
+      },
+      {
+        "heading": "4. 自修复对照：重试提升来自反馈匹配吗？",
+        "paragraphs": [
+          "Self-Repair在robosuite Panda、特权状态、抓取和堆叠任务中固定252个初始失败。最多五次重试，每次回到原始场景。按失败标签选择MUST/NEVER模板的Compiled恢复85.3%，同预算无反馈重新采样68.3%；不同失败标签模板和每任务固定指导各86.1%，没有检测到粗标签必须匹配当前失败的额外收益。",
+          "从第一轮就加入固定指导的Static-from-Start在700场景上总体成功92.4%，Compiled为89.6%，差异经多重比较后不显著；需抓螺母边缘的任务中，中心抓取模板反而使Compiled82.5%低于重新采样97.5%。因此应同时报告重新采样、错配反馈和静态指导，并检查提示与任务要求是否冲突。"
+        ]
+      },
+      {
+        "heading": "5. 与RoboDojo前排系统如何对照",
+        "paragraphs": [
+          "RoboDojo当前脚本实际记录的Agent前排仍是Q0-Preview 74.20/68.87、GO-3 Nano Preview 61.90/56.42、PyRUA-Lean 55.26/50.35、HexaShell-Preview 53.18/46.85、WorldScape-R²SI 46.58/39.35和EmbodiedEvo45.08/38.95；正式main表w/o Agent最高是WALL-OSS-1.0-lite42.59/34.97，real榜首SLA-Preview42.33/33.89。Score与SR分开，Agent分轨不能证明Agent普遍优于VLA。",
+          "榜单标签与高分不能告诉我们底座精确版本、观测标定、动作接口、开发期预算或是否改权重。PyRUA-REAL论文的RoboDojo对比是10月24日不同seed快照，并且正文/附录总分存在84.82/84.42差异；不能把这项论文补充实验回填成11月榜单新条目。"
+        ]
+      },
+      {
+        "heading": "6. 下一步实验应怎样验收",
+        "paragraphs": [
+          "对实机RSI，至少分开首次成功、冻结程序留出成功、在线援助成功和含人工review的记录；报告本体、传感器、校准、任务试验数、人工操作、墙钟与token。对重试/自修复，固定初始失败和随机种子，匹配重试与token预算，加入无反馈重新采样、错配反馈、静态指导、旧程序编辑和真实失败后不重置的条件。",
+          "若声称递归加速，还应证明跨任务继承、留出任务或本体上的持续增益，并记录总物理交互、人工投入和验证器可靠性；单次脚本增分或经验文件变化不足以证明改进机制本身递归增强或加速。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "两类“改进”证据的对象和边界",
+      "columns": [
+        "证据",
+        "更新对象",
+        "环境与反馈",
+        "可支持的结论",
+        "缺口"
+      ],
+      "rows": [
+        [
+          "PyRUA-REAL",
+          "任务程序、primitive技能、L0/L1/L2经验；基础模型固定",
+          "真实双FR3；视觉/状态/日志；七项离线、插网线仍在线",
+          "实机探索可沉淀可复用程序，运行时可省语言模型调用",
+          "冻结版本独立留出成功率、完整实机工件和人工贡献仍不完整"
+        ],
+        [
+          "Self-Repair",
+          "提示反馈与重试采样；Qwen2.5-Coder-7B权重固定",
+          "robosuite Panda特权状态；重置原场景；252初始失败、五次重试",
+          "固定可复用指导解释大部分重试增益",
+          "无图像、无真实失败状态、无策略权重更新"
+        ],
+        [
+          "RoboDojo榜单",
+          "公开标签、Score/SR与分轨",
+          "仿真三seed/隐藏布局协议；real三本体要求",
+          "可比较已发布条目的分数与工件状态",
+          "标签不能补齐模型版本、harness和归因"
+        ]
+      ]
+    },
+    "checklist": [
+      "报告最终执行程序是否冻结，还是每步仍由模型生成？",
+      "改进对象究竟是权重、代码、工具、记忆、世界模型还是验证器？",
+      "首次成功、开发期汇总、冻结程序留出试验和在线援助是否分开？",
+      "重试是否与独立重新采样匹配token/调用预算，并含错配反馈与静态指导？",
+      "实机失败后是否从原场景重置，是否真正恢复了失败留下的物理状态？",
+      "是否记录人工选择方法、review、校准、试验数、墙钟、token和传感器？",
+      "榜单是否把Agent、VLA、WAM混在同一分轨，Score是否与SR分开？"
+    ],
+    "takeaway": "当前证据支持两种不同的系统改进：实机探索可以把经验编译成程序和技能，冻结代码减少部署期语言模型调用；在重置模拟中，固定任务指导取得相近恢复率点估计，未检测到匹配粗粒度失败标签的额外收益。要把它们称为具身Agent的递归自我改进，仍需冻结版本留出实机证据、跨任务继承、人工与物理预算，以及不重置失败状态的闭环验证。",
+    "sources": [
+      {
+        "label": "PyRUA-REAL原论文与实机RSI方法（11月4日提交）",
+        "url": "https://arxiv.org/html/2611.06768v1"
+      },
+      {
+        "label": "PyRUA-REAL项目与视频入口",
+        "url": "https://dagroup-pku.github.io/PyRUA-Lean/real/"
+      },
+      {
+        "label": "PyRUA-REAL REAL分支固定提交（11月5日）",
+        "url": "https://github.com/DAGroup-PKU/PyRUA-Lean/tree/1c2843a2d5cfb94e28663465f6c79b39dd8bc4a0"
+      },
+      {
+        "label": "Self-Repair原论文（CoRL Learn@Deploy workshop）",
+        "url": "https://arxiv.org/html/2611.06863v1"
+      },
+      {
+        "label": "RoboDojo当前榜单及协议资产（数据至11月3日）",
+        "url": "https://robodojo-benchmark.com/leaderboard#agent"
+      },
+      {
+        "label": "RoboDojo协议：三seed、三本体与隐藏布局",
+        "url": "https://robodojo-benchmark.com/leaderboard/protocol"
+      }
+    ]
+  }
+}
