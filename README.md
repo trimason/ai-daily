@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年11月6日日报：九条动态围绕METR对AI研发加速的独立评估、PyRUA-REAL实机程序沉淀、多轮RL的错误恢复与预算、ERNIE 5.5 Flash Base开放权重、Seed的SAE-MoE解释工件、T-Rex触觉闭环、Self-Repair受控重试、ServerBench服务优化，以及OpenAI仅按RSS核实的GPT-6 Cyber与Linux漏洞管线简讯。研究专题把实机程序/经验沉淀与重置模拟中的静态指导对照；RoboDojo当前分数仍为11月3日快照。每日技术点讲稀疏自编码器，区分重建、可读标签与因果干预。所有原始日期、公开事件日期、实验分母和访问缺口分别说明。
+当前首页为2026年11月7日日报：九条动态覆盖HITCH全身具身接口、RoboARCade跨模型仿真横评、SLA空间监督与实机榜项、Agent记忆和Harness-S训练、TCSExam可执行研究评测、权重语义新独立审计、Cola2新公开推理工件，以及SpecCTMC扩散语言模型采样加速。专题逐层核验HITCH的观测到动作链，保留RoboDojo当前11月3日榜单和RoboColiseum实际API快照；每日技术点讲SFT、教师前缀与损失掩码。原始日期、当前事件、成功率/完成度、训练/开发预算和公开工件缺口分别说明。
 
 ## 本地构建与预览
 

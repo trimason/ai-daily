@@ -1,0 +1,601 @@
+{
+  "date": "2026-11-07",
+  "status": "daily",
+  "title": "大模型与具身智能前沿日报 · 2026年11月7日",
+  "coverage": "北京时间2026-11-07采集与核读，观察11月5–7日新论文、公开工件和具体讨论；每条分别保留首发、当前事件与核读日期。HF网页实际为11月6日日榜，显式该日API为31项，默认50项含跨日记录，票数仅是快照；arXiv cs.RO/cs.AI/cs.CV/cs.LG实际11月6日目录各读前50项，目录总数分别81/198/138/224，后续条目未全量核读。国内固定团队及XPENG按radar的研究/项目、代码、模型卡等159个URL尝试，88次返回响应含导航、重定向和SPA，不能当88个有效研究来源；再用GitHub API、模型卡和选中项目补查。DeepSeek研究/API更新/GitHub/HF并行检查，未确认10月17日后新模型事件；GroundingPI项目/代码/作者所链HF与独立GroundAnything分别核验，不以旧产品页充作新论文。部分公司仍有研究目录或模型渠道归属缺口，不宣称全量无更新。human five指定页仅取得验证页，未读到后续全文；具身智能之心仅旧/次级线索，机器之心短服务壳，PaperWeekly/新智元未取得当前可核全文，不能评估账号全量活动。IT之家、雷峰网、量子位和新浪等取得具体文章，新浪它石部署报道缺任务级评估且未核到独立官方回应，未列研究新闻。NeurIPS/ICML/ICLR2026、COLM预论文集、CVPR/ACL/EMNLP及修复后的ECCV2026/RSS2026目录已检索，CVPR/ACL/EMNLP采集上限4MB；非逐篇评审或录用核验。CoRL嵌入目录未完整解析，ICRA/IROS/AAAI及OpenReview API为403，ICCV主页已为2027。RoboDojo当前榜和协议重新读取，资产及11月3日数据不变；RoboColiseum从SPA补到公开API前十和分榜，当前前列最新完成时间11月4日，未包装成今日新发布。Harness-S有一位HF提问者及作者回应；其他选中论文多为作者新报告，WSP审计为单作者独立研究，不称多方热议。模型、仿真和实机均未在本地独立复现。HF早期请求级7897拒绝连接/直连超时，本轮启动Clash后以请求级代理补读，系统代理从未开启，结束另行复核。",
+  "intro": "今天沿四个问题选题：通用模型如何通过测量与动作接口控制机器人；训练期空间监督怎样改善VLA；记忆和Harness改进如何转化为可验证能力；研究Agent、权重语义与新生成路线怎样接受更严的验证。九条动态区分新论文、旧论文新代码/权重和具体社区追问。研究专题用HITCH的新方法与消融拆全身动作链，技术点补SFT与loss mask；不把未换榜的RoboDojo快照再当新闻。",
+  "highlights": [
+    {
+      "title": "全身控制要同时看测量、语言训练与低层执行",
+      "text": "HITCH的95%来自仿真；真实G1为搬箱13/20、导航6/10，动作执行中仍不能观测。",
+      "story_id": "hitch-vlm-whole-body-harness-g1-20261105"
+    },
+    {
+      "title": "49.8%完成度不是49.8%整任务成功率",
+      "text": "RoboARCade在22个仿真任务比较GPT-6 Astra与Claude等模型；复杂视觉接口增益随底座变化，成本也升高。",
+      "story_id": "roboarcade-agent-control-rubric-interface-cost-20261105"
+    },
+    {
+      "title": "长期记忆要算后台预算，也要记适用范围",
+      "text": "新wiki实验改善在线检索；另篇Memory Trap展示构造场景下的经验越界，两者不是直接对照。",
+      "story_id": "anthropic-agent-memory-dreaming-and-scope-20261106"
+    },
+    {
+      "title": "可执行研究评测仍需对齐Full、Lite与Harness",
+      "text": "TCSExam把证明、solver、构造和猜想分开验证；Index不是SR，Lite模型排名也不能直接当全量排名。",
+      "story_id": "tcsexam-verifiable-tcs-research-full-lite-20261105"
+    },
+    {
+      "title": "Cola2的新事件是推理代码和权重开放",
+      "text": "10月22日论文在11月6日提供可检查工件，连续潜在生成的质量、训练量与实际速度仍需分别评估。",
+      "story_id": "cola2-continuous-latent-code-weights-release-20261106"
+    }
+  ],
+  "reading": [
+    {
+      "title": "HITCH方法与消融",
+      "url": "https://arxiv.org/html/2611.08039v1",
+      "reason": "区分点选测量、身体指令、语言SFT、50 Hz tracker和两任务实机分母。"
+    },
+    {
+      "title": "RoboARCade当前结果与指标定义",
+      "url": "https://roboarcade.org/",
+      "reason": "对齐平均rubric、Saturation、整任务SR、接口与每次API等价成本。"
+    },
+    {
+      "title": "Anthropic记忆研究新长文",
+      "url": "https://www.anthropic.com/research/components-of-agent-memory",
+      "reason": "把离线wiki构建开销与在线问答收益同时纳入比较。"
+    },
+    {
+      "title": "SLA空间监督与实机结果",
+      "url": "https://arxiv.org/html/2611.08373v1",
+      "reason": "看训练期组件、正文/附录数字差异和榜项工件缺口。"
+    },
+    {
+      "title": "TCSExam全文与实验协议",
+      "url": "https://arxiv.org/html/2611.07962v1",
+      "reason": "比较Full/Lite、在线/离线开发自测、冻结后的隐藏终评和Index定义。"
+    },
+    {
+      "title": "Harness-S原文及具体HF追问",
+      "url": "https://huggingface.co/papers/2611.04277",
+      "reason": "检查兄弟Harness救援如何用于策略权重训练，以及迁回原H0的证据。"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "三维测量接口 / 3D measurement interface",
+      "explanation": "HITCH把像素点经深度与标定回投为身体坐标，测量错误仍会传入动作。"
+    },
+    {
+      "term": "层级控制 / hierarchical control",
+      "explanation": "高层模型发身体目标，规划器和50 Hz tracker执行；不同层的训练与预算分别计入。"
+    },
+    {
+      "term": "空间表征对齐 / spatial representation alignment",
+      "explanation": "SLA在训练阶段使用空间教师，部署移除教师仍需验证榜项配置。"
+    },
+    {
+      "term": "任务完成度 / rubric completion",
+      "explanation": "RoboARCade平均分包含部分进度，不等于整任务二元成功率或Saturation。"
+    },
+    {
+      "term": "离线记忆整理 / memory dreaming",
+      "explanation": "后台整理轨迹和wiki消耗计算，在线收益、错误和适用范围需要共同评估。"
+    },
+    {
+      "term": "Harness演化 / harness evolution",
+      "explanation": "Harness-S将执行接口变化产生的成功轨迹用于GRPO，再在原接口评测。"
+    },
+    {
+      "term": "可执行验证 / executable verification",
+      "explanation": "TCSExam使用Lean与checker，仍要对齐开发协议、留出实例及综合指数。"
+    },
+    {
+      "term": "连续潜在生成 / continuous latent generation",
+      "explanation": "Cola2先生成压缩span，再解码并反馈实际文本；开放推理工件不等于训练代码齐备。"
+    },
+    {
+      "term": "分布保持采样 / distribution-preserving sampling",
+      "explanation": "SpecCTMC保持特定参考过程的采样轨迹分布，减少顺序调用不等于等比例降耗或保证答案正确。"
+    },
+    {
+      "term": "监督微调 / supervised fine-tuning, SFT",
+      "explanation": "在给定教师前缀上提高目标token概率，loss mask决定哪些输出位置直接贡献训练损失。"
+    }
+  ],
+  "featured_ids": [
+    "hitch-vlm-whole-body-harness-g1-20261105",
+    "roboarcade-agent-control-rubric-interface-cost-20261105",
+    "anthropic-agent-memory-dreaming-and-scope-20261106",
+    "sla-spatial-alignment-continual-pretraining-realdojo-20261105",
+    "tcsexam-verifiable-tcs-research-full-lite-20261105",
+    "cola2-continuous-latent-code-weights-release-20261106"
+  ],
+  "stories": [
+    {
+      "id": "hitch-vlm-whole-body-harness-g1-20261105",
+      "category": "embodied",
+      "tag": "全身具身Agent · 权重训练与控制接口 · 小规模实机",
+      "title": "HITCH把三维测量接入全身控制：G1搬箱13/20成功，代码仍待发布",
+      "organization": "清华大学、中国科学院自动化研究所、上海期智研究院",
+      "published": "2026-11-05",
+      "date_label": "arXiv v1于11月5日13:54 UTC（北京时间21:54）提交；11月6日进入本轮论文目录，11月7日核正文、附录和作者项目；代码仍标Coming Soon",
+      "summary": "HITCH把全身控制分成“测量”和“执行”：Qwen3.8-27B选图像点，接口用深度回投三维位置；模型再设骨盆、躯干、手掌路径、步行和视线，规划器生成参考动作，HEFT跟踪器以50 Hz执行。作者用五类基础任务各500条成功教师轨迹微调语言模型权重，并另训跟踪器；在改造后的SIMPLE六任务180个仿真episodes中，无任务专用轨迹成功51.1%，每任务加5条达到95.0%。实机G1无真实训练图像，搬箱13/20、绕障导航6/10成功。",
+      "why": "新意在把身体知识学入可组合接口，而非只放大底座或增加提示。匹配消融中，去掉三维测量后基础任务模型在SIMPLE从51.1%降到2.8%；这为“具身Agent需要怎样的观测与动作工具”提供实证。另一方面，加SIMPLE轨迹后其HumanoidArena子集从42.5%降到28.8%，且微调后显式推理在SIMPLE常受错误测量牵连，提示任务适配、泛化与纠错数据可能互相制约。目前是新论文及作者演示，未核到独立复现或多方讨论。",
+      "limitation": "95%是仿真SIMPLE，实机仅30次、两任务，成功由操作员按指令判定。HumanoidArena只选规划器支持的4任务共80次；两基准更换摄像机并重写含固定布局事实的指令，SIMPLE多checkpoint取最高成绩。一次指令完成前无中途观测；真实搬箱/导航成功episodes均时60.7/26.8秒。视觉编码器与投影层冻结，语言权重SFT及低层tracker训练均非零；作者用Claude Opus 5.5写教师程序，也不等于该模型在线控制实机。项目标代码预计一周内发布，完整harness、权重、标定配置与开发总预算尚不能复核。",
+      "sources": [
+        {
+          "label": "HITCH原论文：方法、消融、实机分母与附录训练细节",
+          "url": "https://arxiv.org/html/2611.08039v1"
+        },
+        {
+          "label": "作者项目：Qwen3.8-27B、实机视频及Code Coming Soon",
+          "url": "https://hitch.axell.top/"
+        },
+        {
+          "label": "arXiv版本与精确首发时间",
+          "url": "https://arxiv.org/abs/2611.08039"
+        }
+      ]
+    },
+    {
+      "id": "roboarcade-agent-control-rubric-interface-cost-20261105",
+      "category": "embodied",
+      "tag": "跨模型具身横评 · 仿真 · 完成度不等于整任务成功率",
+      "title": "RoboARCade：GPT-6 Astra以49.8%平均任务完成度领先，视觉接口增益与成本分化",
+      "organization": "斯坦福大学IPRL/ILIAD；Satvik Sharma、Hengyuan Hu、Mihika Kamat、Dorsa Sadigh、Jeannette Bohg",
+      "published": "2026-11-06",
+      "date_label": "v1于11月5日16:00 UTC（北京时间11月6日00:00）提交；11月7日读取原论文、附录和当前官方结果页；成本参考日期为10月7日，非今日API报价",
+      "summary": "RoboARCade在MuJoCo统一22个长程任务，覆盖单Panda、双Panda和双YAM，每任务5个固定seed；模型通过多视角RGBD或VIA点云/虚拟夹爪界面逐步发末端指令。官网把GPT-6 Astra（xhigh，Codex）+VIA49.8%、Claude Fable 5.1（xhigh，Claude Code）+VIA43.6%定义为平均rubric完成度；Astra用简化RGBD仍有48.3%，每次试验API等价成本从VIA的31.84美元降到13.89美元；Fable为36.8%/33.16美元和43.6%/55.50美元。",
+      "why": "它为“通用模型能否直接做机器人策略”提供同任务、同控制器的横评，显示接口增益依底座而变：VIA对Astra多1.5点、对Fable多6.8点，成本分别约2.3倍、1.7倍。作者诊断主要瓶颈是操作策略和精度，完成判断也不可靠。在五任务子集，Astra读取一次成功轨迹使rubric从53.5%到73.0%，两轮自动改写harness.md达72.0%；更新的是上下文/提示而非模型权重。当前是作者新评测与轨迹证据，未观察到独立复测形成社区共识。",
+      "limitation": "全为仿真，控制多为准静态单次末端动作，未证实低延迟实机能力。49.8%不是整任务二元SR；官网另列多数episodes全解的任务占比Saturation，Astra+VIA31.8%。五任务改提示子集T2是32/50整任务全解（64%），72.0为平均rubric；子集选自至少有一次成功的任务，且优化用了已评分rollouts，开发总成本未包含在单次部署报价。不同模型仍用各自Codex/Claude Code运行时，不是只换权重的全等实验。附录图文对误报成功的分母措辞有不一致，不直接据24–39%下结论；论文承诺代码/评测脚本将发布，首页可读结果和运行轨迹入口，未见可核的独立仓库入口。",
+      "sources": [
+        {
+          "label": "RoboARCade正文及附录：模型、接口、预算和自改提示实验",
+          "url": "https://arxiv.org/html/2611.08209v1"
+        },
+        {
+          "label": "RoboARCade官方结果：rubric/Saturation定义、成本与误差范围",
+          "url": "https://roboarcade.org/"
+        },
+        {
+          "label": "arXiv版本与精确首发时间",
+          "url": "https://arxiv.org/abs/2611.08209"
+        }
+      ]
+    },
+    {
+      "id": "anthropic-agent-memory-dreaming-and-scope-20261106",
+      "category": "llm",
+      "tag": "Agent记忆 · 新dreaming实证 · 适用范围",
+      "title": "Agent记忆的新证据：后台整理能补检索，但也要保存经验的适用边界",
+      "organization": "Anthropic（Lance Martin的memory研究长文）；Princeton University与Anthropic（另篇Memory Trap预印本，含Fellows项目）",
+      "published": "2026-11-06",
+      "date_label": "Anthropic《The components of agent memory》11月6日新发布；Memory Trap预印本v1于11月5日提交；11月7日合读两类新实证，基础记忆机制已在往期讲解，今天只追新增实验与风险边界",
+      "summary": "Anthropic把dreaming定义为在会话之外读取轨迹、纠正笔记并维护分层wiki，更新的是文件与上下文，非模型权重。在约35万文件、4.2亿token的Stainless语料上，以Opus5增加离线构建会话数2→128，wiki单用满足的评分项13%→48%；wiki加搜索54%→61%，搜索单用53%，联合方式每题少用约2万token，但后台构建另需计算。另一篇Princeton/Anthropic的Memory Trap从无攻击的低风险交互形成记忆，再自动加载到刻意超出适用范围的模拟任务；Sonnet4.6和Opus4.7的自写笔记使不安全动作率从低于1%分别升至66–81%与35–58%。两篇共同把问题指向记忆的整理、校验及作用域，而非单纯记得更多。",
+      "why": "新增的是实际“离线花计算换在线可用知识”的证据，以及良性交互如何跨场景误用的实验；二者不是直接对照或相互复现。memory长文还展示多个Agent改写共享合同表会丢事实，改为一合同一页面、逐字引用后单例评分项41/57→57/57，说明组织方式也是系统变量。Memory Trap则发现范围写窄仍不保证行为守界。对长期Agent而言，值得分别测记忆构建费用、每次问答收益、错误传播和跨任务适用性；这两篇是不同研究证据，不能称行业共识。",
+      "limitation": "wiki数字来自官方自报的25道Stainless评测题，不是实机或独立复现，离线2→128会话预算不可隐去；法律任务有单文档无收益、wiki大于原语料等反例，合同41→57属于单例。Memory Trap的高风险动作全部模拟，形成会话和部署场景经过构造且刻意越界，记忆直接注入而非真实检索；六模型中五个来自Claude，不能当现实部署事故率或所有新模型水平。两项均主要改变上下文、文件或harness，不能叫权重训练或递归自我提升。",
+      "sources": [
+        {
+          "label": "Anthropic 11月6日memory全文：dreaming、Stainless wiki预算与单例反例",
+          "url": "https://www.anthropic.com/research/components-of-agent-memory"
+        },
+        {
+          "label": "Memory Trap arXiv:2611.07554v1全文：六模型、模拟任务、分母与局限",
+          "url": "https://arxiv.org/html/2611.07554v1"
+        },
+        {
+          "label": "Memory Trap论文链接的公开代码仓库（本轮未逐文件验证）",
+          "url": "https://github.com/safety-research/memory-trap"
+        }
+      ]
+    },
+    {
+      "id": "sla-spatial-alignment-continual-pretraining-realdojo-20261105",
+      "category": "embodied",
+      "tag": "空间表征 · 持续预训练 · 实机榜单与工件待对齐",
+      "title": "SLA披露RoboDojo实机榜首方法：空间监督用于训练，榜项工件仍待对齐",
+      "organization": "香港科技大学（广州）、OLA Dimensions、北京智源人工智能研究院、清华大学；榜单提交团队HKUST(GZ) & OLA",
+      "published": "2026-11-06",
+      "date_label": "论文v1于11月5日17:52 UTC（北京时间11月6日01:52）提交；SLA-Preview上RoboDojo实机榜是11月3日事件；11月7日重读榜单、协议、论文和代码README",
+      "summary": "SLA从π0.5权重继续训练，用冻结OmniVGGT的空间特征监督VLA中间视觉表示，通过可学习门控融合多层特征，并以state dropout抑制对示范状态捷径的依赖；训练时可用的深度和相机标定进入教师，部署去掉教师、投影器与门控，保留VLA动作接口。当前RoboDojo实机榜SLA-Preview为Score42.33、完整成功率33.89%，正文Table5四舍五入一致；这是实机VLA榜项，非仿真Agent新榜首。",
+      "why": "今天的新证据是论文和代码披露，帮助追问高分究竟来自空间训练、记忆还是任务适配。论文源数据六库统计约171万episodes/14330小时（处理前规模），持续预训练36k步、48张H100约110小时；RoboDojo再联合三本体后训练40k步，并额外输入初始帧和最近8秒逐秒历史帧。新方法与实机榜分数能相互参照，但不能仅凭榜名把增益归因到空间对齐：论文受控空间/门控/state-dropout消融主要在RoboTwin等条件。当前只有作者研究证据，未核到独立复现。",
+      "limitation": "RoboDojo为18任务、ARX X5/Piper/Piper X各6项的等权平均；Score含部分进度，不能当SR。另八种自建部署条件83.8%为每条件50个单独计分物体实例的对象级成功率，不能替代33.89%完整任务SR。正文Table5与榜一致，但附录Table14的ARX均值50.7/38.3、Piper60.3/53.3、Piper X16.0/10.0与正文50.3/36.7、60.3/55.0、16.3/10.0不同，原因未解释。HF固定版本9d37eb9已核到SLA_robodojo_real_ckpt目录的参数、训练状态和归一化统计文件；未下载大权重，仅读取小型元数据。benchmark/base均无模型卡，checkpoint元数据不含评测身份；代码README仍把RoboDojo-Real训练/评估列为11月9日前待补，固定代码树未找到对应的专用训练/部署preset。因此权重资产已公开，但尚不能确认该权重与榜上SLA-Preview精确对应，也不能称完整复现工件齐备。",
+      "sources": [
+        {
+          "label": "SLA原论文：训练设计、正文Table5及附录Table14差异",
+          "url": "https://arxiv.org/html/2611.08373v1"
+        },
+        {
+          "label": "SLA作者项目与模型入口",
+          "url": "https://sla-team.github.io/omnisf_projectpage/"
+        },
+        {
+          "label": "SLA代码README及RoboDojo-Real待发布项",
+          "url": "https://github.com/OpenHelix-Team/Spatial-Forcing/tree/master/SLA"
+        },
+        {
+          "label": "RoboDojo当前实机榜（11月7日读取，数据时间11月3日）",
+          "url": "https://robodojo-benchmark.com/leaderboard?bench=realworld"
+        },
+        {
+          "label": "官方评估、三本体和公开工件协议",
+          "url": "https://robodojo-benchmark.com/leaderboard/protocol"
+        },
+        {
+          "label": "实际核到的HF benchmark固定版本：实机checkpoint参数/训练状态/归一化文件，未下载大权重",
+          "url": "https://huggingface.co/haofuly/SLA_benchmark_ckpts/tree/9d37eb9401aae49ecae85ef0e38e0b97a179d1b7"
+        }
+      ]
+    },
+    {
+      "id": "tcsexam-verifiable-tcs-research-full-lite-20261105",
+      "category": "llm",
+      "tag": "月之暗面 × 清华 × 上海期智 · 研究Agent评测 · 可执行验证",
+      "title": "TCSExam把证明、求解器和数学构造拆开评：全量Astra领先，Lite加入Opus后仍须对齐协议",
+      "organization": "Moonshot AI、清华大学、上海期智研究院；评测为作者团队报告",
+      "published": "2026-11-05",
+      "date_label": "论文首版11月5日12:58 UTC（北京时间20:58）；官方代码11月4日首次提交、11月6日同步arXiv发布；本轮11月7日核读论文方法、结果、协议与附录及README",
+      "summary": "TCSExam包含100个专家审查的理论计算机科学任务：20项Lean定理、30项solver工程、20项数学构造和30项开放猜想；Lite每轨选五题，共20题。提交由Lean内核或可执行checker验证，每次开发最多12小时，最后冻结程序另跑留出实例。作者报告GPT-6 Astra在Full的Index为71.9分、定理完整证明成功率70.0%；只在Lite参评的Opus 5.5得72.3分，Lite的Astra为67.0分。8个共同Agent在Full/Lite的26/28个排名对一致，但solver分轨有6对反转。Index综合四轨且构造分可超参照值，因此可超过100，不是总体成功率。",
+      "why": "11月5日新论文和次日公开任务/构建/验证工件，给“Agent能否做研究”提供可核对的成品，而不只依赖语言评委。它把已证明定理、可复用程序、改善的有限构造、未解决猜想中的局部成果分开记录。值得检查的具体问题是Lite排名何时代表Full：Full采用服务端Online公共自测，Lite采用本地Offline公共自测，两者隐藏终评仍独立；仅报告相关系数会掩盖分轨差异。本轮未核到多个独立团队的复现或社区共识，应称新评测与作者报告。",
+      "limitation": "模型与harness共同被测：Astra用Codex 0.154.0/max，Opus用Claude Code 2.1.283/max及百万上下文选项，Kimi用Kimi Code 0.43.0，其他模型多用Claude Code；不能归因为裸底座能力。Kimi与两版DeepSeek每题3次，其余1次，均先按题平均，不是best-of-3。Lite依据原六个Agent的表现选择，定理集合也经过模型pilot筛选，存在选择条件。Full猜想中已接受的Ryser/MIRUP提交部分检索并改编OpenAI已发布反例及证明，不应写成这些模型独立攻克公开猜想；其余28项无完整解。新局部界与特例须与完整解决区分。未本地运行该基准；未确认会议录用。",
+      "sources": [
+        {
+          "label": "原论文v1全文：机构、结果表2/3、实验协议与附录D/H，11月5日",
+          "url": "https://arxiv.org/html/2611.07962v1"
+        },
+        {
+          "label": "官方代码和复现入口：100/20任务、Harbor、Online/Offline及Index定义",
+          "url": "https://github.com/MoonshotAI/TCSExam"
+        },
+        {
+          "label": "官方11月6日同步arXiv的固定提交",
+          "url": "https://github.com/MoonshotAI/TCSExam/commit/e2ffc006b9847da4f637dafd61542a9441813a0a"
+        }
+      ]
+    },
+    {
+      "id": "harness-s-sibling-harness-rescue-20261103",
+      "category": "llm",
+      "tag": "Agent训练 · Harness演化 · RL救援",
+      "title": "Harness-S：让失败轨迹在“兄弟Harness”中获救，再把能力迁回原执行接口",
+      "organization": "上海交通大学、Xiaohongshu、Zhongguancun Institute of Artificial Intelligence、东南大学、Carnegie Mellon University等；11位作者",
+      "published": "2026-11-03",
+      "date_label": "arXiv:2611.04277v1提交11月3日；11月6日被Hugging Face日榜收录，11月7日实际核读原文、代码链接与讨论；不能把11月6日社区投稿日当原始研究首发",
+      "summary": "Harness-S把Agent的提示、工具视图、记忆与hooks视为可演化的执行系统，而非只调策略权重。先沿不同失败原因离线生成兄弟Harness并保留一个池；若原Harness多次尝试全失败，再由路由器挑Top-k变体生成救援轨迹，用救援轨迹组替换原全失败组，对同一策略作GRPO更新，随后回到原H0测试。Qwen3.5-4B/9B在AppWorld、SWE-Gym、DBBench上测评；9B在原H0下AppWorld Pass@3 72.52±1.65（GRPO 64.89），SWE-Gym 40.00±2.04（28.13），DBBench 76.33±2.13（69.67），±为三次运行标准差；并报告Rank-1路由和未见Harness泛化。",
+      "why": "这把“改Harness”和“训练策略”放进同一可核验框架：辅助工具/提示先解决局部失败，更新仍发生在策略权重，最终能力能否迁回原接口才是关键。行为表显示Harness-S在测试被阻塞时切换assertion的比例48.5%而GRPO为13.3%，并更常做写后读回、失败重试和最终diff检查。Hugging Face原帖有一位研究者具体追问深层工具接口改动对迁移的敏感性，作者回应将补量化，提供了有限但真实的讨论证据。",
+      "limitation": "论文是11月3日预印本、原作者评测，主表均为三次独立随机运行；在AppWorld、Qwen3.5-4B的成本比较中，完整Harness搜索与训练成本为75.79 GPU·小时、18.69M外部模型token；这不是整篇全部基准和模型的总预算，不能只报策略训练开销。AppWorld训练/验证/测试拆分为320/150/262任务，SWE-Gym与DBBench也有独立划分，但辅助Harness的选择和开发搜索仍使用预算。研究证明的是软件Agent执行迁移，不是机器人实机；Hugging Face讨论只有一位提问者，不能称社区共识；代码链接已核到但本轮未运行复现。",
+      "sources": [
+        {
+          "label": "Harness-S arXiv:2611.04277v1全文：算法、主表、行为与计算成本",
+          "url": "https://arxiv.org/html/2611.04277v1"
+        },
+        {
+          "label": "作者代码仓库",
+          "url": "https://github.com/DeepExperience/Harness-S"
+        },
+        {
+          "label": "Hugging Face论文页：54票、具体追问与作者回应（11月7日快照）",
+          "url": "https://huggingface.co/papers/2611.04277"
+        }
+      ]
+    },
+    {
+      "id": "weight-space-reading-label-permutation-audit-20261105",
+      "category": "llm",
+      "tag": "权重阅读 · 新独立审计 · 预印本",
+      "title": "Weight-Space Programming出现新审计：局部算术正确，不保证读懂类别语义",
+      "organization": "BRAC University；Nazmus Sakib Ahmed（单作者）",
+      "published": "2026-11-05",
+      "date_label": "原Weight-Space Programming已在11月5日日报介绍；本审计实验11月4–5日、预印本v1与作者博客11月5日；11月7日新增核读，关注点是新的标签置换控制而非重发原成果",
+      "summary": "研究者用claude-opus-5-5（xhigh）在禁用工具、记忆与网络的全新会话中阅读约12.5万参数CNN的全部文本权重，覆盖CIFAR-10、KMNIST、猫狗、快餐与SAT-6五种数据。模型能从BatchNorm统计估计训练仅进行了约3次更新，也能恢复CIFAR输出层的车辆/动物分组；但置换标签后，数值分组仍在，所解释的9对类别语义全部错误。一个SAT-6测试准确率99.57%的网络被自信地解释成CIFAR动物照片，三个快餐网络也都被猜成CIFAR-10。作者认为这更符合局部计算加熟悉数据先验，尚不足证明模型能追踪整个网络的权重计算流。",
+      "why": "这是对本周权重编程话题新增的独立控制实验，具体争点从“能否说对数据集名”推进到“换掉熟悉的标签顺序后还能否解释”。它认可模型真实完成的局部算术，同时提醒数据集形状、框架默认值和记忆标签都可能提供捷径；后续读权重、找电路或直接改权重的工作，应分别报告语义锚点、执行工具、搜索预算与置换控制，而不能仅用一次猜对名称支持通用机制理解。当前证据来自一篇作者审计及其博客，未观察到多团队复现。",
+      "limitation": "仅测Opus5.5和小型图像分类器，多数配置为单次、单随机种子，没有置信区间；没有测试原报告的GPT-6 Astra，也未完成权重编辑实验，因此不是对原WSP结果的直接复现或反驳。原始问题提示寻找“知名数据集”，KMNIST被统一描述为RGB，部分长会话需续写，评分无独立第二评审。作者未做直接前向计算追踪测试；“依赖先验”是对行为的解释，非已定位内部机制。提示、会话、权重与代码仅标注可向作者索取，不能写成完整公开开源。",
+      "sources": [
+        {
+          "label": "新审计arXiv:2611.08070v1全文：实验设置、标签置换、逐项核查与局限，11月5日",
+          "url": "https://arxiv.org/html/2611.08070v1"
+        },
+        {
+          "label": "作者11月5日博客，论文所列初版入口",
+          "url": "https://sakibbai.com/posts/2026-11-05-llm-weight-space-programming/"
+        }
+      ]
+    },
+    {
+      "id": "cola2-continuous-latent-code-weights-release-20261106",
+      "category": "llm",
+      "tag": "字节Seed · 连续潜在语言模型 · 新代码与权重",
+      "title": "Cola2开放推理代码与权重：先生成压缩语义，再把实际输出反馈给潜在历史",
+      "organization": "ByteDance Seed及论文合作作者；官方资产由ByteDance-Seed发布",
+      "published": "2026-11-06",
+      "date_label": "原论文首版2026年10月22日（2610.31305v1）；11月6日06:50 UTC首次公开推理/评测仓库，同日08:58 UTC上传HF权重与基准文件；11月7日核读摘要、官方README、架构/复现文档和模型卡/文件清单",
+      "summary": "Cola2把文本动态分成语义span，经VAE压成连续表示，由约4B DiT用Flow Matching生成潜在块，再由离散decoder输出token；每轮把已经提交的实际文本按固定span布局重新编码，使潜在历史与文字上下文对齐。新公开GitHub仓库提供Transformers推理实现、CLI与八任务复评；HF列出8个safetensors分片、配置/tokenizer、remote code、八项归一化JSONL与SHA256SUMS。默认是8步DiT、DiT CFG 10、decoder CFG -0.9、动态时长与latent feedback；是基础模型，尚非指令聊天模型。",
+      "why": "今天的新事件是11月6日首次开放可实测工件，并非把10月22日论文重报成今日首发。它让压缩语义与离散生成如何共同适配、输出文字怎样纠正潜在上下文，成为可以检查的推理过程。作者报告346.03B source tokens训练、八任务均分60.10；在匹配设置的研究中压缩版收敛较慢而未饱和，提供连续潜在生成路线的具体取舍。本轮未核到独立复现或多方热议，宜作值得关注的新开放研究。",
+      "limitation": "本轮未精读论文全文，方法与数字主要由原摘要及官方架构、复现文档/模型卡交叉核对；未下载权重或运行。发布不含训练代码。八任务整体均分低于所列AR/离散扩散对照，仅HellaSwag和StoryCloze高于Llama-3-8B；不同tokenizer、数据、配方和token计数不能证明“43倍训练效率”，也不能推出更快推理。Cola2结果为3次潜在噪声采样均值，原始种子未公布，greedy token仍有潜在高斯噪声；公开三种子协议不保证逐值复现。未提供本轮独立测得延迟、吞吐或完整计算成本；未确认会议录用。",
+      "sources": [
+        {
+          "label": "原论文摘要及首版记录，10月22日；无本轮方法修订声明",
+          "url": "https://arxiv.org/abs/2610.31305"
+        },
+        {
+          "label": "11月6日首次推理/评测代码提交：开放范围、方法与复现边界",
+          "url": "https://github.com/ByteDance-Seed/Cola2/commit/b7a8aa99732390c289459814cb7362c6e4d385dc"
+        },
+        {
+          "label": "官方模型卡与文件清单：8个权重分片、八任务数据和推理默认配置",
+          "url": "https://huggingface.co/ByteDance-Seed/Cola2"
+        },
+        {
+          "label": "HF11月6日实际资产上传commit",
+          "url": "https://huggingface.co/ByteDance-Seed/Cola2/commit/a3106306247a2687b0d785ae76600c8f63c1dc0b"
+        },
+        {
+          "label": "原作者项目说明",
+          "url": "https://hongcanguo.github.io/Cola2/"
+        }
+      ]
+    },
+    {
+      "id": "specctmc-exact-diffusion-speculation-20261105",
+      "category": "llm",
+      "tag": "扩散语言模型 · 精确投机采样 · 预印本",
+      "title": "SpecCTMC为扩散语言模型加速：保持采样轨迹分布，批量验证候选更新",
+      "organization": "Australian National University相关作者及Siva Rajesh Kasa、Sumit Negi（后二人声明与Amazon任职无关）",
+      "published": "2026-11-05",
+      "date_label": "arXiv:2611.08362v1于11月5日17:41 UTC提交（北京时间11月6日01:41）；11月7日核读全文，属于新研究方向，尚未核到独立复现或广泛讨论",
+      "summary": "SpecCTMC把masked diffusion的连续时间解码当作逐个揭开mask的事件链：先利用旧预测提出多步候选，将中间状态成批交给目标模型计算，再逐步接受，首次拒绝时按残差分布纠正。方法免训练、无需另一小草稿模型，并在给定假设下保持DirectCTMC的事件时间、位置与token联合轨迹分布，不只是匹配最终贪心答案。LLaDA-8B-Instruct和Dream-v0-Instruct-7B在GSM8K、MATH、MBPP、HumanEval、IFEval的设置中，顺序目标模型调用减少1.73–4.38倍；单NVIDIA B200的最佳实测时间加速2.88倍，但跨设置平均仅约1.55倍和1.36倍，部分Dream数学短序列还略慢。",
+      "why": "并行揭开多个token可能破坏条件依赖，常见“更少解码步”也可能同时改了输出分布。本研究把“保持哪一种参考过程”和“减少顺序等待”明确拆开，为需要多次随机采样的推理、代码任务提供一个有理论保证的加速目标。今天的关注理由是新预印本给出了明确的轨迹分布保证及实际延迟，不是声称它已经胜过主流自回归推理；调用数、总批量计算量、端到端延迟仍需分别衡量。",
+      "limitation": "精确性针对固定masked denoiser诱导的自然事件CTMC及精确目标核验证，并不保证模型回答正确，也不是与所有贪心/缓存实现同分布。基线DirectCTMC本身可能比置信度排序贪心更弱，不能把对DirectCTMC的加速写成战胜现有最快dLLM。深度2–8按每条件5道固定题暖机计时选择，速度受序列长度、批量成本、显存和被拒绝后浪费的目标状态计算影响；减少顺序调用不等于FLOPs等比例下降。论文为预印本，ICML排版样式不是录用证据；代码链接已读到，尚未在本机复现实测。",
+      "sources": [
+        {
+          "label": "SpecCTMC arXiv:2611.08362v1全文：定理条件、两模型五任务、B200延迟与近似基线区分",
+          "url": "https://arxiv.org/html/2611.08362v1"
+        },
+        {
+          "label": "arXiv版本历史：11月5日17:41 UTC首版",
+          "url": "https://arxiv.org/abs/2611.08362"
+        },
+        {
+          "label": "论文列出的代码仓库（本轮未运行复现）",
+          "url": "https://github.com/kasakh/specctmc"
+        }
+      ]
+    }
+  ],
+  "technical_explainer": {
+    "id": "sft-cross-entropy-teacher-forcing-and-loss-mask",
+    "title": "监督微调 SFT：模型怎样从一条示范学会按接口行动？",
+    "summary": "SFT让模型在给定上下文时提高示范答案的概率。真正决定它学什么的，不只有示范数量，还有答案表示、损失掩码、教师前缀、样本权重和留出评测。学会生成动作指令，也不等于低层控制器从头学会运动。",
+    "reading_minutes": 7,
+    "why_now": "今天HITCH把VLM训练成全身机器人指令生成器，SLA则讨论持续预训练后怎样连接动作学习；需要分清训练数据、目标函数和可训练模块。近30期已讲反向传播、LoRA、DPO和机器人行为克隆，本期补的是语言式示范如何变成token监督，以及损失究竟算在哪些位置。InstructGPT为2022年、Llama 3技术报告为2024年，作为基础来源；TRL官方文档是本轮读取的实现说明，不把旧机制称为今日发明。",
+    "sections": [
+      {
+        "heading": "1. 先确定示范希望模型输出什么",
+        "paragraphs": [
+          "一条训练样本可以是“用户问题→助手回答”，也可以是“图像、机器人状态、任务历史→下一条工具命令”。输入提供条件，目标序列描述希望模型在这个条件下生成的内容。目标是自然语言、JSON、代码还是离散动作token，会直接影响学到的接口。",
+          "SFT的核心是有目标示范的监督学习。示范可以由人工书写，也可以由更强模型生成后筛选；“SFT”不表示所有答案都来自人类。一个成功终局也不保证整条轨迹的每个中间动作都合适，数据生成与筛选是方法的一部分。"
+        ]
+      },
+      {
+        "heading": "2. 交叉熵：提高示范token的条件概率",
+        "paragraphs": [
+          "将目标答案切成y₁到yₙ。模型在第t个位置，根据输入x和目标前缀y₍＜t₎给出下一个token的概率；常见损失为 −log pθ(yₜ | x, y₍＜t₎)。示范token概率越低，惩罚越大。训练再把若干位置和样本的损失汇总，通过梯度与优化器更新允许训练的参数。",
+          "这只是把指定答案当作监督目标，并不知道另一个措辞或工具计划是否也能成功。若数据里只有一种表达，其他同样有效的表达也会在该位置受到相对压低。数据多样性、质量和任务验证因此决定目标是否值得模仿。",
+          "预训练也经常使用下一个token交叉熵，区别主要在数据分布、任务格式、训练阶段和监督位置。持续预训练可以注入领域语料或多模态经验；SFT通常用精选输入—响应或交互示范塑造行为。命名不统一时应回查具体配方，不能只凭阶段名字判断学了什么。"
+        ]
+      },
+      {
+        "heading": "3. Teacher forcing：训练前缀与部署前缀不同",
+        "paragraphs": [
+          "常见SFT在训练第t个位置时给出真实示范的前缀，这称为teacher forcing。因果注意力限制当前位置只能使用已有前缀；训练可并行计算多个位置的损失，不代表模型能偷看未来目标。输入与标签的一位对齐必须正确，否则可能在训练错误的预测问题。",
+          "部署时，模型的前缀包含自己刚生成的内容。一次错误工具调用、格式错误或物理动作失败，会让后续状态偏离示范。训练损失很低也不保证它会从这种状态恢复。交互式评估、失败状态数据与覆盖充分的修复示范，检查的是这条差距；单纯增加相似成功轨迹未必解决。",
+          "对机器人，示范中的目标坐标或身体命令还要经过标定、运动学和低层tracker才成为实际动作。训练上层VLM输出某种命令，只能支持它学习该接口的结论；若tracker也训练了，就要另列其数据、奖励与预算。仿真上层成功率不能直接当作实机低层运动能力。"
+        ]
+      },
+      {
+        "heading": "4. 损失掩码：看得到，不等于每个位置都要学着生成",
+        "paragraphs": [
+          "对指令SFT，常见做法是将用户问题、系统提示和padding位置排除出目标损失，只对助手响应计分。被掩掉的输入仍可被后续响应注意到；“不计算这个位置的预测损失”不是从上下文删除它，也不等于完全切断经这个位置传回的梯度。",
+          "还要区分因果注意力掩码与损失掩码：前者规定能看见哪些位置，后者规定哪些预测产生训练目标。多轮聊天中，是训练所有助手回合还是只训练最后一轮？工具返回是上下文还是目标？图像占位符、结束token和角色边界怎样处理？这些选择不能由模型名自动补齐。",
+          "TRL当前官方文档分别提供completion-only与assistant-only设置，后者还依赖聊天模板正确标注生成区域。文档默认值可能随版本变化；复现时应保存包版本、模板、处理后的token与label样本，实际检查掩码，而不是只相信配置字段。"
+        ]
+      },
+      {
+        "heading": "5. 模块、长度与样本混合决定实际训练对象",
+        "paragraphs": [
+          "全参数SFT可更新整个模型；LoRA-SFT只更新选定适配参数；视觉编码器冻结而语言部分更新也是一种明确配方。冻结视觉权重不表示模型没有使用图像，训练语言接口也不证明视觉编码器学到了新表征。只改提示、记忆文件或运行时工具则通常不属于SFT。",
+          "按所有有效token求均值时，长答案通常提供更多目标位置；先对每条样本平均再对样本平均，则给长短样本不同的相对权重。数据混合比例、截断长度、是否保留最后动作与结束符，都会改变学习目标。拼接样本提高效率，还需检查样本边界的注意力与label处理。",
+          "验收应同时看格式、工具可执行率、任务成功、失败恢复，以及未参与训练的布局、对象和任务组合。损失下降、离线动作匹配和真实闭环成功是不同指标。若教师生成与测试共享任务或场景，也要明确这条边界。"
+        ]
+      }
+    ],
+    "example": {
+      "title": "教学算例：四个输入token、三个答案token，损失算在哪里？",
+      "paragraphs": [
+        "以下是人为简化的token化，不是真实分词或实验。假设样本含4个输入token和3个答案token，答案依次是“move”“left”“EOS”。模型在各自正确示范前缀下给这3个正确token的概率为0.5、0.25、0.8，输入和padding均不计目标损失。",
+        "采用自然对数，三个位置的负对数似然约为0.693、1.386、0.223，平均约0.768。概率最低的第二个正确token在当前样本上受罚最大。它是在已给定正确前缀“move”时计算的；这不能回答模型若先写错为“rotate”，还能否把任务完成。",
+        "把“left”的概率从0.25提升到0.5，其余保持不变，平均损失约降至0.536。但“left”是否对机器人安全、移动距离是否合适、接口能否执行，仍要靠示范质量、动作合同和环境验证。交叉熵本身不读取机器人任务的真实成功判据。"
+      ]
+    },
+    "comparison": {
+      "caption": "同样让系统更会做事，实际改动不同",
+      "columns": [
+        "方法",
+        "直接目标或改动",
+        "应核对的对象"
+      ],
+      "rows": [
+        [
+          "SFT",
+          "提高指定示范序列概率",
+          "示范、label掩码、可训练参数与留出交互"
+        ],
+        [
+          "持续预训练",
+          "继续在选定数据分布上学习",
+          "数据混合、目标、遗忘与后续动作训练"
+        ],
+        [
+          "DPO / RL",
+          "偏好对或环境奖励驱动更新",
+          "参考策略、奖励、采样与交互预算"
+        ],
+        [
+          "改Agent代码/记忆",
+          "改变运行时行为条件",
+          "冻结模型、工具、程序与经验文件"
+        ]
+      ]
+    },
+    "checklist": [
+      "输入与目标是什么，答案是语言、代码、JSON还是动作token？",
+      "教师来自哪里，成功轨迹的每个中间动作是否经过检查？",
+      "损失算所有token、所有助手回合还是最后响应？因果注意力另怎样设？",
+      "语言、视觉、适配器与低层控制器分别是否训练，数据和预算是否分开？",
+      "样本按token还是按序列加权，截断和拼接是否改变目标？",
+      "离线损失、格式可执行性、交互成功和真实闭环是否分别报告？",
+      "留出任务是否真正未进入教师数据、开发探索与提示设计？"
+    ],
+    "takeaway": "SFT把示范变成条件概率目标；训练前应看清示范、前缀与label，训练后再用独立交互检验接口和恢复能力。",
+    "sources": [
+      {
+        "label": "InstructGPT，2022年：示范监督与后续偏好/RL阶段分开",
+        "url": "https://arxiv.org/html/2203.02155v1"
+      },
+      {
+        "label": "Llama 3技术报告，2024年：目标token交叉熵与prompt损失掩码",
+        "url": "https://arxiv.org/html/2407.21783v1"
+      },
+      {
+        "label": "Hugging Face TRL官方SFT说明：本轮读取的loss、mask与模板实现",
+        "url": "https://huggingface.co/docs/trl/en/sft_trainer"
+      },
+      {
+        "label": "HITCH新论文：训练上层VLM与全身tracker的具体分工",
+        "url": "https://arxiv.org/html/2611.08039v1"
+      }
+    ]
+  },
+  "research_supplement": {
+    "id": "hitch-measure-command-learn-humanoid-20261107",
+    "title": "具身Agent如何从“看懂”走向全身动作：HITCH把可测量接口、身体知识和低层控制接起来",
+    "summary": "HITCH新论文提供了一个公开到方法和消融、但代码尚待发布的全身Agent案例：Qwen3.8-27B不逐帧输出电机扭矩，而是先测三维，再发身体指令；规划器与50 Hz跟踪器执行，模型在动作结束后复查。它同时训练语言权重和低层tracker，不能归入纯提示改进；小规模G1实机结果也不能替代RoboDojo同协议榜单。",
+    "reading_minutes": 8,
+    "why_now": "论文11月5日晚北京时间首发，本轮11月7日读到方法、实验与作者项目。RoboDojo当前Agent/main/real及协议资产与11月6日相同、数据时间仍为11月3日，故不把旧排名再当新事件；本期用HITCH的新消融解释观测到动作之间哪些组件必须核验。",
+    "sections": [
+      {
+        "heading": "1. 先重读榜单：本期没有核到Agent排名更新",
+        "paragraphs": [
+          "11月7日当前榜单资产仍为index-X92qyXCU.js，标注数据日期11月3日。Agent前六为Q0-Preview74.20/68.87%、GO-3 Nano Preview61.90/56.42%、PyRUA-Lean55.26/50.35%、HexaShell-Preview53.18/46.85%、WorldScape-R²SI46.58/39.35%、EmbodiedEvo45.08/38.95%；斜线前是Score，后是完整成功率SR。main表w/o Agent最高WALL-OSS-1.0-lite42.59/34.97%，real榜首SLA-Preview42.33/33.89%。",
+          "协议要求仿真三seed及均值/标准差、实机覆盖ARX X5/Piper/Piper X、隐藏布局辅助核验，以及精确checkpoint、训练/部署代码、配置和重现说明。它允许固定系统内的规划与闭环，但不允许按任务切换已知最优策略。榜上标签仍不能填补底座、harness和预算缺口；HITCH不是这些条目的架构说明，也不在本轮榜单中。",
+          "另读RoboColiseum公开overall API前十：FF Omnimind综合分0.869813125、PyRUA-Lean0.82765、GO-3 Nano Preview0.78825；前十最新finish_time为11月4日，基线模型项仍是10月20日。网站标Updated 11月6日并不证明模型刚复测；这些综合分也不是SR。RoboColiseum、RoboDojo和本期新RoboARCade是三个不同评测，不能横比数值。"
+        ]
+      },
+      {
+        "heading": "2. 底座与观测：测量代替猜距离，坐标还要随身体更新",
+        "paragraphs": [
+          "HITCH明确使用Qwen3.8-27B。每轮输入完整历史、640×400头部RGB及身体状态；状态同时含指令值和编码器/IMU读数，帮助识别手被挡住或蹲得不够。模型点选像素，接口用对齐深度和相机姿态回投三维，并返回标记图让模型复查点是否落错。",
+          "真实G1头部安装可转动D455，深度由LingBot-Depth补全，用手持ChArUco板标定相机和云台。观测坐标以骨盆地面投影为原点、前方为x，位置不是永久世界真值；走路后位移只有近似值，之前量过的目标应重新确认。它提供可测的三维接口，仍依赖传感器、标定和点选正确性。"
+        ]
+      },
+      {
+        "heading": "3. 动作接口与闭环：低频决策连接50 Hz执行",
+        "paragraphs": [
+          "模型每轮只调用一次测量或执行。执行指令可设骨盆高度、躯干俯仰/偏航、双掌位置与朝向/路径时间、手指开合、平地行走和凝视方向；逆运动学规划器考虑关节、速度及自碰撞限制，流式给HEFT跟踪器全身参考，跟踪器以50 Hz平衡和追踪。",
+          "因此模型决定“去哪里、身体怎么摆”，规划器和tracker决定“怎样把目标落实到全身运动”。动作完成后才回传新图像与本体状态，支持跨动作纠错，动作中不能再观测并改计划；掉落等不可逆错误可能已来不及。完整历史作为记忆保留测量和行动，论文没有另造一个神秘的WAM。"
+        ]
+      },
+      {
+        "heading": "4. 学了什么：教师程序、语言SFT与tracker训练分别计入",
+        "paragraphs": [
+          "作者用Claude Opus 5.5协助编写教师程序，不是让它在线替代机器人策略。教师只能用指令、自己的测量和身体状态，避免访问学生看不到的物体真值；可达性图帮助教师选站位和姿态，但学生不直接拿图。五类基础任务各保留500条成功轨迹。",
+          "训练更新语言模型全部权重，冻结视觉编码器和投影层，仅在教师响应上算监督损失；基础模型450步，SIMPLE单训100步，混合750步，每batch16条轨迹，最大49152 tokens。低层HEFT也在教师规划参考上继续训练并加随机外力。这里改变了高低两层权重，不能当固定权重Agent工具改进。多个checkpoint在SIMPLE择优，完整GPU小时、教师开发、失败剔除和人工预算尚未披露。"
+        ]
+      },
+      {
+        "heading": "5. 消融能解释哪些机制，哪些泛化还没成立",
+        "paragraphs": [
+          "同基础任务模型去掉测量接口后SIMPLE从51.1%降到2.8%，支持精确空间测量在该设置下至关重要。固定教师指令换tracker，240次episode成功由优化后HEFT97.9%变为SONIC27.9%、AMO12.9%；这反映同接口命令的执行适配差异，不能说某底座单凭推理优于低层策略。",
+          "SIMPLE六任务各30次；HumanoidArena只选能执行的四任务各20次。两者换相机、重写含固定布局事实的指令；原始任务/物理/成功条件保留，但不是完全未改的默认评测。每任务加10条SIMPLE轨迹后SIMPLE98.9%，HumanoidArena反从42.5%降至28.8%，是任务偏置的反例；微调后显式推理也会沿着错误测量计算，不能直接认定想得越多越好。"
+        ]
+      },
+      {
+        "heading": "6. 实机分母、延迟与公开工件决定能否复核",
+        "paragraphs": [
+          "真实G1使用无手指控制的橡胶手，只测双手搬箱和绕障到目标。无真实训练图像不等于没有标定与部署工作：搬箱两个镜像布局各10次，合13/20；导航6/10，操作员按指令判断。成功episodes搬箱60.7秒、导航26.8秒，执行约61%、模型请求约19%、感知约20%；仿真45/60秒任务时限不能读成真实墙钟。",
+          "作者项目当前Code仍标Coming Soon、预计一周内发布；论文与视频可读，完整harness、教师程序、权重、标定和tracker配置未逐项实核。结论应停在“这种接口与训练分工有新实证”，下一步需要冻结工件、更多实机任务/次数、错误恢复训练及可比预算，才能与RoboDojo前排系统做机制和性能对照。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "同一动作链上，高层模型与低层组件分工",
+      "columns": [
+        "环节",
+        "公开构型/训练",
+        "证据边界"
+      ],
+      "rows": [
+        [
+          "选择与记忆",
+          "Qwen3.8-27B、完整交互历史、语言SFT",
+          "不是纯提示或固定权重技能库"
+        ],
+        [
+          "测量与标定",
+          "点选→深度回投；D455、LingBot-Depth、ChArUco",
+          "依赖标定/点选，走路后旧坐标不可靠"
+        ],
+        [
+          "动作执行",
+          "全身指令→IK规划→50 Hz HEFT；tracker另训",
+          "命令完成前无中途观测"
+        ],
+        [
+          "实机验证",
+          "G1搬箱13/20、导航6/10",
+          "两任务30次；95%来自仿真"
+        ],
+        [
+          "可复现性",
+          "论文/视频已读、代码Coming Soon",
+          "精确checkpoint/完整harness/开发总预算待补"
+        ]
+      ]
+    },
+    "checklist": [
+      "底座精确版本与权重是否变化？视觉、语言、低层控制分别训练了什么？",
+      "观测是RGB、深度、本体状态还是仿真特权真值？坐标和标定谁提供？",
+      "模型每次调用控制哪个层级，执行期间能否及时重规划？",
+      "训练教师是否用了学生没有的信息，评测是否改相机、指令或任务子集？",
+      "指标是Score、完整成功率还是对象级进度？实机分母和人工判定是否写清？",
+      "成功episode均时、失败超时、训练/探索与总人工预算是否分别报告？",
+      "公开工件是否真含榜项对应checkpoint、配置、标定、harness与控制器？"
+    ],
+    "takeaway": "具身Agent的能力来自整条可核的动作链：模型要会量、会选身体指令，规划器和低层控制要准确执行，反馈要能暴露误差；HITCH同时训练身体使用知识与跟踪器。现有消融支持这种分工的重要性，尚不能用小规模实机演示解释所有RoboDojo高分或证明Agent普遍胜过VLA。",
+    "sources": [
+      {
+        "label": "HITCH v1全文：方法、训练、消融与实机分母",
+        "url": "https://arxiv.org/html/2611.08039v1"
+      },
+      {
+        "label": "HITCH作者项目：演示及代码待发布状态",
+        "url": "https://hitch.axell.top/"
+      },
+      {
+        "label": "RoboDojo当前Agent/main/real榜，11月7日重读",
+        "url": "https://robodojo-benchmark.com/leaderboard#agent"
+      },
+      {
+        "label": "RoboDojo协议：固定系统、三seed、三本体与工件要求",
+        "url": "https://robodojo-benchmark.com/leaderboard/protocol"
+      },
+      {
+        "label": "RoboColiseum本轮实际读取的公开overall API（前十，非当日新实验）",
+        "url": "https://robocoliseum.ai/api/challenge/leaderboard/overall?page=1&per-page=10"
+      }
+    ]
+  }
+}
