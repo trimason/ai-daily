@@ -1,0 +1,598 @@
+{
+  "date": "2026-11-08",
+  "status": "daily",
+  "title": "大模型与具身智能前沿日报 · 2026年11月8日",
+  "coverage": "北京时间2026-11-08早晨采集，优先观察11月5–8日的新论文、公开代码/权重、媒体新解读和具体讨论；每条保留原成果日期与本轮事件。arXiv cs.RO/cs.AI/cs.CV/cs.LG实际目录仍为11月6日，各读取前50项（目录总数81/198/138/224），另查cs.CL前50/94，并非全部条目全文覆盖。HF网页实际为11月6日日榜，显式11月7日API为空，默认50项跨日，票数不作社区共识。国内九家大模型、十三家具身及XPENG按radar多渠道尝试159个唯一URL，108个200中11个为短壳，其他也含导航/重定向；GitHub17组织14成功，另读14个HF作者列表。DeepSeek研究目录、API更新、GitHub及HF并行核验，未确认10月17日后新模型；不凭旧主页判断。GroundingPI项目、作者HF卡与独立GroundAnything项目分别读取，代码组织API、GroundAnything部分模型卡及若干公司研究SPA仍有缺口，不能声称全部无更新。human five指定10月14日旧文经Chrome完整读取，仅用于身份/历史背景；账号名和微信号公开检索未取得后续可靠列表，作者入口要求转微信未继续。具身智能之心公开时间序列与11月6日VFlash全文已读，1赞3藏0评论，只算一篇解读；11月2日FACT旧解读无新工件不重报。其他中文媒体入口/具体原文及失败见采集台账，不宣称全量公众号覆盖。NeurIPS/ICML/ICLR2026、COLM预论文集、CVPR、ECCV2026、ACL/EMNLP与RSS2026目录读取，CVPR/ACL/EMNLP上限4MB；CoRL页面含嵌入目录但未完整解析；ICRA/IROS/AAAI为会议入口可读，非逐篇录用核验；ICCV主页为2027。UQ-DAAAM与StepBack均逐篇核NeurIPS官方Poster卡；OpenReview API403，公开评审未全读。RoboDojo榜/Agent分轨/协议与数据脚本重读，数据仍11月3日；RoboColiseum公开API前十最新完成11月4日，未当今日换榜。选题多为作者新研究/工件，VFlash有一篇独立媒体解读，PLatour有一个权重请求；未核到足以称多方热议的独立复现。本轮未自行训练或跑机器人实验。HF用已运行的7897请求级代理，未启动Clash或开启系统代理；结束复核HTTP/HTTPS/SOCKS/PAC均为0、Clash enable_system_proxy=false。",
+  "intro": "今天沿三个问题读九条进展：结构化空间计划与推理后缀如何省掉串行计算；人工纠正和多视角不确定性怎样改善冻结策略或长期记忆；基准、科学原始数据与跨模型控制如何避免把分数提升读成能力定论。头条是VFlash新开放代码与DSpine新draft权重，研究专题拆OopsieRecover的观测—约束—动作链；每日技术点补预测置信度与校准。",
+  "highlights": [
+    {
+      "title": "VFlash新开放代码，约5×对应模型流水线",
+      "text": "Thor上3552.7→703.3ms；MolmoSpaces是仿真，target/drafter权重、动作WAM和部署栈仍待补。",
+      "story_id": "vflash-primitive-parallel-planning-code-release-20261107"
+    },
+    {
+      "title": "冻结VLA也能用语义纠正改善行为",
+      "text": "OopsieRecover实机阶段进度35.1%→61.0%；这不是整任务SR，候选动作与感知预算仍需核。",
+      "story_id": "oopsierecover-semantic-intervention-gated-cost-20261105"
+    },
+    {
+      "title": "验证器与时间预算都是评测的一部分",
+      "text": "Terminal-Bench审计28/89任务需要修订；增加timeout可显著缩小同模型不同Harness差距。",
+      "story_id": "terminal-bench-continuous-audit-budget-sensitivity-20261105"
+    },
+    {
+      "title": "新DSpine权重把并行draft带到Agent回放",
+      "text": "Qwen3.8-27B版本吞吐为AR的2.71–3.84倍，来自并发8的缓存前缀回放。",
+      "story_id": "dspine-qwen38-27b-draft-release-agent-replay-20261107"
+    },
+    {
+      "title": "看见原始数据，不等于能作正确科学解释",
+      "text": "BioBasicsBench平均rubric分包含部分得分；自信解释与证据不足要分开。",
+      "story_id": "biobasicsbench-wetlab-data-interpretation-20261106"
+    }
+  ],
+  "research_supplement": {
+    "id": "oopsierecover-constraint-vs-weight-adaptation-20261108",
+    "title": "纠正机器人一定要重训VLA吗？OopsieRecover把人工干预变成可复用的运行时约束",
+    "summary": "本期用OopsieRecover的新预印本拆解另一条具身适应路径：冻结π0.5，把人工接管与语言解释归纳为带触发条件的空间代价，再在候选动作中选择。它让经验进入可执行约束，而非直接改策略权重；实机61.0%是阶段进度，冻结π0.5对照35.1%，不等于完整任务成功率。与昨日HITCH相比，变化发生在动作链的不同层，不能据此解释RoboDojo前排系统的未公开实现。",
+    "reading_minutes": 8,
+    "why_now": "OopsieRecover于11月5日18:53 UTC首发，本轮11月8日核读全文、作者项目和实验设置；尚未找到独立复现。RoboDojo的main、Agent分轨与协议均重新读取，当前数据仍为11月3日，没有确认换榜。因此延续“从观测到动作、经验沉淀在哪一层”的问题，用新论文推进专题，不重复把历史排名当新新闻。",
+    "sections": [
+      {
+        "heading": "1. 当前榜单先核对：高分标签不能填补构型缺口",
+        "paragraphs": [
+          "11月8日读取RoboDojo的/leaderboard、#agent及/leaderboard/protocol，并追入实际数据与协议脚本。当前仍为index-X92qyXCU.js、数据日期11月3日。Agent前六依次为Q0-Preview（Score 74.20，SR 68.87%）、GO-3 Nano Preview（61.90，56.42%）、PyRUA-Lean（55.26，50.35%）、HexaShell-Preview（53.18，46.85%）、WorldScape-R²SI（46.58，39.35%）与EmbodiedEvo（45.08，38.95%）；main w/o Agent最高WALL-OSS-1.0-lite（42.59，34.97%），real榜首SLA-Preview（42.33，33.89%）。Score是分数，SR才是完整成功率，仿真与实机分轨分别读。",
+          "协议仍要求仿真三随机种子及均值/标准差、实机覆盖ARX X5/Piper/Piper X、隐藏布局验证，以及评测checkpoint、训练/部署代码、配置和复现说明。正式main不为Agent排位，展示在混合图中的前排也不证明Agent普遍优于VLA。OopsieRecover不是本轮榜单条目；它只为“经验如何改变机器人行为”提供新公开机制，不能回填Q0、GO-3或其他前排系统的底座和harness。"
+        ]
+      },
+      {
+        "heading": "2. 底座与观测：从人类一句解释找到几何实体",
+        "paragraphs": [
+          "仿真实验使用在全量RoboCasa数据微调的π0.5，实机使用官方π0.5 DROID checkpoint；适应过程中基础VLA权重固定。人工看到错误后接管，并描述纠正意图，例如靠近咖啡机放杯子时要避开突出区域。系统保存接管前的自主动作窗口、人工纠正窗口、任务指令和纠正类型，后续同类型干预共同约束同一程序。",
+          "VLM先在参考图中点出杯子、机器边缘、托盘等语义实体，并决定用单点还是点集表示；分割器扩展区域，采样像素后用深度回投三维。跨帧追踪的是语义区域，再重新采样并回投点集；归纳时向VLM提供各实体质心随时间的轨迹。新场景重新定位同类实体，迁移的是“哪些几何关系需要维持”，不是旧场景的一串绝对坐标。",
+          "论文没有在可读主文中给出这一路VLM的精确API版本、全部prompt/调用预算和完整感知配置；相机标定、深度噪声、追踪错误仍会影响约束。实体点选、空间坐标、VLA动作及真实本体状态的完整接口要靠后续代码核对，不能只凭图示声称端到端工件齐全。"
+        ]
+      },
+      {
+        "heading": "3. 规划与经验：门控代价怎样由干预变成程序",
+        "paragraphs": [
+          "每类纠正生成三部分：gate规定何时适用，correction cost衡量危险几何关系，task cost保留任务方向。比如“杯子靠近机器时避免碰撞”只在相关区域触发，避免全程把杯子远离目标。VLM提出可执行函数，触发阈值再由接管前记录校准，而非让模型猜一个任意数字。",
+          "程序接受两项记录一致性检查：是否给接管前行为更高代价、给人类纠正更低代价；是否至少在接管前窗口触发。多个同类干预用逻辑AND联合检查，失败后修参数或逻辑，直至通过或耗尽预算B。一个重要限制是：预算用尽仍保留最后一轮逻辑与参数，记录一致性不构成安全证明，更不保证人类意图在所有新情景下都被正确表达。",
+          "这里的“记忆”是累积的语义纠正程序与干预证据。它有跨场景复用价值，但论文未证明程序库规模长期增长时的冲突处理、维护成本和跨任务持续增益；也没有证明改进机制本身递归增强。"
+        ]
+      },
+      {
+        "heading": "4. 动作接口与反馈：冻结VLA提案，几何模型挑动作",
+        "paragraphs": [
+          "部署时持续计算当前点集的gate score，超过阈值才进入纠正。VLA采样K条长度H的动作块，点集动力学预测每条会怎样移动相关实体；按折扣累计代价排序，选最低者执行，多个同时触发的纠正使用加权代价。作者可额外加入cardinal actions增加候选多样性。仿真直接用模拟器物理，实机使用grasp-based dynamics，两者预测条件不同。",
+          "高层没有替代基础策略的所有动作知识：π0.5仍提供能执行的候选，约束只是筛选和引导。若候选中根本没有好动作，最低代价仍可能失败；几何点约束也不直接表达接触力、摩擦或不可见物理属性。论文没有报告足够完整的候选数K、时域H、端到端延迟与全部低层控制配置，不能据冻结权重推断推理额外成本很小。"
+        ]
+      },
+      {
+        "heading": "5. 实验读法：61%是阶段进度，不能换算成实机SR",
+        "paragraphs": [
+          "RoboCasa三任务每任务收5–8条纠正，L0是原reset状态，L1是同场景新物体姿态，L2是未见场景加新姿态。论文每方法50 episodes的仿真结果按二元成功判定。CoffeeMug额外数据效率实验用25个留出L1场景，OopsieRecover以8条纠正达84%成功，HG-DAgger*用30条达28%；这属于特定模拟任务，不能与下面实机进度合并。",
+          "真实DROID三任务每任务3–6条语义纠正，每方法、任务、难度20次rollouts。61.0%是OopsieRecover各任务/难度的阶段完成比例均值，35.1%是冻结π0.5对照；HG-DAgger*用同一干预数据LoRA微调，是另一个更低的基线。项目按L0/L1/L2展示的π0.5进度为36%/36%/34%，OopsieRecover为67%/58%/58%，HG-DAgger*为14%/12%/7%；四舍五入图值不能取代论文精确总体均值。",
+          "统计标记在L0和L2把OopsieRecover与其他方法分开，在L1与π0.5未形成显著分离；因此不能把平均74%相对提升改写成每种情景都确定更强。单条避碰程序在10个新场景各保护100步的结果，是人工主动把机器人引入特定危险区域的定向检查，不是一般任务100%安全或成功。"
+        ]
+      },
+      {
+        "heading": "6. 和HITCH对照：更新不同层，需要不同预算与工件",
+        "paragraphs": [
+          "昨日HITCH用Qwen3.8-27B作测量与身体指令决策，同时进行语言SFT和低层HEFT tracker训练。OopsieRecover固定π0.5，把人类解释变成条件代价，在运行时多采样和选择。两者一个把能力写入高低层参数，一个把纠正写在策略外的可执行规则；都是具身系统适应，但没有同本体、同任务、同感知与计算预算横比，不能排出通用优劣。",
+          "本轮OopsieRecover已读到论文和演示，未看到正式代码/权重包或第三方复跑；VLM精确版本、完整harness、全部阈值/采样配置、标定、总开发调用与人工时仍缺。现在可支持“少量语义干预可在指定任务中改善冻结VLA”这一作者实证；要解释RoboDojo前排、证明普适安全、或声称免训练总成本更低，还需要匹配消融、冻结工件与独立留出测试。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "同样是纠错，行为改变写入了不同层；不存在本期同协议胜负结论",
+      "columns": [
+        "机制",
+        "更新对象与执行",
+        "需要核实的成本/限制"
+      ],
+      "rows": [
+        [
+          "OopsieRecover",
+          "π0.5固定；更新语义gate、空间代价和程序；运行时采样候选后排序",
+          "人工语义干预、VLM合成、感知/动力学、K/H与延迟，代码尚未核到"
+        ],
+        [
+          "HG-DAgger*对照",
+          "把同一纠正数据用于π0.5 LoRA微调",
+          "少量纠正可能过拟合；不是35.1%冻结基线"
+        ],
+        [
+          "HITCH（昨日新论文）",
+          "语言模型SFT、低层tracker继续训练；测量接口→身体指令→执行后复查",
+          "教师数据、训练和标定成本；与Oopsie不同本体/任务"
+        ],
+        [
+          "RoboDojo前排Agent",
+          "榜单标签与Score/SR已重读",
+          "精确底座、感知、WAM/VLA组成、预算必须逐系统核，不能由标签推定"
+        ]
+      ]
+    },
+    "checklist": [
+      "35.1%属于哪个基线？61.0%是阶段进度还是二元成功率？",
+      "冻结的是基础VLA；是否仍训练/生成了程序、记忆、感知或动力学组件？",
+      "新场景迁移的是语义实体与关系，还是重放了旧坐标/轨迹？",
+      "门控校准、程序验证和最终任务成功是否有独立留出？预算用尽后怎么处理？",
+      "候选动作没有解时是否能恢复？K、H、模型调用和延迟是否完整报告？",
+      "公开论文、演示视频、完整代码、权重、harness和独立复跑是否分别核实？"
+    ],
+    "takeaway": "纠错经验可以写成策略外的可执行约束；冻结VLA仍需感知、动力学和候选预算。先找行为改变发生的层，再按相应指标与工件判断收益。",
+    "sources": [
+      {
+        "label": "OopsieRecover原论文v1全文（11月5日）：方法、基线、阶段进度与限制",
+        "url": "https://arxiv.org/html/2611.08462v1"
+      },
+      {
+        "label": "OopsieRecover作者项目：实机/仿真图表与纠正演示",
+        "url": "https://robin-lab.cs.utexas.edu/oopsierecover/"
+      },
+      {
+        "label": "HITCH原论文v1：仅用于对照更新层次，不构成同协议性能比较",
+        "url": "https://arxiv.org/html/2611.08039v1"
+      },
+      {
+        "label": "RoboDojo当前榜单及Agent分轨（11月8日重读，数据仍为11月3日）",
+        "url": "https://robodojo-benchmark.com/leaderboard#agent"
+      },
+      {
+        "label": "RoboDojo官方评测协议（11月8日重读）",
+        "url": "https://robodojo-benchmark.com/leaderboard/protocol"
+      }
+    ]
+  },
+  "stories": [
+    {
+      "id": "vflash-primitive-parallel-planning-code-release-20261107",
+      "category": "embodied",
+      "tag": "视觉计划解码 · NVIDIA Research · 代码开放、权重待发",
+      "title": "VFlash视觉计划代码已开放：Thor模型流水线约5×，权重与动作WAM仍待补齐",
+      "organization": "NVIDIA Research及合作作者",
+      "published": "2026-11-07",
+      "date_label": "arXiv v1于11月5日18:44 UTC提交；NVlabs/Eagle的Release VFlash提交于11月7日07:10 UTC（北京时间15:10），README后续文档更新于10:07 UTC；11月8日核读论文、项目、固定提交差异与官方代码文档",
+      "summary": "VFlash针对视觉模型逐坐标自回归生成轨迹的串行开销，依据图元类型和长度一次并行草拟完整坐标块，再让目标VLM读取有效图元更新上下文；文本仍使用目标模型验证的投机解码，检测低置信框时可回退AR。主实验底座是Eagle Embodied自定义4B VLM（Qwen3-4B、MoonViT视觉编码器和MLP），配五层drafter。点运动预测另用MolmoMotion-AR目标。机器人轨迹是开环误差评测；在MolmoSpaces仿真中，冻结规划VLM将计划隐藏状态送入同一个Cosmos-Predict2.5 WAM，四任务均分从62.6%升至70.2%。论文报告H100 batch=1的单次点运动生成约23.5–26.4倍加速；此数不是端到端机器人闭环加速。",
+      "why": "今天的事件是11月7日代码首次开放，而不只是11月5日新预印本。它把并行解码从“猜几个token、逐字验证”转为利用坐标结构整块生成；空间坐标可以按轨迹误差评价，不必与自回归目标逐token一致，但结果也不再自动继承原模型的文本输出分布保证。发布代码让实现和评估协议可检查，机器人动作WAM、TensorRT部署栈及target/drafter权重仍未随代码提供。11月6日“具身智能之心”发布一篇逐图解读，强调结构化图元并行解码及其下游收益；页面显示1赞、3藏、0评论，是一条公开解释线索，不构成多方热议。HF Papers 11月8日页面100票；可读到的唯一评论为平台自动推荐机器人，不把票数称为独立复现或社区共识。",
+      "limitation": "70.2%为四套MolmoSpaces仿真任务的平均成功率，每套分别评估1000/1000/1000/915个episode；同一WAM、仿真seed42，VFlash只改变计划表征/解码器，离真实闭环与本体泛化仍有距离。约25×是H100 batch=1单次MolmoMotion点运动生成，三数据集分别24.8/23.5/26.4倍；不是任务成功率或部署整环加速。另一MolmoSpaces规划单步的模型流水线总延迟在H100为AR516.1ms、VFlash142.3ms（约3.63倍），在Thor为3552.7/703.3ms（约5.05倍），其中包含模型及目标prefill且强依赖指定TensorRT运行时。直接接受图元不等于逐坐标完全准确。官方Eagle代码/训练评测文档已公开，目标和drafter checkpoint仍标记为later release，模型使用NVIDIA专用许可证；WAM和性能数字尚未独立复测。HF页面只有自动推荐评论。",
+      "sources": [
+        {
+          "label": "VFlash原论文v1全文：方法、MolmoSpaces策略条件、H100延迟和逐项分母，11月5日",
+          "url": "https://arxiv.org/html/2611.08449v1"
+        },
+        {
+          "label": "NVIDIA项目页：视觉图元流程、推理速度与工件状态",
+          "url": "https://research.nvidia.com/labs/lpr/vflash/"
+        },
+        {
+          "label": "官方代码首次Release VFlash的固定提交（2026-11-07 07:10:58 UTC）",
+          "url": "https://github.com/NVlabs/Eagle/commit/d48ad4f05ca3f73fc0b14bedb7c199123422fab6"
+        },
+        {
+          "label": "官方VFlash文档：架构、训练/评测范围和权重尚未发布",
+          "url": "https://github.com/NVlabs/Eagle/blob/main/Embodied/document/vflash/README.md"
+        },
+        {
+          "label": "具身智能之心 VFlash 解读，2026-11-06 18:10（北京时间）；1赞、3藏、0评论",
+          "url": "https://zhuanlan.zhihu.com/p/2102098444580136717"
+        },
+        {
+          "label": "Hugging Face Papers页面，11月8日读取100票；可见评论为自动机器人推荐",
+          "url": "https://huggingface.co/papers/2611.08449"
+        }
+      ]
+    },
+    {
+      "id": "oopsierecover-semantic-intervention-gated-cost-20261105",
+      "category": "embodied",
+      "tag": "VLA纠错 · 语义干预 · 固定权重测试时引导",
+      "title": "OopsieRecover把人工纠正写成可迁移的语义约束：实机阶段进度61.0%，对照冻结π0.5为35.1%",
+      "organization": "德州大学奥斯汀分校、Toyota Research Institute",
+      "published": "2026-11-05",
+      "date_label": "arXiv v1于11月5日18:53:16 UTC提交；11月8日核读全文、作者演示页与实验分母；本轮未发现独立复现或多团队讨论",
+      "summary": "OopsieRecover不是用纠正轨迹直接微调VLA，而是让人工接管轨迹加一句纠正语义，例如“杯子放下时保持竖直”，由VLM识别场景实体，分割/追踪并经深度形成3D点集，再归纳有触发门的空间代价函数。测试时冻结π0.5，采样候选动作块、预测点集运动并按代价排序/引导，在相似语义条件出现时复用纠正程序。RoboCasa仿真选3任务，每任务5–8条纠正、每方法50 episodes，跨原位/新姿态/新场景测试；真实DROID设备用官方π0.5 checkpoint，3任务每任务3–6条语义纠正、每任务和难度20 rollouts。论文报告实机各任务/难度阶段进度的均值由冻结π0.5基线35.1%升至61.0%，不是二元整任务成功率；另一个HG-DAgger* LoRA微调基线更低，需与π0.5基线区分。",
+      "why": "它给“错误经验更新哪一层”一个清晰反例：VLA权重冻结，改的是运行时的语义触发规则与候选动作筛选；因而既不同于HITCH那类SFT语言策略和另训低层tracker，也不同于把每条修正动作直接复制回策略。论文报告61.0%对冻结π0.5的35.1%；同一干预数据LoRA微调的HG-DAgger*是单独基线，不应把35.1%错写成HG-DAgger成绩。单条纠正程序在刻意诱发撞蒸汽把手的10个新场景中每次触发、保护100步，显示可迁移约束的可行性；但这是定向失败预设测试，不代表一般任务都达到100%成功。当前为新作者预印本和演示，不能称独立验证或社区共识。",
+      "limitation": "核心实机结果按阶段完成比例(task progress)计分：61.0%是OopsieRecover，35.1%是冻结π0.5基线的均值；HG-DAgger*是使用相同人工干预数据进行LoRA微调的另一个基线，作者项目按难度列出14%/12%/7%，不是35.1%的来源。它们都不是二元整任务成功率或事故率。仿真任务论文总述为每任务5–8 corrections，正文RoboCasa使用π0.5 full-data fine-tuned checkpoint；真实DROID按每任务3–6条、每任务/难度20次rollouts。纠正程序依赖语义点选、分割、深度回投、跨帧追踪和候选动作运动预测，作者承认感知与动力学误差会影响何时触发和如何选动作，样本候选中若没有好动作则无法保证恢复；空间点约束也不直接表达接触力等隐藏物理量。10场景100步实验主动把机器人操纵到目标危险区以测特定规则，不是自然分布安全性评测。项目页有演示视频，未看到正式代码/模型工件或独立复测。",
+      "sources": [
+        {
+          "label": "OopsieRecover arXiv v1全文：方法、基线、实验/进度指标与限制",
+          "url": "https://arxiv.org/html/2611.08462v1"
+        },
+        {
+          "label": "作者演示与实验图：各类纠正何时触发",
+          "url": "https://robin-lab.cs.utexas.edu/oopsierecover/"
+        },
+        {
+          "label": "arXiv版本记录与提交时间",
+          "url": "https://arxiv.org/abs/2611.08462"
+        }
+      ]
+    },
+    {
+      "id": "terminal-bench-continuous-audit-budget-sensitivity-20261105",
+      "category": "llm",
+      "tag": "Agent评测 · 基准维护 · 资源敏感性",
+      "title": "Terminal-Bench 2.1：修好近三成任务后，超时预算还能改写模型与Harness差距",
+      "organization": "Stanford University、Cornell University；Terminal-Bench维护团队",
+      "published": "2026-11-05",
+      "date_label": "arXiv v1于11月5日18:18 UTC提交（北京时间11月6日02:18）；Terminal-Bench 2.1工件及其维护仓库更早已存在，本轮关注的是新论文对28/89任务审计、19个Agent比较和预算敏感性的系统分析；11月8日核读全文、工件README、Issue与历史修复PR",
+      "summary": "作者将Terminal-Bench 2.0的缺陷审计整理为持续维护流程：汇总任务说明、运行轨迹与社区报告，由审计Agent提出问题、验证Agent执行反例检查，再由维护者决定修复。89项任务中28项需要修订，含此前公开审计/issue已识别的问题及本轮新增发现；主要是说明与verifier不一致、外部状态漂移和过紧资源上限。19个Agent从TB2.0换到TB2.1后整体排名仍高度相关（Spearman ρ=0.958，任务bootstrap 95% CI [0.881, 0.979]），但单项准确率最多变12个百分点、名次最多移动3位。失败试验中超过一半以超时结束，不同harness下约18%–68%；把时间上限提高到原来的32倍时，GPT-5.4同模型Codex/Terminus-2约20个百分点的差距基本消失，GPT-5.4 mini约30点的差距缩至5点。",
+      "why": "这次新论文把基准维护和算力预算放到同一测量框架：Verifier误拒有效答案会造成假阴性，更新任务也会改变排名；默认时间上限又把速度与最终可解性混成一个分数。它促使Agent论文同时公布基准版本、模型、Harness、任务资源、timeout和pass@k，而不只贴单点排行榜。终端榜单已有可追溯的历史issue与修复，但本轮没找到多位独立研究者对这篇新论文的实质讨论，因此按新评测研究而非社区热议处理。",
+      "limitation": "28项修复中有一部分在论文前已由公开审计/issue提出，不能把全部算成本研究刚发现。受控时间扩展最多到32倍，不能代表无限预算；作者指出大多数较大模型的剩余失败已非超时，但小模型仍有timeout。榜单比较的是完整Agent系统，模型、Harness、容器与资源共同变化；它不是裸模型能力排名。本文评测结果由作者报告，本轮未运行基准复现。GitHub仓库的最近更新只用于核读工件，不作为论文发布日期；arXiv PDF为预印本，不能仅凭格式判断会议录用。",
+      "sources": [
+        {
+          "label": "原论文v1全文：89项任务的审计、28项修复、19个Agent与资源敏感性实验",
+          "url": "https://arxiv.org/html/2611.08417v1"
+        },
+        {
+          "label": "Terminal-Bench 2.1官方工件仓库与当前README",
+          "url": "https://github.com/harbor-framework/terminal-bench-2-1"
+        },
+        {
+          "label": "Terminal-Bench 2.0历史修复PR #53（早于本论文，不作为11月新事件）",
+          "url": "https://github.com/harbor-framework/terminal-bench-2/pull/53"
+        }
+      ]
+    },
+    {
+      "id": "dspine-qwen38-27b-draft-release-agent-replay-20261107",
+      "category": "llm",
+      "tag": "投机解码 · 新draft权重 · 会话回放吞吐",
+      "title": "DSpine适配Qwen3.8-27B：新draft权重公开，Agent回放吞吐为AR的2.71–3.84倍",
+      "organization": "腾讯优图实验室、上海交通大学、厦门大学；HF发布者tencent",
+      "published": "2026-11-07",
+      "date_label": "原论文v1于9月28日19:44 UTC提交（北京时间9月29日），v2于10月10日修订；11月7日22:20北京时间建立Qwen3.8-27B draft仓库，22:33上传4个工件，23:40更新模型卡；11月8日核读卡片、文件清单与项目",
+      "summary": "DSpine在并行draft每层把前一位置的预测特征门控注入后一位置，借网络深度传播因果条件；目标模型仍负责验证。11月7日新发布的Qwen3.8-27B版本是5层draft、block size 16、8,192-token滑窗，公开约4.05GB权重与SGLang运行命令。作者在SGLang 0.5.22、BF16、并发8的工具决策前缀回放中报告：WorkBuddy Code/Web/Office、SWE-bench Pro和τ²-bench的吞吐为自回归AR的2.71–3.84倍。",
+      "why": "今天的新事件是Qwen3.8适配与可下载draft工件，机制和9月论文分开。它把“并行候选之间缺少前驱条件”的研究推进到近期Agent工作负载，值得比较实际服务收益；但这里Agent端到端吞吐的分母是并发replay wall time，不是实际工具调用和整任务完成时间。卡片还并列DFlash2，DSpine各子集吞吐更高，但block size分别16和8，收益不能全归因于门控注入单一改动。当前为作者实现与自报结果，未核到独立复测或多方热议。",
+      "limitation": "每subset仅20段会话，依次回放已录制的工具决策前缀，开启prefix cache，每请求最多32,768新token；low/xhigh推理与温度采样要分别看，未报告真实在线Agent任务成功率。通用任务最多4,096新token，与Agent回放不是同一配置。卡片未披露此表GPU型号、完整训练/回放成本与置信区间；4.05GB是draft模型文件，部署仍需27B目标模型及其缓存。本文只核到模型卡、目录和原论文机制，未自行测速；不把原论文v2未比对的内容称为修订新增。",
+      "sources": [
+        {
+          "label": "11月7日Qwen3.8-27B DSpine模型卡：回放口径、配置与结果",
+          "url": "https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16/blob/ea909c0f5fab8865f9e14600334f55f7ce47308f/README.md"
+        },
+        {
+          "label": "HF提交记录：建立仓库、上传工件及模型卡更新",
+          "url": "https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16/commits/main"
+        },
+        {
+          "label": "作者项目：相邻因果注入机制及Qwen3.8支持公告",
+          "url": "https://dspine-project.github.io/"
+        },
+        {
+          "label": "arXiv原论文版本记录与方法",
+          "url": "https://arxiv.org/abs/2609.36173"
+        }
+      ]
+    },
+    {
+      "id": "uq-daaam-neurips-poster-embodied-memory-20261105",
+      "category": "embodied",
+      "tag": "具身长期记忆 · NeurIPS 2026 Poster · 旧论文近期会议展示",
+      "title": "MIT新解读UQ-DAAAM：用多视角不确定性发现机器人记忆中的错物体",
+      "organization": "MIT SPARK Lab / Laboratory for Information and Decision Systems",
+      "published": "2026-11-05",
+      "date_label": "论文原始v1首发2026年6月6日；当前新事件是11月5日MIT News重新解释方法；11月8日本轮核读NeurIPS 2026官方Poster页与论文，确认类型为Poster，未把读取日期当作录用日期",
+      "summary": "UQ-DAAAM是在既有DAAAM空间语义地图上增加的不确定性与描述修正层：利用同一物体跨视角caption的语义散度和单视角可靠度，选出不确定对象，再根据视图质量选额外图像、融合多视角描述写回记忆。CODa 7条序列（98,866帧）在单RTX4090以13.5 Hz运行；18,298个对象中6,324个（34.6%）被抽样继续看图，平均增加1.32个视角。MIT 11月5日新闻报道对象描述歧义约92%可被消解、只需每对象两张额外caption，准确率比此前方法高5个百分点。论文OC-NaVQA固定额外查询预算表中GPT-5-mini推理后，问答准确率71.1%→76.1%，位置误差41.75→37.84米，时间误差1.792→1.589分钟；这些是记忆问答/地图指标，不是机器人任务SR。",
+      "why": "今天关注点是11月5日MIT对旧方法的新解释，并以NeurIPS 2026正式Poster档案核准展示身份，不是把6月论文包装为新首发，也不是今日新录用。它把“长期记忆”从持续写更多内容转向对多视角矛盾做不确定性估计、主动补看与合并；尤其有移动机器人在线频率、对象数和资源数据，为Agent文件型记忆研究提供不同的物理记忆参照。官方Poster页可见，未据此称Oral；当前未核到独立复现或社区争论。",
+      "limitation": "OC-NaVQA使用长程机器人行走序列并回答时空问题，不是端到端抓取/导航成功率；表格所有方法使用GPT-5-mini推理后台。提高跨视角一致性不证明caption绝对正确，系统也可能把重复错误描述合并成稳定错误；持续查询有额外模型成本与长期地图存储负担。作者报告通过质量代理可概率性降低不确定度，不等于所有对象都能纠正；92%是新闻对ambiguity resolution的摘要，不与上表QA准确率混为同一指标。论文仍为6月v1，代码或数据开放状态不作为本轮新发布事件。",
+      "sources": [
+        {
+          "label": "MIT News 11月5日新报道：UQ-DAAAM与机器人记忆示例",
+          "url": "https://news.mit.edu/2026/clearing-up-robot-fuzzy-memory-1105"
+        },
+        {
+          "label": "NeurIPS 2026官方Poster卡：展示时间及录用类型",
+          "url": "https://neurips.cc/virtual/2026/poster/152348"
+        },
+        {
+          "label": "UQ-DAAAM原始论文全文，v1 2026年6月6日",
+          "url": "https://arxiv.org/html/2606.08277v1"
+        },
+        {
+          "label": "arXiv版本历史",
+          "url": "https://arxiv.org/abs/2606.08277"
+        }
+      ]
+    },
+    {
+      "id": "biobasicsbench-wetlab-data-interpretation-20261106",
+      "category": "llm",
+      "tag": "多模态科学评测 · OpenAI自评 · 数据解读非机器人执行",
+      "title": "BioBasicsBench让模型读原始湿实验数据：Astra获66.7% rubric分，尚非真实实验闭环",
+      "organization": "OpenAI、Ligo",
+      "published": "2026-11-06",
+      "date_label": "官方文章2026年11月6日发布；11月8日通过Chrome完整核读正文、任务构成、结果表与失败案例；终端直读403已以可见公开正文补核",
+      "summary": "BioBasicsBench含100道从真实湿实验记录构建的数据解释任务：蛋白25、成像/流式23、定量/assay19、核酸17、分子克隆16，输入包括原始胶图、显微图、FCS、测序与视频。任务由Ligo作者、独立内部审阅者、外部湿实验PhD与最终内部复审组成审核流程。作者测试7个OpenAI模型、37种模型/推理档位配置，每题5次共18,500份输出。xhigh下GPT-6 Astra平均rubric reward为66.7%（95% CI 60.3–73.1），GPT-6.1 Sol为62.0%（55.6–68.4），GPT-5.6 Sol为43.8%（37.6–50.0）；平均分是获得的评分细则比例，不是整题成功率。",
+      "why": "它把科研Agent比较从写论文摘要推进到“原始证据是否支持这个结论”：模型必须认出错误对照、相互矛盾的通道以及证据不足，单纯给出熟悉的实验叙述会失分。失败例中，模型视觉上分对条带，却用惯常生物学假设把语义分类反转，显示看见、解释与拒绝过度结论是三个环节。它和今天Terminal-Bench的共同问题是评分标准能否捕捉实际错误；但这是官方新评测，未找到独立复测或多模型厂商同协议讨论。",
+      "limitation": "100题是数据解释任务，既非机器人自主操作湿实验，也非端到端研究发现成功率；技能标签88项隐性知识、88项多模态、68项错误排查、50项协议知识与19项证据不足相互重叠，不能相加。每个模型/档位配置是100题×5次=500份输出；置信区间按100道整题bootstrap并将同题5次尝试一起重采样。18,500是37配置的总输出数，不能作为某个配置的独立样本数。Astra与Sol区间明显重叠，点估计不同不能单独证明显著优势；模型/推理预算与输出token也不同。原生多模态是否导致增益是作者解释，未做隔离消融。单个示例约12%菌落多计不能当全基准平均误差。本轮正文未见独立论文、公开数据/代码链接或Claude/Gemini/开源模型同协议结果，所有成绩均属作者自评。",
+      "sources": [
+        {
+          "label": "OpenAI官方完整文章，2026-11-06：任务构成、18,500输出、评分/区间和具体失败",
+          "url": "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science/"
+        }
+      ]
+    },
+    {
+      "id": "stepback-error-localized-test-time-resampling-20261105",
+      "category": "llm",
+      "tag": "测试时计算 · 推理轨迹复用 · NeurIPS 2026 Poster",
+      "title": "StepBack：定位疑似出错步骤后只重采样后缀，token减少但硬题收益不稳",
+      "organization": "North Carolina State University",
+      "published": "2026-11-05",
+      "date_label": "arXiv v1于11月5日18:12 UTC提交（北京时间11月6日02:12）；作者GitHub于11月4日建库；11月8日由NeurIPS 2026官方论文目录追到Poster卡，确认展示类型，读取日期不作为录用日期；OpenReview接口仍403",
+      "summary": "StepBack先抽少量完整推理草稿，再用策略模型逐步NLL变化或7B过程奖励模型（Qwen2.5-Math-PRM-7B）的分数下降估计首个可疑步骤；保留此前前缀，只并行重采样该步骤到答案的后缀，并仍以32个候选答案多数表决。三种生成器（Llama-3.2-3B-Instruct、Qwen2.5-3B-Instruct、Qwen2.5-7B-Instruct）在七个数学与多跳问答基准、共4,166题上测试。使用PRM定位时，七数据集加权平均准确率比SC@32分别高0.36、0.17、0.82个百分点，生成token分别减少18.66%、21.07%、22.80%；每个模型/数据集组合均减少token，但其中6/21个PRM组合准确率更低。定位打分占总墙钟GPU时间约7%–10%，不是完整端到端加速倍数。",
+      "why": "传统自洽采样把每个候选的整条思维链从头生成；这项新研究检验另一条测试时计算轴：在候选数相同的情况下，复用可信前缀，把预算集中到可能出错的后缀。它补充‘采几条’之外的‘在哪一段再采’。论文还把信号定位和单纯末步重采样、固定回滚点作了对照：相当一部分省token来自前缀复用，PRM的局部错误定位带来的额外准确率提升较小。当前无独立复现或具体社区讨论证据，属于值得关注的新推理方法，不代表热议或通用收益。",
+      "limitation": "作者报告的主要结果集中于数学与多跳问答，尚未验证代码或长文摘要。AIME24、OlympiadBench等竞赛难题上的提升更不稳定，回滚到局部步骤可能无法修正早期错误或需要改换解题路线的失败。NLL与PRM只提供两种定位信号；token节省不是FLOPs或真实服务成本的同比下降，墙钟开销在部分对照里只测定位评分占比。论文附录给出五seed稳健性分析，但主表准确率不是所有设置均多seed汇总。NeurIPS 2026官方页面已核实为Poster（作者Yang Ouyang、Jung-Eun Kim），OpenReview页面/API仍不可读，故未核公开评审。主文表2旁的文字将Llama与Qwen3B的18.66%/21.07%节省值互换，本期采用表2及README一致的对应关系。",
+      "sources": [
+        {
+          "label": "StepBack原论文v1：表2、七基准/4,166题、seed与限制",
+          "url": "https://arxiv.org/html/2611.08403v1"
+        },
+        {
+          "label": "作者GitHub：实现、配置和表格复核",
+          "url": "https://github.com/JEKimLab/StepBack"
+        },
+        {
+          "label": "NeurIPS 2026官方Poster页面：从当届论文目录追到，确认类型与作者",
+          "url": "https://neurips.cc/virtual/2026/poster/149117"
+        }
+      ]
+    },
+    {
+      "id": "lajepa-compact-world-action-control-recipe-20261105",
+      "category": "embodied",
+      "tag": "World-Action Model · JEPA表征 · Franka实机与评测修正",
+      "title": "La-JEPA在V-JEPA特征上从零训练紧凑策略：Franka四任务17.5/20，代码仓库目前为空",
+      "organization": "Huawei Technologies Ltd.、University of Toronto、McGill University、Mila Quebec AI Institute",
+      "published": "2026-11-05",
+      "date_label": "arXiv v1于11月5日15:16:38 UTC提交；11月8日核读论文主文/附录与当前官方GitHub；arXiv仍为v1，仓库API显示empty repository",
+      "summary": "La-JEPA使用预训练V-JEPA 2.1视觉编码器提供表征，但World DiT和Action DiT从零初始化；训练时联合预测未来视觉特征与动作块，因果attention mask阻止动作读取未来token，部署时只对动作流做10步flow-matching推理。视觉编码器用LoRA，语言由冻结FLAN-T5-large编码、本体状态经学习投影成条件token。在没有embodied pretraining策略中，La-JEPA L在LIBERO-Plus修正指令版为88.0%，RoboTwin干净/随机化等权均分59.0%；作者重评发现LIBERO-Plus发布评估器对10,030变体中8,493条指令附加了扰动参数，影响各方法程度不同。单Franka真实实验四任务每项20次，La-JEPA总计70/80（平均17.5/20），π0.5为69/80（17.25/20），La-JEPA在长程摆餐具任务落后。",
+      "why": "这项新工作检验机器人策略是否必须沿用视频生成器或VLM的大型Transformer。它保留预训练视频表征，却为控制任务单独选容量；训练期未来特征预测让表征兼顾动作，推理只生成动作。附带的LIBERO-Plus指令污染复核提醒：OOD基准分数可能受语言泄漏/扰动协议影响，强方法应在更清楚的单因素设置重测。该论文是新方向、不是本轮榜单更新，未找到多个独立团队的讨论或复现。",
+      "limitation": "RoboTwin clean/randomized每条件各5,000仿真episodes，三训练seed报告；La-JEPA L的均值59.0%，随机化32.1%，仍低于最强具身预训练系统。LIBERO-Plus修正版88.0%是episode加权成功率，来自纠正后协议和作者重评基线；放出的评估器有8,493/10,030变体描述错误，但污染幅度因方法而异。实机只有Franka Panda、两台RealSense和四种桌面任务，每任务20次、单平台自建设置；17.5/20是四任务均分，不能外推通用泛化。25.16ms是单次策略调用的优化编译延迟，不是完整闭环控制周期。论文声称代码可得，但本轮GitHub API显示mt-clemente/lajepa仓库为空；权重、代码及第三方重跑尚未核到。",
+      "sources": [
+        {
+          "label": "La-JEPA原论文v1全文及附录：训练、仿真、实机分母、延迟与指令污染",
+          "url": "https://arxiv.org/html/2611.08156v1"
+        },
+        {
+          "label": "La-JEPA作者GitHub仓库入口（2026-11-08 API显示空仓库）",
+          "url": "https://github.com/mt-clemente/lajepa"
+        },
+        {
+          "label": "arXiv v1记录",
+          "url": "https://arxiv.org/abs/2611.08156"
+        }
+      ]
+    },
+    {
+      "id": "platour-pact-information-versus-adaptation-20261104",
+      "category": "llm",
+      "tag": "跨模型推理 · 预填充状态传递 · 传递归因控制",
+      "title": "PLatour测跨模型传递到底帮了什么：冻结35B发送端与4B接收端，接口适配也能造出提升",
+      "organization": "King’s College London、Tencent Youtu Lab、National Physical Laboratory",
+      "published": "2026-11-04",
+      "date_label": "arXiv v1于11月4日13:33 UTC提交；代码/权重工件于11月6日开始出现在作者GitHub/Hugging Face并有一个具体发布请求；本轮核读正文、代码说明、Issue #1和模型卡。HF Papers仅有作者研究说明与自动推荐评论，无独立评论者，不能称多方热议",
+      "summary": "Prefill-to-Autoregressive Cross-model Transfer（PACT）让较大的发送模型只处理问题提示并传递隐状态，较小接收模型随后独立生成答案。PLatour用零初始化轻量线性桥连接冻结的Qwen骨干，桥经任务奖励GRPO训练；每个输入仍需调用发送模型做预填充，随后逐token解码不再调用发送模型。作者报告Qwen3.5 35B→4B在AIME/HMMT/IMO数学与HumanEval/MBPP编码上超过接收端和部分公开对照。但PACT-Check加入固定无关信号、错题发送端、自通信以及LoRA/全参接收端训练作为控制：Qwen3.5在数学/代码域平均分没有超过其训练接收端对照；在较早的Qwen3 235B→1.7B设置中，GRPO-PLatour相对最强控制的Chemistry仅+3.34点、GSM8K+0.23点，而MATH500低4.05点。结果说明桥接适配可以带来分数提升，但仅部分任务有证据表明提升来自有用的发送模型信息。",
+      "why": "把大模型预填充信息传给小模型看起来可提升能力并节省逐token调用，然而若桥本身可训练，准确率增益也可能来自接收端适配，而不是发送端语义。PLatour的PACT-Check直接做输入置换、无信息传递和接收端微调等反事实控制，迫使跨模型系统同时报任务成绩和信息传递归因。11月6日公开的模型卡进一步注明这些是历史推理权重、没有所附基准分、并未验证精确底座revision；作者GitHub issue也有人询问HF模型发布。它是新方法及工件边界，不是经过独立复现的结论。",
+      "limitation": "35B发送端与Mostik公开的753B结果训练设置不相同，不能只凭榜面数字宣称更小模型普遍胜出。PACT-Score取决于纳入了哪些控制，正值仅表示高于已测试控制；作者说明训练接收端是数学和代码的强基线，且Qwen3.5 PLatour域平均未超过对照。一个HF导出明确称历史推理权重，不附benchmark scores、不是优化器/RNG恢复态，且精确backbone revision未经独立核实，不能用它当独立复现。论文v1日期早于11月7日，本期新变化为代码/模型公开；HF社区页的作者帖和单一issue不足以说明广泛讨论。",
+      "sources": [
+        {
+          "label": "PLatour原论文v1：跨模型控制、PACT-Score与Qwen3/Qwen3.5结果",
+          "url": "https://arxiv.org/html/2611.06976v1"
+        },
+        {
+          "label": "作者开源代码与PACT-Check文档",
+          "url": "https://github.com/zhenyi4/platour"
+        },
+        {
+          "label": "本轮读取的35B→4B HF推理导出卡：历史权重、无评测分数与revision限制",
+          "url": "https://huggingface.co/zen-E/PLatour-Qwen3.5-35B-to-4B-DAPO"
+        },
+        {
+          "label": "Hugging Face论文讨论页：研究者说明与自动推荐；未见独立评论者",
+          "url": "https://huggingface.co/papers/2611.06976"
+        },
+        {
+          "label": "GitHub Issue #1：关于HF checkpoint发布的具体请求",
+          "url": "https://github.com/zhenyi4/platour/issues/1"
+        }
+      ]
+    }
+  ],
+  "keywords": [
+    {
+      "term": "结构化图元解码 / structured primitive decoding",
+      "explanation": "VFlash依据预先确定的几何布局整块生成坐标，文本和空间输出使用不同验证路径。"
+    },
+    {
+      "term": "投机解码 / speculative decoding",
+      "explanation": "DSpine新draft权重由目标模型验证；回放tokens/s不等于在线Agent任务耗时。"
+    },
+    {
+      "term": "测试时重采样 / test-time resampling",
+      "explanation": "StepBack复用推理前缀、重采样可疑后缀；省token与准确率、墙钟分别报告。"
+    },
+    {
+      "term": "语义纠正程序 / semantic correction program",
+      "explanation": "OopsieRecover把接管与语言解释变为门控空间代价，在固定VLA候选中筛选动作。"
+    },
+    {
+      "term": "不确定性感知记忆 / uncertainty-aware memory",
+      "explanation": "UQ-DAAAM识别跨视角描述矛盾，补看并修正对象记忆。"
+    },
+    {
+      "term": "验证器审计 / verifier audit",
+      "explanation": "Terminal-Bench核对说明、有效解与判题器，避免把误拒算成模型失败。"
+    },
+    {
+      "term": "原始证据解读 / raw evidence interpretation",
+      "explanation": "BioBasicsBench要求判断胶图、流式等实验记录是否足够支持结论。"
+    },
+    {
+      "term": "潜在世界动作学习 / latent world-action learning",
+      "explanation": "La-JEPA联合学习未来表征与动作，部署只生成动作流，预训练视觉表征仍计入。"
+    },
+    {
+      "term": "传递归因控制 / transfer attribution controls",
+      "explanation": "PACT-Check用无关信号和接收端训练对照，检验跨模型收益是否真的来自发送信息。"
+    },
+    {
+      "term": "预测校准 / predictive calibration",
+      "explanation": "检查所报概率与独立样本真实频率是否一致，区别于量化中的校准数据。"
+    }
+  ],
+  "technical_explainer": {
+    "id": "predictive-confidence-calibration-and-semantic-entropy",
+    "title": "预测置信度与校准：模型说“有八成把握”，到底意味着什么？",
+    "summary": "准确率问模型做对了多少，校准问它报出的把握是否匹配实际频率。不确定性信号可以帮助补看、检索或交给人工，却不能自动成为“这次机器人操作有多安全”的概率。先明确预测事件，再看分组频率、误差指标和分布变化。",
+    "reading_minutes": 7,
+    "why_now": "今天UQ-DAAAM根据跨视角不确定性补看对象，BioBasicsBench则要求在证据不足时停止强行解释。近30期已讲量化中的校准数据，本期是另一含义：预测概率的统计校准。基础资料分别为2017年ICML的分类校准、2022年语言模型自评、2023年语义不确定性和2024年Nature语义熵；本轮回读它们解释今日机制，不当作今日新研究。",
+    "sections": [
+      {
+        "heading": "1. 先问清楚：这个概率在预测哪一件事？",
+        "paragraphs": [
+          "语言模型的next-token概率，描述的是给定前缀后某个token出现的概率。它不是整句事实正确率，更不是一次机器人任务的成功概率。“我有90%把握”如果只是模型生成的一段文字，也不等于从经过校准的概率头读取了0.9。评估前必须定义事件：选项正确、描述真实、抓取完成，还是整项任务无干预完成。",
+          "准确率、置信度和校准是不同量。一个模型可以更准确却更过度自信；另一个模型总说“六成把握”，若总体恰好六成正确，可以总体校准，却不能区分容易和困难样本。实用系统既需要好的预测，也需要把风险高低排开，不能只优化一个校准数字。"
+        ]
+      },
+      {
+        "heading": "2. 校准看一组相似把握的预测，不为单个答案担保",
+        "paragraphs": [
+          "理想情况是：在大量报80%置信度的同类预测中，约80%最后正确。现实中很少有无穷样本或完全相同的小数，因此常把预测按置信度分箱，比较每箱的平均置信度与实际正确比例。这是可靠性图的含义：若两者接近，点接近对角线。",
+          "分箱样本少会有统计波动，箱子太粗会把不同错误混在一起。全体看似校准，也可能在某种物体、光照、语言或机器人上系统过度自信。因此需要报告样本量、分箱方式、误差条与关键子群，不能凭一张平滑曲线断定所有部署条件都可信。"
+        ]
+      },
+      {
+        "heading": "3. ECE和Brier分别在惩罚什么？",
+        "paragraphs": [
+          "常用ECE把各箱“平均置信度与正确率之差的绝对值”按样本占比加权。它方便总结，但依赖分箱，不能覆盖所有校准问题。Brier分数则直接比较概率和0/1结果：二元事件常用平均(p−y)²，越小越好；对自信且错误的预测惩罚更大。多类别定义还可能对所有类别求和，比较时要先对齐口径。",
+          "Brier同时反映概率预测的多个方面，不能把它的下降全归因于校准改善。负对数似然也会严惩给真实结果极低概率的预测。论文若只报准确率，不能推出校准；只报ECE，也不保证它更会做题或更会控制机器人。"
+        ]
+      },
+      {
+        "heading": "4. 温度缩放：改概率刻度，通常不改固定分类的赢家",
+        "paragraphs": [
+          "对一个已有分类器，可在独立校准集上拟合正温度T，将logits除以T再做softmax。T大于1会让分布更平，低于1更尖。它只有一个标量，不改变同一组固定logits中最大类别的次序，因此可调置信度而保留argmax分类结果。校准集要与训练、最终测试分开。",
+          "这并非把聊天生成temperature调高就能纠正事实。自回归采样温度改变采到的token，后续前缀随之改变，整句答案和准确率也会变化；自由文本正确性还涉及语义和任务定义。语言模型自评研究也发现提示格式和OOD会改变校准。换模型版本、任务、摄像头或环境后，旧温度应重新验证。"
+        ]
+      },
+      {
+        "heading": "5. 语义熵：先合并同义答案，再看分歧",
+        "paragraphs": [
+          "“巴黎”“法国首都是巴黎”在字面不同，语义可相同。如果只看token或字符串变化，会把换措辞误认为不知道答案。语义熵方法先对同一问题采样多个答案，用双向蕴含等判据把同义表达聚类，再估计意义簇上的熵。分布越分散，说明模型在这些采样下给出了越多语义不同的答案簇；语义不同也未必在逻辑上互相排斥。",
+          "低语义熵仍可能是所有样本都错得一致，2024年原论文明确聚焦任意变化的错误回答，不能保证检测系统性错误。采样数量、提示、温度、聚类判断器及计算预算都是方法的一部分。语义熵是一个不确定性分数，本身也不自动是“答案正确的概率”。"
+        ]
+      },
+      {
+        "heading": "6. 放到机器人：不确定时补看，是策略；能否恢复，要另测",
+        "paragraphs": [
+          "UQ-DAAAM把caption的局部可靠度与跨视角语义不一致作为继续观察的信号，选择额外视角后融合记忆。这是在分配感知预算；描述更一致、问答分数提高，不等于机械臂完整任务成功率经过校准。多个视角也可能一起漏看或一起认错。",
+          "如果用置信度设“低于阈值就补看/停机/交给人工”的门，需要在留出交互中测覆盖率、误放行率、任务成功、额外延迟和人工次数。拒绝更多任务通常能提高保留样本的准确率，却可能显著降低服务覆盖。对新物体、新布局、跨本体分别验证，才能知道这条门在何处有效。"
+        ]
+      }
+    ],
+    "example": {
+      "title": "假设算例：十次预测都报80%，实际只对六次",
+      "paragraphs": [
+        "以下为教学假设，不是真实模型实验。对10个二元事件都报p=0.8，其中6个发生(y=1)、4个未发生(y=0)。这组经验发生率为60%，单箱校准差为|0.8−0.6|=0.2，即20个百分点；小样本本身还有波动，不能当精确总体真值。",
+        "二元Brier均值为[6×(0.8−1)²+4×(0.8−0)²]/10=0.28。如果同样10个结果都报p=0.6，Brier变为[6×0.4²+4×0.6²]/10=0.24。预测是否超过0.5完全未变，改变的是概率刻度。这只是该样本的算术示例；不能在最终测试结果上拟合0.6后，再拿同一数据宣称校准泛化已成立。"
+      ]
+    },
+    "comparison": {
+      "caption": "读论文时，把三个问题分开",
+      "columns": [
+        "量",
+        "回答的问题",
+        "不能直接推出"
+      ],
+      "rows": [
+        [
+          "准确率 / accuracy",
+          "定义好的任务做对多少",
+          "概率是否可信、错误是否能被识别"
+        ],
+        [
+          "校准 / calibration",
+          "所报概率与实际频率是否匹配",
+          "单个预测保证正确、所有子群都可靠"
+        ],
+        [
+          "不确定性排序 / uncertainty ranking",
+          "错误能否排到更低置信度一侧",
+          "分数已是概率、拒绝后的覆盖足够"
+        ],
+        [
+          "闭环收益 / closed-loop utility",
+          "补看、重试或人工接管是否改善结果",
+          "原始置信度就是机器人安全概率"
+        ]
+      ]
+    },
+    "checklist": [
+      "概率所对应的事件是什么：token、答案、对象标签还是完整机器人任务？",
+      "分数是真实概率输出、自述把握，还是熵/相似度等代理信号？",
+      "训练集、校准集与最终测试是否分离，分箱样本和误差条是否公布？",
+      "除了ECE，是否给出准确率、Brier/NLL、可靠性图和重要子群？",
+      "语义聚类如何判定同义，采样和判断器的预算是多少？",
+      "遇到系统性一致错误、新物体或环境漂移，校准是否重新评测？",
+      "拒绝、补看和人工接管的覆盖、成本、延迟与真实成功是否一起报告？"
+    ],
+    "takeaway": "置信度先要有明确事件，再用独立数据检查刻度；不确定性帮助决定何时补证据，真实闭环实验才回答这个决定是否有用。",
+    "sources": [
+      {
+        "label": "Guo等，ICML 2017：可靠性图、ECE与温度缩放（本轮读PDF）",
+        "url": "https://proceedings.mlr.press/v70/guo17a.html"
+      },
+      {
+        "label": "Kadavath等，2022：语言模型P(True)、P(IK)、格式与OOD限制",
+        "url": "https://arxiv.org/html/2207.05221v1"
+      },
+      {
+        "label": "Kuhn等，2023：语义等价聚类与语义不确定性",
+        "url": "https://arxiv.org/html/2302.09664v1"
+      },
+      {
+        "label": "Farquhar等，Nature 2024：语义熵检测confabulation及系统性错误边界",
+        "url": "https://www.nature.com/articles/s41586-024-07421-0"
+      }
+    ]
+  },
+  "featured_ids": [
+    "vflash-primitive-parallel-planning-code-release-20261107",
+    "oopsierecover-semantic-intervention-gated-cost-20261105",
+    "terminal-bench-continuous-audit-budget-sensitivity-20261105",
+    "dspine-qwen38-27b-draft-release-agent-replay-20261107",
+    "uq-daaam-neurips-poster-embodied-memory-20261105",
+    "biobasicsbench-wetlab-data-interpretation-20261106"
+  ],
+  "reading": [
+    {
+      "title": "VFlash代码和发布范围",
+      "url": "https://github.com/NVlabs/Eagle/blob/main/Embodied/document/vflash/README.md",
+      "reason": "区分训练/评测代码、待发权重、动作WAM与专用TensorRT延迟。"
+    },
+    {
+      "title": "OopsieRecover方法与实验",
+      "url": "https://arxiv.org/html/2611.08462v1",
+      "reason": "沿语义实体、门控、代价程序、候选动作与实机进度分母核验。"
+    },
+    {
+      "title": "Terminal-Bench新审计论文",
+      "url": "https://arxiv.org/html/2611.08417v1",
+      "reason": "把任务版本、timeout、Harness与可解性分开。"
+    },
+    {
+      "title": "DSpine新固定版本模型卡",
+      "url": "https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16/blob/ea909c0f5fab8865f9e14600334f55f7ce47308f/README.md",
+      "reason": "先读并发、回放、prefix cache和GPU披露边界再理解加速。"
+    },
+    {
+      "title": "BioBasicsBench官方结果与失败案例",
+      "url": "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science/",
+      "reason": "评分细则比例、整题bootstrap和证据不足的具体例子。"
+    }
+  ]
+}

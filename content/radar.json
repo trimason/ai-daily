@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-11-07",
+  "updated_on": "2026-11-08",
   "intro": "每日从研究目录、作者项目、论文、代码、模型卡、技术博客和社区原帖交叉发现大模型与具身的新进展及讨论问题，按当期证据轮换选题。持续覆盖国内外团队与小鹏 GroundingPI 等原始研究；主入口可达、内容已读和社区关注度分别核验。",
   "groups": [
     {
@@ -18,8 +18,8 @@
           "note": "",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-11-05",
-            "note": "实际读取NeurIPS2026 papers列表；主站部分已切到2027。仅目录检索，未逐篇核录用类型/评审；本期未据目录声称某论文录用。"
+            "checked_on": "2026-11-08",
+            "note": "读取2026完整论文目录并逐篇确认UQ-DAAAM/StepBack官方Poster卡；未全量读取OpenReview评审。"
           }
         },
         {
@@ -3406,14 +3406,14 @@
         {
           "id": "embodied-ai-heart",
           "name": "具身智能之心",
-          "url": null,
+          "url": "https://www.zhihu.com/people/79-72-74-40/posts",
           "role": "公众号热点发现",
           "scope": "具身智能、VLA、机器人学习、世界模型、论文解读与产业进展",
-          "note": "用户重点公众号；10月20日LingBot外部采用专题已通过36氪明确转载全文读取，并参与本期世界动作模型选题。技术数值逐篇回查；官方账号完整公开历史入口仍待核。",
+          "note": "用户重点账号；2026-11-08已读同名账号公开时间序列、11月6日VFlash完整解读及11月2日FACT全文。VFlash链接NVIDIA原始报告并参与本期选题，单篇解读不作多方讨论；未取得微信公众号全部历史。",
           "verification": {
-            "status": "unverified",
-            "checked_on": "2026-11-05",
-            "note": "公开检索主要为招聘与旧研究/融资摘要；重读10月20日36氪转载，不是新原帖，不代表全量覆盖或无更新。"
+            "status": "content_verified",
+            "checked_on": "2026-11-08",
+            "note": "Chrome完整读取公开作者资料与两篇文章；VFlash发布11月6日18:10、1赞3藏0评论；FACT为旧话题无新工件，不列今日研究。"
           },
           "channels": [
             {
@@ -3423,6 +3423,22 @@
               "status": "content_verified",
               "checked_on": "2026-10-22",
               "note": "《这个中国具身模型，正成为海外研究物理世界的新起点》，10月20日20:09，明确转载自具身智能之心，只算同源传播。具体技术数值需回查论文；不是官方账号全量历史入口。"
+            },
+            {
+              "label": "具身智能之心公开作者时间序列",
+              "url": "https://www.zhihu.com/people/79-72-74-40/posts",
+              "kind": "同名账号公开文章目录",
+              "status": "content_verified",
+              "checked_on": "2026-11-08",
+              "note": "已按时间读取可见文章，不能替代微信公众号全量历史。"
+            },
+            {
+              "label": "VFlash逐图解读：物理世界等不起逐token解码",
+              "url": "https://zhuanlan.zhihu.com/p/2102098444580136717",
+              "kind": "作者公开全文",
+              "status": "content_verified",
+              "checked_on": "2026-11-08",
+              "note": "2026-11-06 18:10发布；链接NVIDIA项目/报告。单篇解释、1赞3藏0评论，技术数值回查原论文。"
             }
           ]
         },
@@ -3439,18 +3455,18 @@
           "scope": "大模型与具身的新技术、研究解读和社区讨论；已读线索包括物理推理、机器人控制、Real2Sim与自我改进，后续按实际更新扩展。",
           "note": "用户指定的重点技术发现源。线索参与当期精选与讨论筛选，主题随实际研究和社区讨论轮换；不将单篇文章的模型或方法设为每日固定主题。公众号未贴出处时独立找官方材料，并记录实际可读范围。",
           "verification": {
-            "status": "unverified",
-            "checked_on": "2026-11-05",
-            "note": "指定微信页65字环境异常提示；公开检索仅读到其他账号对旧话题二次提及，未获得新原帖或日期。不能据此断言无更新。"
+            "status": "content_verified",
+            "checked_on": "2026-11-08",
+            "note": "Chrome再次完整读取指定10月14日文章并确认账号/时间；账号名与微信号近周公开检索未取得后续可靠列表，作者入口要求转微信未继续，不能称全量无更新。"
           },
           "channels": [
             {
               "label": "用户指定文章：Gemini 4 Argon for Robotics",
               "url": "https://mp.weixin.qq.com/s/c6jtVqfZ0bI3JtCtExzlhg",
               "kind": "公开微信文章 · 账号识别与话题发现",
-              "status": "unreadable",
-              "checked_on": "2026-11-05",
-              "note": "本轮仅环境异常提示，历史身份核验保留；未读新全文。"
+              "status": "content_verified",
+              "checked_on": "2026-11-08",
+              "note": "终端仅受限页，Chrome可见全文补核成功，发布2026-10-14 08:00；仅身份/历史话题，不作今日新研究；后续文章列表仍有缺口。"
             }
           ],
           "watch_terms": [

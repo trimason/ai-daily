@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年11月7日日报：九条动态覆盖HITCH全身具身接口、RoboARCade跨模型仿真横评、SLA空间监督与实机榜项、Agent记忆和Harness-S训练、TCSExam可执行研究评测、权重语义新独立审计、Cola2新公开推理工件，以及SpecCTMC扩散语言模型采样加速。专题逐层核验HITCH的观测到动作链，保留RoboDojo当前11月3日榜单和RoboColiseum实际API快照；每日技术点讲SFT、教师前缀与损失掩码。原始日期、当前事件、成功率/完成度、训练/开发预算和公开工件缺口分别说明。
+当前首页为2026年11月8日日报：九条动态覆盖VFlash新代码、DSpine Qwen3.8新draft权重、OopsieRecover冻结VLA纠错、UQ-DAAAM多视角记忆、La-JEPA世界动作学习，以及Terminal-Bench预算/验证器审计、BioBasicsBench湿实验数据解释、StepBack局部重采样、PLatour传递归因。专题拆语义纠正程序如何连接观测与动作；每日技术点讲预测置信度与校准。首发/当前事件、进度/SR、回放吞吐/整环延迟与开放工件缺口分别说明；RoboDojo仍为11月3日数据，不作新换榜。
 
 ## 本地构建与预览
 
