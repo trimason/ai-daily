@@ -1,7 +1,7 @@
 {
   "title": "前沿信息源雷达",
   "status": "active",
-  "updated_on": "2026-11-08",
+  "updated_on": "2026-11-10",
   "intro": "每日从研究目录、作者项目、论文、代码、模型卡、技术博客和社区原帖交叉发现大模型与具身的新进展及讨论问题，按当期证据轮换选题。持续覆盖国内外团队与小鹏 GroundingPI 等原始研究；主入口可达、内容已读和社区关注度分别核验。",
   "groups": [
     {
@@ -835,8 +835,8 @@
           "note": "研究目录、API新闻/模型日志、官方模型卡和代码并行检查；API新闻是模型新版本的一手渠道，不能因主站目录较旧而只作次要线索。具身产业动向另查官方与媒体原报道，未获确认则明示。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-11-01",
-            "note": "主站news与API更新页仍旧；另读官方GitHub在10月31日首次提交的dsh-superagent研究原型固定commit、README与docs/000–007。原型不是正式产品，未读到机器人或策略训练实验。"
+            "checked_on": "2026-11-10",
+            "note": "2026-11-10复核研究动态、API updates、官方GitHub与HF模型列表；API/HF已知最新模型事件仍为10月17日V4.1-Flash-1017，未将旧目录或仓库更新时间当新发布。"
           },
           "aliases": [
             "DeepSeek",
@@ -859,24 +859,24 @@
               "url": "https://www.deepseek.com/news/",
               "kind": "官方研究索引",
               "status": "content_verified",
-              "checked_on": "2026-10-23",
-              "note": "已读研究与动态索引，最新动态9月10日、研究索引6月24日；另查API/代码/模型卡，不能从主站旧目录推断停更。"
+              "checked_on": "2026-11-10",
+              "note": "已读研究与动态索引，最新动态9月10日、研究索引6月24日；另查API/代码/模型卡，不能从主站旧目录推断停更。 逐页读取范围与缺口留存于本机采集台账，不随网站发布。"
             },
             {
               "label": "官方 GitHub 组织",
               "url": "https://github.com/deepseek-ai",
               "kind": "代码与论文发现",
               "status": "content_verified",
-              "checked_on": "2026-10-23",
-              "note": "通过GitHub API读最近推送15个仓库名称/描述/分支；另实际读DeepInfer README。pushed_at不作成果发布日期。"
+              "checked_on": "2026-11-10",
+              "note": "通过GitHub API读最近推送15个仓库名称/描述/分支；另实际读DeepInfer README。pushed_at不作成果发布日期。 逐页读取范围与缺口留存于本机采集台账，不随网站发布。"
             },
             {
               "label": "API / 模型更新日志",
               "url": "https://api-docs.deepseek.com/zh-cn/updates/",
               "kind": "模型版本与API原始公告",
               "status": "content_verified",
-              "checked_on": "2026-10-23",
-              "note": "已重读更新日志，最新模型事件10月17日1017与Search/Fetch；本期不重复当新发布。"
+              "checked_on": "2026-11-10",
+              "note": "已重读更新日志，最新模型事件10月17日1017与Search/Fetch；本期不重复当新发布。 逐页读取范围与缺口留存于本机采集台账，不随网站发布。"
             },
             {
               "label": "官方知乎",
@@ -1057,8 +1057,8 @@
           "note": "以Seed官方研究页面和论文为主，不把豆包产品更新直接视为模型研究成果；官方组织 https://github.com/ByteDance-Seed。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-23",
-            "note": "已读静态目录；精选论文最新列9月28日Periodic Weak Spots，博客最新8月5日SeedRealtime；目录非全部研究覆盖。"
+            "checked_on": "2026-11-10",
+            "note": "2026-11-10复核Seed研究目录、GitHub组织/HF列表及Seedream 5.5官方发布；Seedream 5.5为11月9日新事件，其厂商评测边界写入当期日报。"
           },
           "aliases": [
             "Seed",
@@ -1081,16 +1081,16 @@
               "url": "https://seed.bytedance.com/zh/research",
               "kind": "官方研究入口",
               "status": "content_verified",
-              "checked_on": "2026-10-23",
-              "note": "已读静态目录；精选论文最新列9月28日Periodic Weak Spots，博客最新8月5日SeedRealtime；目录非全部研究覆盖。"
+              "checked_on": "2026-11-10",
+              "note": "已读静态目录；精选论文最新列9月28日Periodic Weak Spots，博客最新8月5日SeedRealtime；目录非全部研究覆盖。 逐页读取范围与缺口留存于本机采集台账，不随网站发布。"
             },
             {
               "label": "官方 GitHub 组织",
               "url": "https://github.com/ByteDance-Seed",
               "kind": "代码与论文发现",
               "status": "content_verified",
-              "checked_on": "2026-10-23",
-              "note": "通过GitHub API读最近推送15个仓库名称/描述/分支；另实际读VeOmni README。pushed_at不作成果发布日期。"
+              "checked_on": "2026-11-10",
+              "note": "通过GitHub API读最近推送15个仓库名称/描述/分支；另实际读VeOmni README。pushed_at不作成果发布日期。 逐页读取范围与缺口留存于本机采集台账，不随网站发布。"
             },
             {
               "url": "https://github.com/ByteDance-Seed/VeOmni",
@@ -1107,6 +1107,14 @@
               "note": "已读官方模型卡全文；规格与基准为作者报告，未独立部署或复现。",
               "kind": "官方模型卡",
               "label": "已读官方模型卡"
+            },
+            {
+              "label": "Seedream 5.5官方发布",
+              "url": "https://seed.bytedance.com/zh/blog/more-realistic-images-more-stable-editing-across-100-rounds-introducing-seedream-5-5?view_from=content_recommend",
+              "kind": "官方模型发布正文",
+              "status": "content_verified",
+              "checked_on": "2026-11-10",
+              "note": "2026-11-09发布，11-10核读全文；100轮与专项评测为厂商数据，非独立复测。"
             }
           ]
         },
@@ -1251,8 +1259,8 @@
           "note": "官方ERNIE Blog；官方代码仓库 https://github.com/PaddlePaddle/ERNIE 的GitHub API元数据指向本入口。文心产品发布与论文研究成果分别标注。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-23",
-            "note": "已读ERNIE Blog目录，含ERNIE5.1等条目；本轮未逐篇重新核发布日期，不把目录抓取日期当新闻日期。"
+            "checked_on": "2026-11-10",
+            "note": "2026-11-10复核ERNIE研究索引、ERNIE Evolve官方全文与结果仓库固定提交；代码/经验筛选结果与模型权重更新分开记录。"
           },
           "aliases": [
             "ERNIE",
@@ -1275,16 +1283,16 @@
               "url": "https://ernie.baidu.com/",
               "kind": "官方研究入口",
               "status": "content_verified",
-              "checked_on": "2026-10-23",
-              "note": "已读ERNIE Blog目录，含ERNIE5.1等条目；本轮未逐篇重新核发布日期，不把目录抓取日期当新闻日期。"
+              "checked_on": "2026-11-10",
+              "note": "已读ERNIE Blog目录，含ERNIE5.1等条目；本轮未逐篇重新核发布日期，不把目录抓取日期当新闻日期。 逐页读取范围与缺口留存于本机采集台账，不随网站发布。"
             },
             {
               "label": "ERNIE代码与研究说明",
               "url": "https://github.com/PaddlePaddle/ERNIE",
               "kind": "官方代码与研究说明",
               "status": "content_verified",
-              "checked_on": "2026-10-23",
-              "note": "已读ERNIE官方README正文，未把文件维护日期或目录活跃度当成果新发。"
+              "checked_on": "2026-11-10",
+              "note": "已读ERNIE官方README正文，未把文件维护日期或目录活跃度当成果新发。 逐页读取范围与缺口留存于本机采集台账，不随网站发布。"
             },
             {
               "label": "Paddle VHA 原论文与首版时间",
@@ -1325,6 +1333,22 @@
               "note": "已读官方模型卡全文；规格与基准为作者报告，未独立部署或复现。",
               "kind": "官方模型卡",
               "label": "已读官方模型卡"
+            },
+            {
+              "label": "ERNIE Evolve研究正文",
+              "url": "https://ernie.baidu.com/research/posts/ernie-evolve/",
+              "kind": "官方研究文章",
+              "status": "content_verified",
+              "checked_on": "2026-11-10",
+              "note": "11月9日新文章；已读完整正文，独立evaluator为系统内隔离，非第三方复现。"
+            },
+            {
+              "label": "ERNIE Evolve固定结果代码",
+              "url": "https://github.com/ernie-research/ERNIE-Evolve-Results/tree/a0227c1b800ccc30459c75491fa656b5aa765cd7",
+              "kind": "结果代码与日志",
+              "status": "content_verified",
+              "checked_on": "2026-11-10",
+              "note": "已读README、固定提交与结果目录；不含完整Agent系统、精确底座和全部搜索预算。"
             }
           ],
           "evidence": [
@@ -2792,8 +2816,9 @@
           "note": "官网列公司归属与研究方向；官方代码组织回链technology.robbyant.com。模型发布时间与后续代码优化分别记录。",
           "verification": {
             "status": "content_verified",
-            "checked_on": "2026-10-14",
-            "http_status": 200
+            "checked_on": "2026-11-10",
+            "http_status": 200,
+            "note": "2026-11-10复核官方组织、LingBot-Touch项目/报告/Small与Tiny卡；代码与冻结编码器工件已读，训练数据与完整下游策略未公开。"
           },
           "channels": [
             {
@@ -2801,16 +2826,16 @@
               "url": "https://technology.robbyant.com/",
               "kind": "官方研究站",
               "status": "unverified",
-              "checked_on": "2026-10-14",
-              "note": "GitHub组织元数据回链，具体项目逐篇读取。"
+              "checked_on": "2026-11-10",
+              "note": "GitHub组织元数据回链，具体项目逐篇读取。 逐页读取范围与缺口留存于本机采集台账，不随网站发布。"
             },
             {
               "label": "官方代码组织",
               "url": "https://github.com/Robbyant",
               "kind": "代码发现",
               "status": "content_verified",
-              "checked_on": "2026-10-14",
-              "note": "已核组织元数据与官网归属。"
+              "checked_on": "2026-11-10",
+              "note": "已核组织元数据与官网归属。 逐页读取范围与缺口留存于本机采集台账，不随网站发布。"
             },
             {
               "label": "LingBot-VLA 2.0 代码与 News",
@@ -2819,6 +2844,30 @@
               "status": "content_verified",
               "checked_on": "2026-10-14",
               "note": "已读README；7月模型，9月22日新增Distributed Muon，不应称10月新模型。"
+            },
+            {
+              "label": "LingBot-Touch项目",
+              "url": "https://technology.robbyant.com/lingbot-touch",
+              "kind": "作者项目与技术报告",
+              "status": "content_verified",
+              "checked_on": "2026-11-10",
+              "note": "11月9日代码事件；已读27页报告。实机按阶段/等级评分，表2用4K预训练checkpoint。"
+            },
+            {
+              "label": "LingBot-Touch代码",
+              "url": "https://github.com/Robbyant/lingbot-touch",
+              "kind": "官方代码与发布历史",
+              "status": "content_verified",
+              "checked_on": "2026-11-10",
+              "note": "已读README与实际树；推理和适配工具开放，完整训练/下游策略未开放。"
+            },
+            {
+              "label": "LingBot-Touch Small模型卡",
+              "url": "https://huggingface.co/robbyant/lingbot-touch-small",
+              "kind": "官方模型卡",
+              "status": "content_verified",
+              "checked_on": "2026-11-10",
+              "note": "北京时间11月10日01:31创建；冻结target encoder及配置，不含预测器/下游头/训练日志。"
             }
           ],
           "evidence": [

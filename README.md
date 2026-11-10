@@ -4,7 +4,7 @@
 
 网站：<https://trimason.github.io/ai-daily/>。源码仓库：<https://github.com/trimason/ai-daily>。
 
-当前首页为2026年11月8日日报：九条动态覆盖VFlash新代码、DSpine Qwen3.8新draft权重、OopsieRecover冻结VLA纠错、UQ-DAAAM多视角记忆、La-JEPA世界动作学习，以及Terminal-Bench预算/验证器审计、BioBasicsBench湿实验数据解释、StepBack局部重采样、PLatour传递归因。专题拆语义纠正程序如何连接观测与动作；每日技术点讲预测置信度与校准。首发/当前事件、进度/SR、回放吞吐/整环延迟与开放工件缺口分别说明；RoboDojo仍为11月3日数据，不作新换榜。
+当前首页为2026年11月10日日报：八条动态覆盖LingBot-Touch异构触觉表征、ERNIE Evolve代码级自动研究、Seedream 5.5多轮编辑、AMP1通用模型直接控制、受控Agent策略修复、Computer-Use具身接口、并行Agent小队扩算力与Claude电子原型。专题比较AMP1与受控仿真研究的观测—代码—动作—反馈闭环，并复核RoboDojo仍标注11月3日数据；每日技术点讲JEPA表征预测。厂商自报、作者实机/仿真结果、测试时预算和代码/权重缺口分别说明。
 
 ## 本地构建与预览
 

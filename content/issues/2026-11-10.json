@@ -1,0 +1,540 @@
+{
+  "date": "2026-11-10",
+  "status": "daily",
+  "title": "大模型与具身智能前沿日报 · 2026年11月10日",
+  "coverage": "北京时间2026-11-10采集，优先复核11月6–10日新论文、代码/权重、官方文章与社区具体讨论；11月9日 arXiv 周末后目录项保留各论文原首发时间。arXiv cs.RO/cs.AI/cs.CV/cs.LG/cs.CL Atom各读前50项，目录最新首发仍为11月6日UTC；不是全量目录或逐篇全文覆盖。HF Papers明确读取11月9日真实日期页33条及默认50项的实际提交日期，点数不作热度排名；逐读PCBRouteAgent、P²-MOPD、Agent Evolution可见讨论，只有PCBRouteAgent观察到作者答复与具体瓶颈追问。HF请求使用本机请求级代理，直连最初拒绝连接，未开启系统代理。国内九家大模型、十三家具身企业及XPENG按雷达别名/渠道检查；72个页面候选实际读取结果、代码组织与HF名单分项记录。Seedream 5.5、LingBot-Touch、ERNIE Evolve有新官方事件；公司榜单扫描不等于逐篇论文与全部模型卡全文核验。DeepSeek研究页、API更新、GitHub与HF并查，最新确认模型事件仍为10月17日，未确认已发布具身模型。XPENG GroundingPI与独立GroundAnything分别检查项目/代码/模型入口，未发现可报新事件。Galbot与高校合作论文归属未全量逐篇核、Robotera不得与GALAXEA混同；数家企业SPA导航/目录只作入口，媒体无官方回应的旧传闻未重报。完整已读页、最新事件和缺口见本机采集台账（逐页记录与来源缺口）。human five及“具身智能之心”本轮公开账号后续文章检索未获可靠可读的新原帖；不以旧指定文章冒充今日讨论。会议先检查14个入口，再补读NeurIPS、ICML、ICLR、CVPR、ECCV、ACL、EMNLP的2026论文目录；COLM 2026预论文集与RSS 2026录用目录可读。CVPR、ACL、EMNLP单次读取上限5MB，未逐篇核对录用类别与公开评审；CoRL仅取得嵌入壳，ICRA、AAAI有403，IROS只读主页，ICCV主页已切至2027。范围与失败明细留存本机采集台账。RoboDojo主页与protocol返回相同3815字节SPA壳，实际读取其JS bundle和内嵌协议；数据快照标注11月3日，不是今日换榜。RoboColiseum只读overall API前10/28条，记录提交与完成时间但未证实时区或同协议。专题分开Score/SR、仿真/实机并明确系统工件缺口。全球社区实际读Anthropic电子设计官方全文与HN四评论；并行Agent团队论文全文/附录已读但代码链接及README当前404；没有据此声称独立复现或广泛共识。未开展机器人实测或独立模型复现。各页面、社区窗口与未读渠道明细见本机采集台账。",
+  "intro": "今天的重点从触觉与自动研究新工件，延伸到通用模型如何通过代码、工具和反馈介入真实或模拟物理任务。LingBot-Touch开放冻结触觉编码器，ERNIE Evolve展示代码级研究循环；AMP1和受控仿真研究则把直接控制与反复修策略分开。专题重读具身Agent榜单并检查公开系统证据，每日技术点解释JEPA表征预测怎样连接感知和动作。厂商报告、作者实验、实机闭环与社区讨论分别标注。",
+  "highlights": [
+    {
+      "title": "LingBot-Touch开放异构触觉表征工件",
+      "text": "26个实机任务—手部配置每策略每项20次，附录允许阶段/等级得分；开放冻结编码器，完整训练数据和下游策略未公开。",
+      "story_id": "lingbot-touch-heterogeneous-tactile-encoder-release-20261110"
+    },
+    {
+      "title": "ERNIE Evolve把研究循环落在候选代码与经验上",
+      "text": "用与Agent隔离的固定evaluator筛选代码与经验；完整系统与总搜索预算未公开，不能据此证明递归加速。",
+      "story_id": "ernie-evolve-automated-research-code-results-20261109"
+    },
+    {
+      "title": "AMP1展示通用模型直接闭环操控",
+      "text": "Franka实机104/108含碰撞恢复，94/108关闭恢复；5分钟执行预算不含推理等待。",
+      "story_id": "amp1-agentic-manipulation-policies-20261106"
+    },
+    {
+      "title": "Seedream 5.5主打多轮编辑与原生RGBA",
+      "text": "100轮及文字质量结果来自官方披露，尚无本轮独立复测。",
+      "story_id": "seedream55-multiround-editing-rgba-release-20261109"
+    },
+    {
+      "title": "十人Agent小队改善一组可验证任务的测试时扩展",
+      "text": "10/12任务胜过100个独立Agent；作者链接的代码仓库当前无法读取。",
+      "story_id": "parallel-agent-teams-test-time-scaling-20261106"
+    },
+    {
+      "title": "三项电子原型把模型推理带到硬件设计工作流",
+      "text": "工程师制造和验证；HN早期讨论聚焦成本、耗时与布线判断，非独立复现。",
+      "story_id": "claude-fable52-electronics-prototypes-20261109"
+    }
+  ],
+  "research_supplement": {
+    "id": "agentic-robotics-interface-evidence-20261110",
+    "title": "从‘会写动作代码’到‘能持续改策略’：AMP1与受控Agentic Robotics研究怎样解释具身Agent的优势边界",
+    "summary": "本期将两项UTC 11月6日公开（AMP1为北京时间11月7日）的具身研究放到同一个观测—规划—工具/代码—动作—反馈闭环中比较，再与RoboDojo当前可读榜单核对。AMP1展示通用模型在固定harness下直接写Python控制程序、读传感器并重规划；伯克利/ Bosch / NVIDIA的受控研究则把Agent自改拆成模型、技能先验、反馈粒度和课程四个因素。两者都支持‘接口和反馈结构会改变结果’这一机制假说，但都不能反推RoboDojo前列系统采用了同一底座、WAM或Agent harness。",
+    "reading_minutes": 7,
+    "why_now": "两篇论文均在UTC 2026-11-06以arXiv v1提交；AMP1为18:59:34 UTC，即北京时间11月7日02:59:34，受控研究为06:05:16 UTC，即北京时间11月6日14:05:16，并出现在11月9日cs.RO近期目录；它们是当前可核对的直接控制与策略自改证据。RoboDojo官网脚本内置的榜单数据仍标注2026-11-03，本轮没有新换榜；因此应把论文当作机制参照，把榜单当作已冻结快照，不能把新的论文结果包装成榜单更新。",
+    "sections": [
+      {
+        "heading": "一、固定闭环框架：相同层级逐项核对",
+        "paragraphs": [
+          "AMP1的底座在不同实验中明确区分：RoboLab仿真表同时测试Gemini 4 Argon、Claude Opus 5.5等模型，实机定量试验使用Claude Opus 5.5 high。模型通过持久Python解释器调用SDK，选择何时查看RGB/深度/标定/关节和末端状态，维护可编辑场景模型，然后直接构造带时间的TCP位姿与夹爪waypoint；harness负责SDK、点云/对象建模、轨迹约束和执行回执。基础harness没有任务专属抓取、推或放技能。",
+          "受控Agentic Robotics研究不报告某个RoboDojo榜上系统的底座版本，而是将coding agent置于固定的仿真自学习循环中。策略是可执行程序图，节点调用或新增机器人技能；每轮在训练、验证和留出实例运行，Agent得到按运动、语义技能、空间关系或阶段整理的反馈后修改代码。该研究的关键变量是反馈如何对齐可归因的策略决定，而不是单纯增加反馈文本长度。",
+          "两者的共同机制假说是‘信息是否能被转换成下一步可执行修复’比观察通道数量更关键。它们的共同缺口是没有给出匹配RoboDojo前排系统的逐项消融，不能据此解释Q0-Preview、GO-3 Nano Preview、PyRUA-Lean、HexaShell-Preview、WorldScape-R²SI或EmbodiedEvo的分数来源。"
+        ]
+      },
+      {
+        "heading": "二、结果和资源必须分开读",
+        "paragraphs": [
+          "AMP1在RoboLab-120仿真中报告Gemini 4 Argon 85.6%成功率、Opus 5.5 82.8%；实机12项任务×3平台实例×3次共108次，启用可恢复碰撞错误的SDK后Opus 5.5完成104/108，关闭恢复后94/108。三实例都是Franka平台，并非三种本体；实机所有方法5分钟执行预算明确排除推理时间，仿真在推理时暂停，不能把104/108读成五分钟墙钟内成功。RoboLab论文还把许多失败追溯到物体几何/质量和flaky verifier，因此这些数字不能直接当作开放世界机器人成功率。AMP1作者报告Opus 5.5一个RoboLab episode平均约1.39美元，并明确说推理等待使系统仍不实用；成本依赖提供商价格和上下文缓存，不能与另一模型按价格直接排名。",
+          "AMP1+的跨回合改进也要连同选择预算读：底座权重固定，跨episode更新Markdown笔记与Python库；RoboDojo双ARX X5仿真中的相机观测仅为RGB，没有深度或相机标定。每任务每次实践最多48 episodes，batch为4、最多12轮；每任务独立实践五次，在seed 1按成功率选择最好一次，最终在seed 2评估，经验采集用seed 0。作者报告从26.4%零样本到84.1%，是带有实践与验证选择预算的论文结果；不能把84.1%当官网新排名，也不能不对齐预算就与Q0的68.87%作公平优劣结论。这是记忆/代码改进，未更新策略模型权重。",
+          "受控研究的VABAR反馈表中，Opus 5 xhigh从约45%初始held-out按对象成功率（per-object success，不是整任务二元SR）升至两轮后74%，Fable 5.1升至64%；GPT-6 Astra和Sonnet 5从相近起点分别到48%和46%。全研究涉及九项操作任务、631种配置和约27,600次coding-agent rollout，估算17,900 RTX PRO 6000 Blackwell GPU小时、2,700 A100 GPU小时和约7万美元算力成本，LLM推理约3.65万美元。它是仿真策略修改预算，不是实机成功率或持续在线成本。",
+          "RoboDojo脚本当前内置数据日期为2026-11-03；Agent轨前六仍是Q0-Preview 74.20/68.87%、GO-3 Nano Preview 61.90/56.42%、PyRUA-Lean 55.26/50.35%、HexaShell-Preview 53.18/46.85%、WorldScape-R²SI 46.58/39.35%、EmbodiedEvo 45.08/38.95%，前者为Score、后者为完整成功率SR。官网页面和protocol均返回相同SPA壳（3815字节），本轮实际读取的是脚本中的快照和protocol文本；不能称为11月10日新排名。"
+        ]
+      },
+      {
+        "heading": "三、为什么这还不是‘Agent普遍胜过VLA’",
+        "paragraphs": [
+          "AMP1与VLA/WAM的比较使用作者选定的harness、模型和基准；它说明在RoboLab-120及作者实机任务上，直接代码闭环可能比被训练成固定动作策略更能处理隐蔽目标、工具使用和非抓取交互。它并没有证明同一底座、同一传感输入、同一动作接口或同一推理预算下Agent总能胜出；AMP1也明显牺牲了等待时间。",
+          "受控研究进一步显示，初始成功率接近的模型在相同反馈下会明显分化，说明‘能生成第一版策略’和‘能诊断并重构失败策略’是不同能力。对象相对坐标、功能部件关系和语义技能回执有时比更细运动轨迹更有效，但该结论来自仿真任务内匹配消融，不能直接升级为所有机器人或所有Agent的定律。",
+          "RoboDojo协议脚本写明仿真结果应覆盖三个seed并报告均值和标准差、提交模型通过隐藏布局验证；但网页快照没有给前排每个系统公开完整底座版本、训练数据、WAM组成和逐seed运行日志。标签‘Agent’本身只描述提交类别，不足以补齐构型；开放工件状态也要逐系统核对。"
+        ]
+      }
+    ],
+    "comparison": {
+      "caption": "论文实验、RoboDojo快照和公开程度应分开比较",
+      "columns": [
+        "对象",
+        "输入与动作接口",
+        "反馈/改进层",
+        "证据范围",
+        "公开缺口"
+      ],
+      "rows": [
+        [
+          "AMP1",
+          "RGB/深度/标定/本体状态；Python persistent interpreter；定时TCP位姿waypoint+夹爪",
+          "模型在回合内看回执并重规划；AMP1+跨回合写Markdown/Python memory，权重固定",
+          "RoboLab仿真、CaP-Gym仿真；Franka实机108次",
+          "AMP1代码、权重和不可变API模型版本未公开；论文引用的Astranomy页是另一系统"
+        ],
+        [
+          "Controlled Agentic Robotics",
+          "固定仿真机器人/传感配置；可执行技能图与代码节点",
+          "两轮或多轮仿真反馈；比较模型、技能先验、反馈粒度、课程迁移",
+          "9任务、631配置、约27.6K rollout；VABAR表1为held-out按对象成功率",
+          "未测实机、sim-to-real、跨本体；未提供与RoboDojo前排对应的消融"
+        ],
+        [
+          "RoboDojo 2026-11-03快照",
+          "榜单类别Agent；具体底座/观测/动作实现须看逐系统工件",
+          "协议要求三seed和隐藏布局验证，快照不展示每系统完整日志",
+          "Agent Sim榜Score/SR前六快照；非本轮新换榜",
+          "前排完整harness、模型精确版本、WAM/训练/预算并非由标签自动证明"
+        ],
+        [
+          "RoboColiseum 2026-11-10 API快照",
+          "官方overall接口提供模型名、组织、总score和四个board分数",
+          "榜单给submit/finish/time_cost字段，未读到完整prompt、动作接口和实验次数协议",
+          "FF Omnimind总分0.902366居首；PyRUA-Lean 0.82765第二；GO-3 0.78825第三",
+          "与RoboDojo Score/SR不可直接横比；API不足以确认各系统构型与实测边界"
+        ]
+      ]
+    },
+    "checklist": [
+      "是否将AMP1的UTC首发日11月6日、北京时间首发日11月7日与当前目录可见日11月9日分开写？",
+      "是否将AMP1实机104/108（含碰撞错误恢复）与94/108（不含恢复）分开，说明12任务×3台同类平台实例×3次，且5分钟执行预算排除推理时间？",
+      "是否把受控研究的VABAR held-out按对象成功率、27,600 rollout和GPU/LLM预算与实机整任务成功率区分？",
+      "是否把AMP1+的权重固定与Markdown/Python memory更新分开，并披露每任务最多48实践episodes、五次实践按seed1择优、seed2测试的预算？",
+      "是否把RoboDojo的Score和SR分开，说明数据日期仍为11月3日并避免把旧快照写成新榜？",
+      "是否为Q0、GO-3、PyRUA-Lean、HexaShell、WorldScape-R²SI、EmbodiedEvo逐个查底座、观测、动作接口、反馈、训练与公开工件，而不按Agent标签猜构型？",
+      "是否把RoboColiseum overall score与RoboDojo分轨分数分开，并保留API缺少任务协议/动作接口的限制？"
+    ],
+    "takeaway": "当前证据支持一种谨慎结论：具身Agent的潜在优势来自通用模型在观测、代码/工具、动作回执和策略修复之间形成闭环；但能否迁移到真实本体和隐藏布局，仍由底座、接口、反馈粒度、预算、验证器与公开实现共同决定。AMP1和受控仿真研究是机制参照，不是RoboDojo前排系统的架构证明。",
+    "sources": [
+      {
+        "label": "AMP1原论文v1全文（Apple，UTC首发2026-11-06／北京时间11-07）",
+        "url": "https://arxiv.org/html/2611.09892v1"
+      },
+      {
+        "label": "受控Agentic Robotics研究v1全文（UC Berkeley/Bosch/NVIDIA，首发2026-11-06）",
+        "url": "https://arxiv.org/html/2611.09030v1"
+      },
+      {
+        "label": "RoboDojo当前榜单（本轮脚本快照标注2026-11-03）",
+        "url": "https://robodojo-benchmark.com/leaderboard#agent"
+      },
+      {
+        "label": "RoboDojo评测协议：三seed、隐藏布局和公开工件要求",
+        "url": "https://robodojo-benchmark.com/leaderboard/protocol"
+      },
+      {
+        "label": "RoboColiseum overall API，本轮读取2026-11-10快照",
+        "url": "https://robocoliseum.ai/api/challenge/leaderboard/overall?page=1&per-page=10"
+      }
+    ]
+  },
+  "stories": [
+    {
+      "id": "lingbot-touch-heterogeneous-tactile-encoder-release-20261110",
+      "category": "embodied",
+      "tag": "触觉表征与灵巧操作",
+      "title": "LingBot-Touch 开放异构触觉表征模型与推理工件",
+      "organization": "蚂蚁灵波科技 Robbyant",
+      "published": "2026-11-09",
+      "date_label": "首个推理代码提交：2026-11-09 15:14 UTC；Small 权重卡创建：2026-11-09 17:31 UTC（北京时间 11-10 01:31）；本轮读取项目、27页报告、代码与模型卡：2026-11-10",
+      "summary": "LingBot-Touch用模态专属tokenizer和共享Haptic Transformer，将磁性、压阻和视触觉信号映射到统一指尖空间，并以Tactile-JEPA预测被遮触点的特征。视触觉输入为解码后的标量形变/强度，不是原始RGB。作者总语料为4,983小时、464,431段、约13.3亿帧和24类任务；实机表2使用4K小时预训练的5.46M HaT-Tiny冻结编码器。26个任务—手部配置（Sharpa Wave 20个、XHand1 6个）每策略/配置每任务20次，四类策略平均指标提高13.9、21.8、24.8、23.2个百分点。论文称其为success rate，但附录按阶段加分/等级计分，不能当整任务二元成功率。12项仿真灵巧任务另以三seed训练PPO评估。",
+      "why": "近期新开放的工作把多种触觉硬件统一成可复用表征，并给出从预训练编码器到策略适配的路径；这直接涉及机器人跨传感器迁移和接触丰富任务。当前是作者发布的研究与工件，尚无本轮独立复测，不能据此视为已验证的通用触觉接口。",
+      "limitation": "实机附录Table7多项任务允许部分得分或ordinal等级，例如翻页共4分、擦盘共5分；表2虽然标题叫success rates，数值应按任务评分比例理解，不能换算为20次中完整完成的次数。真实下游策略每任务使用200条示范，需双手的任务500条，仍需后训练/适配；4,983小时是总语料，表2特注明4K预训练checkpoint。公开的是推理代码、传感器适配工具、少量样本、Tiny/Small冻结target encoder及配置；不含完整训练数据、预训练代码、预测器、下游任务头、优化器状态和训练日志。XHand1未见于预训练，仍需适配几何、量程、点顺序和左右手，并非任意传感器即插即用。全部为作者结果，未独立复跑；12项仿真不替代实机证据。",
+      "sources": [
+        {
+          "label": "LingBot-Touch 项目页",
+          "url": "https://technology.robbyant.com/lingbot-touch"
+        },
+        {
+          "label": "代码与研究报告",
+          "url": "https://github.com/Robbyant/lingbot-touch"
+        },
+        {
+          "label": "研究报告 PDF",
+          "url": "https://github.com/Robbyant/lingbot-touch/blob/main/paper/Learning_Heterogeneous_Tactile_Representation_for_General_Dexterous_Manipulation.pdf"
+        },
+        {
+          "label": "LingBot-Touch Small 模型卡",
+          "url": "https://huggingface.co/robbyant/lingbot-touch-small"
+        },
+        {
+          "label": "LingBot-Touch Tiny 模型卡",
+          "url": "https://huggingface.co/robbyant/lingbot-touch-tiny"
+        }
+      ]
+    },
+    {
+      "id": "ernie-evolve-automated-research-code-results-20261109",
+      "category": "llm",
+      "tag": "自动化研究与代码优化",
+      "title": "ERNIE Evolve 展示自动研究循环：代码与搜索经验持续筛选",
+      "organization": "百度 ERNIE 团队",
+      "published": "2026-11-09",
+      "date_label": "官方研究文章：2026-11-09；结果仓库创建及首批代码：11-07，SOL kernel 更新：11-08；本轮读取文章、README、固定仓库提交与结果目录：11-10",
+      "summary": "ERNIE Evolve 将研究过程组织成 Director 选择方向、Selector 产生候选、Executor 在隔离环境修改代码的嵌套循环；Experience Bank 记录代码差异、测量和失败原因，固定 evaluator 在 agent 不可见的环境中干净重建并筛选候选。已公开结果包括单 B200、300秒 NanoChat autoresearch 的 val_bpb 0.8763；NanoGPT 8×H100 Track 1 达到固定验证损失3.28用时38.92秒（n=18），Track 3 达同一目标用2590步（n=8）；SOL-ExecBench仅开放7个kernel结果，分数0.6669–0.9920，官方均分0.819，低于当时最佳公开0.827。文章另报告 in-development ERNIE-5.5-Flash 的生产推理优化及确定性 GPU RL 推理结果，属于百度自报的不同场景。",
+      "why": "新文章和结果仓库展示了一个可审计的代码级自动研究流程，且跨语言模型训练、kernel优化和生产推理多个任务提供了不同预算与结果。它适合讨论 agent 改进对象和评测隔离：已公开证据支持代码候选与经验记录被迭代，不足以证明底座模型权重更新、改进机制自我进化或递归加速。",
+      "limitation": "仓库开放的是最终优化代码和测量日志，不是 ERNIE Evolve 完整系统实现、底座精确版本、系统权重、全部搜索/开发预算或生产推理代码。仓库只包含 SOL-ExecBench 的7个kernel，不代表235题全量实现已开源。文章所谓 independent evaluation 是系统内 evaluator 隔离，不等于外部第三方复测；公开结果尚未由本轮独立复跑。各任务硬件、目标和预算不同，不能将增益拼成一个通用提升；人工时、全部失败次数和模型调用总量未充分披露。",
+      "sources": [
+        {
+          "label": "ERNIE Evolve 官方研究文章",
+          "url": "https://ernie.baidu.com/research/posts/ernie-evolve/"
+        },
+        {
+          "label": "官方中文入口",
+          "url": "https://ernie.baidu.com/zh/research/posts/ernie-evolve/"
+        },
+        {
+          "label": "ERNIE Evolve Results 仓库",
+          "url": "https://github.com/ernie-research/ERNIE-Evolve-Results"
+        },
+        {
+          "label": "结果仓库固定提交",
+          "url": "https://github.com/ernie-research/ERNIE-Evolve-Results/tree/a0227c1b800ccc30459c75491fa656b5aa765cd7"
+        }
+      ]
+    },
+    {
+      "id": "seedream55-multiround-editing-rgba-release-20261109",
+      "category": "llm",
+      "tag": "图像生成与编辑",
+      "title": "Seedream 5.5 发布：主打多轮编辑稳定性与原生 RGBA",
+      "organization": "字节跳动 Seed 团队",
+      "published": "2026-11-09",
+      "date_label": "官方发布：2026-11-09；本轮读取官方发布正文与产品入口：2026-11-10",
+      "summary": "Seed 团队发布 Seedream 5.5，称通过专项训练提高连续编辑的稳定性，并展示同一作品连续编辑 100 轮；模型支持原生 RGBA 输出及透明、半透明素材编辑，也强调真实感和复杂文字渲染。官方称其已在即梦、豆包、豆包工作和火山方舟等产品上线。MagicArena 专项评测覆盖电商、营销、影视、游戏、办公、服装六类，报告严重/轻微文字崩坏率 0.4%/1.7%，真实感图生图相对前代 GSB +55.62%。这些数字均为厂商披露。",
+      "why": "这是近24小时内的新模型发布，新增重点落在多轮编辑累积误差和透明素材工作流，而不只是单轮画质。它给图像编辑模型的持续状态保持与可用性评测提供了可检验主张；当前证据是官方发布，尚未观察到独立复测或多团队讨论。",
+      "limitation": "100轮是官方展示，不能外推为任意任务都可无损编辑100轮；像素级保持需明确的逐像素协议验证。发布材料未充分披露评测样本量、提示分布、盲测/标注流程及完整延迟和成本，也未找到独立复测、训练报告、代码或权重。",
+      "sources": [
+        {
+          "label": "Seedream 5.5 官方发布",
+          "url": "https://seed.bytedance.com/zh/blog/more-realistic-images-more-stable-editing-across-100-rounds-introducing-seedream-5-5?view_from=content_recommend"
+        },
+        {
+          "label": "Seedream 5.5 产品入口",
+          "url": "https://seed.bytedance.com/seedream5_5"
+        }
+      ]
+    },
+    {
+      "id": "amp1-agentic-manipulation-policies-20261106",
+      "category": "embodied",
+      "tag": "通用模型直接操控 · 具身Agent · 作者报告、未独立复现",
+      "title": "AMP1让通用模型直接写控制代码：仿真成功率85.6%，实机104/108次成功但仍受慢推理限制",
+      "organization": "Apple作者团队；论文引用了NVIDIA研究人员的Astranomy项目作对照",
+      "published": "2026-11-07",
+      "date_label": "arXiv v1于2026-11-06 18:59:34 UTC提交，即北京时间11月7日02:59:34；11月9日cs.RO recent目录可检索到该条目；本轮读取arXiv HTML全文。论文所链接的NVIDIA项目是对比方法Astranomy，不是AMP1代码仓库；未找到AMP1独立项目页、公开实现或权重。未核到该文近期独立复现或多方社区讨论。",
+      "summary": "AMP1以通用多模态模型通过持久Python解释器调用机器人SDK，直接构造带时间的TCP位姿轨迹和夹爪指令。基础harness提供多相机RGB/深度与标定、关节/末端/夹爪状态、点云分割与场景模型、轨迹预览和运动约束检查，但不提供预置抓取、推或放技能；模型可在执行后查看结果并重规划。RoboLab-120仿真中，Gemini 4 Argon达到85.6%（95% CI 83.5–87.5），Opus 5.5为82.8%。实机使用7自由度Franka Research 3、Robotiq 2F-85和三相机，在12项任务上每项9次；Opus 5.5高推理档在允许查询及恢复机器人碰撞错误时104/108次成功，关闭恢复功能为94/108。 所有实机方法有5分钟执行预算，但明确排除模型推理时间；104/108不能解释为五分钟墙钟内成功。",
+      "why": "它提供了可检验的直接闭环案例，说明通用模型不只是生成任务计划：模型选择何时观察，写轨迹代码，读动作结果并纠错；论文还报告它会主动校准相机、移动遮挡物寻找目标和用推/工具策略处理不可抓物体。今天关注它，是因为11月9日的cs.RO近期目录再次让这项UTC 11月6日、北京时间11月7日公开的新研究进入具身研究者可见范围，也为RoboDojo Agent榜讨论提供新的外部实证参照。它不是RoboDojo榜上任一系统的构型证据，也没有因榜单相似而可作架构归因。作者称AMP1仍慢，模型等待占据较多任务时间；强模型可靠性和可部署延迟之间的落差仍是实际争点。",
+      "limitation": "仿真分数来自RoboLab-120作者评测，默认条件每项任务10次、共1,200 episodes；论文指出相当一部分失败可归因于标准平行夹爪难以处理的物体几何/质量或不稳定verifier。实机是单一Franka平台、12个设计任务、共108次试验，不代表跨本体部署；104/108包含机器人碰撞错误恢复，去掉恢复后为94/108，不能隐藏这一控制条件。实机使用Opus 5.5 high，仿真不同表格还使用Gemini 4 Argon等版本和不同推理档位。实机每次5分钟执行预算排除推理时间，仿真也在推理时暂停，因此成功率和成本均不能替代真实墙钟效率。当前未找到AMP1代码/权重；引用的NVIDIA Astranomy链接是另一系统，不能作为AMP1工件。作者明确报告Agent控制等待较慢，尚非任务关键部署方案；当前数据为预印本作者结果，未核到独立复现或近期社区讨论。",
+      "sources": [
+        {
+          "label": "AMP1原论文v1全文：实验、控制接口、消融和局限，UTC 2026-11-06／北京时间11-07",
+          "url": "https://arxiv.org/html/2611.09892v1"
+        },
+        {
+          "label": "arXiv版本记录：确认v1首发日",
+          "url": "https://arxiv.org/abs/2611.09892"
+        },
+        {
+          "label": "论文引用的Astranomy项目（对照系统，不是AMP1实现）",
+          "url": "https://research.nvidia.com/labs/srl/projects/astranomy/"
+        }
+      ]
+    },
+    {
+      "id": "controlled-agentic-robotics-feedback-study-20261106",
+      "category": "embodied",
+      "tag": "Agent策略自改 · 仿真受控研究 · 预算与OOD边界明确",
+      "title": "同样看见机器人失败，Agent修策略的能力仍不同：受控研究测了631种配置与2.76万次rollout",
+      "organization": "加州大学伯克利分校、Bosch、NVIDIA",
+      "published": "2026-11-06",
+      "date_label": "arXiv v1于2026-11-06 06:05:16 UTC提交，即北京时间11月6日14:05:16；11月9日cs.RO recent目录列出该研究；本轮读取HTML全文、实验表、预算与局限。未找到该研究公开代码或近期独立复现/多方讨论。",
+      "summary": "研究固定coding-agent迭代harness，在九项操作任务、631种实验配置和约27,600次coding-agent仿真rollout中分别考察模型、技能先验、反馈结构及课程学习。Agent用可执行程序组合技能并根据仿真执行反馈修改代码，主要结果在held-out布局/实例上评价。在VABAR反馈实验中，初始held-out按对象成功率（per-object success）约43–45%的Claude Opus 5 xhigh、Fable 5.1、GPT-6 Astra、Sonnet 5接收相同两轮反馈后分别到74%、64%、48%、46%；研究还发现按语义技能步骤给反馈或显式提供物体坐标系/功能部件关系，往往比逐运动反馈或仅给世界坐标更易帮助模型定位并修复策略错误。",
+      "why": "它把‘Agent看见失败后会不会变好’从榜单名次拆成反馈归因与代码重构能力的受控比较。初始表现相近的模型在相同反馈下分化，说明zero-shot任务分数不能替代策略自改能力评测；空间信息是否容易转化成对象相对几何关系，以及失败反馈对应到语义策略节点还是细粒度运动，也会改变后续修复。该结果为近期通用模型直接操控机器人研究提供一种机制层面的解释候选，但没有与RoboDojo前列系统做匹配消融，不能解释该榜单排名。",
+      "limitation": "全研究是仿真，主要在固定机器人/传感配置、同任务类别内held-out实例评估；作者明确未测sim-to-real、真实机器人反馈或跨本体OOD。核心VABAR模型反馈实验的Opus 5 xhigh为held-out按对象成功率约45%到74%，分母不是整任务二元成功次数，与全论文631配置/九任务总范围不可混成同一分母。论文报告总计约17,900 RTX PRO 6000 Blackwell GPU小时与2,700 A100 GPU小时、估算算力成本7万美元及LLM推理3.65万美元；这是作者计算和估计，且高成本限制了重复次数。更丰富的技能、反馈或课程结果不证明一般性自我改进，也不能从单次提升推断RSI或递归加速。未见公开实现仓库、独立复现或可核近期媒体讨论。",
+      "sources": [
+        {
+          "label": "受控研究原论文v1全文：九任务、实验配置、反馈、模型差异和计算预算",
+          "url": "https://arxiv.org/html/2611.09030v1"
+        },
+        {
+          "label": "arXiv版本记录：确认v1首发日",
+          "url": "https://arxiv.org/abs/2611.09030"
+        },
+        {
+          "label": "论文提及的RoboSimStudio工具项目（背景工具，并非本研究代码仓库）",
+          "url": "https://robosimstudio.github.io/"
+        }
+      ]
+    },
+    {
+      "id": "computer-use-embodied-generalists-20261106",
+      "category": "embodied",
+      "tag": "通用Agent与具身接口 · CMU · 作者预印本/Workshop竞赛",
+      "title": "把具身任务变成可操作软件：同一Computer-Use Agent参加四项竞赛，专用感知仍不能省略",
+      "organization": "Carnegie Mellon University；Pranjal Aggarwal、Sean Welleck",
+      "published": "2026-11-07",
+      "date_label": "arXiv 2611.09847v1于11月6日18:31:17 UTC提交，即北京时间11月7日02:31:17；周末后11月9日目录可检索。11月10日核读全文与作者项目。竞赛发生更早，本轮事件是作者公开统一接口研究，不是今日机器人实机发布；未核到独立复现。",
+      "summary": "作者让Gemini 3.5 Flash/3.6 Flash沿用同一Computer-Use harness、系统提示和鼠标键盘动作空间，通过不同软件操作导航、3D定位与视频分割任务，在四项ECCV 2026 Workshop竞赛分别取得VLNVerse第6、DialNav第3、OpenSUN3D第1和MeViSv2 Text第2。GUI与同操作集合的文本API对照并未一致偏向某一路：例如VLNVerse验证83.9/85.2、DialNav 67.4/63.4（API/GUI）。另一项模拟操控实验用相同1000条示范训练Qwen3.5-9B与π0.5，在两个双臂礼盒任务、1000个未见实例中分别56%与59%成功；Qwen不加专用action head。",
+      "why": "值得关注的新方法是把“具身适配”部分转移到软件接口：通用Agent可以复用查看、点击、执行、再观察的循环。但结果没有抹去专业模块：OpenSUN3D软件用PinPoint3D及在SceneFun3D微调的VOLT，视频分割软件用SAM 3；导航还有场景GUI和独立上下文的Guide。它为“统一Agent能复用到哪些具身工作”提供了跨任务原型，也把争点落在接口、感知与执行预算上。作者进一步提出具身通才将与通用模型合流，这属于论文立场；竞赛成绩和小规模模拟对照尚不足以证明所有机器人策略会被替代。本轮未读到独立讨论或复跑，按新研究而非社区共识收录。",
+      "limitation": "四项是ECCV Workshop竞赛，不能写成主会论文录用或实机机器人冠军；各任务指标不同。VLNVerse AvgSR@3为87.30，指终点3米内；OpenSUN3D AP50为25.88，不能当成功率；MeViSv2 Final Score 86.72也不是机器人SR。共享harness不等于专用软件、感知训练数据和状态信息相同。双臂实验完全在仿真，两种礼盒任务、1000条演示和1000个未见实例的范围有限，没有实机、跨本体或开放世界结论。9B模型在一张L40S平均生成约400ms，每秒输入一张图；输出动作可持续更久，不能将400ms直接当闭环控制周期或与高频低层控制等同。作者项目可读，但这不证明全部竞赛环境、数据、配置与完整复现包已齐备。",
+      "sources": [
+        {
+          "label": "作者原论文v1全文：统一harness、四项竞赛、GUI/API对照与双臂模拟",
+          "url": "https://arxiv.org/html/2611.09847v1"
+        },
+        {
+          "label": "作者项目：Computer-Use Agents Are Embodied Generalists",
+          "url": "https://pranjal2041.github.io/cua-embodied/"
+        },
+        {
+          "label": "arXiv版本记录：原始提交日期",
+          "url": "https://arxiv.org/abs/2611.09847"
+        }
+      ]
+    },
+    {
+      "id": "claude-fable52-electronics-prototypes-20261109",
+      "category": "llm",
+      "tag": "真实硬件设计 · Anthropic / Diode · 厂商与合作方实测",
+      "title": "Claude Fable 5.2设计三款可工作电子原型：几何推理与自写路由器走向实物验证",
+      "organization": "Anthropic与Diode Computers（双方有商业合作关系）",
+      "published": "2026-11-09",
+      "date_label": "官方文章于2026年11月9日发布，页面modified为18:51 UTC（北京时间11月10日02:51）；正文称免提音箱原型已使用数周仍可工作。设计与制造先于文章发布，不能都写成今日完成。11月10日核读完整正文与HN讨论。",
+      "summary": "Anthropic与Diode让Claude Fable 5.2从简短规格设计USB-C/Bluetooth免提音箱、语音助手中枢和掌上电子宠物。模型完成器件选择、原理图、PCB摆件与走线、3D外壳、固件和物料清单；Diode工程师按其文件制造并测试，作者称三个原型均无需修正电路即可工作。软件接口起初调用KiCad的逐条布线器；模型认为长线操作太碎，约半小时内编写了网格搜索路由器，再根据音频时钟与以太网串扰风险调整间距。官方还报告内部PCB Gym得分69%，对照Fable 5的25%；公开BenchCAD 2.1得分83.5%，不能把这些分数解释成任意电路一次制造成功率。",
+      "why": "11月9日新增的实物案例把“Agent会画CAD”推进到布局、固件、制造约束和装配之间的连续协调：模型会推翻无法布通的布局，读取器件手册，检查板与外壳碰撞，并为装配补充约25度倾斜插入步骤。它与当期机器人Agent研究共同提出一个问题：通用模型的工具编程与反馈修正，能否补足专用策略之外的物理任务推理？本条是硬件设计和人工制造闭环，不能当机器人直接控制结果。HN在11月10日北京时间的可读快照有18分和4条评论；andyfilms1追问总耗时、token成本以及走线工程判断，jakescustomshop分享另一模型选型较好但布线依赖autorouter的个人体验。它们是早期独立讨论，尚非复现或广泛共识。 同期另一条可回查的讨论来自PCBRouteAgent的HF页面：PolyHelperAI追问复杂板卡的瓶颈在规划还是执行，作者Liqiang Jing于11月9日20:41 UTC（北京时间11月10日04:41）回应，早期走线会堵住后续连接，局部执行器不能完全弥补差的全局规划。作者另澄清这是使用现有LLM的布线框架，并无新模型权重。这是另一项目的作者答复，不能当作对Claude三款原型的验证，也不构成多团队复现。",
+      "limitation": "仅三款合作方制造的早期原型；未披露完整任务用时、token总账、重复设计分母或广泛失败案例，也没有公开设计工件和完整harness。人类工程师承担实物制造与测试，模型没有直接连接测试设备或生产机器。原型未经电气验证、天线调谐、热测试、认证或量产设计；PCB Gym为内部基准，BenchCAD 2.1为公共重建任务，二者不同于端到端器件设计可靠性。厂商与合作方自报实测，HN个人经验不构成独立验证。",
+      "sources": [
+        {
+          "label": "Anthropic官方完整正文：模型版本、三款原型、软件工具、人工制造与限制；11月9日",
+          "url": "https://www.anthropic.com/research/claude-electronics-design"
+        },
+        {
+          "label": "公开BenchCAD 2.1版本入口（官方文章链接）；本轮仅核入口，未重跑基准",
+          "url": "https://github.com/BenchCAD-org/benchcad-2-main/releases/tag/v2.1"
+        },
+        {
+          "label": "HN具体讨论：2026-11-09 18:58 UTC发布，11月10日读取18分/4评论；成本与布局判断争点",
+          "url": "https://news.ycombinator.com/item?id=50429952"
+        },
+        {
+          "label": "HF PCBRouteAgent具体讨论：规划瓶颈、作者回应与框架/权重边界；北京时间11月10日读取，独立项目",
+          "url": "https://huggingface.co/papers/2611.08175"
+        }
+      ]
+    },
+    {
+      "id": "parallel-agent-teams-test-time-scaling-20261106",
+      "category": "llm",
+      "tag": "测试时计算 · Duke / Modal / Princeton / NYU · 新预印本",
+      "title": "并行Agent小队怎样扩算力：十个十人队在10/12任务上优于一百个独立Agent",
+      "organization": "Duke University、Modal Labs、Princeton University、New York University",
+      "published": "2026-11-07",
+      "date_label": "arXiv v1于2026年11月6日17:53:07 UTC提交（北京时间11月7日01:53）；11月10日阅读全文、附录与公开工件入口。当前是周末后补核的新研究，未发现近24–72小时独立复现，不称今日新发布。",
+      "summary": "研究把相同预算拆成多个独立小队：每个Agent有独立上下文与沙箱，小队内部通过共享论坛交换方案，不设经理或预分工；各队之间不通信，最后用可运行的verifier选最优队。主模型Qwen3.8-27B在Codex harness中，每个Agent通常运行12小时（Browser Exploit任务为6小时），覆盖GPU核、形式证明、图分类、结构设计等12个长程优化任务。总预算100个Agent时，十个十人队在10/12任务上胜过100个独立Agent；相对单个100人队，在全部四个测试过的任务上高8%–30%。12任务平均分相对独立Agent约高27%，这是各任务分数比较，不是成功率增加27个百分点。按作者GPU时间/API token价格折算，同价Qwen小队在8项可比较任务中的4项胜过五次GPT-5.6-sol采样。",
+      "why": "它把测试时扩算力从“多采样”和“所有Agent挤进同一团队”扩展为一个可检验的中间方案。协作可抬高单队方案质量，多个独立队又保留best-of-N的探索多样性；作者还用DeepSeek V4.1 Flash做较强底座比较，并发现任务越容易，小队额外收益越小。这个结果适合用来检查Agent扩展论文：看协作样本的均值、方差、样本数量和真实成本，而不只数Agent。论文有受控比较，胜因的均值/方差解释是作者统计模型及实验分析；并不证明所有多Agent架构都优于单Agent。HF这篇页面返回404，HN精确标题检索未找到对应新讨论，因此按值得关注的新研究呈现。",
+      "limitation": "依赖每个尝试都可评分且只取最优解的任务，缺少可靠verifier时选队本身就是难题；与真实机器人在线控制或开放式对话不可直接互推。全研究超过8000 Agent runs、约95000 Agent-hours；同Agent数不自动等于同token、GPU或美元，成本结果采用作者指定H200服务和API计价。每任务小队池仅10–11次；16–100人队只在四任务测试、每规模1–5次，64/100人论坛索引还只显示最新100标题及未读帖，可能影响大队表现。仅一个harness，延长会话只在一任务检查；正态统计模型在失败多/分数触顶时仅定性。论文链接的GitHub仓库当前网页404，README API亦404，仓库API另遇限流403，未读取到可用代码，不能称实现已经开放。本轮未独立复现。",
+      "sources": [
+        {
+          "label": "原论文v1全文及附录：12任务、模型版本、预算/统计与限制；11月6日UTC提交",
+          "url": "https://arxiv.org/html/2611.09798v1"
+        },
+        {
+          "label": "论文声明的代码入口；11月10日实查网页与README均404，开放状态未确认",
+          "url": "https://github.com/modal-projects/parallel-agent-teams-scaling"
+        }
+      ]
+    }
+  ],
+  "keywords": [
+    {
+      "term": "触觉表征 / tactile representation",
+      "explanation": "LingBot-Touch将异构接触传感映射到共享表征；冻结编码器不等于完整下游策略。"
+    },
+    {
+      "term": "联合嵌入预测架构 / JEPA",
+      "explanation": "从上下文预测目标特征而非逐像素还原；需要核对掩码、目标分支和下游任务。"
+    },
+    {
+      "term": "具身Agent闭环 / embodied agent loop",
+      "explanation": "观察、规划、代码或工具执行与动作反馈需要放在同一实验协议中检查。"
+    },
+    {
+      "term": "代码级自动研究 / code-level automated research",
+      "explanation": "ERNIE Evolve筛选候选实现与经验；本期证据未显示基础模型权重更新。"
+    },
+    {
+      "term": "测试时计算 / test-time compute",
+      "explanation": "并行小队实验显示预算组织方式会影响可验证任务结果与成本。"
+    },
+    {
+      "term": "多轮图像编辑 / multi-turn image editing",
+      "explanation": "Seedream 5.5展示连续编辑和原生RGBA，评测分母与独立验证仍待公开。"
+    },
+    {
+      "term": "策略反馈粒度 / feedback granularity",
+      "explanation": "受控机器人仿真比较语义技能、空间关系与动作层反馈如何帮助代码策略修正。"
+    },
+    {
+      "term": "人工复核的电子设计 / human-verified electronics design",
+      "explanation": "模型生成设计与工程师制造测试分开；原型可工作不等于已通过认证或量产验证。"
+    }
+  ],
+  "technical_explainer": {
+    "id": "jepa-representation-prediction-20261110",
+    "title": "每日技术点：JEPA怎样靠“预测表征”学习？从遮住一块图像到机器人触觉",
+    "summary": "JEPA把学习目标从逐像素还原，改成预测另一部分输入的特征表示。理解上下文编码器、目标编码器、预测器和缓慢更新的目标分支，才能判断一个模型学到了可用感知表征，还是已经具备可执行的动作策略。",
+    "reading_minutes": 7,
+    "why_now": "本期LingBot-Touch在异构触觉数据上采用JEPA式表征学习，并新开放冻结编码器。11月8日已报道La-JEPA的世界动作学习，但近30期未独立讲过JEPA基础机制；今天补齐它与像素重建、对比学习及动作条件世界模型的区别。基础来源为2020年BYOL、2023年I-JEPA与2025年V-JEPA 2，本轮用于解释原理，均不是今日发布。",
+    "sections": [
+      {
+        "heading": "1. 要解决什么：数据很多，任务标签很少",
+        "paragraphs": [
+          "一段相机视频或触觉传感器记录包含大量连续变化，但很少逐帧标注“正在滑动”“马上掉落”或“该怎样抓”。自监督学习尝试从数据本身构造任务，先学出以后分类、预测或控制可复用的编码器。JEPA是这一类表征学习架构，不专指一个模型，也不意味着无需任何训练。",
+          "可以让模型补全被遮住的像素，但像素误差会同时惩罚不重要的纹理、光照和细节。JEPA选择在学习到的特征空间预测：关心目标区域的结构或语义信息是否能从上下文推断，而不是强制输出每一个像素。这个目标可能更适合部分下游任务，但也可能丢失下游需要的微小信号，不能先验保证更好。"
+        ]
+      },
+      {
+        "heading": "2. 一轮训练：上下文、目标、预测器分别做什么",
+        "paragraphs": [
+          "以I-JEPA为例，把图像划成patch，选出可见上下文和若干目标块；从上下文中移除与目标重叠的区域。上下文编码器只读可见patch，输出一组特征。预测器再结合“要预测哪个位置”的位置token，生成目标块的预测特征。位置信息告诉它补哪里，不是把被遮住的内容偷偷交给它。",
+          "目标编码器在训练阶段读取完整图像，提供目标位置的特征，作为预测器要靠近的答案。I-JEPA在编码完整图像后选择目标块特征；上下文编码器与目标编码器因此看到的信息不同。这种不对称有意构造了学习任务：用缺信息的一路预测信息更全的一路。部署时通常保留学好的编码器作特征提取，不需要继续从真实目标区域获取“答案”。",
+          "损失衡量预测特征与目标特征的距离。不同JEPA实现的损失、归一化、掩码和网络结构可以不同；例如V-JEPA 2使用特征上的L1损失。论文写“JEPA”时，仍应读具体公式与数据路径，不能把所有实现当同一个训练配方。"
+        ]
+      },
+      {
+        "heading": "3. 为什么需要stop-gradient与EMA：不能让答案跟着预测一起躲",
+        "paragraphs": [
+          "如果两边都自由追着对方更新，一个危险解是所有输入都编码成同一个常数。此时预测很容易、损失也很低，却没有区分物体或接触状态的能力，这叫表征坍塌。低训练损失本身并不证明学到有用知识。",
+          "常见做法是对目标分支停止梯度：这一轮计算损失时，把目标特征当作固定参照，梯度主要更新上下文编码器和预测器。目标编码器不通过这一路损失反传，而用上下文编码器参数的指数滑动平均更新：目标参数←τ×旧目标参数+(1−τ)×新上下文参数。τ接近1时，参照变化更慢。停止梯度指阻断该路径，不是永久冻结整个学习系统。",
+          "BYOL是理解慢目标分支和预测器的重要前驱，但它主要预测同一图像不同增强视图的表征，不等同于I-JEPA的多块掩码任务。EMA也不是任何架构都适用的防坍塌定理；预测器、归一化、优化、数据增强或掩码设计共同影响稳定性，最后仍需检查特征方差、下游迁移和消融。"
+        ]
+      },
+      {
+        "heading": "4. 怎样让预测需要理解，而不只是抄邻居",
+        "paragraphs": [
+          "被遮住的区域太小、旁边纹理重复时，模型可能靠局部插值完成任务；上下文太少时，又可能无法推断目标。I-JEPA强调足够大的目标块与信息丰富的上下文，让预测更多依赖对象和场景关系。因此“怎么遮”决定了训练在逼模型解决什么问题，并非无关的工程参数。",
+          "视频增加了时间结构，但遮住视频块和预测因果未来仍要分开。一个掩码视频编码器可能利用目标时刻周围的可见帧，不自动等于可以在行动之前预测行动后果的世界模型。若要评估未来预测，必须核对时间掩码，防止未来信息进入上下文。",
+          "触觉也类似：传感器的外观、分辨率和安装方式差异很大。共享表征是否抓住接触形变、滑动或力学相关信息，需要跨传感器和下游任务验证。把各传感器投影到同一维度，只说明接口统一，不足以证明跨硬件泛化。"
+        ]
+      },
+      {
+        "heading": "5. 从感知到动作还缺哪些环节",
+        "paragraphs": [
+          "能编码当前接触状态的模型，可以接到分类器、状态估计器或机器人策略上，但输出特征本身不告诉电机该动多少。LingBot-Touch本期开放的是冻结目标编码器及推理入口；是否同时开放训练数据、预训练流程、下游动作策略和完整部署链，应分别核实。",
+          "V-JEPA 2给了一个明确分阶段例子：先用大量图像和视频预训练表征，再固定视频编码器，用带动作和本体状态的机器人交互记录训练动作条件预测器V-JEPA 2-AC；规划器在潜在空间比较候选动作的后果，然后执行并重新观察。其论文使用少于62小时的DROID视频片段做这一阶段，但记录带有动作与末端状态；不能把“无人工任务标签”读成完全没有控制信息。",
+          "这条链依次包含表征、动作条件动力学、目标或代价、规划和低层执行。JEPA提供学习目标的一部分，成功控制仍依赖这些组件、数据覆盖、坐标标定和反馈；既不能把预测特征直接叫机器人策略，也不能只凭预测损失证明物理正确性。"
+        ]
+      }
+    ],
+    "example": {
+      "title": "教学假设：同一杯子的背景变了，什么信息应当保留？",
+      "paragraphs": [
+        "以下是概念示例，不是真实实验或成功率。假设画面中夹爪正握着一只杯子，桌布每次随机换花纹。像素重建需要解释杯子与桌布的具体颜色；表征预测可以通过训练目标与掩码设计，把容量更多用于杯子位置、姿态以及夹爪接触关系。但模型也可能仍编码背景，或丢掉杯口细裂纹，必须实测。",
+        "若把杯子区域遮住，上下文只剩夹爪和桌面，预测器学习推断对应区域的目标特征。若要回答“向右移动夹爪后杯子会不会滑落”，还需动作条件、接触数据和动力学预测；仅会补杯子特征不能回答这个因果问题。用于下游策略时，再检查这些特征是否真能提高未见杯子、未见布局上的闭环表现。"
+      ]
+    },
+    "comparison": {
+      "caption": "同为自监督学习，训练要回答的问题不同",
+      "columns": [
+        "方式",
+        "预测或约束什么",
+        "不能自动推出"
+      ],
+      "rows": [
+        [
+          "像素/离散token重建",
+          "从缺失输入还原像素或token",
+          "只学纹理、一定不适合控制"
+        ],
+        [
+          "对比学习",
+          "拉近相关视图，并按具体损失区分其他样本",
+          "所有差异都被保留、无需设计视图"
+        ],
+        [
+          "JEPA式表征预测",
+          "从上下文预测目标的学习特征",
+          "不会坍塌、已懂全部物理、已输出动作"
+        ],
+        [
+          "动作条件世界模型+规划",
+          "给定状态与动作预测后果，再选动作",
+          "预测准确就一定闭环安全、无需低层控制"
+        ]
+      ]
+    },
+    "checklist": [
+      "输入、上下文和目标分别是什么？目标是否通过掩码或数据处理泄漏给预测端？",
+      "目标在像素、离散token还是连续表征空间？损失和归一化是什么？",
+      "哪些参数反传、哪些stop-gradient、哪些用EMA更新？部署保留哪一分支？",
+      "是否检查坍塌、掩码设计与下游收益，而不只展示低预测损失？",
+      "所谓世界模型是否接收动作和本体状态，是否严格因果，如何规划与执行？",
+      "开放的是编码器、预测器、动作策略、数据还是完整控制栈？跨传感器与实机是否有独立测试？"
+    ],
+    "takeaway": "JEPA用上下文预测目标的表征；慢目标分支帮助构造稳定学习任务。它能为感知与世界模型提供基础，机器人动作能力仍要沿数据、动力学、规划和控制逐层核验。",
+    "sources": [
+      {
+        "label": "I-JEPA原论文v1（2023）：上下文/目标编码器、多块掩码与表征预测；本期作为机制来源",
+        "url": "https://arxiv.org/html/2301.08243v1"
+      },
+      {
+        "label": "BYOL原论文v1（2020）：在线/目标网络、预测器、stop-gradient与慢目标更新；前驱机制",
+        "url": "https://arxiv.org/html/2006.07733v1"
+      },
+      {
+        "label": "V-JEPA 2原论文v1（2025）：视频表征预训练、动作条件预测器与机器人规划；区分感知与控制阶段",
+        "url": "https://arxiv.org/html/2506.09985v1"
+      }
+    ]
+  },
+  "featured_ids": [
+    "lingbot-touch-heterogeneous-tactile-encoder-release-20261110",
+    "ernie-evolve-automated-research-code-results-20261109",
+    "amp1-agentic-manipulation-policies-20261106",
+    "seedream55-multiround-editing-rgba-release-20261109",
+    "controlled-agentic-robotics-feedback-study-20261106",
+    "computer-use-embodied-generalists-20261106"
+  ],
+  "reading": [
+    {
+      "title": "LingBot-Touch技术报告与冻结编码器工件",
+      "url": "https://github.com/Robbyant/lingbot-touch",
+      "reason": "核对不同触觉传感器、JEPA目标和公开模型范围。"
+    },
+    {
+      "title": "AMP1直接控制与实机分母",
+      "url": "https://arxiv.org/html/2611.09892v1",
+      "reason": "分开通用模型决策、Python控制接口、碰撞恢复和推理预算。"
+    },
+    {
+      "title": "ERNIE Evolve官方文章与结果代码",
+      "url": "https://github.com/ernie-research/ERNIE-Evolve-Results",
+      "reason": "追踪自动研究流程修改的是候选代码、经验还是模型权重。"
+    },
+    {
+      "title": "Parallel Agent Teams论文与代码状态",
+      "url": "https://arxiv.org/html/2611.09798v1",
+      "reason": "检查同预算小队配置、样本次数与verifier边界。"
+    },
+    {
+      "title": "RoboDojo榜单与协议",
+      "url": "https://robodojo-benchmark.com/leaderboard#agent",
+      "reason": "用实际内嵌快照区分Score/SR、Agent分轨与实机榜。"
+    }
+  ]
+}
